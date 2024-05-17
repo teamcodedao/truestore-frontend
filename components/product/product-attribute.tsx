@@ -10,9 +10,11 @@ interface ProductAttributeProps {
 
 export default function ProductAttribute({
   title,
-  options,
+  options = [],
 }: ProductAttributeProps) {
   const [selected, setSelected] = useState(0);
+
+  if (options.length === 0) return null;
 
   return (
     <div>

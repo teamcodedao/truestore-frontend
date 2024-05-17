@@ -2,8 +2,18 @@
   "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
   "settings": {
     "tailwindcss": {
-      "whitelist": ["mixin/button", "mixin/heading", "mixin/menu"]
+      "whitelist": [
+        "mixin/button",
+        "mixin/heading",
+        "mixin/menu",
+        "embla",
+        "embla__viewport",
+        "embla__container",
+        "embla__slide"
+      ]
     }
   },
-  "rules": {}
+  "rules": {
+    "@next/next/no-img-element": "off"
+  }
 }

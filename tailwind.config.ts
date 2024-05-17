@@ -17,6 +17,10 @@ const config: Config = {
         lg: '1180px',
         xl: '1280x',
       },
+      padding: {
+        DEFAULT: '1rem',
+        sm: '0',
+      },
     },
   },
   plugins: [

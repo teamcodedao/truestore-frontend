@@ -9,6 +9,7 @@ import {
   ProductFeature,
   ProductCartActions,
   ProductAttribute,
+  ProductCarousel,
 } from '@/components/product';
 
 import safeCheckoutImg from '@/images/safe-checkout.png';
@@ -23,9 +24,11 @@ export default async function ProductPage({
 
   return (
     <>
-      <div className='mt-7 flex gap-x-20'>
-        <div className='flex-1'>slider</div>
-        <div className='flex-1'>
+      <div className='mt-7 flex flex-col gap-x-5 sm:flex-row sm:gap-x-10'>
+        <div className='flex-1 overflow-hidden'>
+          <ProductCarousel images={product.images} />
+        </div>
+        <div className='flex-1 shrink-0'>
           <section className='flex items-end gap-x-2'>
             <span className='text-sm'>Rated</span>
             <div className='translate-y-1'>
@@ -41,14 +44,14 @@ export default async function ProductPage({
             <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
               <span className='text-xl text-slate-500 line-through'>
-                {formatCurrency(parseFloat(product.price) / 25_449, 'en-US', {
+                {formatCurrency(parseFloat(product.price) / 25_449, 'USD', {
                   stripZeros: true,
                 })}
               </span>
               <span className='text-2xl font-bold text-red-500'>
                 {formatCurrency(
                   parseFloat(product.sale_price || product.price) / 25_449,
-                  'en-US',
+                  'USD',
                   {
                     stripZeros: true,
                   }
@@ -84,15 +87,17 @@ export default async function ProductPage({
             <article className='mt-5'>
               <ProductFeature />
             </article>
-            <div className='mt-5 space-y-3'>
-              {product.attributes.map(attribute => (
-                <ProductAttribute
-                  key={attribute.id}
-                  title={attribute.name}
-                  options={attribute.options}
-                />
-              ))}
-            </div>
+            {!!product.attributes?.length && (
+              <div className='mt-5 space-y-3'>
+                {product.attributes.map(attribute => (
+                  <ProductAttribute
+                    key={attribute.id}
+                    title={attribute.name}
+                    options={attribute.options}
+                  />
+                ))}
+              </div>
+            )}
             <div className='mt-5'>
               <ProductCartActions />
             </div>
@@ -106,9 +111,9 @@ export default async function ProductPage({
           </section>
         </div>
       </div>
-      <div className='mt-32'>
-        <div className='flex items-start gap-x-5'>
-          <span className='block rounded-md bg-[orange] px-8 py-2 text-2xl font-semibold text-white'>
+      <div className='mt-20 sm:mt-32'>
+        <div className='flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row'>
+          <span className='block w-full rounded-md bg-[orange] px-8 py-2 text-center text-2xl font-semibold text-white'>
             Description
           </span>
           <div className='[&_img]:inline-block'>
