@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  span[class*='i-'] {
+    @apply shrink-0;
+  }
   .embla__viewport {
     overflow: hidden;
   }

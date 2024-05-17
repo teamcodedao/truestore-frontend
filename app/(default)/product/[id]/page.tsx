@@ -24,7 +24,7 @@ export default async function ProductPage({
 
   return (
     <>
-      <div className='mt-7 flex flex-col gap-x-5 sm:flex-row sm:gap-x-10'>
+      <div className='mt-7 flex flex-col gap-5 sm:flex-row sm:gap-x-10'>
         <div className='flex-1 overflow-hidden'>
           <ProductCarousel images={product.images} />
         </div>
@@ -111,7 +111,7 @@ export default async function ProductPage({
           </section>
         </div>
       </div>
-      <div className='mt-20 sm:mt-32'>
+      <div className='mt-10 sm:mt-20 lg:mt-32'>
         <div className='flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row'>
           <span className='block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-2xl font-semibold text-white sm:w-auto'>
             Description

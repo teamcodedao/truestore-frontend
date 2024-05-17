@@ -13,10 +13,10 @@ export default function Footer({className}: FooterProps) {
         <footer className='flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20'>
           <div className='text-center'>
             <h2 className='text-2xl font-bold'>CuTeng Queue Pte. Ltd</h2>
-            <address className='mt-8 space-y-4 text-sm text-slate-400'>
+            <address className='mt-8 space-y-4 text-sm font-semibold text-gray-300'>
               <p>
                 Address:{' '}
-                <span className='font-semibold text-white'>
+                <span className='text-white'>
                   244 Fast North Drive 1, #02-05, Singapore, 528559
                 </span>
               </p>
@@ -34,7 +34,7 @@ export default function Footer({className}: FooterProps) {
           </div>
           <div
             className={clsx(
-              'flex grow justify-center gap-x-8 lg:gap-x-20 xl:gap-x-40',
+              'flex grow justify-center gap-x-10 sm:gap-x-20 md:gap-x-8 lg:gap-x-20 xl:gap-x-40',
               'mixin/heading:multi-[`font-bold;text-sm`]',
               'mixin/menu:multi-[`text-sm;mt-4;[&_a:hover]:text-slate-200`]'
             )}
