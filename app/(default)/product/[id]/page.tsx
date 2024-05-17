@@ -4,18 +4,20 @@ import {getProduct} from '@/utils/product';
 
 import Description from './description';
 import {RandomNumber} from '@/components/common';
-import {ProductFeature, ProductCartActions} from '@/components/product';
+import {
+  ProductFeature,
+  ProductCartActions,
+  ProductAttribute,
+} from '@/components/product';
 
 import safeCheckoutImg from '@/images/safe-checkout.png';
 
 export const dynamic = 'error';
-export const revalidate = 1;
+export const revalidate = 10;
 
 export default async function ProductPage({
   params: {id},
 }: PageProps<{id: string}>) {
-  console.log(id);
-
   const product = await getProduct(id, {throwNotFound: true});
 
   return (
@@ -71,6 +73,15 @@ export default async function ProductPage({
             <article className='mt-5'>
               <ProductFeature />
             </article>
+            <div className='mt-5 space-y-3'>
+              {product.attributes.map(attribute => (
+                <ProductAttribute
+                  key={attribute.id}
+                  title={attribute.name}
+                  options={attribute.options}
+                />
+              ))}
+            </div>
             <div className='mt-5'>
               <ProductCartActions />
             </div>

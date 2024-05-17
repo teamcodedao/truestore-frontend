@@ -5,6 +5,8 @@ import {client} from '@/lib/client';
 import {HTTPError} from 'got';
 import {notFound} from 'next/navigation';
 
+import type {Product} from '@/typings/product';
+
 interface GetProductParams {
   throwNotFound?: boolean;
 }
@@ -12,9 +14,7 @@ interface GetProductParams {
 export const getProduct = cache(
   async (id: string, params?: GetProductParams) => {
     try {
-      const product = await client
-        .get(`v3/products/${id}`)
-        .json<{name: string}>();
+      const product = await client.get(`v3/products/${id}`).json<Product>();
       return product;
     } catch (error) {
       if (error instanceof HTTPError) {
