@@ -2,7 +2,7 @@
   "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
   "settings": {
     "tailwindcss": {
-      "whitelist": ["mixin/heading", "mixin/menu"]
+      "whitelist": ["mixin/button", "mixin/heading", "mixin/menu"]
     }
   },
   "rules": {}

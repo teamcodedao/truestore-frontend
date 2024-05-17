@@ -10,7 +10,7 @@ export default function DefaultLayout({children}: LayoutProps) {
     <div className='flex min-h-screen flex-col'>
       <div className='container'>
         <header className='flex items-center justify-center gap-x-10 py-4'>
-          <button title='Menu' className='mr-auto'>
+          <button aria-label='Menu' className='mr-auto'>
             <span className='i-radix-icons-hamburger-menu text-4xl'></span>
           </button>
           <Link href='/' className='mr-auto'>

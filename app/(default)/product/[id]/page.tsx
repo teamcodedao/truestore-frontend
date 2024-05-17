@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Description from './description';
 import {RandomNumber} from '@/components/common';
-import {ProductFeature} from '@/components/product';
+import {ProductFeature, ProductCartActions} from '@/components/product';
 
 import safeCheckoutImg from '@/images/safe-checkout.png';
 
@@ -62,6 +62,9 @@ export default function ProductPage() {
             <article className='mt-5'>
               <ProductFeature />
             </article>
+            <div className='mt-5'>
+              <ProductCartActions />
+            </div>
             <div className='mt-10'>
               <Image
                 src={safeCheckoutImg}

@@ -27,5 +27,9 @@ export default function RandomNumber({
     true
   );
 
-  return <span {...rest}>{number}</span>;
+  return (
+    <span {...rest} suppressHydrationWarning>
+      {number}
+    </span>
+  );
 }
