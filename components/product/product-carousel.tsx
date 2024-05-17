@@ -22,6 +22,7 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
     {
       containScroll: 'keepSnaps',
       dragFree: true,
+      align: 'center',
     },
     [WheelGesturesPlugin()]
   );

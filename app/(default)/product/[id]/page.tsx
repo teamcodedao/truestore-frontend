@@ -113,7 +113,7 @@ export default async function ProductPage({
       </div>
       <div className='mt-20 sm:mt-32'>
         <div className='flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row'>
-          <span className='block w-full rounded-md bg-[orange] px-8 py-2 text-center text-2xl font-semibold text-white'>
+          <span className='block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-2xl font-semibold text-white sm:w-auto'>
             Description
           </span>
           <div className='[&_img]:inline-block'>
