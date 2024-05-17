@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import {formatCurrency} from '@automattic/format-currency';
 
 import {getProduct} from '@/utils/product';
 
@@ -40,9 +41,19 @@ export default async function ProductPage({
             <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
               <span className='text-xl text-slate-500 line-through'>
-                $55.98
+                {formatCurrency(parseFloat(product.price) / 25_449, 'en-US', {
+                  stripZeros: true,
+                })}
               </span>
-              <span className='text-2xl font-bold text-red-500'>$27.99</span>
+              <span className='text-2xl font-bold text-red-500'>
+                {formatCurrency(
+                  parseFloat(product.sale_price || product.price) / 25_449,
+                  'en-US',
+                  {
+                    stripZeros: true,
+                  }
+                )}
+              </span>
             </div>
             <div className='my-5 px-10'>
               <hr className='border-slate-300' />

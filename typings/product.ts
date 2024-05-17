@@ -9,5 +9,7 @@ export interface ProductAttribute<O> {
 export interface Product {
   id: number;
   name: string;
+  price: string;
+  sale_price?: string;
   attributes: ProductAttribute<string>[];
 }

@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@automattic/format-currency": "^2.0.0",
     "clsx": "^2.1.1",
     "got": "^14.2.1",
     "next": "14.2.3",

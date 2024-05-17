@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@automattic/format-currency':
+    specifier: ^2.0.0
+    version: 2.0.0
   clsx:
     specifier: ^2.1.1
     version: 2.1.1
@@ -88,6 +91,12 @@ packages:
   /@antfu/utils@0.7.8:
     resolution: {integrity: sha512-rWQkqXRESdjXtc+7NRfK9lASQjpXJu1ayp7qi1d23zZorY+wBHVLHHoVcMsEnkqEBWTFqbztO7/QdJFzyEcLTg==}
     dev: true
+
+  /@automattic/format-currency@2.0.0:
+    resolution: {integrity: sha512-9A+oKRUm+n4f+cT4FHsDkCpo4mVRa/zBAvsXXq5vZpwfOWskAyDjdxA03Jl8A+z7pHYRimysG4WLM3jMRJutLw==}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
 
   /@babel/runtime@7.24.5:
     resolution: {integrity: sha512-Nms86NXrsaeU9vbBJKni6gXiEXZ4CVpYVzEjDH9Sb8vmZ3UljyA1GSOJl/6LGPO8EHLuSF9H+IxNXHPX8QHJ4g==}
