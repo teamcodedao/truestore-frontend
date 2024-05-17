@@ -18,7 +18,7 @@ export default function ProductAttribute({
 
   return (
     <div>
-      <h5 className='font-bold'>{title}</h5>
+      <h5 className='font-bold capitalize'>{title.toLowerCase()}</h5>
       <div className='mt-2 flex flex-wrap gap-2 text-sm'>
         {options.map((option, index) => (
           <button

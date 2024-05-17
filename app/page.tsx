@@ -7,26 +7,26 @@ export default function Home() {
       <ul>
         <li>
           <a
-            href='https://truestore-frontend.vercel.app/product/23479'
+            href='https://truestore-frontend.vercel.app/product/lacebra01'
             target='_blank'
           >
-            https://truestore-frontend.vercel.app/product/23479
+            https://truestore-frontend.vercel.app/product/lacebra01
           </a>
         </li>
         <li>
           <a
-            href='https://truestore-frontend.vercel.app/product/25143'
+            href='https://truestore-frontend.vercel.app/product/waistbra17'
             target='_blank'
           >
-            https://truestore-frontend.vercel.app/product/25143
+            https://truestore-frontend.vercel.app/product/waistbra17
           </a>
         </li>
         <li>
           <a
-            href='https://truestore-frontend.vercel.app/product/13225'
+            href='https://truestore-frontend.vercel.app/product/aipsneaker37'
             target='_blank'
           >
-            https://truestore-frontend.vercel.app/product/13225
+            https://truestore-frontend.vercel.app/product/aipsneaker37
           </a>
         </li>
       </ul>

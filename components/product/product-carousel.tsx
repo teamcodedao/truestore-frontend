@@ -2,6 +2,7 @@
 
 import {useCallback, useEffect, useState} from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import AutoHeightPlugin from 'embla-carousel-auto-height';
 import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import type {ProductImage} from '@/typings/product';
@@ -15,7 +16,7 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
     {
       align: 'center',
     },
-    [WheelGesturesPlugin()]
+    [AutoHeightPlugin(), WheelGesturesPlugin()]
   );
 
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel(
