@@ -4,7 +4,7 @@ import {formatCurrency} from '@automattic/format-currency';
 import {getProduct} from '@/utils/product';
 
 import Description from './description';
-import {RandomNumber} from '@/components/common';
+import {Countdown, RandomNumber} from '@/components/common';
 import {
   ProductFeature,
   ProductCartActions,
@@ -81,9 +81,13 @@ export default async function ProductPage({
             <div className='mt-3 text-xl font-bold text-red-700'>
               Hurry up. This deal will end soon!!
             </div>
-            <div className='font-medium text-red-700'>
-              Hurry up. This deal will end soon!!
-            </div>
+            <Countdown
+              className='font-medium text-red-700'
+              date={Date.now() + 10 * 60 * 1000}
+              whenEnd={{
+                text: 'Hurry up. This deal will end soon!!',
+              }}
+            />
             <article className='mt-5'>
               <ProductFeature />
             </article>
