@@ -23,7 +23,7 @@ const config: Config = {
     require('tailwindcss-mixins'),
     require('tailwindcss-multi'),
     iconsPlugin({
-      collections: getIconCollections(['radix-icons']),
+      collections: getIconCollections(['carbon', 'radix-icons']),
     }),
   ],
 };
