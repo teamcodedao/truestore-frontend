@@ -14,7 +14,7 @@ export default function DefaultLayout({children}: LayoutProps) {
             <span className='i-radix-icons-hamburger-menu text-4xl'></span>
           </button>
           <Link href='/' className='mr-auto'>
-            <Image src={logoImg} height={65} alt='' />
+            <Image src={logoImg} unoptimized height={65} alt='' />
           </Link>
         </header>
         <div>{children}</div>

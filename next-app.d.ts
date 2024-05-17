@@ -22,4 +22,13 @@ declare global {
   type RouteHandlerContext<P = Record<string | string[]>> = Readonly<{
     params: P;
   }>;
+
+  namespace NodeJS {
+    interface ProcessEnv {
+      NEXT_API: string;
+      NEXT_API_AUTH: string;
+
+      NEXT_PUBLIC_BASE: string;
+    }
+  }
 }

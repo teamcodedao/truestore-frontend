@@ -1,12 +1,23 @@
 import Image from 'next/image';
 
+import {getProduct} from '@/utils/product';
+
 import Description from './description';
 import {RandomNumber} from '@/components/common';
 import {ProductFeature, ProductCartActions} from '@/components/product';
 
 import safeCheckoutImg from '@/images/safe-checkout.png';
 
-export default function ProductPage() {
+export const dynamic = 'error';
+export const revalidate = 1;
+
+export default async function ProductPage({
+  params: {id},
+}: PageProps<{id: string}>) {
+  console.log(id);
+
+  const product = await getProduct(id, {throwNotFound: true});
+
   return (
     <>
       <div className='mt-7 flex gap-x-20'>
@@ -24,9 +35,7 @@ export default function ProductPage() {
             </div>
           </section>
           <section className='mt-4'>
-            <h2 className='text-balance text-4xl font-bold'>
-              🔥Last Day 50%OFF🔥 3 in 1 Waist Trainer Bra ✨
-            </h2>
+            <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
               <span className='text-xl text-slate-500 line-through'>
                 $55.98
