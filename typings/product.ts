@@ -1,3 +1,5 @@
+export type * from '@/utils/product';
+
 export interface ProductAttribute<O> {
   id: number;
   name: string;
@@ -16,8 +18,10 @@ export interface ProductImage {
 export interface Product {
   id: number;
   name: string;
+  description: string;
   price: string;
   sale_price?: string;
+  price_html?: string;
   attributes?: ProductAttribute<string>[];
   images?: ProductImage[];
 }

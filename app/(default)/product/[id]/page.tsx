@@ -3,7 +3,6 @@ import {formatCurrency} from '@automattic/format-currency';
 
 import {getProduct} from '@/utils/product';
 
-import Description from './description';
 import {Countdown, RandomNumber} from '@/components/common';
 import {
   ProductFeature,
@@ -43,14 +42,16 @@ export default async function ProductPage({
           <section className='mt-4'>
             <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
-              <span className='text-xl text-slate-500 line-through'>
-                {formatCurrency(parseFloat(product.price) / 25_449, 'USD', {
-                  stripZeros: true,
-                })}
-              </span>
+              {!!product.sale_price && (
+                <span className='text-xl text-slate-500 line-through'>
+                  {formatCurrency(parseFloat(product.sale_price), 'USD', {
+                    stripZeros: true,
+                  })}
+                </span>
+              )}
               <span className='text-2xl font-bold text-red-500'>
                 {formatCurrency(
-                  parseFloat(product.sale_price || product.price) / 25_449,
+                  parseFloat(product.sale_price || product.price),
                   'USD',
                   {
                     stripZeros: true,
@@ -92,7 +93,7 @@ export default async function ProductPage({
               <ProductFeature />
             </article>
             {!!product.attributes?.length && (
-              <div className='mt-5 space-y-3'>
+              <div className='mt-5 space-y-4'>
                 {product.attributes.map(attribute => (
                   <ProductAttribute
                     key={attribute.id}
@@ -105,7 +106,7 @@ export default async function ProductPage({
             <div className='mt-5'>
               <ProductCartActions />
             </div>
-            <div className='mt-10'>
+            <div className='mt-3'>
               <Image
                 src={safeCheckoutImg}
                 alt=''
@@ -120,9 +121,10 @@ export default async function ProductPage({
           <span className='block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-2xl font-semibold text-white sm:w-auto'>
             Description
           </span>
-          <div className='[&_img]:inline-block'>
-            <Description />
-          </div>
+          <div
+            className='[&_.emoji]:multi-[`size-[1em]`] [&_img]:inline-block'
+            dangerouslySetInnerHTML={{__html: product.description}}
+          ></div>
         </div>
       </div>
     </>

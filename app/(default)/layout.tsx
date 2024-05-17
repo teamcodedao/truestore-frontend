@@ -19,6 +19,7 @@ export default function DefaultLayout({children}: LayoutProps) {
         </header>
         <div>{children}</div>
       </div>
+      <div className='h-10 lg:h-16'></div>
       <Footer className='mt-auto' />
     </div>
   );

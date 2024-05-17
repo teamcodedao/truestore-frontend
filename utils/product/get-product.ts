@@ -6,16 +6,31 @@ import {HTTPError} from 'got';
 import {notFound} from 'next/navigation';
 
 import type {Product} from '@/typings/product';
+import {transformProduct} from '@/utils/product';
 
 interface GetProductParams {
   throwNotFound?: boolean;
 }
 
 export const getProduct = cache(
-  async (id: string, params?: GetProductParams) => {
+  async (slug: string, params?: GetProductParams) => {
     try {
-      const product = await client.get(`v3/products/${id}`).json<Product>();
-      return product;
+      const response = client.get(`v3/products`, {
+        searchParams: {
+          slug,
+          per_page: 1,
+        },
+      });
+
+      const [product] = await response.json<Product[]>();
+
+      if (!product) {
+        const customResponse = await response;
+        customResponse.statusCode = 404;
+        throw new HTTPError(customResponse);
+      }
+
+      return transformProduct(product);
     } catch (error) {
       if (error instanceof HTTPError) {
         if (params?.throwNotFound && error.response.statusCode === 404) {
