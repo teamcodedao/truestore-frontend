@@ -16,10 +16,16 @@ import safeCheckoutImg from '@/images/safe-checkout.png';
 export const dynamic = 'error';
 export const revalidate = 10;
 
-export default async function ProductPage({
-  params: {id},
-}: PageProps<{id: string}>) {
-  const product = await getProduct(id, {throwNotFound: true});
+export async function generateMetadata({params}: GenerateMetadataProps) {
+  const product = await getProduct(params.id, {throwNotFound: true});
+
+  return {
+    title: product.name,
+  };
+}
+
+export default async function ProductPage({params}: PageProps<{id: string}>) {
+  const product = await getProduct(params.id, {throwNotFound: true});
 
   return (
     <>
