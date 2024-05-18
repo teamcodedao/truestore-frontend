@@ -16,12 +16,13 @@
     "embla-carousel": "^8.1.1",
     "embla-carousel-react": "^8.1.1",
     "embla-carousel-wheel-gestures": "8.0.0-rc05",
-    "got": "^14.2.1",
+    "got": "^14.3.0",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
     "rooks": "^7.14.1",
-    "server-only": "^0.0.1"
+    "server-only": "^0.0.1",
+    "superjson": "^2.2.1"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.8.0",
@@ -37,6 +38,7 @@
     "tailwindcss": "^3.4.1",
     "tailwindcss-mixins": "^0.0.11",
     "tailwindcss-multi": "^0.4.6",
+    "type-fest": "^4.18.2",
     "typescript": "^5"
   }
 }

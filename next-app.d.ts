@@ -14,7 +14,7 @@ declare global {
     searchParams: S;
   }>;
 
-  type GenerateMetadataProps = PageProps;
+  type GenerateMetadataProps<P = unknown, S = unknown> = PageProps<P, S>;
 
   type ErrorProps = Readonly<{
     error: ApolloError | Error;

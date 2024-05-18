@@ -16,16 +16,18 @@ import safeCheckoutImg from '@/images/safe-checkout.png';
 export const dynamic = 'error';
 export const revalidate = 10;
 
-export async function generateMetadata({params}: GenerateMetadataProps) {
-  const product = await getProduct(params.id, {throwNotFound: true});
+export async function generateMetadata({
+  params,
+}: GenerateMetadataProps<{slug: string}>) {
+  const product = await getProduct(params.slug, {throwNotFound: true});
 
   return {
     title: product.name,
   };
 }
 
-export default async function ProductPage({params}: PageProps<{id: string}>) {
-  const product = await getProduct(params.id, {throwNotFound: true});
+export default async function ProductPage({params}: PageProps<{slug: string}>) {
+  const product = await getProduct(params.slug, {throwNotFound: true});
 
   return (
     <>
@@ -103,7 +105,7 @@ export default async function ProductPage({params}: PageProps<{id: string}>) {
                 {product.attributes.map((attribute, index) => (
                   <ProductAttribute
                     key={index}
-                    title={attribute.name}
+                    name={attribute.name}
                     options={attribute.options}
                   />
                 ))}

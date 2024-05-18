@@ -6,7 +6,6 @@ import {HTTPError} from 'got';
 import {notFound} from 'next/navigation';
 
 import type {Product} from '@/typings/product';
-import {transformProduct} from '@/utils/product';
 
 interface GetProductParams {
   throwNotFound?: boolean;
@@ -30,7 +29,7 @@ export const getProduct = cache(
         throw new HTTPError(customResponse);
       }
 
-      return transformProduct(product);
+      return product;
     } catch (error) {
       if (error instanceof HTTPError) {
         if (params?.throwNotFound && error.response.statusCode === 404) {
