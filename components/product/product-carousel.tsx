@@ -7,7 +7,7 @@ import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import {usePrevNextButtons} from '@/lib/embla-carousel';
 
-import type {ProductImage} from '@/typings/product';
+import type {ProductImage} from '@model/product';
 
 interface ProductCarouselProps {
   images?: ProductImage[];

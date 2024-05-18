@@ -5,7 +5,7 @@ import {client} from '@/lib/client';
 import {HTTPError} from 'got';
 import {notFound} from 'next/navigation';
 
-import type {Product} from '@/typings/product';
+import type {Product} from '@model/product';
 
 interface GetProductParams {
   throwNotFound?: boolean;

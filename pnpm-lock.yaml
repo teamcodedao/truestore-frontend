@@ -4,93 +4,100 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-dependencies:
-  '@automattic/format-currency':
-    specifier: ^2.0.0
-    version: 2.0.0
-  clsx:
-    specifier: ^2.1.1
-    version: 2.1.1
-  dayjs:
-    specifier: ^1.11.11
-    version: 1.11.11
-  embla-carousel:
-    specifier: ^8.1.1
-    version: 8.1.1
-  embla-carousel-react:
-    specifier: ^8.1.1
-    version: 8.1.1(react@18.3.1)
-  embla-carousel-wheel-gestures:
-    specifier: 8.0.0-rc05
-    version: 8.0.0-rc05(embla-carousel@8.1.1)
-  got:
-    specifier: ^14.3.0
-    version: 14.3.0
-  next:
-    specifier: 14.2.3
-    version: 14.2.3(react-dom@18.3.1)(react@18.3.1)
-  react:
-    specifier: ^18
-    version: 18.3.1
-  react-dom:
-    specifier: ^18
-    version: 18.3.1(react@18.3.1)
-  rooks:
-    specifier: ^7.14.1
-    version: 7.14.1(react-dom@18.3.1)(react@18.3.1)
-  server-only:
-    specifier: ^0.0.1
-    version: 0.0.1
-  superjson:
-    specifier: ^2.2.1
-    version: 2.2.1
+importers:
 
-devDependencies:
-  '@egoist/tailwindcss-icons':
-    specifier: ^1.8.0
-    version: 1.8.0(tailwindcss@3.4.3)
-  '@iconify-json/carbon':
-    specifier: ^1.1.33
-    version: 1.1.33
-  '@iconify-json/radix-icons':
-    specifier: ^1.1.14
-    version: 1.1.14
-  '@types/node':
-    specifier: ^20
-    version: 20.12.12
-  '@types/react':
-    specifier: ^18
-    version: 18.3.2
-  '@types/react-dom':
-    specifier: ^18
-    version: 18.3.0
-  eslint:
-    specifier: ^8
-    version: 8.57.0
-  eslint-config-next:
-    specifier: 14.2.3
-    version: 14.2.3(eslint@8.57.0)(typescript@5.4.5)
-  eslint-plugin-tailwindcss:
-    specifier: ^3.15.2
-    version: 3.15.2(tailwindcss@3.4.3)
-  postcss:
-    specifier: ^8
-    version: 8.4.38
-  tailwindcss:
-    specifier: ^3.4.1
-    version: 3.4.3
-  tailwindcss-mixins:
-    specifier: ^0.0.11
-    version: 0.0.11
-  tailwindcss-multi:
-    specifier: ^0.4.6
-    version: 0.4.6
-  type-fest:
-    specifier: ^4.18.2
-    version: 4.18.2
-  typescript:
-    specifier: ^5
-    version: 5.4.5
+  .:
+    dependencies:
+      '@automattic/format-currency':
+        specifier: ^2.0.0
+        version: 2.0.0
+      '@model/product':
+        specifier: workspace:^
+        version: link:packages/product
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      dayjs:
+        specifier: ^1.11.11
+        version: 1.11.11
+      embla-carousel:
+        specifier: ^8.1.1
+        version: 8.1.1
+      embla-carousel-react:
+        specifier: ^8.1.1
+        version: 8.1.1(react@18.3.1)
+      embla-carousel-wheel-gestures:
+        specifier: 8.0.0-rc05
+        version: 8.0.0-rc05(embla-carousel@8.1.1)
+      got:
+        specifier: ^14.3.0
+        version: 14.3.0
+      next:
+        specifier: 14.2.3
+        version: 14.2.3(react-dom@18.3.1)(react@18.3.1)
+      react:
+        specifier: ^18
+        version: 18.3.1
+      react-dom:
+        specifier: ^18
+        version: 18.3.1(react@18.3.1)
+      rooks:
+        specifier: ^7.14.1
+        version: 7.14.1(react-dom@18.3.1)(react@18.3.1)
+      server-only:
+        specifier: ^0.0.1
+        version: 0.0.1
+      superjson:
+        specifier: ^2.2.1
+        version: 2.2.1
+    devDependencies:
+      '@egoist/tailwindcss-icons':
+        specifier: ^1.8.0
+        version: 1.8.0(tailwindcss@3.4.3)
+      '@iconify-json/carbon':
+        specifier: ^1.1.33
+        version: 1.1.33
+      '@iconify-json/radix-icons':
+        specifier: ^1.1.14
+        version: 1.1.14
+      '@types/node':
+        specifier: ^20
+        version: 20.12.12
+      '@types/react':
+        specifier: ^18
+        version: 18.3.2
+      '@types/react-dom':
+        specifier: ^18
+        version: 18.3.0
+      eslint:
+        specifier: ^8
+        version: 8.57.0
+      eslint-config-next:
+        specifier: 14.2.3
+        version: 14.2.3(eslint@8.57.0)(typescript@5.4.5)
+      eslint-plugin-tailwindcss:
+        specifier: ^3.15.2
+        version: 3.15.2(tailwindcss@3.4.3)
+      postcss:
+        specifier: ^8
+        version: 8.4.38
+      tailwindcss:
+        specifier: ^3.4.1
+        version: 3.4.3
+      tailwindcss-mixins:
+        specifier: ^0.0.11
+        version: 0.0.11
+      tailwindcss-multi:
+        specifier: ^0.4.6
+        version: 0.4.6
+      type-fest:
+        specifier: ^4.18.2
+        version: 4.18.2
+      typescript:
+        specifier: ^5
+        version: 5.4.5
+
+  packages/product: {}
 
 packages:
 

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@automattic/format-currency": "^2.0.0",
+    "@model/product": "workspace:^",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
     "embla-carousel": "^8.1.1",

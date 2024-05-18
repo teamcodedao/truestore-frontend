@@ -1,0 +1,11 @@
+{
+  "name": "@model/product",
+  "version": "0.0.0",
+  "exports": {
+    ".": {
+      "types": "./typings.ts",
+      "react-server": "./server.ts",
+      "default": "./client.ts"
+    }
+  }
+}

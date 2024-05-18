@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import {formatCurrency} from '@automattic/format-currency';
 
-import {getProduct} from '@/utils/product';
+import {getProduct} from '@model/product';
 
 import {Countdown, RandomNumber} from '@/components/common';
 import {

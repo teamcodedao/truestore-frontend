@@ -1,4 +1,5 @@
-export type * from '@/utils/product';
+export * from './get-product';
+export * from './use-params-variantion';
 
 export interface ProductAttribute<O> {
   id: number;
@@ -24,4 +25,9 @@ export interface Product {
   regular_price?: string;
   attributes?: ProductAttribute<string>[];
   images?: ProductImage[];
+}
+
+export interface GetParamsVariation {
+  COLOR?: string;
+  'SIZE ( US )'?: string;
 }

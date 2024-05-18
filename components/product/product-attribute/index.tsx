@@ -6,6 +6,8 @@ import {useRouter, usePathname, useSearchParams} from 'next/navigation';
 import superjson from 'superjson';
 import type {Except} from 'type-fest';
 
+import {useParamsVariation} from '@model/product';
+
 import {
   ProductAttributeProps,
   ProductAttribute as ImplProductAttribute,
@@ -16,15 +18,8 @@ function ProductAttribute(
 ) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const rawVariation = searchParams.get('variation') ?? '';
 
-  const variation = useMemo(() => {
-    try {
-      return superjson.parse<Record<string, string>>(rawVariation);
-    } catch {}
-    return null;
-  }, [rawVariation]);
+  const variation = useParamsVariation<Record<string, string>>();
 
   const selectedIndex = useMemo(() => {
     return (
