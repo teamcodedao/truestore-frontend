@@ -94,9 +94,9 @@ export default async function ProductPage({
             </article>
             {!!product.attributes?.length && (
               <div className='mt-5 space-y-4'>
-                {product.attributes.map(attribute => (
+                {product.attributes.map((attribute, index) => (
                   <ProductAttribute
-                    key={attribute.id}
+                    key={index}
                     title={attribute.name}
                     options={attribute.options}
                   />
@@ -122,7 +122,7 @@ export default async function ProductPage({
             Description
           </span>
           <div
-            className='[&_.emoji]:multi-[`size-[1em]`] [&_img]:inline-block'
+            className='[&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block'
             dangerouslySetInnerHTML={{__html: product.description}}
           ></div>
         </div>

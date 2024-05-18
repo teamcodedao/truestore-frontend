@@ -1,9 +1,11 @@
 'use client';
 
 import {useCallback, useEffect, useState} from 'react';
+import clsx from 'clsx';
 import useEmblaCarousel from 'embla-carousel-react';
-import AutoHeightPlugin from 'embla-carousel-auto-height';
 import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
+
+import {usePrevNextButtons} from '@/lib/embla-carousel';
 
 import type {ProductImage} from '@/typings/product';
 
@@ -12,26 +14,24 @@ interface ProductCarouselProps {
 }
 
 export default function ProductCarousel({images = []}: ProductCarouselProps) {
-  const [emblaRef, emblaMainApi] = useEmblaCarousel(
-    {
-      align: 'center',
-    },
-    [AutoHeightPlugin(), WheelGesturesPlugin()]
-  );
+  const [emblaRef, emblaMainApi] = useEmblaCarousel({}, [
+    WheelGesturesPlugin(),
+  ]);
 
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel(
     {
       containScroll: 'keepSnaps',
       dragFree: true,
-      align: 'center',
     },
     [WheelGesturesPlugin()]
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const onThumbClick = useCallback(
-    (index: number) => {
+  const [controlState, controlActions] = usePrevNextButtons(emblaMainApi);
+
+  const onThumbClick = useCallback<(index: number) => void>(
+    index => {
       if (!emblaMainApi || !emblaThumbsApi) return;
       emblaMainApi.scrollTo(index);
     },
@@ -54,11 +54,18 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
   return (
     <div className='embla'>
       <div ref={emblaRef} className='embla__viewport'>
-        <div className='embla__container items-start transition-[height] duration-200'>
-          {images.map(image => {
+        <div className='embla__container'>
+          {images.map((image, index) => {
             return (
-              <div key={image.id} className='embla__slide flex-[1_0_100%]'>
-                <img src={image.src} alt='' className='w-full object-contain' />
+              <div
+                key={index}
+                className='embla__slide aspect-square flex-[0_0_100%]'
+              >
+                <img
+                  src={image.src}
+                  alt=''
+                  className='size-full object-contain'
+                />
               </div>
             );
           })}
@@ -66,23 +73,51 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
       </div>
 
       {images.length > 1 && (
-        <div className='embla__viewport mt-5' ref={emblaThumbsRef}>
-          <div className='embla__container gap-x-2'>
-            {images.map((image, index) => {
-              return (
-                <button
-                  key={image.id}
-                  aria-label='Thumbnail'
-                  role='radio'
-                  aria-checked={index === selectedIndex}
-                  className='embla__slide size-[70px] min-w-0 shrink-0 border border-gray-100 transition hover:border-orange-100 aria-checked:border-orange-300'
-                  onClick={() => onThumbClick(index)}
-                >
-                  <img src={image.src} alt='' className='h-full object-cover' />
-                </button>
-              );
-            })}
+        <div
+          className={clsx(
+            'relative mt-5',
+            '[&>button]:multi-[`absolute;top-1/2;-translate-y-1/2;text-white;bg-black/60;flex;items-center;justify-center;text-3xl`]',
+            '[&>button[disabled]]:opacity-50'
+          )}
+        >
+          <div ref={emblaThumbsRef} className='embla__viewport '>
+            <div className='embla__container gap-x-2'>
+              {images.map((image, index) => {
+                return (
+                  <button
+                    key={index}
+                    aria-label='Thumbnail'
+                    role='radio'
+                    aria-checked={index === selectedIndex}
+                    className='embla__slide size-[70px] min-w-0 shrink-0 border border-gray-100 transition hover:border-orange-200 aria-checked:border-orange-400'
+                    onClick={() => onThumbClick(index)}
+                  >
+                    <img
+                      src={image.src}
+                      alt=''
+                      className='h-full object-cover'
+                    />
+                  </button>
+                );
+              })}
+            </div>
           </div>
+          <button
+            className='left-1'
+            aria-label='Previous'
+            disabled={controlState.prevDisabled}
+            onClick={() => controlActions.prev()}
+          >
+            <span className='i-radix-icons-chevron-left'></span>
+          </button>
+          <button
+            className='right-1'
+            aria-label='Next'
+            disabled={controlState.nextDisabled}
+            onClick={() => controlActions.next()}
+          >
+            <span className='i-radix-icons-chevron-right'></span>
+          </button>
         </div>
       )}
     </div>

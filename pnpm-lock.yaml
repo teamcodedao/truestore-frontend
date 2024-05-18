@@ -14,15 +14,15 @@ dependencies:
   dayjs:
     specifier: ^1.11.11
     version: 1.11.11
-  embla-carousel-auto-height:
-    specifier: ^8.0.4
-    version: 8.0.4(embla-carousel@8.0.4)
+  embla-carousel:
+    specifier: ^8.1.1
+    version: 8.1.1
   embla-carousel-react:
-    specifier: ^8.0.4
-    version: 8.0.4(react@18.3.1)
+    specifier: ^8.1.1
+    version: 8.1.1(react@18.3.1)
   embla-carousel-wheel-gestures:
     specifier: 8.0.0-rc05
-    version: 8.0.0-rc05(embla-carousel@8.0.4)
+    version: 8.0.0-rc05(embla-carousel@8.1.1)
   got:
     specifier: ^14.2.1
     version: 14.2.1
@@ -68,8 +68,8 @@ devDependencies:
     specifier: 14.2.3
     version: 14.2.3(eslint@8.57.0)(typescript@5.4.5)
   eslint-plugin-tailwindcss:
-    specifier: ^3.15.1
-    version: 3.15.1(tailwindcss@3.4.3)
+    specifier: ^3.15.2
+    version: 3.15.2(tailwindcss@3.4.3)
   postcss:
     specifier: ^8
     version: 8.4.38
@@ -981,44 +981,36 @@ packages:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
     dev: true
 
-  /embla-carousel-auto-height@8.0.4(embla-carousel@8.0.4):
-    resolution: {integrity: sha512-aDw47waoxGlBEBuEZiZ91dVMrPyyVb2OlKOTYmz3Lx8Rf9ALLlzcIx6HjtCFZslxwmAOeBDgdOiIFnH2CWhqAg==}
-    peerDependencies:
-      embla-carousel: 8.0.4
-    dependencies:
-      embla-carousel: 8.0.4
-    dev: false
-
-  /embla-carousel-react@8.0.4(react@18.3.1):
-    resolution: {integrity: sha512-3NlOmBmRhaGhtI0It9243yg9fz2wPRML5gGLDIE69Oyb/CuGsJnxpcgG74j905NQBDgReTEfFJwzOtIFAjeBfg==}
+  /embla-carousel-react@8.1.1(react@18.3.1):
+    resolution: {integrity: sha512-VuIrNyGneFKlDzAvkRGeXjEOw+FW2Ob76R/Y+kdSuKj68bnaAJCEf8PlHtJJWle1/rR/Sfv9NTIa00zlA8iXgw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.1 || ^18.0.0
     dependencies:
-      embla-carousel: 8.0.4
-      embla-carousel-reactive-utils: 8.0.4(embla-carousel@8.0.4)
+      embla-carousel: 8.1.1
+      embla-carousel-reactive-utils: 8.1.1(embla-carousel@8.1.1)
       react: 18.3.1
     dev: false
 
-  /embla-carousel-reactive-utils@8.0.4(embla-carousel@8.0.4):
-    resolution: {integrity: sha512-7lWM+8hanIF2roTAjxwfqfr0+VTbr9rYVlAs0r5PwPOVpz1G3/+bRelgAYvwcfWVm5Vydo2pKXVfFOPQjznF7w==}
+  /embla-carousel-reactive-utils@8.1.1(embla-carousel@8.1.1):
+    resolution: {integrity: sha512-zlsaorYN56qtoXoVNw8hA/IbUjxq0pdggZpl9b5V2Cxvrd47ZSL5Lat7GgC+kgyUEdEocP1iOmw5+vpCX9rZPA==}
     peerDependencies:
-      embla-carousel: 8.0.4
+      embla-carousel: 8.1.1
     dependencies:
-      embla-carousel: 8.0.4
+      embla-carousel: 8.1.1
     dev: false
 
-  /embla-carousel-wheel-gestures@8.0.0-rc05(embla-carousel@8.0.4):
+  /embla-carousel-wheel-gestures@8.0.0-rc05(embla-carousel@8.1.1):
     resolution: {integrity: sha512-KfPlGuOvMterlg01FDd+Iws5wefInkyks4ai3p4n4B5WAiyel+DHs4AFu09UmshcnHpIH5cLJQ6VJCbp/kyy1A==}
     engines: {node: '>=10'}
     peerDependencies:
       embla-carousel: ^8.0.0 || ~8.0.0-rc03
     dependencies:
-      embla-carousel: 8.0.4
+      embla-carousel: 8.1.1
       wheel-gestures: 2.2.5
     dev: false
 
-  /embla-carousel@8.0.4:
-    resolution: {integrity: sha512-INndmilrV9KY4Wnb4F2tI55DuQnFjf3GPOaPDT2LGYiKhIWVNUhv1nz/RI7CZ6WoIZ8MYHP4t6Qm/cqpcGHknA==}
+  /embla-carousel@8.1.1:
+    resolution: {integrity: sha512-PfdhNbPoNl7V5YnwuKe2zmKd0+/HY+Q4O59xQcVvinsgv2LkpAVQ1NB/q5STqAde8nZ56U2uQOe6X+9u4IZlhA==}
     dev: false
 
   /emoji-regex@8.0.0:
@@ -1341,8 +1333,8 @@ packages:
       string.prototype.matchall: 4.0.11
     dev: true
 
-  /eslint-plugin-tailwindcss@3.15.1(tailwindcss@3.4.3):
-    resolution: {integrity: sha512-4RXRMIaMG07C2TBEW1k0VM4+dDazz1kxcZhkK4zirvmHGZTA4jnlSO2kq5mamuSPi+Wo17dh2SlC8IyFBuCd7Q==}
+  /eslint-plugin-tailwindcss@3.15.2(tailwindcss@3.4.3):
+    resolution: {integrity: sha512-+HJfWcyP5B/e8r8qVSaTbf2i4+HsESJJsue66qFHRstV11CNTfdaDD9zkCVA1pm2EplBZ/BSJ3Htfzvb4YTVKw==}
     engines: {node: '>=12.13.0'}
     peerDependencies:
       tailwindcss: ^3.4.0
