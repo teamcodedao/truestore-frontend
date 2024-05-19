@@ -23,9 +23,8 @@ function ProductAttribute(
   const variation = useParamsVariation<Record<string, string>>();
 
   const selectedIndex = useMemo(() => {
-    return (
-      props.options.findIndex(option => option === variation?.[props.name]) ??
-      -1
+    return props.options.findIndex(
+      option => option === variation?.[props.name]
     );
   }, [props.name, props.options, variation]);
 

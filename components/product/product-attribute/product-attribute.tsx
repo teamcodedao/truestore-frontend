@@ -1,5 +1,7 @@
 'use client';
 
+import {useEffect} from 'react';
+
 import clsx from 'clsx';
 
 export interface ProductAttributeProps {
@@ -17,6 +19,12 @@ export function ProductAttribute({
   selectedIndex,
   onSelect,
 }: ProductAttributeProps) {
+  useEffect(() => {
+    if (selectedIndex === -1) {
+      onSelect?.(options[0]);
+    }
+  }, [onSelect, options, selectedIndex]);
+
   return (
     <div>
       <h5 className='font-bold capitalize'>{(title || name).toLowerCase()}</h5>
