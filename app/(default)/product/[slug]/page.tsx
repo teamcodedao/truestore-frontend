@@ -7,6 +7,7 @@ import {
   ProductCartActions,
   ProductFeature,
   ProductPrice,
+  ProductPaypal,
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {getProduct} from '@model/product';
@@ -101,7 +102,11 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <div className='mt-5'>
               <ProductCartActions />
             </div>
-            <div className='mt-3'>
+            <div className='mt-0'>
+              <div className='text-center'>- OR -</div>
+              <ProductPaypal />
+            </div>
+            <div className='mt-5'>
               <Image
                 src={safeCheckoutImg}
                 alt=''
