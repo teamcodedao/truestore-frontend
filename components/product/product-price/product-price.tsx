@@ -1,9 +1,9 @@
 'use client';
 
 import {use, useMemo} from 'react';
-import {formatCurrency} from '@automattic/format-currency';
 
-import {useParamsVariation, ProductVariation} from '@model/product';
+import {formatCurrency} from '@automattic/format-currency';
+import {ProductVariation,useParamsVariation} from '@model/product';
 
 export interface ProductPriceProps {
   regular_price?: string;

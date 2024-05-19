@@ -2,15 +2,16 @@
 
 import {Suspense, useMemo} from 'react';
 import {type Route} from 'next';
-import {useRouter, usePathname} from 'next/navigation';
+import {usePathname, useRouter} from 'next/navigation';
+
 import superjson from 'superjson';
 import type {Except} from 'type-fest';
 
 import {useParamsVariation} from '@model/product';
 
 import {
-  ProductAttributeProps,
   ProductAttribute as ImplProductAttribute,
+  ProductAttributeProps,
 } from './product-attribute';
 
 function ProductAttribute(

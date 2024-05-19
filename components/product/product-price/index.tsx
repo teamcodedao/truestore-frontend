@@ -3,8 +3,8 @@ import {Suspense} from 'react';
 import {getProductVariations} from '@model/product';
 
 import ProductPrice, {
-  ProductPriceProps,
   ImplProductPrice,
+  ProductPriceProps,
 } from './product-price';
 
 export default function SuspenseProductPrice({

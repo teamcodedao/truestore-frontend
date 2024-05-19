@@ -1,5 +1,11 @@
 {
-  "extends": ["next/core-web-vitals", "plugin:tailwindcss/recommended"],
+  "extends": [
+    "eslint:recommended",
+    "next/core-web-vitals",
+    "plugin:tailwindcss/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "plugins": ["simple-import-sort"],
   "settings": {
     "tailwindcss": {
       "whitelist": [
@@ -14,6 +20,25 @@
     }
   },
   "rules": {
-    "@next/next/no-img-element": "off"
+    "no-console": ["warn", {"allow": ["error", "info"]}],
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "import/first": "warn",
+    "import/newline-after-import": "warn",
+    "import/no-duplicates": "warn",
+    "import/order": "off",
+    "sort-imports": "off",
+    "simple-import-sort/exports": "warn",
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        "groups": [
+          ["^\\u0000", "^react$", "^next$", "^next/"],
+          ["^"],
+          ["^@"],
+          ["^\\."]
+        ]
+      }
+    ]
   }
 }

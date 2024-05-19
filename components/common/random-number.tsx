@@ -1,6 +1,7 @@
 'use client';
 
 import {useState} from 'react';
+
 import {useIntervalWhen} from 'rooks';
 
 import {randomNumber} from '@/lib/random';

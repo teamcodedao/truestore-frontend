@@ -1,5 +1,6 @@
 import {useMemo} from 'react';
 import {useSearchParams} from 'next/navigation';
+
 import superjson from 'superjson';
 
 import type {GetParamsVariation} from './typings';
@@ -11,7 +12,8 @@ export function useParamsVariation<T = GetParamsVariation>() {
   return useMemo(() => {
     try {
       return superjson.parse<T>(rawVariation);
-    } catch {}
-    return null;
+    } catch {
+      return null;
+    }
   }, [rawVariation]);
 }

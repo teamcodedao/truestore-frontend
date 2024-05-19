@@ -1,12 +1,12 @@
 'use client';
 
 import {useCallback, useEffect, useState} from 'react';
+
 import clsx from 'clsx';
 import useEmblaCarousel from 'embla-carousel-react';
 import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import {usePrevNextButtons} from '@/lib/embla-carousel';
-
 import type {ProductImage} from '@model/product';
 
 interface ProductCarouselProps {

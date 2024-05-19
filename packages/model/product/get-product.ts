@@ -1,10 +1,10 @@
-import {unstable_cache as cache} from 'next/cache';
 import 'server-only';
-
-import {client} from '@/lib/client';
-import {HTTPError} from 'got';
+import {unstable_cache as cache} from 'next/cache';
 import {notFound} from 'next/navigation';
 
+import {HTTPError} from 'got';
+
+import {client} from '@/lib/client';
 import type {Product} from '@model/product';
 
 interface GetProductParams {

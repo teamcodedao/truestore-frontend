@@ -1,4 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
+
 import {EmblaCarouselType} from 'embla-carousel';
 
 export function usePrevNextButtons(

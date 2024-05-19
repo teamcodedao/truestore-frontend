@@ -1,7 +1,6 @@
 import 'server-only';
 
 import {client} from '@/lib/client';
-
 import type {ProductVariation} from '@model/product';
 
 export const getProductVariations = async (id: string) => {

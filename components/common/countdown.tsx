@@ -1,8 +1,9 @@
 'use client';
 
 import {useState} from 'react';
-import dayjs from 'dayjs';
+
 import clsx from 'clsx';
+import dayjs from 'dayjs';
 import {useIntervalWhen} from 'rooks';
 
 interface CountdownProps extends React.ComponentProps<'span'> {

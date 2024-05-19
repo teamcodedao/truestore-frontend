@@ -1,8 +1,8 @@
 import Image from 'next/image';
 
-import Footer from './footer';
-
 import logoImg from '@/images/logo.webp';
+
+import Footer from './footer';
 
 export default function DefaultLayout({children}: LayoutProps) {
   return (

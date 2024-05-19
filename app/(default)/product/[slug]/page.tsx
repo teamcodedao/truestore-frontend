@@ -1,17 +1,15 @@
 import Image from 'next/image';
 
-import {getProduct} from '@model/product';
-
 import {Countdown, RandomNumber} from '@/components/common';
 import {
-  ProductFeature,
-  ProductCartActions,
   ProductAttribute,
   ProductCarousel,
+  ProductCartActions,
+  ProductFeature,
   ProductPrice,
 } from '@/components/product';
-
 import safeCheckoutImg from '@/images/safe-checkout.png';
+import {getProduct} from '@model/product';
 
 export const dynamic = 'error';
 export const revalidate = 10;
