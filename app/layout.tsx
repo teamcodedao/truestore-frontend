@@ -4,6 +4,8 @@ import {Inter} from 'next/font/google';
 import clsx from 'clsx';
 import type {Metadata} from 'next';
 
+import Providers from './providers';
+
 const inter = Inter({subsets: ['latin']});
 
 export const metadata: Metadata = {
@@ -15,7 +17,9 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: LayoutProps) {
   return (
     <html lang='en'>
-      <body className={clsx(inter.className, 'antialiased')}>{children}</body>
+      <body className={clsx(inter.className, 'antialiased')}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

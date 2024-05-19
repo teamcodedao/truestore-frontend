@@ -1,14 +1,25 @@
 import type {Config} from 'tailwindcss';
-import {iconsPlugin, getIconCollections} from '@egoist/tailwindcss-icons';
+
+import {getIconCollections, iconsPlugin} from '@egoist/tailwindcss-icons';
 
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './packages/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      animation: {
+        'overlay-in': 'overlay 300ms',
+        'overlay-out': 'overlay 300ms reverse ease-in',
+        'slide-left-in': 'slide-left 300ms',
+        'slide-left-out': 'slide-left 300ms reverse ease-in',
+        'slide-right-in': 'slide-right 300ms',
+        'slide-right-out': 'slide-right 300ms reverse ease-in',
+      },
+    },
     container: {
       center: true,
       screens: {

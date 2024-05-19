@@ -19,6 +19,33 @@
     min-width: 0;
     max-width: 100%;
   }
+
+  @keyframes overlay {
+    from {
+      @apply bg-black/20 backdrop-blur-none;
+    }
+    to {
+      @apply backdrop-blur-sm;
+    }
+  }
+
+  @keyframes slide-left {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 }
 
 @layer utilities {

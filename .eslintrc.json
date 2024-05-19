@@ -39,6 +39,18 @@
           ["^\\."]
         ]
       }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "importNames": ["default"],
+            "name": "react"
+          }
+        ],
+        "patterns": ["../*", "@/packages/*"]
+      }
     ]
   }
 }
