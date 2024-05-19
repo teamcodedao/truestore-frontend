@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import {formatCurrency} from '@automattic/format-currency';
 
 import {getProduct} from '@model/product';
 
@@ -9,6 +8,7 @@ import {
   ProductCartActions,
   ProductAttribute,
   ProductCarousel,
+  ProductPrice,
 } from '@/components/product';
 
 import safeCheckoutImg from '@/images/safe-checkout.png';
@@ -50,22 +50,11 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
           <section className='mt-4'>
             <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
-              {!!product.sale_price && (
-                <span className='text-xl text-slate-500 line-through'>
-                  {formatCurrency(parseFloat(product.sale_price), 'USD', {
-                    stripZeros: true,
-                  })}
-                </span>
-              )}
-              <span className='text-2xl font-bold text-red-500'>
-                {formatCurrency(
-                  parseFloat(product.sale_price || product.price),
-                  'USD',
-                  {
-                    stripZeros: true,
-                  }
-                )}
-              </span>
+              <ProductPrice
+                id={String(product.id)}
+                regular_price={product.regular_price}
+                price={product.sale_price || product.price}
+              />
             </div>
             <div className='my-5 px-10'>
               <hr className='border-slate-300' />
