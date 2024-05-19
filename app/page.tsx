@@ -1,31 +1,24 @@
+import Link from 'next/link';
+
 export default function Home() {
   return (
     <main className='min-h-screen'>
       <h1 className='uppercase'>Try experimenting with different URLs</h1>
       <ul>
         <li>
-          <a
-            href='https://truestore-frontend.vercel.app/product/lacebra01'
-            target='_blank'
-          >
+          <Link href='/product/lacebra01'>
             https://truestore-frontend.vercel.app/product/lacebra01
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href='https://truestore-frontend.vercel.app/product/waistbra17'
-            target='_blank'
-          >
+          <Link href='/product/waistbra17'>
             https://truestore-frontend.vercel.app/product/waistbra17
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href='https://truestore-frontend.vercel.app/product/aipsneaker37'
-            target='_blank'
-          >
+          <Link href='/product/aipsneaker37'>
             https://truestore-frontend.vercel.app/product/aipsneaker37
-          </a>
+          </Link>
         </li>
       </ul>
     </main>

@@ -37,8 +37,8 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         </div>
         <div className='flex-1 shrink-0'>
           <section className='flex items-end gap-x-2'>
-            <span className='text-sm'>Rated</span>
-            <div className='translate-y-1'>
+            <span className='font-medium'>Rated</span>
+            <div className='translate-y-0.5'>
               {Array.from({length: 5}).map((_, index) => (
                 <span
                   key={index}
@@ -56,7 +56,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 price={product.sale_price || product.price}
               />
             </div>
-            <div className='my-5 px-10'>
+            <div className='my-5 px-5'>
               <hr className='border-slate-300' />
             </div>
             <div className='text-2xl font-medium uppercase'>

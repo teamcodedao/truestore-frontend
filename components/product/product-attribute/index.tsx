@@ -30,7 +30,7 @@ function ProductAttribute(
 
   const handleSelect = (value: string) => {
     const json = {...variation, [props.name]: value};
-    router.push(
+    router.replace(
       `${pathname}?variation=${encodeURIComponent(
         superjson.stringify(json)
       )}` as Route,

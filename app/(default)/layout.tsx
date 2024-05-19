@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import Footer from './footer';
 
@@ -13,9 +12,9 @@ export default function DefaultLayout({children}: LayoutProps) {
           <button aria-label='Menu' className='absolute left-0'>
             <span className='i-radix-icons-hamburger-menu text-4xl'></span>
           </button>
-          <Link href='/'>
+          <a href='/'>
             <Image src={logoImg} unoptimized height={65} alt='' />
-          </Link>
+          </a>
         </header>
         <div>{children}</div>
       </div>
