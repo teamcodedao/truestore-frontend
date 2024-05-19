@@ -22,6 +22,7 @@ export interface ProductImage {
 }
 
 export interface ProductVariation {
+  id: number;
   price: string;
   sale_price?: string;
   regular_price?: string;
@@ -50,5 +51,8 @@ export interface GetParamsVariation {
 export interface ProductCartItem {
   product: Pick<Product, 'id' | 'name'>;
   quantity: number;
-  variantion: ProductVariation;
+  variantion: Pick<
+    ProductVariation,
+    'id' | 'price' | 'regular_price' | 'sale_price'
+  > & {image: string};
 }

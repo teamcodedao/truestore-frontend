@@ -95,7 +95,13 @@ export default function ProductCartActions({
                 name: product.name,
               },
               quantity,
-              variantion,
+              variantion: {
+                id: variantion.id,
+                price: variantion.price,
+                regular_price: variantion.regular_price,
+                sale_price: variantion.sale_price,
+                image: variantion.image.src,
+              },
             });
             offcanvas.show({
               direction: 'right',
