@@ -29,11 +29,6 @@ function OffcanvasProvider() {
 
       if (props.action === 'close') {
         setOpen(false);
-        startTransition(() => {
-          setCanvas(null);
-        });
-
-        return;
       }
     };
 
@@ -52,6 +47,7 @@ function OffcanvasProvider() {
       className='fixed inset-0 bg-black/20 backdrop-blur-sm data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out'
     >
       <Modal
+        onOpenChange={setOpen}
         className={clsx(
           'fixed inset-y-0 min-w-[300px] max-w-full bg-white shadow-lg',
           {
