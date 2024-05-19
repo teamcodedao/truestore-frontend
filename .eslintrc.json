@@ -49,7 +49,7 @@
             "name": "react"
           }
         ],
-        "patterns": ["../*", "@/packages/*"]
+        "patterns": ["../*", "@/packages/*", "@/components/*/**/**"]
       }
     ]
   }
