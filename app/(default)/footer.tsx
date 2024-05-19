@@ -21,10 +21,10 @@ export default function Footer({className}: FooterProps) {
                 </span>
               </p>
               <a
-                href='mailto:help@wideelectronics.com'
+                href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}
                 className='block font-semibold text-white hover:text-slate-200'
               >
-                help@wideelectronics.com
+                {process.env.NEXT_PUBLIC_EMAIL}
               </a>
             </address>
             <div className='mt-10 flex justify-center gap-x-2 *:multi-[`object-contain`]'>
@@ -43,13 +43,13 @@ export default function Footer({className}: FooterProps) {
               <h3 className='mixin/heading'>Order</h3>
               <ul className='mixin/menu'>
                 <li>
-                  <a href='#'>Order Tracking</a>
+                  <a href='/order-tracking'>Order Tracking</a>
                 </li>
                 <li>
-                  <a href='#'>Shipping Policy</a>
+                  <a href='/shipping-policy'>Shipping Policy</a>
                 </li>
                 <li>
-                  <a href='#'>Return & Refund Policy</a>
+                  <a href='/refund_returns'>Return & Refund Policy</a>
                 </li>
               </ul>
             </div>
@@ -57,19 +57,19 @@ export default function Footer({className}: FooterProps) {
               <h3 className='mixin/heading'>Resources</h3>
               <ul className='mixin/menu'>
                 <li>
-                  <a href='#'>About Us</a>
+                  <a href='/about-us'>About Us</a>
                 </li>
                 <li>
-                  <a href='#'>Contact Us</a>
+                  <a href='/contact'>Contact Us</a>
                 </li>
                 <li>
-                  <a href='#'>Payment Methods</a>
+                  <a href='/payment-methods'>Payment Methods</a>
                 </li>
                 <li>
-                  <a href='#'>Terms of Service</a>
+                  <a href='/term-of-service'>Terms of Service</a>
                 </li>
                 <li>
-                  <a href='#'>Privacy Policy</a>
+                  <a href='/privacy-policy'>Privacy Policy</a>
                 </li>
               </ul>
             </div>

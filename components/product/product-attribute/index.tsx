@@ -2,7 +2,7 @@
 
 import {Suspense, useMemo} from 'react';
 import {type Route} from 'next';
-import {useRouter, usePathname, useSearchParams} from 'next/navigation';
+import {useRouter, usePathname} from 'next/navigation';
 import superjson from 'superjson';
 import type {Except} from 'type-fest';
 

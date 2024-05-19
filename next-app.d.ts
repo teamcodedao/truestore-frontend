@@ -31,6 +31,7 @@ declare global {
       NEXT_API_AUTH: string;
 
       NEXT_PUBLIC_BASE: string;
+      NEXT_PUBLIC_EMAIL: string;
     }
   }
 }
