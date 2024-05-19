@@ -1,6 +1,6 @@
 'use client';
 
-import {Suspense, useMemo} from 'react';
+import {startTransition, Suspense, useMemo} from 'react';
 import {type Route} from 'next';
 import {usePathname, useRouter} from 'next/navigation';
 
@@ -30,14 +30,17 @@ function ProductAttribute(
 
   const handleSelect = (value: string) => {
     const json = {...variation, [props.name]: value};
-    router.replace(
-      `${pathname}?variation=${encodeURIComponent(
-        superjson.stringify(json)
-      )}` as Route,
-      {
-        scroll: false,
-      }
-    );
+
+    startTransition(() => {
+      router.replace(
+        `${pathname}?variation=${encodeURIComponent(
+          superjson.stringify(json)
+        )}` as Route,
+        {
+          scroll: false,
+        }
+      );
+    });
   };
 
   return (
