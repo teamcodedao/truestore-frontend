@@ -6,7 +6,7 @@ import offcanvas from '@ui/offcanvas';
 
 function MenuContent() {
   return (
-    <div className='relative w-[350px]'>
+    <aside className='relative w-[350px]'>
       <menu
         className={clsx(
           'space-y-5 p-10 font-bold',
@@ -42,7 +42,7 @@ function MenuContent() {
       >
         <span className='i-carbon-close text-2xl'></span>
       </button>
-    </div>
+    </aside>
   );
 }
 

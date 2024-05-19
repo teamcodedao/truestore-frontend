@@ -4,6 +4,10 @@ import {useState} from 'react';
 
 import clsx from 'clsx';
 
+import offcanvas from '@ui/offcanvas';
+
+import ProductCheckoutCart from './product-checkout-cart';
+
 interface ProductCartActionsProps {
   min?: number;
   max?: number;
@@ -63,7 +67,15 @@ export default function ProductCartActions({
           'sm:*:multi-[`px-5`]'
         )}
       >
-        <button className='bg-black hover:bg-black/80'>
+        <button
+          className='bg-black hover:bg-black/80'
+          onClick={() => {
+            offcanvas.show({
+              direction: 'right',
+              content: <ProductCheckoutCart onClose={offcanvas.close} />,
+            });
+          }}
+        >
           <span className='i-carbon-shopping-cart-plus'></span>
           <span>Add to cart</span>
         </button>

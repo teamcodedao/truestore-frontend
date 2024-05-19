@@ -1,6 +1,6 @@
 'use client';
 
-import {useEffect} from 'react';
+import {startTransition, useEffect} from 'react';
 
 import clsx from 'clsx';
 
@@ -21,7 +21,9 @@ export function ProductAttribute({
 }: ProductAttributeProps) {
   useEffect(() => {
     if (selectedIndex === -1) {
-      onSelect?.(options[0]);
+      startTransition(() => {
+        onSelect?.(options[0]);
+      });
     }
   }, [onSelect, options, selectedIndex]);
 

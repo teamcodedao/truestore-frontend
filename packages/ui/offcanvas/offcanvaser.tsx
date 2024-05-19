@@ -59,7 +59,7 @@ function OffcanvasProvider() {
         )}
       >
         <Dialog>
-          <Heading slot='title'>{canvas?.title}</Heading>
+          <Heading slot='title'></Heading>
           {canvas?.content}
         </Dialog>
       </Modal>
