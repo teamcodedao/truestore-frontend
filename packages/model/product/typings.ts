@@ -1,8 +1,10 @@
+export * from './add-cart.action';
+export * from './create-order.action';
 export * from './get-product';
 export * from './get-product-variations';
-export * from './use-params-variantion';
-export * from './create-order.action';
 export * from './update-order.action';
+export * from './use-params-variation';
+export * from './use-product-variation';
 
 export interface ProductAttribute<O> {
   id: number;
@@ -43,4 +45,10 @@ export interface Product {
 export interface GetParamsVariation {
   COLOR?: string;
   'SIZE ( US )'?: string;
+}
+
+export interface ProductCartItem {
+  product: Pick<Product, 'id' | 'name'>;
+  quantity: number;
+  variantion: ProductVariation;
 }

@@ -1,9 +1,9 @@
 'use client';
 
-import {use, useMemo} from 'react';
+import {use} from 'react';
 
 import {formatCurrency} from '@automattic/format-currency';
-import {ProductVariation, useParamsVariation} from '@model/product';
+import {ProductVariation, useProductVariation} from '@model/product';
 
 export interface ProductPriceProps {
   regular_price?: string;
@@ -41,29 +41,12 @@ export default function ProductPrice({
   getVariationPromise,
   ...props
 }: ProductPriceProps & {getVariationPromise: Promise<ProductVariation[]>}) {
-  const paramVariation = useParamsVariation();
   const productVariations = use(getVariationPromise);
 
   let regular_price = props.regular_price;
   let price = props.price;
 
-  const variation = useMemo(() => {
-    return productVariations.find(item => {
-      const checkColor = !!item.attributes.find(
-        attr => attr.name === 'COLOR' && attr.option === paramVariation?.COLOR
-      );
-
-      if (checkColor) {
-        return !!item.attributes.find(
-          attr =>
-            attr.name === 'SIZE ( US )' &&
-            attr.option === paramVariation?.['SIZE ( US )']
-        );
-      }
-
-      return false;
-    });
-  }, [paramVariation, productVariations]);
+  const variation = useProductVariation(productVariations);
 
   if (variation) {
     regular_price = variation.regular_price || regular_price;

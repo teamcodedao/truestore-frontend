@@ -1,3 +1,4 @@
+import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {Countdown, RandomNumber} from '@/components/common';
@@ -6,11 +7,11 @@ import {
   ProductCarousel,
   ProductCartActions,
   ProductFeature,
-  ProductPrice,
   ProductPaypal,
+  ProductPrice,
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
-import {getProduct} from '@model/product';
+import {getProduct, getProductVariations} from '@model/product';
 
 export const dynamic = 'error';
 export const revalidate = 10;
@@ -27,6 +28,7 @@ export async function generateMetadata({
 
 export default async function ProductPage({params}: PageProps<{slug: string}>) {
   const product = await getProduct(params.slug, {throwNotFound: true});
+  const getVariationPromise = getProductVariations(String(product.id));
 
   return (
     <>
@@ -100,7 +102,12 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               </div>
             )}
             <div className='mt-5'>
-              <ProductCartActions />
+              <Suspense fallback={<ProductCartActions product={product} />}>
+                <ProductCartActions
+                  product={product}
+                  variationPromise={getVariationPromise}
+                />
+              </Suspense>
             </div>
             <div className='mt-0'>
               <div className='text-center'>- OR -</div>

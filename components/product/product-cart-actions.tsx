@@ -1,9 +1,15 @@
 'use client';
 
-import {useState} from 'react';
+import {use, useState} from 'react';
 
 import clsx from 'clsx';
 
+import {
+  addCart,
+  type Product,
+  type ProductVariation,
+  useProductVariation,
+} from '@model/product';
 import offcanvas from '@ui/offcanvas';
 
 import ProductCheckoutCart from './product-checkout-cart';
@@ -11,12 +17,21 @@ import ProductCheckoutCart from './product-checkout-cart';
 interface ProductCartActionsProps {
   min?: number;
   max?: number;
+  product: Product;
+  variationPromise?: Promise<ProductVariation[]>;
 }
 
 export default function ProductCartActions({
   min = 1,
   max,
+  product,
+  variationPromise,
 }: ProductCartActionsProps) {
+  let productVariations: ProductVariation[] = [];
+  if (variationPromise) {
+    productVariations = use(variationPromise);
+  }
+  const variantion = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
   const increase = () => {
@@ -69,7 +84,19 @@ export default function ProductCartActions({
       >
         <button
           className='bg-black hover:bg-black/80'
-          onClick={() => {
+          onClick={async () => {
+            if (!variantion) {
+              alert('Please choose variantions');
+              return;
+            }
+            await addCart({
+              product: {
+                id: product.id,
+                name: product.name,
+              },
+              quantity,
+              variantion,
+            });
             offcanvas.show({
               direction: 'right',
               content: <ProductCheckoutCart onClose={offcanvas.close} />,

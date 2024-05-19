@@ -44,7 +44,7 @@ function OffcanvasProvider() {
       isDismissable
       isOpen={isOpen}
       onOpenChange={setOpen}
-      className='fixed inset-0 bg-black/20 backdrop-blur-sm data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out'
+      className='fixed inset-0 z-[998] bg-black/20 backdrop-blur-sm data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out'
     >
       <Modal
         onOpenChange={setOpen}
