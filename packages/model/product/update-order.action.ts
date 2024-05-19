@@ -1,9 +1,8 @@
-"use server";
+'use server';
 
-import { client } from "@/lib/client";
+import {client} from '@/lib/client';
 
-
-export const updateOrder = async (orderId:any, billingDetails:any) => {
+export async function updateOrder(orderId: any, billingDetails: any) {
   return client
     .put(`v3/orders/${orderId}`, {
       json: {
