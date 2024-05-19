@@ -1,4 +1,4 @@
-import {cache} from 'react';
+import {unstable_cache as cache} from 'next/cache';
 import 'server-only';
 
 import {client} from '@/lib/client';

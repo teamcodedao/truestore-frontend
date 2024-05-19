@@ -14,9 +14,9 @@ export interface ProductPriceProps {
 
 export function ImplProductPrice({regular_price, price}: ProductPriceProps) {
   return (
-    <div>
+    <div className='space-x-1'>
       {!!regular_price && (
-        <span className='text-xl text-slate-500 line-through'>
+        <span className='text-xl font-medium text-slate-500 line-through'>
           {formatCurrency(parseFloat(regular_price), 'USD', {
             stripZeros: true,
           })}
