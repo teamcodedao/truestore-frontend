@@ -3,7 +3,7 @@
 import {use, useMemo} from 'react';
 
 import {formatCurrency} from '@automattic/format-currency';
-import {ProductVariation,useParamsVariation} from '@model/product';
+import {ProductVariation, useParamsVariation} from '@model/product';
 
 export interface ProductPriceProps {
   regular_price?: string;
@@ -43,9 +43,19 @@ export default function ProductPrice({
 
   const variation = useMemo(() => {
     return productVariations.find(item => {
-      return !!item.attributes.find(
+      const checkColor = !!item.attributes.find(
         attr => attr.name === 'COLOR' && attr.option === paramVariation?.COLOR
       );
+
+      if (checkColor) {
+        return !!item.attributes.find(
+          attr =>
+            attr.name === 'SIZE ( US )' &&
+            attr.option === paramVariation?.['SIZE ( US )']
+        );
+      }
+
+      return false;
     });
   }, [paramVariation, productVariations]);
 
