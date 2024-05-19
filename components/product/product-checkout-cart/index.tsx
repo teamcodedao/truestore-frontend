@@ -1,6 +1,13 @@
 'use client';
 
+import {useMemo} from 'react';
+
 import clsx from 'clsx';
+import {getCookie} from 'react-use-cookie';
+
+import type {ProductCartItem} from '@model/product';
+
+import CartItem from './cart-item';
 
 interface ProductCheckoutCartProps {
   onClose: () => void;
@@ -9,8 +16,16 @@ interface ProductCheckoutCartProps {
 export default function ProductCheckoutCart({
   onClose,
 }: ProductCheckoutCartProps) {
+  const carts = useMemo<ProductCartItem[]>(() => {
+    try {
+      return JSON.parse(getCookie('carts'));
+    } catch {
+      return [];
+    }
+  }, []);
+
   return (
-    <div className='flex h-screen w-[480px] flex-col px-10 py-8'>
+    <div className='flex h-screen w-[480px] max-w-full flex-col p-4 sm:p-8'>
       <header className='relative shrink-0 border-b pb-10'>
         <h3 className='text-2xl font-bold'>Your shopping cart</h3>
         <button
@@ -25,7 +40,17 @@ export default function ProductCheckoutCart({
         </button>
       </header>
 
-      <div className='grow overflow-y-auto'>content</div>
+      <div className='mt-5 grow overflow-y-auto'>
+        {carts.length ? (
+          <div className='space-y-5'>
+            {carts.map((cart, index) => (
+              <CartItem key={index} cart={cart} />
+            ))}
+          </div>
+        ) : (
+          <div>Cart is empty!!!</div>
+        )}
+      </div>
 
       <footer className='mt-auto shrink-0 border-t pt-5'>
         <div className='flex justify-between'>

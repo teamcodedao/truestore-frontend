@@ -54,5 +54,5 @@ export interface ProductCartItem {
   variantion: Pick<
     ProductVariation,
     'id' | 'price' | 'regular_price' | 'sale_price'
-  > & {image: string};
+  > & {image?: string; attributes: string[]};
 }

@@ -53,6 +53,9 @@ importers:
       react-dom:
         specifier: 19.0.0-beta-26f2496093-20240514
         version: 19.0.0-beta-26f2496093-20240514(react@19.0.0-beta-26f2496093-20240514)
+      react-use-cookie:
+        specifier: ^1.6.1
+        version: 1.6.1(react@19.0.0-beta-26f2496093-20240514)
       rooks:
         specifier: ^7.14.1
         version: 7.14.1(react-dom@19.0.0-beta-26f2496093-20240514)(react@19.0.0-beta-26f2496093-20240514)
@@ -4557,6 +4560,15 @@ packages:
       '@react-stately/tooltip': 3.4.8(react@19.0.0-beta-26f2496093-20240514)
       '@react-stately/tree': 3.8.0(react@19.0.0-beta-26f2496093-20240514)
       '@react-types/shared': 3.23.0(react@19.0.0-beta-26f2496093-20240514)
+      react: 19.0.0-beta-26f2496093-20240514
+    dev: false
+
+  /react-use-cookie@1.6.1(react@19.0.0-beta-26f2496093-20240514):
+    resolution: {integrity: sha512-77bENFpc+pi1roLJIrRvekprB4IjwG1Mowir0QdbwA0pDjgMtp3Ya9E1H9dJAisCxBvTZih6k5+2SSVo9BR2qw==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
       react: 19.0.0-beta-26f2496093-20240514
     dev: false
 

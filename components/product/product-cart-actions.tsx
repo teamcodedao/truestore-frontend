@@ -1,6 +1,6 @@
 'use client';
 
-import {use, useState} from 'react';
+import {Suspense, use, useState} from 'react';
 
 import clsx from 'clsx';
 
@@ -100,12 +100,17 @@ export default function ProductCartActions({
                 price: variantion.price,
                 regular_price: variantion.regular_price,
                 sale_price: variantion.sale_price,
-                image: variantion.image.src,
+                image: variantion.image.src || product.images?.[0].src,
+                attributes: variantion.attributes.map(attr => attr.option),
               },
             });
             offcanvas.show({
               direction: 'right',
-              content: <ProductCheckoutCart onClose={offcanvas.close} />,
+              content: (
+                <Suspense>
+                  <ProductCheckoutCart onClose={offcanvas.close} />
+                </Suspense>
+              ),
             });
           }}
         >
