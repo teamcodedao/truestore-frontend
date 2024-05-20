@@ -143,7 +143,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         </div>
       </div>
       <Suspense>
-        <YourCart className='!fixed right-36 top-3/4' />
+        <YourCart className='!fixed right-10 top-3/4 sm:right-20 lg:right-36' />
       </Suspense>
     </>
   );

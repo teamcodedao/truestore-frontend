@@ -1,5 +1,6 @@
 'use client';
 
+import {Backdropper} from '@ui/backdrop';
 import {Offcanvaser} from '@ui/offcanvas';
 
 export default function Provider({children}: React.PropsWithChildren) {
@@ -7,6 +8,7 @@ export default function Provider({children}: React.PropsWithChildren) {
     <>
       {children}
       <Offcanvaser />
+      <Backdropper />
     </>
   );
 }
