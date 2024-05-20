@@ -1,10 +1,10 @@
+import {Suspense} from 'react';
 import Image from 'next/image';
 
 import type {Metadata} from 'next';
 
-import logoImg from '@/images/logo.webp';
-import {Suspense} from 'react';
 import {ButtonPaypal, NoSSR} from '@/components/common';
+import logoImg from '@/images/logo.webp';
 
 
 export const metadata: Metadata = {
