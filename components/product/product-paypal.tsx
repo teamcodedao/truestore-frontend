@@ -1,7 +1,9 @@
 'use client';
 
-import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {createOrder, updateOrder} from '@model/product';
+import { getCookie } from 'react-use-cookie';
+
+import { PaypalButtonSkeleton } from '@/components/skeleton';
+import { createOrder, updateOrder } from '@model/product';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -15,17 +17,26 @@ const initialOptions = {
 };
 
 function PaypalButton() {
-  const [{isPending}] = usePayPalScriptReducer();
+  const [{ isPending }] = usePayPalScriptReducer();
 
   const createOrderPaypal = async (data: any, actions: any) => {
     try {
-      const order = await createOrder([
-        {
-          product_id: 2005,
-          variation_id: 2030,
-          quantity: 1,
-        },
-      ]);
+      const carts = getCookie('carts') ? JSON.parse(getCookie('carts')) : [];
+      const order = await createOrder(
+        carts.map(item => {
+          const orderItem = {
+            product_id: item.product.id,
+            quantity: item.quantity
+          };
+
+          if (item.variation) {
+            orderItem["variation_id"] = item.variation.id;
+          }
+
+          return orderItem;
+        })
+      );
+
       return actions.order.create({
         purchase_units: [
           {
