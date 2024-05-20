@@ -18,7 +18,19 @@ interface ProductCartActionsProps {
   min?: number;
   max?: number;
   product: Product;
-  variationPromise?: Promise<ProductVariation[]>;
+  variationPromise: Promise<ProductVariation[]>;
+}
+
+export function ProductCartActionsSkeleton() {
+  return (
+    <div className='flex h-[48px] animate-pulse gap-x-3'>
+      <div className='w-[88px] bg-gray-200'></div>
+      <div className='flex grow gap-x-3'>
+        <div className='flex-1 rounded bg-gray-200'></div>
+        <div className='flex-1 rounded bg-gray-200'></div>
+      </div>
+    </div>
+  );
 }
 
 export default function ProductCartActions({
@@ -27,10 +39,7 @@ export default function ProductCartActions({
   product,
   variationPromise,
 }: ProductCartActionsProps) {
-  let productVariations: ProductVariation[] = [];
-  if (variationPromise) {
-    productVariations = use(variationPromise);
-  }
+  const productVariations = use(variationPromise);
   const variantion = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 

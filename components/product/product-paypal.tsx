@@ -1,7 +1,12 @@
 'use client';
 
+import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {createOrder, updateOrder} from '@model/product';
-import {PayPalButtons, PayPalScriptProvider} from '@paypal/react-paypal-js';
+import {
+  PayPalButtons,
+  PayPalScriptProvider,
+  usePayPalScriptReducer,
+} from '@paypal/react-paypal-js';
 
 const initialOptions = {
   clientId:
@@ -9,7 +14,9 @@ const initialOptions = {
   currency: 'USD',
 };
 
-const ProductPaypal = () => {
+function PaypalButton() {
+  const [{isPending}] = usePayPalScriptReducer();
+
   const createOrderPaypal = async (data: any, actions: any) => {
     try {
       const order = await createOrder([
@@ -64,10 +71,17 @@ const ProductPaypal = () => {
   };
 
   return (
-    <PayPalScriptProvider options={initialOptions}>
+    <>
       <PayPalButtons createOrder={createOrderPaypal} onApprove={onApprove} />
+      {isPending && <PaypalButtonSkeleton />}
+    </>
+  );
+}
+
+export default function ProductPaypal() {
+  return (
+    <PayPalScriptProvider options={initialOptions}>
+      <PaypalButton />
     </PayPalScriptProvider>
   );
-};
-
-export default ProductPaypal;
+}

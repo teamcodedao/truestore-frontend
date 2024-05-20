@@ -7,6 +7,7 @@ import {
   ProductAttribute,
   ProductCarousel,
   ProductCartActions,
+  ProductCartActionsSkeleton,
   ProductFeature,
   ProductPaypal,
   ProductPrice,
@@ -103,7 +104,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               </div>
             )}
             <div className='mt-5'>
-              <Suspense fallback={<ProductCartActions product={product} />}>
+              <Suspense fallback={<ProductCartActionsSkeleton />}>
                 <ProductCartActions
                   product={product}
                   variationPromise={getVariationPromise}
@@ -111,8 +112,14 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               </Suspense>
             </div>
             <div className='mt-0'>
-              <div className='text-center'>- OR -</div>
-              <ProductPaypal />
+              <div className='relative my-2 text-center after:multi-[`absolute;w-full;h-0.5;bg-gray-300;left-0;top-1/2;-translate-y-1/2`]'>
+                <span className='relative z-10 inline-block bg-white px-3 text-sm font-medium'>
+                  OR
+                </span>
+              </div>
+              <Suspense>
+                <ProductPaypal />
+              </Suspense>
             </div>
             <div className='mt-5'>
               <Image
