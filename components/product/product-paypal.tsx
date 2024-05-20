@@ -3,7 +3,7 @@
 import {getCookie} from 'react-use-cookie';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {createOrder, updateOrder} from '@model/product';
+import {createOrder, updateOrder} from '@model/order';
 import {
   PayPalButtons,
   PayPalScriptProvider,

@@ -1,0 +1,12 @@
+{
+  "name": "@model/cart",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./typings.ts",
+      "react-server": "./server.ts",
+      "default": "./client.ts"
+    }
+  }
+}

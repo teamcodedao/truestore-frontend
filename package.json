@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@automattic/format-currency": "^2.0.0",
+    "@model/cart": "workspace:^",
+    "@model/order": "workspace:^",
     "@model/product": "workspace:^",
     "@paypal/react-paypal-js": "^8.3.0",
     "@react-aria/ssr": "^3.9.3",

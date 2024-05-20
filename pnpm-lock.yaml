@@ -11,6 +11,12 @@ importers:
       '@automattic/format-currency':
         specifier: ^2.0.0
         version: 2.0.0
+      '@model/cart':
+        specifier: workspace:^
+        version: link:packages/model/cart
+      '@model/order':
+        specifier: workspace:^
+        version: link:packages/model/order
       '@model/product':
         specifier: workspace:^
         version: link:packages/model/product
@@ -123,6 +129,10 @@ importers:
       typescript:
         specifier: ^5
         version: 5.4.5
+
+  packages/model/cart: {}
+
+  packages/model/order: {}
 
   packages/model/product: {}
 

@@ -6,6 +6,8 @@ import {Price} from '@/components/common';
 import type {ProductCartItem} from '@model/product';
 import {SpinNumber} from '@ui/spin-number';
 
+// import {  } from "@model/c";
+
 interface CartItemProps {
   cart: ProductCartItem;
 }
@@ -13,7 +15,7 @@ interface CartItemProps {
 export default function CartItem({cart}: CartItemProps) {
   const [quantity, setQuantity] = useState(cart.quantity);
 
-  function handleChangeQuantity(quantity: number) {
+  async function handleChangeQuantity(quantity: number) {
     setQuantity(quantity);
     console.log('change', quantity);
   }

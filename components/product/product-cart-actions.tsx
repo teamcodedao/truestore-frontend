@@ -5,8 +5,8 @@ import {Suspense, use, useState} from 'react';
 import clsx from 'clsx';
 
 import {CheckoutCart} from '@/components/cart';
+import {addCart} from '@model/cart';
 import {
-  addCart,
   type Product,
   type ProductVariation,
   useProductVariation,

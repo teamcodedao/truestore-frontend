@@ -1,6 +1,6 @@
 import {cookies} from 'next/headers';
 
-import type {ProductCartItem} from './typings';
+import type {ProductCartItem, UpdateProductCartItem} from './typings';
 
 export class CartStore {
   public static addCart(cart: ProductCartItem) {
@@ -24,6 +24,28 @@ export class CartStore {
     }
 
     return carts;
+  }
+
+  public static updateCartQuantity(item: UpdateProductCartItem) {
+    const carts = CartStore.get();
+
+    const cart = carts.find(c => {
+      if (
+        c.product.id === item.product_id &&
+        c.variantion.id === item.variantion_id
+      ) {
+        return true;
+      }
+
+      return false;
+    });
+
+    if (cart) {
+      cart.quantity = item.quantity;
+      carts[carts.indexOf(cart)] = cart;
+    }
+
+    return [cart, carts] as const;
   }
 
   public static get() {
