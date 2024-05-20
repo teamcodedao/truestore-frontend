@@ -9,13 +9,11 @@ import type {ProductCartItem} from '@model/product';
 
 import CartItem from './cart-item';
 
-interface ProductCheckoutCartProps {
+interface CheckoutCartProps {
   onClose: () => void;
 }
 
-export default function ProductCheckoutCart({
-  onClose,
-}: ProductCheckoutCartProps) {
+export default function CheckoutCart({onClose}: CheckoutCartProps) {
   const carts = useMemo<ProductCartItem[]>(() => {
     try {
       return JSON.parse(getCookie('carts'));

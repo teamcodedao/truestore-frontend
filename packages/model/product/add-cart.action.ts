@@ -9,8 +9,6 @@ import {CartStore} from './cart.store';
 export async function addCart(cart: ProductCartItem) {
   const carts = CartStore.addCart(cart);
 
-  console.log(carts);
-
   cookies().set({
     name: 'carts',
     value: JSON.stringify(carts),

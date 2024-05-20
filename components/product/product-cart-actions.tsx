@@ -4,6 +4,7 @@ import {Suspense, use, useState} from 'react';
 
 import clsx from 'clsx';
 
+import {CheckoutCart} from '@/components/cart';
 import {
   addCart,
   type Product,
@@ -12,8 +13,6 @@ import {
 } from '@model/product';
 import offcanvas from '@ui/offcanvas';
 import {SpinNumber} from '@ui/spin-number';
-
-import ProductCheckoutCart from './product-checkout-cart';
 
 interface ProductCartActionsProps {
   min?: number;
@@ -72,7 +71,7 @@ export default function ProductCartActions({
               direction: 'right',
               content: (
                 <Suspense>
-                  <ProductCheckoutCart onClose={offcanvas.close} />
+                  <CheckoutCart onClose={offcanvas.close} />
                 </Suspense>
               ),
             });
