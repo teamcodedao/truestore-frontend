@@ -3,29 +3,43 @@
 import {useMemo} from 'react';
 
 import clsx from 'clsx';
-import {getCookie} from 'react-use-cookie';
 
+import {useCookie} from '@/lib/use-cookie';
+import {formatCurrency} from '@automattic/format-currency';
 import type {ProductCartItem} from '@model/product';
 
-import CartItem from './cart-item';
+import GroupCart from './group-cart';
 
 interface CheckoutCartProps {
   onClose: () => void;
 }
 
 export default function CheckoutCart({onClose}: CheckoutCartProps) {
-  const carts = useMemo<ProductCartItem[]>(() => {
-    try {
-      return JSON.parse(getCookie('carts'));
-    } catch {
-      return [];
-    }
-  }, []);
+  const [carts] = useCookie<ProductCartItem[]>('carts', []);
+
+  const countTotal = useMemo(() => {
+    return carts.reduce((total, item) => {
+      return total + item.quantity;
+    }, 0);
+  }, [carts]);
+
+  const subTotal = useMemo(() => {
+    return carts.reduce((total, item) => {
+      return (
+        total +
+        item.quantity *
+          parseFloat(item.variantion.sale_price || item.variantion.price)
+      );
+    }, 0);
+  }, [carts]);
 
   return (
     <div className='flex h-screen w-[480px] max-w-full flex-col p-4 sm:p-8'>
       <header className='relative shrink-0 border-b pb-8 sm:pb-10'>
-        <h3 className='text-2xl font-bold'>Your shopping cart</h3>
+        <h3 className='text-2xl font-bold'>
+          Your shopping cart{' '}
+          {countTotal > 0 ? <span>({countTotal})</span> : null}
+        </h3>
         <button
           aria-label='Close Checkout'
           onClick={onClose}
@@ -38,22 +52,16 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
         </button>
       </header>
 
-      <div className='mt-5 grow overflow-y-auto'>
-        {carts.length ? (
-          <div className='space-y-5'>
-            {carts.map((cart, index) => (
-              <CartItem key={index} cart={cart} />
-            ))}
-          </div>
-        ) : (
-          <div>No products in the cart</div>
-        )}
-      </div>
+      <GroupCart carts={carts} />
 
       <footer className='mt-auto shrink-0 border-t pt-5'>
         <div className='flex justify-between'>
           <span className='text-lg font-bold'>Subtotal:</span>
-          <span className='font-medium'>$114.98</span>
+          <span className='font-medium'>
+            {formatCurrency(subTotal, 'USD', {
+              stripZeros: true,
+            })}
+          </span>
         </div>
         <button
           disabled={carts.length === 0}
