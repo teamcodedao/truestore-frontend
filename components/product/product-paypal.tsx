@@ -3,7 +3,7 @@
 import { getCookie } from 'react-use-cookie';
 
 import { PaypalButtonSkeleton } from '@/components/skeleton';
-import { createOrder, updateOrder } from '@model/product';
+import { createOrder, ProductCartItem, updateOrder } from '@model/product';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -16,21 +16,29 @@ const initialOptions = {
   currency: 'USD',
 };
 
+interface OrderItem {
+  product_id: any;
+  quantity: any;
+  variation_id?: any; // Biến này là tùy chọn
+}
+
 function PaypalButton() {
   const [{ isPending }] = usePayPalScriptReducer();
 
   const createOrderPaypal = async (data: any, actions: any) => {
     try {
-      const carts = getCookie('carts') ? JSON.parse(getCookie('carts')) : [];
+      let carts: ProductCartItem[] = [];
+      carts = getCookie('carts') ? JSON.parse(getCookie('carts')) : [];
+      
       const order = await createOrder(
-        carts.map(item => {
-          const orderItem = {
+        carts.map((item: ProductCartItem): OrderItem => {
+          const orderItem: OrderItem = {
             product_id: item.product.id,
             quantity: item.quantity
           };
 
           if (item.variation) {
-            orderItem["variation_id"] = item.variation.id;
+            orderItem.variation_id = item.variation.id;
           }
 
           return orderItem;
