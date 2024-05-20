@@ -9,20 +9,20 @@ export function useProductVariation(productVariations: ProductVariation[]) {
   const paramVariation = useParamsVariation();
 
   return useMemo(() => {
+    if (!paramVariation) {
+      return null;
+    }
     return productVariations.find(item => {
-      const checkColor = !!item.attributes.find(
-        attr => attr.name === 'COLOR' && attr.option === paramVariation?.COLOR
-      );
-
-      if (checkColor) {
-        return !!item.attributes.find(
-          attr =>
-            attr.name === 'SIZE ( US )' &&
-            attr.option === paramVariation?.['SIZE ( US )']
+      for (const [key, value] of Object.entries(paramVariation)) {
+        const exists = item.attributes.find(
+          attr => attr.name === key && attr.option === value
         );
+        if (!exists) {
+          return false;
+        }
       }
 
-      return false;
+      return true;
     });
   }, [paramVariation, productVariations]);
 }

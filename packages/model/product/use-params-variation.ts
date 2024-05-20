@@ -5,9 +5,7 @@ import {useSearchParams} from 'next/navigation';
 
 import superjson from 'superjson';
 
-import type {GetParamsVariation} from './typings';
-
-export function useParamsVariation<T = GetParamsVariation>() {
+export function useParamsVariation<T = Record<string, string>>() {
   const searchParams = useSearchParams();
   const rawVariation = searchParams.get('variation') ?? '';
 

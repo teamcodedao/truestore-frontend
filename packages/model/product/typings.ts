@@ -8,7 +8,7 @@ export * from './use-product-variation';
 
 export interface ProductAttribute<O> {
   id: number;
-  name: 'COLOR' | 'SIZE ( US )'; // string
+  name: string;
   position: number;
   variation: boolean;
   options: O[];
@@ -41,11 +41,6 @@ export interface Product {
   regular_price?: string;
   attributes?: ProductAttribute<string>[];
   images?: ProductImage[];
-}
-
-export interface GetParamsVariation {
-  COLOR?: string;
-  'SIZE ( US )'?: string;
 }
 
 export interface ProductCartItem {
