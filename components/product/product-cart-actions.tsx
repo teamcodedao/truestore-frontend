@@ -1,6 +1,6 @@
 'use client';
 
-import {Suspense, use, useState} from 'react';
+import {startTransition, Suspense, use, useState} from 'react';
 
 import clsx from 'clsx';
 
@@ -57,37 +57,41 @@ export default function ProductCartActions({
       >
         <button
           className='bg-black hover:bg-black/80'
-          onClick={async () => {
+          onClick={() => {
             if (!variantion) {
               alert('Please, choose product options');
               return;
             }
-
             const closeBackdrop = backdrop.show();
-            await addCart({
-              product: {
-                id: product.id,
-                name: product.name,
-              },
-              quantity,
-              variantion: {
-                id: variantion.id,
-                price: variantion.price,
-                regular_price: variantion.regular_price,
-                sale_price: variantion.sale_price,
-                image: variantion.image.src || product.images?.[0].src,
-                attributes: variantion.attributes.map(attr => attr.option),
-              },
-            });
-            closeBackdrop();
-            offcanvas.show({
-              direction: 'right',
-              content: (
-                <Suspense>
-                  <CheckoutCart onClose={offcanvas.close} />
-                </Suspense>
-              ),
-            });
+
+            setTimeout(async () => {
+              await addCart({
+                product: {
+                  id: product.id,
+                  name: product.name,
+                },
+                quantity,
+                variantion: {
+                  id: variantion.id,
+                  price: variantion.price,
+                  regular_price: variantion.regular_price,
+                  sale_price: variantion.sale_price,
+                  image: variantion.image.src || product.images?.[0].src,
+                  attributes: variantion.attributes.map(attr => attr.option),
+                },
+              });
+
+              offcanvas.show({
+                direction: 'right',
+                content: (
+                  <Suspense>
+                    <CheckoutCart onClose={offcanvas.close} />
+                  </Suspense>
+                ),
+              });
+
+              setTimeout(closeBackdrop, 700);
+            }, 200);
           }}
         >
           <span className='i-carbon-shopping-cart-plus'></span>

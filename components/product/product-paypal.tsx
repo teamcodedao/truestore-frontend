@@ -1,9 +1,9 @@
 'use client';
 
-import { getCookie } from 'react-use-cookie';
+import {getCookie} from 'react-use-cookie';
 
-import { PaypalButtonSkeleton } from '@/components/skeleton';
-import { createOrder, ProductCartItem, updateOrder } from '@model/product';
+import {PaypalButtonSkeleton} from '@/components/skeleton';
+import {createOrder, updateOrder} from '@model/product';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -23,7 +23,7 @@ interface OrderItem {
 }
 
 function PaypalButton() {
-  const [{ isPending }] = usePayPalScriptReducer();
+  const [{isPending}] = usePayPalScriptReducer();
 
   const createOrderPaypal = async (data: any, actions: any) => {
     try {
@@ -34,7 +34,7 @@ function PaypalButton() {
         carts.map((item: ProductCartItem): OrderItem => {
           const orderItem: OrderItem = {
             product_id: item.product.id,
-            quantity: item.quantity
+            quantity: item.quantity,
           };
 
           if (item.variation) {
