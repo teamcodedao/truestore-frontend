@@ -1,6 +1,7 @@
 {
   "name": "@model/product",
   "version": "0.0.0",
+  "private": true,
   "exports": {
     ".": {
       "types": "./typings.ts",

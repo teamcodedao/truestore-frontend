@@ -17,8 +17,8 @@ export default function Price({size = 'lg', regular_price, price}: PriceProps) {
           suppressHydrationWarning
           className={clsx('font-medium text-slate-500 line-through', {
             'text-xl': size === 'lg',
-            'text-lg': size === 'md',
-            'text-base': size === 'sm',
+            'text-base': size === 'md',
+            'text-sm': size === 'sm',
           })}
         >
           {formatCurrency(parseFloat(regular_price), 'USD', {
@@ -30,8 +30,8 @@ export default function Price({size = 'lg', regular_price, price}: PriceProps) {
         suppressHydrationWarning
         className={clsx('font-bold text-red-500', {
           'text-2xl': size === 'lg',
-          'text-xl': size === 'md',
-          'text-lg': size === 'sm',
+          'text-lg': size === 'md',
+          'text-base': size === 'sm',
         })}
       >
         {formatCurrency(parseFloat(price), 'USD', {

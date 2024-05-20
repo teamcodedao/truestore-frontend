@@ -48,16 +48,19 @@ export default function ProductCheckoutCart({
             ))}
           </div>
         ) : (
-          <div>Cart is empty!!!</div>
+          <div>No products in the cart</div>
         )}
       </div>
 
       <footer className='mt-auto shrink-0 border-t pt-5'>
         <div className='flex justify-between'>
-          <span className='text-lg font-bold'>Subtotal</span>:{' '}
+          <span className='text-lg font-bold'>Subtotal:</span>
           <span className='font-medium'>$114.98</span>
         </div>
-        <button className='mt-5 w-full rounded-full bg-black px-5 py-4 text-xl font-bold text-white transition'>
+        <button
+          disabled={carts.length === 0}
+          className='mt-5 w-full rounded-full bg-black px-5 py-4 text-xl font-bold text-white transition disabled:opacity-50'
+        >
           Proceed to Checkout
         </button>
       </footer>

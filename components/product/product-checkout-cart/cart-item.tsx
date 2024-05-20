@@ -1,18 +1,26 @@
 'use client';
 
+import {useState} from 'react';
+
 import {Price} from '@/components/common';
 import type {ProductCartItem} from '@model/product';
+import {SpinNumber} from '@ui/spin-number';
 
 interface CartItemProps {
-  cart?: ProductCartItem;
+  cart: ProductCartItem;
 }
 
 export default function CartItem({cart}: CartItemProps) {
-  if (!cart) return null;
+  const [quantity, setQuantity] = useState(cart.quantity);
+
+  function handleChangeQuantity(quantity: number) {
+    setQuantity(quantity);
+    console.log('change', quantity);
+  }
 
   return (
     <div className='flex gap-x-2'>
-      <div className='size-[100px] shrink-0'>
+      <div className='size-[100px] shrink-0 bg-gray-100'>
         <img
           src={cart.variantion.image}
           alt=''
@@ -31,20 +39,28 @@ export default function CartItem({cart}: CartItemProps) {
             </span>
           ))}
         </div>
-        <div className='flex justify-between'>
-          <div>action</div>
-          <div>
-            <Price
-              size='sm'
-              price={cart.variantion.sale_price || cart.variantion.price}
-              regular_price={cart.variantion.regular_price}
-            />
-          </div>
+        <div className='mt-2 flex flex-wrap justify-between'>
+          <SpinNumber
+            size='sm'
+            value={quantity}
+            min={1}
+            onChange={handleChangeQuantity}
+          />
+          <Price
+            size='md'
+            price={String(
+              quantity *
+                Number(cart.variantion.sale_price || cart.variantion.price)
+            )}
+            regular_price={String(
+              quantity * Number(cart.variantion.regular_price)
+            )}
+          />
         </div>
       </div>
       <button
         aria-label='Remove'
-        className='block shrink-0 bg-red-500 px-1.5 text-xl text-white transition hover:bg-red-500/80'
+        className='block shrink-0 bg-red-500 px-1.5 text-xl text-white transition hover:bg-red-400'
       >
         <span className='i-carbon-trash-can'></span>
       </button>

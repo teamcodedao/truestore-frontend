@@ -11,6 +11,7 @@ import {
   useProductVariation,
 } from '@model/product';
 import offcanvas from '@ui/offcanvas';
+import {SpinNumber} from '@ui/spin-number';
 
 import ProductCheckoutCart from './product-checkout-cart';
 
@@ -34,46 +35,9 @@ export default function ProductCartActions({
   const variantion = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
-  const increase = () => {
-    setQuantity(quantity => {
-      if (typeof max === 'number') {
-        return Math.min(max, quantity + 1);
-      }
-
-      return quantity + 1;
-    });
-  };
-
-  const decrease = () => {
-    setQuantity(quantity => Math.max(min, quantity - 1));
-  };
-
   return (
     <div className='flex gap-x-3'>
-      <div
-        className={clsx(
-          'flex shrink-0 items-stretch border border-gray-300',
-          '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500`]'
-        )}
-      >
-        <button
-          aria-label='Decrease quantity'
-          onClick={decrease}
-          className='pl-2'
-        >
-          <span className='i-radix-icons-minus translate-y-1'></span>
-        </button>
-        <span className='min-w-[30px] self-center text-center text-lg font-medium'>
-          {quantity}
-        </span>
-        <button
-          aria-label='Incecrease quantity'
-          onClick={increase}
-          className='pr-2'
-        >
-          <span className='i-radix-icons-plus translate-y-1'></span>
-        </button>
-      </div>
+      <SpinNumber value={quantity} min={min} max={max} onChange={setQuantity} />
       <div
         className={clsx(
           'flex grow gap-x-3',
@@ -86,7 +50,7 @@ export default function ProductCartActions({
           className='bg-black hover:bg-black/80'
           onClick={async () => {
             if (!variantion) {
-              alert('Please choose variantions');
+              alert('Please, choose product options');
               return;
             }
             await addCart({

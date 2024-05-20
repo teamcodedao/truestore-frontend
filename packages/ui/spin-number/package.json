@@ -1,5 +1,5 @@
 {
-  "name": "@ui/offcanvas",
+  "name": "@ui/spin-number",
   "version": "0.0.0",
   "private": true,
   "main": "index.ts",

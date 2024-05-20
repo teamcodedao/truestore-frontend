@@ -17,6 +17,7 @@
     "@paypal/react-paypal-js": "^8.3.0",
     "@react-aria/ssr": "^3.9.3",
     "@ui/offcanvas": "workspace:^",
+    "@ui/spin-number": "workspace:^",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.11",
     "embla-carousel": "^8.1.1",

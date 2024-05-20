@@ -23,6 +23,9 @@ importers:
       '@ui/offcanvas':
         specifier: workspace:^
         version: link:packages/ui/offcanvas
+      '@ui/spin-number':
+        specifier: workspace:^
+        version: link:packages/ui/spin-number
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -121,6 +124,8 @@ importers:
   packages/model/product: {}
 
   packages/ui/offcanvas: {}
+
+  packages/ui/spin-number: {}
 
 packages:
 
