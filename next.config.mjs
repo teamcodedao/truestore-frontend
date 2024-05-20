@@ -7,7 +7,6 @@ const nextConfig = {
     typedRoutes: true,
   },
   poweredByHeader: false,
-  serverExternalPackages: ["got"],
   eslint: {
     dirs: ['app', 'components', 'lib', 'packages'],
   },

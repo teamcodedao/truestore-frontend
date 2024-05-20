@@ -1,9 +1,10 @@
 'use client';
 
-import {startTransition, useEffect, useState} from 'react';
+import {startTransition, Suspense, useEffect, useState} from 'react';
 
 import clsx from 'clsx';
 import {Dialog, Heading, Modal, ModalOverlay} from 'react-aria-components';
+import {ErrorBoundary} from 'react-error-boundary';
 
 import {useIsSSR} from '@react-aria/ssr';
 
@@ -60,7 +61,17 @@ function OffcanvasProvider() {
       >
         <Dialog>
           <Heading slot='title'></Heading>
-          {canvas?.content}
+          <ErrorBoundary
+            {...(canvas?.fallback
+              ? {
+                  fallback: canvas.fallback,
+                }
+              : {
+                  fallback: <div>Something went wrong</div>,
+                })}
+          >
+            <Suspense fallback={canvas?.loading}>{canvas?.content}</Suspense>
+          </ErrorBoundary>
         </Dialog>
       </Modal>
     </ModalOverlay>
