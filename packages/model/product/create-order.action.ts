@@ -12,5 +12,5 @@ export async function createOrder(cart: any) {
         line_items: cart,
       },
     })
-    .json();
+    .json<any>();
 }

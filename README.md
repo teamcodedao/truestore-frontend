@@ -1,2 +1,3 @@
-# TODO
+# Front store for WooCommerce
+
 ##

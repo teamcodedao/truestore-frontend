@@ -23,6 +23,7 @@
     "no-console": ["warn", {"allow": ["error", "info"]}],
     "@next/next/no-img-element": "off",
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
     "import/first": "warn",
     "import/newline-after-import": "warn",
     "import/no-duplicates": "warn",

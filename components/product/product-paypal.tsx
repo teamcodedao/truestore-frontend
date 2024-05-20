@@ -1,16 +1,16 @@
-"use client";
-import React from "react";
-import { createOrder, updateOrder } from "@model/product";
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+'use client';
+
+import {createOrder, updateOrder} from '@model/product';
+import {PayPalButtons, PayPalScriptProvider} from '@paypal/react-paypal-js';
 
 const initialOptions = {
   clientId:
-    "AZOjMz0V8b4VoY9-gz-pWuVfvHFEXbU1z0aD01ROSo-5M8kdFW0CaxB7o1ss-aX8s1mwlPSK_9aEpG_X",
-  currency: "USD",
+    'AZOjMz0V8b4VoY9-gz-pWuVfvHFEXbU1z0aD01ROSo-5M8kdFW0CaxB7o1ss-aX8s1mwlPSK_9aEpG_X',
+  currency: 'USD',
 };
 
 const ProductPaypal = () => {
-  const createOrderPaypal = async (data, actions) => {
+  const createOrderPaypal = async (data: any, actions: any) => {
     try {
       const order = await createOrder([
         {
@@ -30,12 +30,12 @@ const ProductPaypal = () => {
         ],
       });
     } catch (error) {
-      console.error("Error creating order:", error);
+      console.error('Error creating order:', error);
       throw error;
     }
   };
 
-  const onApprove = async (data, actions) => {
+  const onApprove = async (data: any, actions: any) => {
     try {
       const order = await actions.order.capture();
       const billingDetails = {
@@ -44,20 +44,20 @@ const ProductPaypal = () => {
         email: order.payer.email_address,
         address_1: order.purchase_units[0].shipping.address.address_line_1,
         address_2:
-          order.purchase_units[0].shipping.address.address_line_2 || "",
+          order.purchase_units[0].shipping.address.address_line_2 || '',
         city: order.purchase_units[0].shipping.address.admin_area_2,
         state: order.purchase_units[0].shipping.address.admin_area_1,
         postcode: order.purchase_units[0].shipping.address.postal_code,
         country: order.purchase_units[0].shipping.address.country_code,
-        phone: order.payer.phone?.phone_number?.national_number || "",
+        phone: order.payer.phone?.phone_number?.national_number || '',
       };
 
       const wooOrderID = order.purchase_units[0].custom_id;
       const updatedOrder = await updateOrder(wooOrderID, billingDetails);
-      console.log("WooCommerce Order updated:", updatedOrder);
+      console.log('WooCommerce Order updated:', updatedOrder);
     } catch (error) {
       console.error(
-        "Error capturing order or updating WooCommerce order:",
+        'Error capturing order or updating WooCommerce order:',
         error
       );
     }
