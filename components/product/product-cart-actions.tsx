@@ -1,6 +1,6 @@
 'use client';
 
-import {startTransition, Suspense, use, useState} from 'react';
+import {Suspense, use, useState} from 'react';
 
 import clsx from 'clsx';
 
@@ -90,7 +90,7 @@ export default function ProductCartActions({
                 ),
               });
 
-              setTimeout(closeBackdrop, 400);
+              setTimeout(closeBackdrop, 300);
             }, 200);
           }}
         >

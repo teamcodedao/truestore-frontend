@@ -1,6 +1,7 @@
 'use client';
 
 import {useMemo} from 'react';
+import Link from 'next/link';
 
 import clsx from 'clsx';
 
@@ -63,12 +64,17 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
             })}
           </span>
         </div>
-        <button
-          disabled={carts.length === 0}
-          className='mt-5 w-full rounded-full bg-black px-5 py-4 text-xl font-bold text-white transition disabled:opacity-50'
+        <Link
+          href='/checkout'
+          aria-disabled={carts.length === 0}
+          inert={carts.length === 0}
+          className={clsx(
+            'mt-5 block w-full rounded-full bg-black px-5 py-4 text-center text-xl font-bold text-white transition',
+            'select-none aria-disabled:multi-[`bg-opacity-70`]'
+          )}
         >
           Proceed to Checkout
-        </button>
+        </Link>
       </footer>
     </div>
   );
