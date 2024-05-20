@@ -2,7 +2,7 @@ import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {YourCart} from '@/components/cart';
-import {Countdown, RandomNumber} from '@/components/common';
+import {Countdown, NoSSR, RandomNumber} from '@/components/common';
 import {
   ProductAttribute,
   ProductCarousel,
@@ -143,7 +143,9 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         </div>
       </div>
       <Suspense>
-        <YourCart className='!fixed right-10 top-3/4 z-[100] sm:right-20 lg:right-36' />
+        <NoSSR>
+          <YourCart className='!fixed right-10 top-3/4 z-[100] sm:right-20 lg:right-36' />
+        </NoSSR>
       </Suspense>
     </>
   );

@@ -90,7 +90,7 @@ export default function ProductCartActions({
                 ),
               });
 
-              setTimeout(closeBackdrop, 700);
+              setTimeout(closeBackdrop, 500);
             }, 200);
           }}
         >
