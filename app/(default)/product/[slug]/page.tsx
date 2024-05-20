@@ -2,14 +2,13 @@ import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {YourCart} from '@/components/cart';
-import {Countdown, NoSSR, RandomNumber} from '@/components/common';
+import {ButtonPaypal, Countdown, NoSSR, RandomNumber} from '@/components/common';
 import {
   ProductAttribute,
   ProductCarousel,
   ProductCartActions,
   ProductCartActionsSkeleton,
   ProductFeature,
-  ProductPaypal,
   ProductPrice,
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
@@ -118,7 +117,9 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 </span>
               </div>
               <Suspense>
-                <ProductPaypal />
+                <NoSSR>
+                  <ButtonPaypal />
+                </NoSSR>
               </Suspense>
             </div>
             <div className='mt-5'>

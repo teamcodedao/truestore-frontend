@@ -5,5 +5,4 @@ export {
   ProductCartActionsSkeleton,
 } from './product-cart-actions';
 export {default as ProductFeature} from './product-feature';
-export {default as ProductPaypal} from './product-paypal';
 export {default as ProductPrice} from './product-price';

@@ -3,7 +3,7 @@
 import {getCookie} from 'react-use-cookie';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {createOrder, updateOrder} from '@model/order';
+import {ProductCartItem, createOrder, updateOrder} from '@model/order';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -19,7 +19,7 @@ const initialOptions = {
 interface OrderItem {
   product_id: any;
   quantity: any;
-  variation_id?: any; // Biến này là tùy chọn
+  variation_id?: any;
 }
 
 function PaypalButton() {

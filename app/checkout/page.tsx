@@ -3,6 +3,9 @@ import Image from 'next/image';
 import type {Metadata} from 'next';
 
 import logoImg from '@/images/logo.webp';
+import {Suspense} from 'react';
+import {ButtonPaypal, NoSSR} from '@/components/common';
+
 
 export const metadata: Metadata = {
   title: 'Checkout',
@@ -30,7 +33,13 @@ export default function CheckoutPage() {
             />
           </a>
         </div>
-        <div>TODO Payment</div>
+        <div>
+          <Suspense>
+            <NoSSR>
+              <ButtonPaypal />
+            </NoSSR>
+          </Suspense>
+        </div>
       </div>
     </div>
   );
