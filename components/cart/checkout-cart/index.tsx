@@ -29,7 +29,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
       return (
         total +
         item.quantity *
-          parseFloat(item.variantion.sale_price || item.variantion.price)
+          parseFloat(item.variation.sale_price || item.variation.price)
       );
     }, 0);
   }, [carts]);

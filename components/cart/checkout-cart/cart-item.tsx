@@ -3,10 +3,9 @@
 import {useState} from 'react';
 
 import {Price} from '@/components/common';
+import {updateCartQuantity} from '@model/cart';
 import type {ProductCartItem} from '@model/product';
 import {SpinNumber} from '@ui/spin-number';
-
-// import {  } from "@model/c";
 
 interface CartItemProps {
   cart: ProductCartItem;
@@ -24,7 +23,7 @@ export default function CartItem({cart}: CartItemProps) {
     <div className='flex gap-x-2'>
       <div className='size-[100px] shrink-0 bg-gray-100'>
         <img
-          src={cart.variantion.image}
+          src={cart.variation.image}
           alt=''
           className='size-full object-contain'
         />
@@ -32,7 +31,7 @@ export default function CartItem({cart}: CartItemProps) {
       <div>
         <h4 className='line-clamp-2 font-bold'>{cart.product.name}</h4>
         <div className='flex flex-wrap gap-1.5 font-medium'>
-          {cart.variantion.attributes.map((attr, index) => (
+          {cart.variation.attributes.map((attr, index) => (
             <span
               key={index}
               className='line-clamp-1 rounded bg-gray-300 px-1 text-xs text-slate-500'
@@ -52,10 +51,10 @@ export default function CartItem({cart}: CartItemProps) {
             size='md'
             price={String(
               quantity *
-                Number(cart.variantion.sale_price || cart.variantion.price)
+                Number(cart.variation.sale_price || cart.variation.price)
             )}
             regular_price={String(
-              quantity * Number(cart.variantion.regular_price)
+              quantity * Number(cart.variation.regular_price)
             )}
           />
         </div>

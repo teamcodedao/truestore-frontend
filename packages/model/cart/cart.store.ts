@@ -9,7 +9,7 @@ export class CartStore {
     const indexExist = carts.findIndex(c => {
       if (
         c.product.id === cart.product.id &&
-        c.variantion.id === cart.variantion.id
+        c.variation.id === cart.variation.id
       ) {
         return true;
       }
@@ -32,7 +32,7 @@ export class CartStore {
     const cart = carts.find(c => {
       if (
         c.product.id === item.product_id &&
-        c.variantion.id === item.variantion_id
+        c.variation.id === item.variation_id
       ) {
         return true;
       }

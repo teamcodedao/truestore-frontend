@@ -41,7 +41,7 @@ export default function ProductCartActions({
   variationPromise,
 }: ProductCartActionsProps) {
   const productVariations = use(variationPromise);
-  const variantion = useProductVariation(productVariations);
+  const variation = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
   return (
@@ -58,7 +58,7 @@ export default function ProductCartActions({
         <button
           className='bg-black hover:bg-black/80'
           onClick={() => {
-            if (!variantion) {
+            if (!variation) {
               alert('Please, choose product options');
               return;
             }
@@ -71,13 +71,13 @@ export default function ProductCartActions({
                   name: product.name,
                 },
                 quantity,
-                variantion: {
-                  id: variantion.id,
-                  price: variantion.price,
-                  regular_price: variantion.regular_price,
-                  sale_price: variantion.sale_price,
-                  image: variantion.image.src || product.images?.[0].src,
-                  attributes: variantion.attributes.map(attr => attr.option),
+                variation: {
+                  id: variation.id,
+                  price: variation.price,
+                  regular_price: variation.regular_price,
+                  sale_price: variation.sale_price,
+                  image: variation.image.src || product.images?.[0].src,
+                  attributes: variation.attributes.map(attr => attr.option),
                 },
               });
 

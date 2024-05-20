@@ -41,7 +41,7 @@ export interface Product {
 export interface ProductCartItem {
   product: Pick<Product, 'id' | 'name'>;
   quantity: number;
-  variantion: Pick<
+  variation: Pick<
     ProductVariation,
     'id' | 'price' | 'regular_price' | 'sale_price'
   > & {image?: string; attributes: string[]};
@@ -49,6 +49,6 @@ export interface ProductCartItem {
 
 export interface UpdateProductCartItem {
   product_id: number;
-  variantion_id: number;
+  variation_id: number;
   quantity: number;
 }
