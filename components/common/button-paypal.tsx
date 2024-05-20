@@ -11,9 +11,8 @@ import {
 } from '@paypal/react-paypal-js';
 
 const initialOptions = {
-  clientId:
-    'AZOjMz0V8b4VoY9-gz-pWuVfvHFEXbU1z0aD01ROSo-5M8kdFW0CaxB7o1ss-aX8s1mwlPSK_9aEpG_X',
-  currency: 'USD',
+  clientId: process.env.PAYPAL_CLIENT_ID,
+  currency: process.env.PAYPAL_CURRENCY,
 };
 
 interface OrderItem {
