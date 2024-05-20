@@ -12,7 +12,14 @@ export default function DefaultLayout({children}: LayoutProps) {
         <header className='relative flex items-center justify-center gap-x-10 py-4'>
           <MenuOffcanvas />
           <a href='/'>
-            <Image src={logoImg} unoptimized height={65} alt='' />
+            <Image
+              src={logoImg}
+              quality={100}
+              priority
+              unoptimized
+              height={65}
+              alt=''
+            />
           </a>
         </header>
         <div>{children}</div>
