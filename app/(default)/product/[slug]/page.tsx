@@ -112,7 +112,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               </Suspense>
             </div>
             <div className='mt-0'>
-              <div className='relative my-2 text-center after:multi-[`absolute;w-full;h-0.5;bg-gray-300;left-0;top-1/2;-translate-y-1/2`]'>
+              <div className='relative my-2 text-center after:multi-[`absolute;w-full;h-0.5;bg-gray-200;left-0;top-1/2;-translate-y-1/2`]'>
                 <span className='relative z-10 inline-block bg-white px-3 text-sm font-medium'>
                   OR
                 </span>
@@ -143,7 +143,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         </div>
       </div>
       <Suspense>
-        <YourCart className='!fixed right-10 top-3/4 sm:right-20 lg:right-36' />
+        <YourCart className='!fixed right-10 top-3/4 z-[100] sm:right-20 lg:right-36' />
       </Suspense>
     </>
   );
