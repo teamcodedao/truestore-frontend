@@ -16,6 +16,7 @@
     "@model/product": "workspace:^",
     "@paypal/react-paypal-js": "^8.3.0",
     "@react-aria/ssr": "^3.9.3",
+    "@ui/backdrop": "workspace:^",
     "@ui/offcanvas": "workspace:^",
     "@ui/spin-number": "workspace:^",
     "clsx": "^2.1.1",

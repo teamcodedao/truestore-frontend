@@ -11,6 +11,7 @@ import {
   type ProductVariation,
   useProductVariation,
 } from '@model/product';
+import backdrop from '@ui/backdrop';
 import offcanvas from '@ui/offcanvas';
 import {SpinNumber} from '@ui/spin-number';
 
@@ -61,6 +62,8 @@ export default function ProductCartActions({
               alert('Please, choose product options');
               return;
             }
+
+            const closeBackdrop = backdrop.show();
             await addCart({
               product: {
                 id: product.id,
@@ -76,6 +79,7 @@ export default function ProductCartActions({
                 attributes: variantion.attributes.map(attr => attr.option),
               },
             });
+            closeBackdrop();
             offcanvas.show({
               direction: 'right',
               content: (
