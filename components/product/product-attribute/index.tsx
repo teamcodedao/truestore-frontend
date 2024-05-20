@@ -1,6 +1,6 @@
 'use client';
 
-import {startTransition, Suspense, useMemo} from 'react';
+import {startTransition, Suspense, useMemo, useOptimistic} from 'react';
 import {type Route} from 'next';
 import {usePathname, useRouter} from 'next/navigation';
 
@@ -20,7 +20,10 @@ function ProductAttribute(
   const router = useRouter();
   const pathname = usePathname();
 
-  const variation = useParamsVariation<Record<string, string>>();
+  const [variation, addOptimistic] = useOptimistic(
+    useParamsVariation<Record<string, string>>(),
+    (_state, value: Record<string, string>) => value
+  );
 
   const selectedIndex = useMemo(() => {
     return props.options.findIndex(
@@ -30,8 +33,8 @@ function ProductAttribute(
 
   const handleSelect = (value: string) => {
     const json = {...variation, [props.name]: value};
-
     startTransition(() => {
+      addOptimistic(json);
       router.replace(
         `${pathname}?variation=${encodeURIComponent(
           superjson.stringify(json)
