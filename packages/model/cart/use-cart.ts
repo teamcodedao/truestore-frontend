@@ -9,7 +9,7 @@ import type {CartItem} from './typings';
 const STOREAGE_NAME = 'carts';
 
 export function useCart() {
-  const [carts, writeCarts, removeCart] = useLocalStorage<CartItem[]>(
+  const [carts, writeCarts, clearCart] = useLocalStorage<CartItem[]>(
     STOREAGE_NAME,
     []
   );
@@ -61,6 +61,6 @@ export function useCart() {
 
   return [
     {carts, countTotal, subTotal},
-    {addCart, removeCart},
+    {addCart, clearCart},
   ] as const;
 }

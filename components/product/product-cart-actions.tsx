@@ -4,7 +4,7 @@ import {use, useState} from 'react';
 
 import clsx from 'clsx';
 
-import {CheckoutCart} from '@/components/cart';
+import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {useCart} from '@model/cart';
 import {
   type Product,
@@ -83,6 +83,7 @@ export default function ProductCartActions({
             offcanvas.show({
               direction: 'right',
               ssr: false,
+              fallback: <CheckoutCartError onClose={offcanvas.close} />,
               content: <CheckoutCart onClose={offcanvas.close} />,
             });
           }}

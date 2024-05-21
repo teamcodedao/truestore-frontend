@@ -5,7 +5,7 @@ import {useState} from 'react';
 import clsx from 'clsx';
 import {useIntervalWhen} from 'rooks';
 
-import {CheckoutCart} from '@/components/cart';
+import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
@@ -35,6 +35,7 @@ export default function YourCart({className, ...rest}: YourCartProps) {
         offcanvas.show({
           direction: 'right',
           ssr: false,
+          fallback: <CheckoutCartError onClose={offcanvas.close} />,
           content: <CheckoutCart onClose={offcanvas.close} />,
         });
       }}
