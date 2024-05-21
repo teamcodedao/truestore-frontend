@@ -5,7 +5,7 @@ import {useCart} from '@model/cart';
 import CartItem from './cart-item';
 
 export default function GroupCart() {
-  const [{carts}, {deleteCart}] = useCart();
+  const [{carts}, {setCartQuantity, deleteCart}] = useCart();
 
   return (
     <div className='mt-5 grow overflow-y-auto'>
@@ -16,6 +16,7 @@ export default function GroupCart() {
               key={`${cart.product.id}-${cart.variation.id}`}
               cart={cart}
               onDelete={() => deleteCart(cart)}
+              onQuantityChange={quantity => setCartQuantity(cart, quantity)}
             />
           ))}
         </div>

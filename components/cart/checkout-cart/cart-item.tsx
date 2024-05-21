@@ -8,15 +8,20 @@ import {SpinNumber} from '@ui/spin-number';
 
 interface CartItemProps {
   cart: CartItem;
+  onQuantityChange: (quantity: number) => void;
   onDelete: () => void;
 }
 
-export default function CartItem({cart, onDelete}: CartItemProps) {
+export default function CartItem({
+  cart,
+  onDelete,
+  onQuantityChange,
+}: CartItemProps) {
   const [quantity, setQuantity] = useState(cart.quantity);
 
   async function handleChangeQuantity(quantity: number) {
     setQuantity(quantity);
-    console.log('change', quantity);
+    onQuantityChange(quantity);
   }
 
   return (

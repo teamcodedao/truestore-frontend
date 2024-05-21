@@ -69,8 +69,27 @@ export function useCart() {
     return newCarts;
   }
 
+  function setCartQuantity(cart: CartItem, quantity: number) {
+    const cartIndex = carts.indexOf(getInCart(cart));
+
+    const newCarts = carts.map((cart, index) => {
+      if (cartIndex === index) {
+        return {
+          ...cart,
+          quantity,
+        };
+      }
+
+      return cart;
+    });
+
+    writeCarts(newCarts);
+
+    return newCarts;
+  }
+
   return [
     {carts, countTotal, subTotal},
-    {addCart, deleteCart, clearCart},
+    {addCart, setCartQuantity, deleteCart, clearCart},
   ] as const;
 }
