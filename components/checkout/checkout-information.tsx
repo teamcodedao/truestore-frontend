@@ -3,7 +3,7 @@
 import {formatCurrency} from '@automattic/format-currency';
 import {useCart} from '@model/cart';
 
-export default function ProductInformation() {
+export default function CheckoutInformation() {
   const [{carts, subTotal}] = useCart();
 
   return (

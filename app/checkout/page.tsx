@@ -4,15 +4,20 @@ import Image from 'next/image';
 
 import type {Metadata} from 'next';
 
+import {
+  CheckoutHeading,
+  CheckoutInformationSkeleton,
+  CheckoutPayment,
+} from '@/components/checkout';
 import {MenuOffcanvas} from '@/components/common';
 import logoImg from '@/images/logo.webp';
 
-import CheckoutPayment from './payment';
-import ProductHeading from './product-heading';
-
-const ProductInformation = dynamic(() => import('./product-information'), {
-  ssr: false,
-});
+const CheckoutInformation = dynamic(
+  () => import('@/components/checkout').then(mod => mod.CheckoutInformation),
+  {
+    ssr: false,
+  }
+);
 
 export const metadata: Metadata = {
   title: 'Checkout',
@@ -25,10 +30,10 @@ export default function CheckoutPage() {
       <div className='flex grow justify-end overflow-hidden bg-gray-50 px-5 pb-10 sm:flex-1 lg:px-8'>
         <div className='max-w-[--max-w]'>
           <MenuOffcanvas className='mb-12 mt-5' />
-          <ProductHeading />
+          <CheckoutHeading />
           <div className='h-4'></div>
-          <Suspense fallback={<div>loading</div>}>
-            <ProductInformation />
+          <Suspense fallback={<CheckoutInformationSkeleton />}>
+            <CheckoutInformation />
           </Suspense>
         </div>
       </div>

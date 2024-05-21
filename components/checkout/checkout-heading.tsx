@@ -2,7 +2,7 @@
 
 import {useRouter} from 'next/navigation';
 
-export default function ProductHeading() {
+export default function CheckoutHeading() {
   const router = useRouter();
 
   return (
