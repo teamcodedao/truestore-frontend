@@ -4,6 +4,8 @@ import clsx from 'clsx';
 
 import offcanvas from '@ui/offcanvas';
 
+interface MenuOffcanvasProps extends React.ComponentProps<'button'> {}
+
 function MenuContent() {
   return (
     <aside className='relative w-[350px]'>
@@ -46,11 +48,11 @@ function MenuContent() {
   );
 }
 
-export default function MenuOffcanvas() {
+export default function MenuOffcanvas(props: MenuOffcanvasProps) {
   return (
     <button
       aria-label='Menu'
-      className='absolute left-0'
+      {...props}
       onClick={() => {
         offcanvas.show({
           content: <MenuContent />,

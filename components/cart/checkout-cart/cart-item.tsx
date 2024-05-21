@@ -34,7 +34,9 @@ export default function CartItem({
         />
       </div>
       <div>
-        <h4 className='line-clamp-2 font-bold'>{cart.product.name}</h4>
+        <h4 className='line-clamp-2 font-bold' title={cart.product.name}>
+          {cart.product.name}
+        </h4>
         <div className='flex flex-wrap gap-1.5 font-medium'>
           {cart.variation.attributes.map((attr, index) => (
             <span

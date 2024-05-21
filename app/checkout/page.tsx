@@ -1,12 +1,18 @@
+import {Suspense} from 'react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
 import type {Metadata} from 'next';
 
+import {MenuOffcanvas} from '@/components/common';
 import logoImg from '@/images/logo.webp';
 
 import CheckoutPayment from './payment';
 import ProductHeading from './product-heading';
-import ProductInformation from './product-information';
+
+const ProductInformation = dynamic(() => import('./product-information'), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: 'Checkout',
@@ -15,16 +21,20 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
   return (
-    <div className='flex min-h-screen w-full [--max-w:min(100%,550px)]'>
-      <div className='flex flex-1 justify-end bg-gray-100 px-5 pb-12 pt-20 lg:px-10'>
-        <div className='mt-10 max-w-[--max-w]'>
+    <div className='flex min-h-screen w-full flex-col [--max-w:100%] sm:multi-[`[--max-w:min(100%,550px)];flex-row;`]'>
+      <div className='flex grow justify-end overflow-hidden bg-gray-50 px-5 pb-10 sm:flex-1 lg:px-8'>
+        <div className='max-w-[--max-w]'>
+          <MenuOffcanvas className='mb-12 mt-5' />
           <ProductHeading />
           <div className='h-4'></div>
-          <ProductInformation />
+          <Suspense fallback={<div>loading</div>}>
+            <ProductInformation />
+          </Suspense>
         </div>
       </div>
-      <div className='flex-1 px-5 pb-12 pt-5 lg:px-10'>
-        <div>
+
+      <div className='grow px-5 pb-12 pt-5 sm:flex-1 lg:px-8'>
+        <div className='-ml-3 hidden sm:block'>
           <a href='/'>
             <Image
               src={logoImg}
