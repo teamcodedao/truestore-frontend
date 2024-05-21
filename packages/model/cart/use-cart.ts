@@ -30,8 +30,8 @@ export function useCart() {
     }, 0);
   }, [carts]);
 
-  function addCart(cart: CartItem) {
-    const cartIndex = carts.findIndex(c => {
+  function getInCart(cart: CartItem) {
+    return carts.find(c => {
       if (
         c.product.id === cart.product.id &&
         c.variation.id === cart.variation.id
@@ -40,27 +40,37 @@ export function useCart() {
       }
 
       return false;
-    });
+    })!;
+  }
 
-    let newNewCarts = [...carts];
+  function addCart(cart: CartItem) {
+    const cartIndex = carts.indexOf(getInCart(cart));
+    let newCarts = [...carts];
 
     if (cartIndex === -1) {
-      newNewCarts = [...carts, cart];
+      newCarts = [...carts, cart];
     } else {
-      newNewCarts[cartIndex].quantity += cart.quantity;
+      newCarts[cartIndex].quantity += cart.quantity;
     }
 
-    writeCarts(newNewCarts);
+    writeCarts(newCarts);
 
-    return newNewCarts;
+    return newCarts;
   }
 
   function deleteCart(cart: CartItem) {
-    //
+    const cartIndex = carts.indexOf(getInCart(cart));
+    const newCarts = carts.filter((_, index) => {
+      return cartIndex !== index;
+    });
+
+    writeCarts(newCarts);
+
+    return newCarts;
   }
 
   return [
     {carts, countTotal, subTotal},
-    {addCart, clearCart},
+    {addCart, deleteCart, clearCart},
   ] as const;
 }

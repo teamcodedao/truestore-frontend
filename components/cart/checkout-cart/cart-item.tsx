@@ -8,9 +8,10 @@ import {SpinNumber} from '@ui/spin-number';
 
 interface CartItemProps {
   cart: CartItem;
+  onDelete: () => void;
 }
 
-export default function CartItem({cart}: CartItemProps) {
+export default function CartItem({cart, onDelete}: CartItemProps) {
   const [quantity, setQuantity] = useState(cart.quantity);
 
   async function handleChangeQuantity(quantity: number) {
@@ -61,6 +62,7 @@ export default function CartItem({cart}: CartItemProps) {
       <button
         aria-label='Remove'
         className='block shrink-0 bg-red-500 px-1.5 text-xl text-white transition hover:bg-red-400'
+        onClick={onDelete}
       >
         <span className='i-carbon-trash-can'></span>
       </button>

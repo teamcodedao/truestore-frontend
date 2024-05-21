@@ -35,7 +35,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
         </button>
       </header>
 
-      <GroupCart carts={carts} />
+      <GroupCart />
 
       <footer className='mt-auto shrink-0 border-t pt-5'>
         <div className='flex justify-between'>
