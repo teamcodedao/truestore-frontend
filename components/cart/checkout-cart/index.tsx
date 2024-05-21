@@ -51,7 +51,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
           aria-disabled={carts.length === 0}
           className={clsx(
             'mt-5 block w-full rounded-full bg-black px-5 py-4 text-center text-xl font-bold text-white transition',
-            'select-none aria-disabled:multi-[`bg-opacity-70`]'
+            'select-none aria-disabled:multi-[`bg-opacity-70;pointer-events-none`]'
           )}
         >
           Proceed to Checkout

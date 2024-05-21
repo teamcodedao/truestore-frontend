@@ -16,7 +16,7 @@ const CheckoutInformation = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className='w-[550px]'>
+      <div className='w-[--w-base] max-w-full'>
         <CheckoutInformationSkeleton />
       </div>
     ),
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
   return (
-    <div className='flex min-h-screen w-full flex-col [--max-w:100%] sm:multi-[`[--max-w:min(100%,550px)];flex-row;`]'>
+    <div className='flex min-h-screen w-full flex-col [--max-w:100%] [--w-base:550px] sm:multi-[`[--max-w:min(100%,var(--w-base))];flex-row;`]'>
       <div className='flex grow justify-end overflow-hidden bg-gray-50 px-5 pb-10 sm:flex-1 lg:px-8'>
         <div className='max-w-[--max-w]'>
           <MenuOffcanvas className='mb-12 mt-5' />
