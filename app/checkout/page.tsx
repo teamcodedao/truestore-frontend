@@ -1,11 +1,12 @@
-import {Suspense} from 'react';
 import Image from 'next/image';
 
 import type {Metadata} from 'next';
 
-import {ButtonPaypal} from '@/components/common';
 import logoImg from '@/images/logo.webp';
-import {NoSSR} from '@ui/common';
+
+import CheckoutPayment from './payment';
+import ProductHeading from './product-heading';
+import ProductInformation from './product-information';
 
 export const metadata: Metadata = {
   title: 'Checkout',
@@ -14,13 +15,15 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
   return (
-    <div className='flex min-h-screen w-full'>
-      <div className='flex flex-1 justify-end bg-gray-100 px-10 pb-12 pt-20'>
-        <div className='mt-1'>
-          <div>List product</div>
+    <div className='flex min-h-screen w-full [--max-w:min(100%,550px)]'>
+      <div className='flex flex-1 justify-end bg-gray-100 px-5 pb-12 pt-20 lg:px-10'>
+        <div className='mt-10 max-w-[--max-w]'>
+          <ProductHeading />
+          <div className='h-4'></div>
+          <ProductInformation />
         </div>
       </div>
-      <div className='flex-1 px-10 pb-12 pt-5'>
+      <div className='flex-1 px-5 pb-12 pt-5 lg:px-10'>
         <div>
           <a href='/'>
             <Image
@@ -33,12 +36,8 @@ export default function CheckoutPage() {
             />
           </a>
         </div>
-        <div>
-          <Suspense>
-            <NoSSR>
-              <ButtonPaypal />
-            </NoSSR>
-          </Suspense>
+        <div className='mt-10 max-w-[--max-w]'>
+          <CheckoutPayment />
         </div>
       </div>
     </div>

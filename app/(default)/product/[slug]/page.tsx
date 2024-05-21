@@ -118,9 +118,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 </span>
               </div>
               <Suspense>
-                <NoSSR>
-                  <ButtonPaypal />
-                </NoSSR>
+                <ButtonPaypal />
               </Suspense>
             </div>
             <div className='mt-5'>

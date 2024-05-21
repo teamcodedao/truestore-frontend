@@ -47,7 +47,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
           </span>
         </div>
         <Link
-          href='/checkout'
+          href='/checkout?from=checkout-cart'
           aria-disabled={carts.length === 0}
           className={clsx(
             'mt-5 block w-full rounded-full bg-black px-5 py-4 text-center text-xl font-bold text-white transition',

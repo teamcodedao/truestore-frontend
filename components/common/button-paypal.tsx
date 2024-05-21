@@ -93,7 +93,7 @@ function PaypalButton() {
   );
 }
 
-export default function ProductPaypal() {
+export default function ButtonPaypal() {
   return (
     <PayPalScriptProvider options={initialOptions}>
       <PaypalButton />

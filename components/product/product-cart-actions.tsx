@@ -1,6 +1,7 @@
 'use client';
 
 import {use, useState} from 'react';
+import Link from 'next/link';
 
 import clsx from 'clsx';
 
@@ -91,10 +92,13 @@ export default function ProductCartActions({
           <span className='i-carbon-shopping-cart-plus'></span>
           <span>Add to cart</span>
         </button>
-        <button className='bg-orange-600 hover:bg-orange-500'>
+        <Link
+          href='/checkout?from=product'
+          className='bg-orange-600 hover:bg-orange-500'
+        >
           <span className='i-carbon-wallet'></span>
           <span>Buy now</span>
-        </button>
+        </Link>
       </div>
     </div>
   );
