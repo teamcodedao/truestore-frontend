@@ -7,7 +7,6 @@ import {useIntervalWhen} from 'rooks';
 
 import {CheckoutCart} from '@/components/cart';
 import {useCart} from '@model/cart';
-import {type CartItem} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
 interface YourCartProps extends React.ComponentProps<'button'> {}

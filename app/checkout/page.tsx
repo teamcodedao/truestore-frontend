@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 import type {Metadata} from 'next';
 
-import {ButtonPaypal, NoSSR} from '@/components/common';
+import {ButtonPaypal} from '@/components/common';
 import logoImg from '@/images/logo.webp';
-
+import {NoSSR} from '@ui/common';
 
 export const metadata: Metadata = {
   title: 'Checkout',

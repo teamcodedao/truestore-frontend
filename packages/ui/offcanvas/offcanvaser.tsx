@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import {Dialog, Heading, Modal, ModalOverlay} from 'react-aria-components';
 import {ErrorBoundary} from 'react-error-boundary';
 
-import {useIsSSR} from '@react-aria/ssr';
+import {NoSSR} from '@ui/common';
 
 import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';
@@ -79,6 +79,9 @@ function OffcanvasProvider() {
 }
 
 export default function Offcanvaser() {
-  const isSSR = useIsSSR();
-  return isSSR ? null : <OffcanvasProvider />;
+  return (
+    <NoSSR>
+      <OffcanvasProvider />
+    </NoSSR>
+  );
 }

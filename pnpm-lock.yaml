@@ -32,6 +32,9 @@ importers:
       '@ui/backdrop':
         specifier: workspace:^
         version: link:packages/ui/backdrop
+      '@ui/common':
+        specifier: workspace:^
+        version: link:packages/ui/common
       '@ui/offcanvas':
         specifier: workspace:^
         version: link:packages/ui/offcanvas
@@ -140,6 +143,8 @@ importers:
   packages/model/product: {}
 
   packages/ui/backdrop: {}
+
+  packages/ui/common: {}
 
   packages/ui/offcanvas: {}
 

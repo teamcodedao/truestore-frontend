@@ -20,6 +20,7 @@
     "@react-aria/ssr": "^3.9.4",
     "@rehooks/local-storage": "^2.4.5",
     "@ui/backdrop": "workspace:^",
+    "@ui/common": "workspace:^",
     "@ui/offcanvas": "workspace:^",
     "@ui/spin-number": "workspace:^",
     "clsx": "^2.1.1",

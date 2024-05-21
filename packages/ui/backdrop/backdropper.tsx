@@ -6,7 +6,7 @@ import Image from 'next/image';
 import {Modal, ModalOverlay} from 'react-aria-components';
 
 import puffLoading from '@/images/puff.svg';
-import {useIsSSR} from '@react-aria/ssr';
+import {NoSSR} from '@ui/common';
 
 import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';
@@ -68,6 +68,9 @@ function BackdropProvider() {
 }
 
 export default function Backdropper() {
-  const isSSR = useIsSSR();
-  return isSSR ? null : <BackdropProvider />;
+  return (
+    <NoSSR>
+      <BackdropProvider />
+    </NoSSR>
+  );
 }

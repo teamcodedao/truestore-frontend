@@ -2,7 +2,7 @@ import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {YourCart} from '@/components/cart';
-import {ButtonPaypal, Countdown, NoSSR, RandomNumber} from '@/components/common';
+import {ButtonPaypal, Countdown, RandomNumber} from '@/components/common';
 import {
   ProductAttribute,
   ProductCarousel,
@@ -13,6 +13,7 @@ import {
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {getProduct, getProductVariations} from '@model/product';
+import {NoSSR} from '@ui/common';
 
 export const dynamic = 'error';
 export const revalidate = 10;
