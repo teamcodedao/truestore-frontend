@@ -39,18 +39,3 @@ export interface Product {
   attributes?: ProductAttribute<string>[];
   images?: ProductImage[];
 }
-
-export interface ProductCartItem {
-  product: Pick<Product, 'id' | 'name'>;
-  quantity: number;
-  variation: Pick<
-    ProductVariation,
-    'id' | 'price' | 'regular_price' | 'sale_price'
-  > & {image?: string; attributes: string[]};
-}
-
-export interface UpdateProductCartItem {
-  product_id: number;
-  variation_id: number;
-  quantity: number;
-}

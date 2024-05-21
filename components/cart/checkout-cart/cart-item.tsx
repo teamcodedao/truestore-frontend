@@ -3,12 +3,11 @@
 import {useState} from 'react';
 
 import {Price} from '@/components/common';
-import {updateCartQuantity} from '@model/cart';
-import type {ProductCartItem} from '@model/product';
+import type {CartItem} from '@model/cart';
 import {SpinNumber} from '@ui/spin-number';
 
 interface CartItemProps {
-  cart: ProductCartItem;
+  cart: CartItem;
 }
 
 export default function CartItem({cart}: CartItemProps) {

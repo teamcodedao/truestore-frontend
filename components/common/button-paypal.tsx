@@ -1,9 +1,8 @@
 'use client';
 
-import {getCookie} from 'react-use-cookie';
-
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {createOrder, ProductCartItem, updateOrder} from '@model/order';
+import {useCart} from '@model/cart';
+import {createOrder, updateOrder} from '@model/order';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -23,14 +22,12 @@ interface OrderItem {
 
 function PaypalButton() {
   const [{isPending}] = usePayPalScriptReducer();
+  const [{carts}] = useCart();
 
   const createOrderPaypal = async (data: any, actions: any) => {
     try {
-      let carts: ProductCartItem[] = [];
-      carts = getCookie('carts') ? JSON.parse(getCookie('carts')) : [];
-      
       const order = await createOrder(
-        carts.map((item: ProductCartItem): OrderItem => {
+        carts.map((item): OrderItem => {
           const orderItem: OrderItem = {
             product_id: item.product.id,
             quantity: item.quantity,

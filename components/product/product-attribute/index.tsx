@@ -33,16 +33,16 @@ function ProductAttribute(
 
   const handleSelect = (value: string) => {
     const json = {...variation, [props.name]: value};
+    router.replace(
+      `${pathname}?variation=${encodeURIComponent(
+        superjson.stringify(json)
+      )}` as Route,
+      {
+        scroll: false,
+      }
+    );
     startTransition(() => {
       addOptimistic(json);
-      router.replace(
-        `${pathname}?variation=${encodeURIComponent(
-          superjson.stringify(json)
-        )}` as Route,
-        {
-          scroll: false,
-        }
-      );
     });
   };
 

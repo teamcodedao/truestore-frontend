@@ -1,17 +1,16 @@
 'use client';
 
-import {Suspense, use, useState} from 'react';
+import {use, useState} from 'react';
 
 import clsx from 'clsx';
 
 import {CheckoutCart} from '@/components/cart';
-import {addCart} from '@model/cart';
+import {useCart} from '@model/cart';
 import {
   type Product,
   type ProductVariation,
   useProductVariation,
 } from '@model/product';
-import backdrop from '@ui/backdrop';
 import offcanvas from '@ui/offcanvas';
 import {SpinNumber} from '@ui/spin-number';
 
@@ -44,6 +43,8 @@ export default function ProductCartActions({
   const variation = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
+  const [, {addCart}] = useCart();
+
   return (
     <div className='flex gap-x-3'>
       <SpinNumber value={quantity} min={min} max={max} onChange={setQuantity} />
@@ -62,36 +63,27 @@ export default function ProductCartActions({
               alert('Please, choose product options');
               return;
             }
-            const closeBackdrop = backdrop.show();
 
-            setTimeout(async () => {
-              await addCart({
-                product: {
-                  id: product.id,
-                  name: product.name,
-                },
-                quantity,
-                variation: {
-                  id: variation.id,
-                  price: variation.price,
-                  regular_price: variation.regular_price,
-                  sale_price: variation.sale_price,
-                  image: variation.image.src || product.images?.[0].src,
-                  attributes: variation.attributes.map(attr => attr.option),
-                },
-              });
+            addCart({
+              product: {
+                id: product.id,
+                name: product.name,
+              },
+              quantity,
+              variation: {
+                id: variation.id,
+                price: variation.price,
+                regular_price: variation.regular_price,
+                sale_price: variation.sale_price,
+                image: variation.image.src || product.images?.[0].src,
+                attributes: variation.attributes.map(attr => attr.option),
+              },
+            });
 
-              offcanvas.show({
-                direction: 'right',
-                content: (
-                  <Suspense>
-                    <CheckoutCart onClose={offcanvas.close} />
-                  </Suspense>
-                ),
-              });
-
-              setTimeout(closeBackdrop, 300);
-            }, 200);
+            offcanvas.show({
+              direction: 'right',
+              content: <CheckoutCart onClose={offcanvas.close} />,
+            });
           }}
         >
           <span className='i-carbon-shopping-cart-plus'></span>

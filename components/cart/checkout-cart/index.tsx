@@ -1,13 +1,11 @@
 'use client';
 
-import {useMemo} from 'react';
 import Link from 'next/link';
 
 import clsx from 'clsx';
 
-import {useCookie} from '@/lib/use-cookie';
 import {formatCurrency} from '@automattic/format-currency';
-import type {ProductCartItem} from '@model/product';
+import {useCart} from '@model/cart';
 
 import GroupCart from './group-cart';
 
@@ -16,23 +14,7 @@ interface CheckoutCartProps {
 }
 
 export default function CheckoutCart({onClose}: CheckoutCartProps) {
-  const [carts] = useCookie<ProductCartItem[]>('carts', []);
-
-  const countTotal = useMemo(() => {
-    return carts.reduce((total, item) => {
-      return total + item.quantity;
-    }, 0);
-  }, [carts]);
-
-  const subTotal = useMemo(() => {
-    return carts.reduce((total, item) => {
-      return (
-        total +
-        item.quantity *
-          parseFloat(item.variation.sale_price || item.variation.price)
-      );
-    }, 0);
-  }, [carts]);
+  const [{carts, countTotal, subTotal}] = useCart();
 
   return (
     <div className='flex h-screen w-[480px] max-w-full flex-col p-4 sm:p-8'>
@@ -67,7 +49,6 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
         <Link
           href='/checkout'
           aria-disabled={carts.length === 0}
-          inert={carts.length === 0}
           className={clsx(
             'mt-5 block w-full rounded-full bg-black px-5 py-4 text-center text-xl font-bold text-white transition',
             'select-none aria-disabled:multi-[`bg-opacity-70`]'

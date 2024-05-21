@@ -1,11 +1,11 @@
 'use client';
 
-import type {ProductCartItem} from '@model/product';
+import type {CartItem as CartItemType} from '@model/cart';
 
 import CartItem from './cart-item';
 
 interface CartsProps {
-  carts: ProductCartItem[];
+  carts: CartItemType[];
 }
 
 export default function GroupCart({carts}: CartsProps) {
