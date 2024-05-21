@@ -1,4 +1,3 @@
-import {Suspense} from 'react';
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
 
@@ -16,6 +15,11 @@ const CheckoutInformation = dynamic(
   () => import('@/components/checkout').then(mod => mod.CheckoutInformation),
   {
     ssr: false,
+    loading: () => (
+      <div className='w-[550px]'>
+        <CheckoutInformationSkeleton />
+      </div>
+    ),
   }
 );
 
@@ -32,9 +36,7 @@ export default function CheckoutPage() {
           <MenuOffcanvas className='mb-12 mt-5' />
           <CheckoutHeading />
           <div className='h-4'></div>
-          <Suspense fallback={<CheckoutInformationSkeleton />}>
-            <CheckoutInformation />
-          </Suspense>
+          <CheckoutInformation />
         </div>
       </div>
 
