@@ -70,7 +70,13 @@ function OffcanvasProvider() {
                   fallback: <div>Something went wrong</div>,
                 })}
           >
-            <Suspense fallback={canvas?.loading}>{canvas?.content}</Suspense>
+            <Suspense fallback={canvas?.loading}>
+              {canvas?.ssr === false ? (
+                <NoSSR>{canvas?.content}</NoSSR>
+              ) : (
+                canvas?.content
+              )}
+            </Suspense>
           </ErrorBoundary>
         </Dialog>
       </Modal>

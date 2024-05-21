@@ -82,6 +82,7 @@ export default function ProductCartActions({
 
             offcanvas.show({
               direction: 'right',
+              ssr: false,
               content: <CheckoutCart onClose={offcanvas.close} />,
             });
           }}

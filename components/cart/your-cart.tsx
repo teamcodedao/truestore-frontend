@@ -34,6 +34,7 @@ export default function YourCart({className, ...rest}: YourCartProps) {
       onClick={() => {
         offcanvas.show({
           direction: 'right',
+          ssr: false,
           content: <CheckoutCart onClose={offcanvas.close} />,
         });
       }}
