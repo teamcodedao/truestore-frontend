@@ -45,7 +45,7 @@ export default function Footer({className}: FooterProps) {
               <h3 className='mixin/heading'>Order</h3>
               <ul className='mixin/menu'>
                 <li>
-                  <a href='/order-tracking'>Order Tracking</a>
+                  <Link href='/order-tracking'>Order Tracking</Link>
                 </li>
                 <li>
                   <a href='/shipping-policy'>Shipping Policy</a>

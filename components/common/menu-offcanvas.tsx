@@ -25,10 +25,10 @@ function MenuContent() {
           </Link>
         </li>
         <li>
-          <a href='/order-tracking'>
+          <Link href='/order-tracking'>
             <span className='i-carbon-settings-adjust'></span>
             <span>Order Tracking</span>
-          </a>
+          </Link>
         </li>
         <li>
           <Link href='/contact'>
