@@ -48,7 +48,7 @@ export default function Footer({className}: FooterProps) {
                   <Link href='/order-tracking'>Order Tracking</Link>
                 </li>
                 <li>
-                  <a href='/shipping-policy'>Shipping Policy</a>
+                  <Link href='/shipping-policy'>Shipping Policy</Link>
                 </li>
                 <li>
                   <a href='/refund_returns'>Return & Refund Policy</a>

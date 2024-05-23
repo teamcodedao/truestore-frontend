@@ -18,13 +18,13 @@ export default function ContactPage() {
         <h3 className='text-xl font-bold'>CuTeng Queue Pte. Ltd</h3>
         <div>Address: 244 Fast North Drive 1, #02-05, Singapore, 528559</div>
         <div>
-          <span className='font-bold'>Hours:</span>
+          <strong>Hours:</strong>
           <ul className='indent-10'>
             <li>
-              Monday - Friday: <span className='font-bold'>9am - 0pm</span>
+              Monday - Friday: <strong>9am - 0pm</strong>
             </li>
             <li>
-              Saturday - Sunday: <span className='font-bold'>10am - 6pm</span>
+              Saturday - Sunday: <strong>10am - 6pm</strong>
             </li>
           </ul>
         </div>
