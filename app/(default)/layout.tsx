@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import {MenuOffcanvas} from '@/components/common';
 import logoImg from '@/images/logo.webp';
@@ -11,7 +12,7 @@ export default function DefaultLayout({children}: LayoutProps) {
       <div className='container'>
         <header className='relative flex items-center justify-center gap-x-10 py-4'>
           <MenuOffcanvas className='absolute left-0' />
-          <a href='/'>
+          <Link href='/'>
             <Image
               src={logoImg}
               quality={100}
@@ -20,7 +21,7 @@ export default function DefaultLayout({children}: LayoutProps) {
               height={65}
               alt=''
             />
-          </a>
+          </Link>
         </header>
         <div>{children}</div>
       </div>

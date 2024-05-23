@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import clsx from 'clsx';
 
 import offcanvas from '@ui/offcanvas';
@@ -17,10 +19,10 @@ function MenuContent() {
         )}
       >
         <li>
-          <a href='/'>
+          <Link href='/'>
             <span className='i-carbon-home'></span>
             <span>Home</span>
-          </a>
+          </Link>
         </li>
         <li>
           <a href='/order-tracking'>
@@ -29,10 +31,10 @@ function MenuContent() {
           </a>
         </li>
         <li>
-          <a href='/contact'>
+          <Link href='/contact'>
             <span className='i-carbon-email'></span>
             <span>Contact Us</span>
-          </a>
+          </Link>
         </li>
       </menu>
       <button

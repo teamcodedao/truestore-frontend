@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import type {Metadata} from 'next';
 
@@ -42,7 +43,7 @@ export default function CheckoutPage() {
 
       <div className='grow px-5 pb-12 pt-5 sm:flex-1 lg:px-8'>
         <div className='-ml-3 hidden sm:block'>
-          <a href='/'>
+          <Link href='/'>
             <Image
               src={logoImg}
               quality={100}
@@ -51,7 +52,7 @@ export default function CheckoutPage() {
               height={65}
               alt=''
             />
-          </a>
+          </Link>
         </div>
         <div className='mt-10 max-w-[--max-w]'>
           <CheckoutPayment />

@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className='min-h-screen'>
+    <main>
       <h1 className='uppercase'>Try experimenting with different URLs</h1>
       <ul>
         <li>

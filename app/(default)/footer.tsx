@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 import clsx from 'clsx';
 
@@ -61,7 +62,7 @@ export default function Footer({className}: FooterProps) {
                   <a href='/about-us'>About Us</a>
                 </li>
                 <li>
-                  <a href='/contact'>Contact Us</a>
+                  <Link href='/contact'>Contact Us</Link>
                 </li>
                 <li>
                   <a href='/payment-methods'>Payment Methods</a>
