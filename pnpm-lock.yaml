@@ -29,9 +29,6 @@ importers:
       '@paypal/react-paypal-js':
         specifier: ^8.3.0
         version: 8.3.0(react-dom@18.3.1)(react@18.3.1)
-      '@react-aria/ssr':
-        specifier: ^3.9.4
-        version: 3.9.4(react@18.3.1)
       '@rehooks/local-storage':
         specifier: ^2.4.5
         version: 2.4.5(react@18.3.1)
@@ -149,8 +146,6 @@ importers:
 
   packages/common/no-ssr: {}
 
-  packages/common/ssr: {}
-
   packages/model/cart: {}
 
   packages/model/order: {}
@@ -158,8 +153,6 @@ importers:
   packages/model/product: {}
 
   packages/ui/backdrop: {}
-
-  packages/ui/common: {}
 
   packages/ui/offcanvas: {}
 

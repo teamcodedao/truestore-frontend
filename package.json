@@ -19,7 +19,6 @@
     "@model/order": "workspace:^",
     "@model/product": "workspace:^",
     "@paypal/react-paypal-js": "^8.3.0",
-    "@react-aria/ssr": "^3.9.4",
     "@rehooks/local-storage": "^2.4.5",
     "@ui/backdrop": "workspace:^",
     "@ui/offcanvas": "workspace:^",

@@ -1,1 +1,5 @@
-export {default as NoSSR} from './no-ssr';
+import dynamic from 'next/dynamic';
+
+export const NoSSR = dynamic(() => import('./no-ssr'), {
+  ssr: false,
+});
