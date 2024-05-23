@@ -1,4 +1,5 @@
 import type {Config} from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
 
 import {getIconCollections, iconsPlugin} from '@egoist/tailwindcss-icons';
 
@@ -39,8 +40,12 @@ const config: Config = {
     require('@tailwindcss/typography'),
     require('tailwindcss-mixins'),
     require('tailwindcss-multi'),
+    require('tailwind-scrollbar-hide'),
     iconsPlugin({
       collections: getIconCollections(['carbon', 'radix-icons']),
+    }),
+    plugin(({addVariant}) => {
+      addVariant('ios', '@supports(-webkit-touch-callout:none)');
     }),
   ],
 };
