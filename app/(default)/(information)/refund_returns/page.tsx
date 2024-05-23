@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function RefundReturnsPage() {
   return (
-    <article className='prose lg:prose-xl'>
+    <article className='prose lg:prose-lg'>
       <h2>Return & Refund Policy</h2>
       <h4>PAYMENT</h4>
       <p>Paying through credit card (VISA, Master) is available.</p>

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function PaymentMethodPage() {
   return (
-    <article className='prose lg:prose-xl'>
+    <article className='prose lg:prose-lg'>
       <h2>Payment Methods</h2>
       <p>
         Paying through credit card (VISA, Master) is available. Bringing to our

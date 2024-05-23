@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <article className='prose lg:prose-xl'>
+    <article className='prose lg:prose-lg'>
       <h2>About Us</h2>
 
       <div>

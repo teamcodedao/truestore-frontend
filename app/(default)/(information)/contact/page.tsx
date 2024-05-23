@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <article className='prose lg:prose-xl'>
+    <article className='prose lg:prose-lg'>
       <h2>Contact Us</h2>
       <p>
         Email:{' '}

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 export default function ShippingPolicyPage() {
   return (
-    <article className='prose lg:prose-xl'>
+    <article className='prose lg:prose-lg'>
       <h2>Shipping Policy</h2>
       <h4>When will I get the tracking number?</h4>
       <p>

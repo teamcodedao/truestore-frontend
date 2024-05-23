@@ -71,7 +71,7 @@ export default function Footer({className}: FooterProps) {
                   <Link href='/terms-of-service'>Terms of Service</Link>
                 </li>
                 <li>
-                  <a href='/privacy-policy'>Privacy Policy</a>
+                  <Link href='/privacy-policy'>Privacy Policy</Link>
                 </li>
               </ul>
             </div>
