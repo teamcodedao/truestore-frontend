@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@automattic/format-currency": "^2.0.0",
+    "@common/fbpixel": "workspace:^",
     "@common/no-ssr": "workspace:^",
     "@model/cart": "workspace:*",
     "@model/order": "workspace:^",

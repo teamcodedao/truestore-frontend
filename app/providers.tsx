@@ -3,6 +3,7 @@
 import {useEffect} from 'react';
 import {usePathname} from 'next/navigation';
 
+import {Fbpixel} from '@common/fbpixel';
 import backdrop, {Backdropper} from '@ui/backdrop';
 import offcanvas, {Offcanvaser} from '@ui/offcanvas';
 
@@ -19,6 +20,7 @@ export default function Provider({children}: React.PropsWithChildren) {
       {children}
       <Offcanvaser />
       <Backdropper />
+      <Fbpixel id={process.env.NEXT_PUBLIC_PIXEL_ID} />
     </>
   );
 }

@@ -33,6 +33,8 @@ declare global {
       NEXT_PUBLIC_BASE: string;
       NEXT_PUBLIC_EMAIL: string;
 
+      NEXT_PUBLIC_PIXEL_ID?: string;
+
       NEXT_PUBLIC_PAYPAL_CLIENT_ID: string;
       NEXT_PUBLIC_PAYPAL_CURRENCY: string;
     }

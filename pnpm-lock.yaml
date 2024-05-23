@@ -11,6 +11,9 @@ importers:
       '@automattic/format-currency':
         specifier: ^2.0.0
         version: 2.0.0
+      '@common/fbpixel':
+        specifier: workspace:^
+        version: link:packages/common/fbpixel
       '@common/no-ssr':
         specifier: workspace:^
         version: link:packages/common/no-ssr
@@ -141,6 +144,8 @@ importers:
       typescript:
         specifier: ^5
         version: 5.4.5
+
+  packages/common/fbpixel: {}
 
   packages/common/no-ssr: {}
 
