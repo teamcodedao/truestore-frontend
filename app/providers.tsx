@@ -20,7 +20,7 @@ export default function Provider({children}: React.PropsWithChildren) {
       {children}
       <Offcanvaser />
       <Backdropper />
-      <Fbpixel id={process.env.NEXT_PUBLIC_PIXEL_ID} />
+      <Fbpixel ids={process.env.NEXT_PUBLIC_PIXEL_IDS} />
     </>
   );
 }
