@@ -6,6 +6,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
+import {getCurrentEventInfo} from '@/lib/event-info';
 import {useCart} from '@model/cart';
 import {
   type Product,
@@ -64,7 +65,27 @@ export default function ProductCartActions({
               alert('Please, choose product options');
               return;
             }
-
+            const eventInfo = getCurrentEventInfo();
+            fbq('track', 'AddToCart', {
+              category_name: 'Uncategorized',
+              content_ids: [variation.id],
+              content_name: product.name,
+              content_type: 'product',
+              contents: [{"id":variation.id,"quantity":1}],
+              currency: 'USD',
+              event_day: eventInfo.event_day,
+              event_month: eventInfo.event_month,
+              event_time: eventInfo.event_time,
+              event_url: eventInfo.event_url,
+              landing_page: eventInfo.event_url,
+              page_title: product.name,
+              plugin: 'DevReact',
+              post_id: product.id,
+              post_type: 'product',
+              traffic_source: 'direct',
+              user_role: 'guest',
+              value: variation.price
+          });
             addCart({
               product: {
                 id: product.id,

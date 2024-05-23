@@ -2,11 +2,14 @@
 
 import Script from 'next/script';
 
+import {getCurrentEventInfo} from '@/lib/event-info';
+
 interface FbpixelProps {
   ids?: string;
 }
 
 export default function Fbpixel({ids}: FbpixelProps) {
+  const eventInfo = getCurrentEventInfo();
   return (
     !!ids && (
       <Script id='fbpixel' strategy='afterInteractive'>
@@ -22,7 +25,13 @@ export default function Fbpixel({ids}: FbpixelProps) {
           .split('|')
           .map(id => `fbq('init', ${id});`)
           .join('\n')}
-        fbq('track', 'PageView');`}
+          fbq('track', 'PageView', {
+            event_day: '${eventInfo.event_day}',
+            event_month: '${eventInfo.event_month}',
+            event_time: '${eventInfo.event_time}',
+            event_url: '${eventInfo.event_url}'
+          });`}
+
       </Script>
     )
   );
