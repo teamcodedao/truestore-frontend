@@ -1,14 +1,14 @@
 export default function ContactPage() {
   return (
-    <div>
-      <h1 className='text-4xl font-bold'>Contact Us</h1>
-      <address className='mt-10 space-y-2 font-medium'>
-        <p>
-          Email:{' '}
-          <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-            help@shoptroveusa.com
-          </a>
-        </p>
+    <article className='prose lg:prose-xl'>
+      <h1>Contact Us</h1>
+      <p>
+        Email:{' '}
+        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
+          help@shoptroveusa.com
+        </a>
+      </p>
+      <address className='space-y-2 font-medium'>
         <h3 className='text-xl font-bold'>CuTeng Queue Pte. Ltd</h3>
         <div>Address: 244 Fast North Drive 1, #02-05, Singapore, 528559</div>
         <div>
@@ -23,6 +23,6 @@ export default function ContactPage() {
           </ul>
         </div>
       </address>
-    </div>
+    </article>
   );
 }

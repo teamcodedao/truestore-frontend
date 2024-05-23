@@ -36,6 +36,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@tailwindcss/typography'),
     require('tailwindcss-mixins'),
     require('tailwindcss-multi'),
     iconsPlugin({

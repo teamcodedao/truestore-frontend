@@ -59,7 +59,7 @@ export default function Footer({className}: FooterProps) {
               <h3 className='mixin/heading'>Resources</h3>
               <ul className='mixin/menu'>
                 <li>
-                  <a href='/about-us'>About Us</a>
+                  <Link href='/about-us'>About Us</Link>
                 </li>
                 <li>
                   <Link href='/contact'>Contact Us</Link>
