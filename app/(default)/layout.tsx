@@ -23,7 +23,7 @@ export default function DefaultLayout({children}: LayoutProps) {
             />
           </Link>
         </header>
-        <div>{children}</div>
+        <div className='mt-5'>{children}</div>
       </div>
       <div className='h-10 lg:h-16'></div>
       <Footer className='mt-auto' />

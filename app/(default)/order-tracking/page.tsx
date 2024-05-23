@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 export default function OrderTrackingPage() {
   return (
     <article className='prose lg:prose-xl'>
-      <h1>Order Tracking</h1>
-      <div>COMMING SOON</div>
+      <h2>Order Tracking</h2>
+      <p>COMMING SOON</p>
     </article>
   );
 }

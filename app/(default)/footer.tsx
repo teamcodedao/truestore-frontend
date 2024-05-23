@@ -51,7 +51,7 @@ export default function Footer({className}: FooterProps) {
                   <Link href='/shipping-policy'>Shipping Policy</Link>
                 </li>
                 <li>
-                  <a href='/refund_returns'>Return & Refund Policy</a>
+                  <Link href='/refund_returns'>Return & Refund Policy</Link>
                 </li>
               </ul>
             </div>
@@ -65,7 +65,7 @@ export default function Footer({className}: FooterProps) {
                   <Link href='/contact'>Contact Us</Link>
                 </li>
                 <li>
-                  <a href='/payment-methods'>Payment Methods</a>
+                  <Link href='/payment-methods'>Payment Methods</Link>
                 </li>
                 <li>
                   <a href='/term-of-service'>Terms of Service</a>

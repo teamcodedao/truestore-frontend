@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <article className='prose lg:prose-xl'>
-      <h1>About Us</h1>
+      <h2>About Us</h2>
 
       <div>
         Dear Valued Customers,
@@ -47,7 +47,7 @@ export default function AboutPage() {
             {process.env.NEXT_PUBLIC_EMAIL}
           </a>
         </p>
-        <h3>CuTeng Queue Pte. Ltd</h3>
+        <h4>CuTeng Queue Pte. Ltd</h4>
         <address>
           Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
         </address>

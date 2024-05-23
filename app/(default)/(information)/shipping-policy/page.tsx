@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 export default function ShippingPolicyPage() {
   return (
     <article className='prose lg:prose-xl'>
-      <h1>Shipping Policy</h1>
+      <h2>Shipping Policy</h2>
       <h4>When will I get the tracking number?</h4>
       <p>
         The in-store process for the stock and packaging will take about 2-5
@@ -132,7 +132,7 @@ export default function ShippingPolicyPage() {
           {process.env.NEXT_PUBLIC_EMAIL}
         </a>
       </p>
-      <h3>CuTeng Queue Pte. Ltd</h3>
+      <h4>CuTeng Queue Pte. Ltd</h4>
       <address>
         Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
       </address>
