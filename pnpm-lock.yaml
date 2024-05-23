@@ -11,6 +11,9 @@ importers:
       '@automattic/format-currency':
         specifier: ^2.0.0
         version: 2.0.0
+      '@common/no-ssr':
+        specifier: workspace:^
+        version: link:packages/common/no-ssr
       '@model/cart':
         specifier: workspace:*
         version: link:packages/model/cart
@@ -32,9 +35,6 @@ importers:
       '@ui/backdrop':
         specifier: workspace:^
         version: link:packages/ui/backdrop
-      '@ui/common':
-        specifier: workspace:^
-        version: link:packages/ui/common
       '@ui/offcanvas':
         specifier: workspace:^
         version: link:packages/ui/offcanvas
@@ -141,6 +141,10 @@ importers:
       typescript:
         specifier: ^5
         version: 5.4.5
+
+  packages/common/no-ssr: {}
+
+  packages/common/ssr: {}
 
   packages/model/cart: {}
 

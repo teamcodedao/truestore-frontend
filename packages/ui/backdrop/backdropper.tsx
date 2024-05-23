@@ -6,7 +6,7 @@ import Image from 'next/image';
 import {Modal, ModalOverlay} from 'react-aria-components';
 
 import puffLoading from '@/images/puff.svg';
-import {NoSSR} from '@ui/common';
+import {NoSSR} from '@common/no-ssr';
 
 import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';

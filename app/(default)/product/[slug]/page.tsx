@@ -12,8 +12,8 @@ import {
   ProductPrice,
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
+import {NoSSR} from '@common/no-ssr';
 import {getProduct, getProductVariations} from '@model/product';
-import {NoSSR} from '@ui/common';
 
 export const dynamic = 'error';
 export const revalidate = 10;

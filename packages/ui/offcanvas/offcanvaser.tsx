@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import {Dialog, Heading, Modal, ModalOverlay} from 'react-aria-components';
 import {ErrorBoundary} from 'react-error-boundary';
 
-import {NoSSR} from '@ui/common';
+import {NoSSR} from '@common/no-ssr';
 
 import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';
