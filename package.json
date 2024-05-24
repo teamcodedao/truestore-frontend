@@ -37,6 +37,7 @@
     "rooks": "^7.14.1",
     "server-only": "^0.0.1",
     "sharp": "^0.33.4",
+    "sonner": "^1.4.41",
     "superjson": "^2.2.1"
   },
   "devDependencies": {

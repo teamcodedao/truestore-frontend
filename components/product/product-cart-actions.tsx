@@ -4,6 +4,7 @@ import {use, useState} from 'react';
 import Link from 'next/link';
 
 import clsx from 'clsx';
+import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {getCurrentEventInfo} from '@/lib/event-info';
@@ -62,7 +63,7 @@ export default function ProductCartActions({
           className='bg-black hover:bg-black/80'
           onClick={() => {
             if (!variation) {
-              alert('Please, choose product options');
+              toast.warning('Please, choose product options');
               return;
             }
             const eventInfo = getCurrentEventInfo();
