@@ -70,11 +70,8 @@ export default function ProductCartActions({
             fbpixel.trackToCart({
               content_name: product.name,
               content_ids: [String(variation.id)],
-              content_type: 'product',
-              currency: 'USD',
               value: parseFloat(variation.sale_price || variation.price),
               // Custom properties
-              category_name: 'Uncategorised',
               contents: [
                 {
                   id: variation.id,
