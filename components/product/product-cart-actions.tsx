@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
-import {getCurrentEventInfo} from '@/lib/event-info';
+import {fbpixel} from '@common/fbpixel';
 import {useCart} from '@model/cart';
 import {
   type Product,
@@ -66,27 +66,24 @@ export default function ProductCartActions({
               toast.warning('Please, choose product options');
               return;
             }
-            const eventInfo = getCurrentEventInfo();
-            fbq('track', 'AddToCart', {
-              category_name: 'Uncategorized',
-              content_ids: [variation.id],
+
+            fbpixel.trackToCart({
               content_name: product.name,
+              content_ids: [String(variation.id)],
               content_type: 'product',
-              contents: [{"id":variation.id,"quantity":1}],
               currency: 'USD',
-              event_day: eventInfo.event_day,
-              event_month: eventInfo.event_month,
-              event_time: eventInfo.event_time,
-              event_url: eventInfo.event_url,
-              landing_page: eventInfo.event_url,
-              page_title: product.name,
-              plugin: 'DevReact',
+              value: parseFloat(variation.sale_price || variation.price),
+              // Custom properties
+              category_name: 'Uncategorised',
+              contents: [
+                {
+                  id: variation.id,
+                  quantity,
+                },
+              ],
               post_id: product.id,
-              post_type: 'product',
-              traffic_source: 'direct',
-              user_role: 'guest',
-              value: variation.price
-          });
+            });
+
             addCart({
               product: {
                 id: product.id,
