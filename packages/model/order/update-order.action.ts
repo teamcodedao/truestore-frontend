@@ -2,14 +2,19 @@
 
 import {client} from '@/lib/client';
 
-export async function updateOrder(orderId: any, billingDetails: any) {
+import type {UpdateOrder} from './typings';
+
+export async function updateOrder(
+  orderId: string,
+  {shipping, billing}: Pick<UpdateOrder, 'shipping' | 'billing'>
+) {
   return client
     .put(`v3/orders/${orderId}`, {
       json: {
-        billing: billingDetails,
-        shipping: billingDetails,
+        billing,
+        shipping,
         set_paid: true,
-      },
+      } satisfies UpdateOrder,
     })
     .json();
 }

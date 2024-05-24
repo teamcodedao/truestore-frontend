@@ -2,15 +2,17 @@
 
 import {client} from '@/lib/client';
 
-export async function createOrder(cart: any) {
+import {CreateOrder, Order} from './typings';
+
+export async function createOrder(carts: CreateOrder['line_items']) {
   return client
     .post(`v3/orders`, {
       json: {
         payment_method: 'paypal',
         payment_method_title: 'Paypal',
         set_paid: false,
-        line_items: cart,
-      },
+        line_items: carts,
+      } satisfies CreateOrder,
     })
-    .json<any>();
+    .json<Order>();
 }
