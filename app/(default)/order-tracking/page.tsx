@@ -1,3 +1,5 @@
+import {Suspense} from 'react';
+
 import type {Metadata} from 'next';
 
 import {TrackPageView} from '@/components/common';
@@ -13,7 +15,9 @@ export default function OrderTrackingPage() {
         <h2>Order Tracking</h2>
         <p>COMMING SOON</p>
       </article>
-      <TrackPageView />
+      <Suspense>
+        <TrackPageView />
+      </Suspense>
     </>
   );
 }

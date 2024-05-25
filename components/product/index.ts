@@ -6,3 +6,4 @@ export {
 } from './product-cart-actions';
 export {default as ProductFeature} from './product-feature';
 export {default as ProductPrice} from './product-price';
+export {default as ProductTracking} from './product-tracking';

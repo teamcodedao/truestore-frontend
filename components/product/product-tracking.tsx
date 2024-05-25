@@ -11,7 +11,7 @@ interface TrackingProductProps {
   price: string;
 }
 
-export default function TrackingProduct({
+export default function ProductTracking({
   id,
   title,
   productPrice,
@@ -33,17 +33,17 @@ export default function TrackingProduct({
       page_title: title,
       post_type: 'product',
       content_type: 'product_group',
-      content_ids: [id],
+      content_ids: [String(id)],
       content_name: title,
       contents: [
         {
-          id: id,
+          id: String(id),
           quantity: 1,
         },
       ],
       currency: 'USD',
-      product_price: productPrice ?? price,
-      value: price,
+      product_price: parseFloat(productPrice ?? price),
+      value: parseFloat(price),
     });
   }, [id, price, productPrice, title]);
 

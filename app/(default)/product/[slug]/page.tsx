@@ -10,12 +10,11 @@ import {
   ProductCartActionsSkeleton,
   ProductFeature,
   ProductPrice,
+  ProductTracking,
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {NoSSR} from '@common/no-ssr';
 import {getProduct, getProductVariations} from '@model/product';
-
-import TrackingProduct from './tracking-product';
 
 export const dynamic = 'error';
 export const revalidate = 10;
@@ -151,7 +150,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
       </Suspense>
 
       <Suspense>
-        <TrackingProduct
+        <ProductTracking
           id={product.id}
           title={product.name}
           productPrice={product.regular_price}

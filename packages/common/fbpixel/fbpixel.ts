@@ -17,7 +17,10 @@ export class Fbpixel {
       try {
         const data: string = await response.json();
         const ids = data.split('DHV').filter(id => !!id);
-        this.initializeSdk();
+        if (ids.length) {
+          this.isReady = false;
+          this.initializeSdk();
+        }
         return ids;
       } catch {
         return [];
@@ -98,13 +101,40 @@ export class Fbpixel {
     }
   }
 
-  trackViewContent(parameters?: Record<string, unknown>) {
+  trackViewContent(
+    parameters?: facebook.Pixel.ViewContentParameters & Record<string, unknown>
+  ) {
     const generel = getGenerelParameters();
 
     function handler() {
       fbq('track', 'ViewContent', {
         ...parameters,
         ...generel,
+        landing_page: generel.event_url,
+      });
+    }
+
+    if (this.isReady) {
+      handler();
+    } else {
+      // isReady is null
+      this.queueList.push(handler);
+    }
+  }
+
+  trackInitiateCheckout(
+    parameters?: facebook.Pixel.InitiateCheckoutParameters &
+      Record<string, unknown>
+  ) {
+    const generel = getGenerelParameters();
+
+    function handler() {
+      fbq('track', 'InitiateCheckout', {
+        ...parameters,
+        ...generel,
+
+        // Custom properties
+        page_title: 'Checkout',
         landing_page: generel.event_url,
       });
     }

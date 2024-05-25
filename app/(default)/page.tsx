@@ -1,3 +1,4 @@
+import {Suspense} from 'react';
 import Link from 'next/link';
 
 import {TrackPageView} from '@/components/common';
@@ -25,7 +26,9 @@ export default function Home() {
           </li>
         </ul>
       </main>
-      <TrackPageView />
+      <Suspense>
+        <TrackPageView />
+      </Suspense>
     </>
   );
 }
