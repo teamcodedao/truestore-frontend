@@ -6,7 +6,7 @@ import {TrackPageView} from '@/components/common';
 export default function Home() {
   return (
     <>
-      <main>
+      <main className='hidden'>
         <h1 className='uppercase'>Try experimenting with different URLs</h1>
         <ul>
           <li>

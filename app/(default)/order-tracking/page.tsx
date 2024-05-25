@@ -13,7 +13,7 @@ export default function OrderTrackingPage() {
     <>
       <article className='prose lg:prose-lg'>
         <h2>Order Tracking</h2>
-        <p>COMMING SOON</p>
+        <p>COMING SOON</p>
       </article>
       <Suspense>
         <TrackPageView />

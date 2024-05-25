@@ -17,7 +17,7 @@ import {NoSSR} from '@common/no-ssr';
 import {getProduct, getProductVariations} from '@model/product';
 
 export const dynamic = 'error';
-export const revalidate = 10;
+export const revalidate = 180;
 
 export async function generateMetadata({
   params,
