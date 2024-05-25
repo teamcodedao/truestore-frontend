@@ -6,6 +6,7 @@ import {
   set,
 } from 'firebase/database';
 
+import {fetchIp} from '@/lib/ip';
 import type {CartItem} from '@model/cart';
 
 import {getGenerelParameters} from './utils';
@@ -21,9 +22,10 @@ export class Tracking {
     set(child(this.dbRef, `OR_LIST_ANALYTICS/${orderKey}`), 'OK');
   }
 
-  trackingCheckout({carts, ...rest}: {userId: string; carts: CartItem[]}) {
+  async trackingCheckout({carts}: {carts: CartItem[]}) {
+    const ip = await fetchIp();
     const data = getGenerelParameters({
-      userId: rest.userId,
+      userId: ip ?? '',
     });
 
     if (!data) {

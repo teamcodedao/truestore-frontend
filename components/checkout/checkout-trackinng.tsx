@@ -33,16 +33,9 @@ export default function CheckoutTracking() {
   }, [carts, countTotal, subTotal]);
 
   useEffect(() => {
-    fetch('/api/ip')
-      .then(res => res.json())
-      .then(res => {
-        const userId = res.ip;
-
-        firebaseTracking.trackingCheckout({
-          userId,
-          carts,
-        });
-      });
+    firebaseTracking.trackingCheckout({
+      carts,
+    });
   }, [carts, searchParams]);
 
   return null;
