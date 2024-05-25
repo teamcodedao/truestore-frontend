@@ -8,9 +8,9 @@ import {
 
 import {fetchIp} from '@/lib/ip';
 import type {CartItem} from '@model/cart';
+import type {Product} from '@model/product';
 
 import {getGenerelParameters} from './utils';
-import type {Product} from '@model/product';
 
 export class Tracking {
   private dbRef: DatabaseReference;

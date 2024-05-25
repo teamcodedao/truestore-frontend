@@ -14,9 +14,9 @@ import {
   useProductVariation,
 } from '@model/product';
 import {fbpixel} from '@tracking/fbpixel';
+import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
 import {SpinNumber} from '@ui/spin-number';
-import { firebaseTracking } from '@/packages/tracking/firebase';
 
 interface ProductCartActionsProps {
   min?: number;
@@ -99,8 +99,8 @@ export default function ProductCartActions({
               },
             });
 
-            firebaseTracking.trackingLogs("VC", product);
-            firebaseTracking.trackingLogs("ATC", product);
+            firebaseTracking.trackingLogs('VC', product);
+            firebaseTracking.trackingLogs('ATC', product);
 
             offcanvas.show({
               direction: 'right',
