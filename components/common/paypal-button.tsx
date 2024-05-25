@@ -19,7 +19,7 @@ const initialOptions = {
 
 function ImplPaypalButton() {
   const [{isPending}] = usePayPalScriptReducer();
-  const [{carts}, {clearCart}] = useCart();
+  const [{carts, countTotal}, {clearCart}] = useCart();
 
   return (
     <>
@@ -29,7 +29,7 @@ function ImplPaypalButton() {
             error instanceof Error ? error.message : 'Unknown error!!',
             {
               description:
-                'Your order could not be processed. Please try again, and contact for adminitration.',
+                'Your order could not be processed. Please try again, and contact for adminitration',
             }
           );
         }}
@@ -99,12 +99,23 @@ function ImplPaypalButton() {
           });
 
           console.info(result);
-          toast.success('Your order has been processed successfully');
+          toast.success('Payment successful', {
+            description: 'Your order has been processed successfully',
+          });
           clearCart();
 
           fbpixel.trackPurchase({
             currency: 'USD',
+            num_items: countTotal,
             value: 1,
+            subTotal: 1,
+            total: 1,
+            tax: 1,
+            category_name: 'Uncategorized',
+            content_type: 'product',
+            order_id: wooOrderID,
+            content_ids: carts.map(cart => String(cart.product.id)),
+            content_name: carts.map(cart => cart.product.name).join(' - '),
           });
         }}
       />
