@@ -30,9 +30,9 @@ export default function CheckoutTracking() {
   }, [carts, countTotal, subTotal]);
 
   useEffect(() => {
-    const {host, ip} = document.documentElement.dataset;
+    // const {host, ip} = document.documentElement.dataset;
 
-    console.log({host, ip});
+    // console.log({host, ip});
 
     firebaseTracking.trackingCheckout();
   }, []);
