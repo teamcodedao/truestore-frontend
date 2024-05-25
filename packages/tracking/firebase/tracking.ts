@@ -8,6 +8,8 @@ import {
 
 import type {CartItem} from '@model/cart';
 
+import {getGenerelParameters} from './utils';
+
 export class Tracking {
   private dbRef: DatabaseReference;
 
@@ -19,31 +21,28 @@ export class Tracking {
     set(child(this.dbRef, `OR_LIST_ANALYTICS/${orderKey}`), 'OK');
   }
 
-  trackingCheckout({
-    userId,
-    userName,
-    carts,
-    isPub,
-    utmSource,
-    utmMedium,
-    utmCamp,
-    utmContent,
-    utmTerm,
-    timeTrack,
-    timeTrack2,
-  }: {
-    userId: string;
-    userName: string;
-    carts: CartItem[];
-    isPub: string;
-    utmSource: string;
-    utmMedium: string;
-    utmCamp: string;
-    utmContent: string;
-    utmTerm: string;
-    timeTrack: string;
-    timeTrack2: string;
-  }) {
+  trackingCheckout({carts, ...rest}: {userId: string; carts: CartItem[]}) {
+    const data = getGenerelParameters({
+      userId: rest.userId,
+    });
+
+    if (!data) {
+      return;
+    }
+
+    const {
+      isPub,
+      timeTrack,
+      timeTrack2,
+      userId,
+      userName,
+      utmCamp,
+      utmContent,
+      utmMedium,
+      utmSource,
+      utmTerm,
+    } = data;
+
     for (const cart of carts) {
       const productId = cart.product.id;
       const productLink = cart.variation.link;
