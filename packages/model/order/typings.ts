@@ -21,6 +21,7 @@ export interface Order {
   prices_include_tax: boolean;
   shipping_tax: string;
   shipping_total: string;
+  cart_tax: string;
   status:
     | 'pending'
     | 'processing'
@@ -34,6 +35,7 @@ export interface Order {
   total_tax: string;
   transaction_id: string;
   version: string;
+  shipping: Shipping;
 }
 
 interface Billing {

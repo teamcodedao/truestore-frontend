@@ -9,11 +9,11 @@ export default function CheckoutInformation() {
   return (
     <>
       {carts.length > 0 ? (
-        <div className='mb-7 ml-7 space-y-3 divide-y divide-gray-300 [&>*:not(:first-child)]:pt-3'>
+        <div className='mb-7 space-y-3 divide-y divide-gray-300 sm:ml-7 [&>*:not(:first-child)]:pt-3'>
           {carts.map((cart, index) => {
             return (
               <div key={index} className='flex gap-x-5'>
-                <div className='w-[150px] shrink-0 bg-white'>
+                <div className='w-[120px] shrink-0 bg-white sm:w-[150px]'>
                   <img
                     src={cart.variation.image}
                     alt=''

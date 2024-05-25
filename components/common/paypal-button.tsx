@@ -19,7 +19,7 @@ const initialOptions = {
 
 function ImplPaypalButton() {
   const [{isPending}] = usePayPalScriptReducer();
-  const [{carts, countTotal}, {clearCart}] = useCart();
+  const [{carts, countTotal, subTotal}, {clearCart}] = useCart();
 
   return (
     <>
@@ -104,18 +104,27 @@ function ImplPaypalButton() {
           });
           clearCart();
 
+          //Tracking
           fbpixel.trackPurchase({
             currency: 'USD',
             num_items: countTotal,
-            value: 1,
-            subTotal: 1,
-            total: 1,
-            tax: 1,
+            value: parseFloat(result.total),
+            subTotal,
+            total: result.total,
+            tax: result.total_tax,
             category_name: 'Uncategorized',
             content_type: 'product',
             order_id: wooOrderID,
             content_ids: carts.map(cart => String(cart.product.id)),
             content_name: carts.map(cart => cart.product.name).join(' - '),
+            tags: '', // TODO
+            shipping: result.shipping,
+            coupon_used: '',
+            coupon_name: '',
+            shipping_cost: result.shipping_total,
+            predicted_ltv: 0, //TODO
+            average_ltv: 0, //TODO
+            transaction_count: 0, //TODO
           });
         }}
       />

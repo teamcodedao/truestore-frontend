@@ -2,7 +2,7 @@
 
 import {client} from '@/lib/client';
 
-import type {UpdateOrder} from './typings';
+import type {Order, UpdateOrder} from './typings';
 
 export async function updateOrder(
   orderId: string,
@@ -16,5 +16,5 @@ export async function updateOrder(
         set_paid: true,
       } satisfies UpdateOrder,
     })
-    .json();
+    .json<Order>();
 }
