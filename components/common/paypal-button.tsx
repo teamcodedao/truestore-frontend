@@ -15,7 +15,7 @@ import {firebaseTracking} from '@tracking/firebase';
 
 const initialOptions = {
   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
-  currency: process.env.NEXT_PUBLIC_PAYPAL_CURRENCY,
+  currency: 'USD',
 };
 
 function ImplPaypalButton() {
