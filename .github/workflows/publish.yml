@@ -17,6 +17,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # - name: Create Environment
+      #   run: |
+      #     echo "NEXT_PUBLIC_API=${NEXT_PUBLIC_BASE}" >> $GITHUB_ENV
+      #     echo "NEXT_PUBLIC_PAYPAL_CLIENT_ID=${NEXT_PUBLIC_PAYPAL_CLIENT_ID}" >> $GITHUB_ENV
+      #     echo "NEXT_PUBLIC_FIREBASE_API_KEY=${NEXT_PUBLIC_FIREBASE_API_KEY}" >> $GITHUB_ENV
+
+      - name: Set Environment
+        run: env | grep "^NEXT_" >> .env.production.local
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
