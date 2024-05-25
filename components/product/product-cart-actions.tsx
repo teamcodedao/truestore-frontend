@@ -93,6 +93,7 @@ export default function ProductCartActions({
                 regular_price: variation.regular_price,
                 sale_price: variation.sale_price,
                 image: variation.image.src || product.images?.[0].src,
+                link: window.location.href,
                 attributes: variation.attributes.map(attr => attr.option),
               },
             });

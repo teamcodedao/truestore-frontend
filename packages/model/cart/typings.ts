@@ -7,7 +7,7 @@ export interface CartItem {
   variation: Pick<
     ProductVariation,
     'id' | 'price' | 'regular_price' | 'sale_price'
-  > & {image?: string; attributes: string[]};
+  > & {image?: string; attributes: string[]; link: string};
 }
 
 export interface UpdateCartItem {
