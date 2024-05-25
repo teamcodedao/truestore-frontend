@@ -160,8 +160,6 @@ importers:
         specifier: ^5
         version: 5.4.5
 
-  packages/common/fbpixel: {}
-
   packages/common/no-ssr: {}
 
   packages/model/cart: {}
@@ -173,8 +171,6 @@ importers:
   packages/tracking/fbpixel: {}
 
   packages/tracking/firebase: {}
-
-  packages/tracking/no-ssr: {}
 
   packages/ui/backdrop: {}
 

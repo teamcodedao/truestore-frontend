@@ -32,6 +32,7 @@ export interface ProductVariation {
 export interface Product {
   id: number;
   name: string;
+  slug: string;
   description: string;
   price: string;
   sale_price?: string;

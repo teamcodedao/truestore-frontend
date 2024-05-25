@@ -10,12 +10,16 @@ import {fetchIp} from '@/lib/ip';
 import type {CartItem} from '@model/cart';
 
 import {getGenerelParameters} from './utils';
+import type {Product} from '@model/product';
 
 export class Tracking {
   private dbRef: DatabaseReference;
 
+  private trackThumb: number;
+
   constructor(db: Database) {
     this.dbRef = ref(db);
+    this.trackThumb = 0;
   }
 
   trackingOrder(orderKey: string) {
@@ -134,5 +138,102 @@ export class Tracking {
         );
       }
     }
+  }
+
+  async trackingLogs(contentInfo: string, product: Product) {
+    const ip = await fetchIp();
+    const data = getGenerelParameters({
+      userId: ip ?? '',
+    });
+
+    if (!data) {
+      return;
+    }
+
+    const {
+      isPub,
+      timeTrack,
+      timeTrack2,
+      userId,
+      userName,
+      utmCamp,
+      utmContent,
+      utmMedium,
+      utmSource,
+      utmTerm,
+    } = data;
+    const productId = product.id;
+    const productLink = product.slug;
+    const productThumb = product.images ? product.images[0]: "";
+    const productName = product.name;
+    set(
+      child(
+        this.dbRef,
+        `${userName}/PUB/${timeTrack}/${productId}/${contentInfo}/${userId}/LK`
+      ),
+      timeTrack2
+    );
+
+
+    if(this.trackThumb <= 0) {
+      set(
+        child(
+          this.dbRef,
+          `${userName}/PUB/${timeTrack}/${productId}/NAME`
+        ),
+        productName
+      );
+      set(
+        child(
+          this.dbRef,
+          `${userName}/PUB/${timeTrack}/${productId}/LK`
+        ),
+        productLink
+      );
+      set(
+        child(
+          this.dbRef,
+          `${userName}/PUB/${timeTrack}/${productId}/TB`
+        ),
+        productThumb
+      );
+    }
+
+    if(isPub == "PRI") {
+      set(
+        child(
+          this.dbRef,
+          `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/${contentInfo}/${userId}/${timeTrack2}`
+        ),
+        productName
+      );
+
+      if(this.trackThumb <= 0) {
+        
+        set(
+          child(
+            this.dbRef,
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/NAME`
+          ),
+          productName
+        );
+        set(
+          child(
+            this.dbRef,
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/LK`
+          ),
+          productLink
+        );
+        set(
+          child(
+            this.dbRef,
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`
+          ),
+          productThumb
+        );
+        this.trackThumb = 1;
+      }
+    }
+
   }
 }
