@@ -30,16 +30,16 @@ export class Fbpixel {
   private async initializeSdk() {
     let timer: NodeJS.Timeout;
     const isReady = await new Promise<boolean>(resolve => {
+      const timout = setTimeout(() => {
+        resolve(false);
+      }, 10_000);
       timer = setInterval(() => {
         if (typeof window !== 'undefined' && 'fbq' in window) {
           clearInterval(timer);
+          clearTimeout(timout);
           resolve(true);
         }
       }, 10);
-
-      setTimeout(() => {
-        resolve(false);
-      }, 10_000);
     });
 
     this.isReady = isReady;
@@ -80,10 +80,32 @@ export class Fbpixel {
   }
 
   trackPageView(parameters?: Record<string, unknown>) {
+    const generel = getGenerelParameters();
+
     function handler() {
       fbq('track', 'PageView', {
         ...parameters,
-        ...getGenerelParameters(),
+        ...generel,
+        landing_page: generel.event_url,
+      });
+    }
+
+    if (this.isReady) {
+      handler();
+    } else {
+      // isReady is null
+      this.queueList.push(handler);
+    }
+  }
+
+  trackViewContent(parameters?: Record<string, unknown>) {
+    const generel = getGenerelParameters();
+
+    function handler() {
+      fbq('track', 'ViewContent', {
+        ...parameters,
+        ...generel,
+        landing_page: generel.event_url,
       });
     }
 
