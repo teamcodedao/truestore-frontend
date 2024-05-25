@@ -4,6 +4,7 @@ import {useEffect} from 'react';
 
 import {useCart} from '@model/cart';
 import {fbpixel} from '@tracking/fbpixel';
+import {firebaseTracking} from '@tracking/firebase';
 
 export default function CheckoutTracking() {
   const [{carts, countTotal, subTotal}] = useCart();
@@ -27,6 +28,14 @@ export default function CheckoutTracking() {
       })),
     });
   }, [carts, countTotal, subTotal]);
+
+  useEffect(() => {
+    const {host, ip} = document.documentElement.dataset;
+
+    console.log({host, ip});
+
+    firebaseTracking.trackingCheckout();
+  }, []);
 
   return null;
 }

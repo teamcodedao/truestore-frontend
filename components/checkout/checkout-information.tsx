@@ -13,7 +13,7 @@ export default function CheckoutInformation() {
           {carts.map((cart, index) => {
             return (
               <div key={index} className='flex gap-x-5'>
-                <div className='w-[120px] shrink-0 bg-white sm:w-[150px]'>
+                <div className='size-[120px] shrink-0 bg-white sm:size-[150px]'>
                   <img
                     src={cart.variation.image}
                     alt=''

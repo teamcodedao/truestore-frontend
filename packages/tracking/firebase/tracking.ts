@@ -16,4 +16,8 @@ export class Tracking {
   trackingOrder(orderKey: string) {
     set(child(this.dbRef, `OR_LIST_ANALYTICS/${orderKey}`), 'OK');
   }
+
+  trackingCheckout() {
+    console.log('checkout');
+  }
 }

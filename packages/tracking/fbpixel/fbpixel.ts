@@ -34,6 +34,7 @@ export class Fbpixel {
     let timer: NodeJS.Timeout;
     const isReady = await new Promise<boolean>(resolve => {
       const timout = setTimeout(() => {
+        clearInterval(timer);
         resolve(false);
       }, 10_000);
       timer = setInterval(() => {
