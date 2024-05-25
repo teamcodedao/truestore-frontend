@@ -23,7 +23,7 @@ export default function Provider({children}: React.PropsWithChildren) {
       <Offcanvaser />
       <Backdropper />
       <Toaster richColors position='top-center' />
-      <Fbpixel ids={process.env.NEXT_PUBLIC_PIXEL_IDS} />
+      <Fbpixel />
     </>
   );
 }
