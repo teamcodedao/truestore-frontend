@@ -5,6 +5,11 @@ on:
     branches:
       - 'main'
 
+env:
+  NEXT_PUBLIC_BASE: ${{ secrets.NEXT_PUBLIC_BASE }}
+  NEXT_PUBLIC_PAYPAL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}
+  NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+
 jobs:
   docker:
     runs-on: ubuntu-latest
