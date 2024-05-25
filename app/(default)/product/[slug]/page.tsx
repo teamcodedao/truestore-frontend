@@ -2,7 +2,7 @@ import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {YourCart} from '@/components/cart';
-import {ButtonPaypal, Countdown, RandomNumber} from '@/components/common';
+import {Countdown, PaypalButton, RandomNumber} from '@/components/common';
 import {
   ProductAttribute,
   ProductCarousel,
@@ -119,7 +119,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 </span>
               </div>
               <Suspense>
-                <ButtonPaypal />
+                <PaypalButton />
               </Suspense>
             </div>
             <div className='mt-5'>

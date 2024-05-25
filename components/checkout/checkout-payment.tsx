@@ -3,14 +3,14 @@
 import {Suspense} from 'react';
 import Image from 'next/image';
 
-import {ButtonPaypal} from '@/components/common';
+import {PaypalButton} from '@/components/common';
 import trustbadge from '@/images/trustbadge.png';
 
 export default function CheckoutPayment() {
   return (
     <>
       <Suspense>
-        <ButtonPaypal />
+        <PaypalButton />
       </Suspense>
       <hr />
       <div className='mt-4 flex flex-col items-center gap-4 text-center'>

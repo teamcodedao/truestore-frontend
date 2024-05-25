@@ -3,6 +3,7 @@
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
+import {fbpixel} from '@common/fbpixel';
 import {useCart} from '@model/cart';
 import {createOrder, type UpdateOrder, updateOrder} from '@model/order';
 import {
@@ -16,7 +17,7 @@ const initialOptions = {
   currency: process.env.NEXT_PUBLIC_PAYPAL_CURRENCY,
 };
 
-function PaypalButton() {
+function ImplPaypalButton() {
   const [{isPending}] = usePayPalScriptReducer();
   const [{carts}, {clearCart}] = useCart();
 
@@ -100,6 +101,11 @@ function PaypalButton() {
           console.info(result);
           toast.success('Your order has been processed successfully');
           clearCart();
+
+          fbpixel.trackPurchase({
+            currency: 'USD',
+            value: 1,
+          });
         }}
       />
       {isPending && <PaypalButtonSkeleton />}
@@ -107,10 +113,10 @@ function PaypalButton() {
   );
 }
 
-export default function ButtonPaypal() {
+export default function PaypalButton() {
   return (
     <PayPalScriptProvider options={initialOptions}>
-      <PaypalButton />
+      <ImplPaypalButton />
     </PayPalScriptProvider>
   );
 }

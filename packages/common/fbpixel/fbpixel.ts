@@ -146,4 +146,27 @@ export class Fbpixel {
       this.queueList.push(handler);
     }
   }
+
+  trackPurchase(
+    parameters?: facebook.Pixel.PurchaseParameters & Record<string, unknown>
+  ) {
+    const generel = getGenerelParameters();
+
+    function handler() {
+      fbq('track', 'Purchase', {
+        ...parameters,
+        ...generel,
+
+        // Custom properties
+        landing_page: generel.event_url,
+      });
+    }
+
+    if (this.isReady) {
+      handler();
+    } else {
+      // isReady is null
+      this.queueList.push(handler);
+    }
+  }
 }
