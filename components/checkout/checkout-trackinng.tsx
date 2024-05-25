@@ -2,8 +2,8 @@
 
 import {useEffect} from 'react';
 
-import {fbpixel} from '@common/fbpixel';
 import {useCart} from '@model/cart';
+import {fbpixel} from '@tracking/fbpixel';
 
 export default function CheckoutTracking() {
   const [{carts, countTotal, subTotal}] = useCart();

@@ -7,13 +7,13 @@ import clsx from 'clsx';
 import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
-import {fbpixel} from '@common/fbpixel';
 import {useCart} from '@model/cart';
 import {
   type Product,
   type ProductVariation,
   useProductVariation,
 } from '@model/product';
+import {fbpixel} from '@tracking/fbpixel';
 import offcanvas from '@ui/offcanvas';
 import {SpinNumber} from '@ui/spin-number';
 

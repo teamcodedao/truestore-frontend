@@ -2,7 +2,7 @@
 
 import {useEffect} from 'react';
 
-import {fbpixel} from '@common/fbpixel';
+import {fbpixel} from '@tracking/fbpixel';
 
 interface TrackingProductProps {
   id: number;

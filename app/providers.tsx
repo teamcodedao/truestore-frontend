@@ -5,7 +5,7 @@ import {usePathname} from 'next/navigation';
 
 import {Toaster} from 'sonner';
 
-import {Fbpixel} from '@common/fbpixel';
+import {Fbpixel} from '@tracking/fbpixel';
 import backdrop, {Backdropper} from '@ui/backdrop';
 import offcanvas, {Offcanvaser} from '@ui/offcanvas';
 

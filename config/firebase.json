@@ -1,0 +1,12 @@
+{
+  "clientConfig": {
+    "apiKey": "AIzaSyAqVca3OVfQ9ClXCrcuNKqU3Afj-p_0ntc",
+    "authDomain": "king-fruit-slot.firebaseapp.com",
+    "databaseURL": "https://king-fruit-slot.firebaseio.com",
+    "projectId": "king-fruit-slot",
+    "storageBucket": "king-fruit-slot.appspot.com",
+    "messagingSenderId": "883685425114",
+    "appId": "1:883685425114:web:cf2524285992e54a4b0ae3",
+    "measurementId": "G-PKPH1S7TXS"
+  }
+}

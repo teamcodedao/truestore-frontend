@@ -1,5 +1,5 @@
 {
-  "name": "@common/fbpixel",
+  "name": "@tracking/fbpixel",
   "version": "0.0.0",
   "private": true,
   "main": "index.ts",

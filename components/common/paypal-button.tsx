@@ -3,7 +3,6 @@
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {fbpixel} from '@common/fbpixel';
 import {useCart} from '@model/cart';
 import {createOrder, type UpdateOrder, updateOrder} from '@model/order';
 import {
@@ -11,6 +10,8 @@ import {
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
+import {fbpixel} from '@tracking/fbpixel';
+import {firebaseTracking} from '@tracking/firebase';
 
 const initialOptions = {
   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
@@ -104,7 +105,7 @@ function ImplPaypalButton() {
           });
           clearCart();
 
-          //Tracking
+          //Tracking for fbpixel
           fbpixel.trackPurchase({
             currency: 'USD',
             num_items: countTotal,
@@ -117,15 +118,18 @@ function ImplPaypalButton() {
             order_id: wooOrderID,
             content_ids: carts.map(cart => String(cart.product.id)),
             content_name: carts.map(cart => cart.product.name).join(' - '),
-            // tags: '', // TODO
+            // tags: '',
             shipping: result.shipping,
             coupon_used: '',
             coupon_name: '',
             shipping_cost: result.shipping_total,
-            // predicted_ltv: 0, //TODO
-            // average_order: 0, //TODO
-            // transaction_count: 0, //TODO
+            // predicted_ltv: 0,
+            // average_order: 0,
+            // transaction_count: 0,
           });
+
+          // Tracking for firebase
+          firebaseTracking.trackingOrder(result.order_key);
         }}
       />
       {isPending && <PaypalButtonSkeleton />}
