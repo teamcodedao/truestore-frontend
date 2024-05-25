@@ -117,14 +117,14 @@ function ImplPaypalButton() {
             order_id: wooOrderID,
             content_ids: carts.map(cart => String(cart.product.id)),
             content_name: carts.map(cart => cart.product.name).join(' - '),
-            tags: '', // TODO
+            // tags: '', // TODO
             shipping: result.shipping,
             coupon_used: '',
             coupon_name: '',
             shipping_cost: result.shipping_total,
-            predicted_ltv: 0, //TODO
-            average_ltv: 0, //TODO
-            transaction_count: 0, //TODO
+            // predicted_ltv: 0, //TODO
+            // average_order: 0, //TODO
+            // transaction_count: 0, //TODO
           });
         }}
       />
