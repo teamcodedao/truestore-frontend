@@ -28,6 +28,8 @@ RUN pnpm build
 
 # Stage 3
 FROM base as runner
+ARG NEXT_PUBLIC_VERSION
+ENV NEXT_PUBLIC_VERSION $NEXT_PUBLIC_VERSION
 ENV NODE_ENV production
 ENV PORT 3000
 COPY --from=builder /app/.env* ./

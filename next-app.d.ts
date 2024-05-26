@@ -27,6 +27,8 @@ declare global {
 
   namespace NodeJS {
     interface ProcessEnv {
+      NEXT_PUBLIC_VERSION?: string;
+
       NEXT_API: string;
       NEXT_API_AUTH: string;
 

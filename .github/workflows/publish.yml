@@ -2,8 +2,9 @@ name: Publish Docker Image
 
 on:
   push:
-    branches:
-      - 'main'
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+      - '[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
 
 env:
   NEXT_PUBLIC_BASE: ${{ secrets.NEXT_PUBLIC_BASE }}
@@ -17,11 +18,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # - name: Create Environment
-      #   run: |
-      #     echo "NEXT_PUBLIC_API=${NEXT_PUBLIC_BASE}" >> $GITHUB_ENV
-      #     echo "NEXT_PUBLIC_PAYPAL_CLIENT_ID=${NEXT_PUBLIC_PAYPAL_CLIENT_ID}" >> $GITHUB_ENV
-      #     echo "NEXT_PUBLIC_FIREBASE_API_KEY=${NEXT_PUBLIC_FIREBASE_API_KEY}" >> $GITHUB_ENV
+      - name: Create Environment
+        run: |
+          echo "NEXT_PUBLIC_VERSION=${GITHUB_REF#refs/tags}" >> $GITHUB_ENV
 
       - name: Set Environment
         run: env | grep "^NEXT_" >> .env.production.local
@@ -43,4 +42,8 @@ jobs:
         with:
           context: .
           push: true
-          tags: nghiepit/truestore-frontend:latest
+          build-args: NEXT_PUBLIC_VERSION
+          target: runner
+          tags: nghiepit/truestore-frontend::${{ env.NEXT_PUBLIC_VERSION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

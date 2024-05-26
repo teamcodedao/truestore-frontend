@@ -1,5 +1,4 @@
-import pkg from './package.json' with {type: 'json'};
-
+import pkg from './package.json' assert {type: 'json'};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -15,6 +14,10 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
+          {
+            key: 'X-Version',
+            value: process.env.NEXT_PUBLIC_VERSION || 'development',
+          },
           {
             key: 'X-Author',
             value: pkg.author,
