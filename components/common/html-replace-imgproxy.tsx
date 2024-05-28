@@ -17,6 +17,7 @@ export default function HtmlReplaceImgproxy({html}: HtmlReplaceImgproxyProps) {
           width,
           height,
           alt,
+          srcset,
           class: className,
           ...rest
         } = domNode.attribs;
@@ -26,6 +27,7 @@ export default function HtmlReplaceImgproxy({html}: HtmlReplaceImgproxyProps) {
             height={height}
             alt={alt}
             className={className}
+            srcSet={srcset}
             loading='lazy'
             {...(src
               ? {
