@@ -1,7 +1,7 @@
 import type {Except, SetOptional} from 'type-fest';
 
 import {element, EVENT_NAME} from './constants';
-import {EventProps} from './typings';
+import type {EventProps} from './typings';
 
 function showOffcanvas(
   props: SetOptional<Except<EventProps, 'action'>, 'direction'>

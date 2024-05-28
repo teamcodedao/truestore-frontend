@@ -1,5 +1,6 @@
 'use client';
 
+import {imgproxy} from '@/lib/imgproxy';
 import {formatCurrency} from '@automattic/format-currency';
 import {useCart} from '@model/cart';
 
@@ -15,7 +16,7 @@ export default function CheckoutInformation() {
               <div key={index} className='flex gap-x-5'>
                 <div className='size-[120px] shrink-0 bg-white sm:size-[150px]'>
                   <img
-                    src={cart.variation.image}
+                    src={imgproxy(cart.variation.image ?? '', ['rs:fit:200'])}
                     alt=''
                     className='object-contain object-center'
                   />

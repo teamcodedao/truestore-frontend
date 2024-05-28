@@ -3,6 +3,7 @@
 import {useState} from 'react';
 
 import {Price} from '@/components/common';
+import {imgproxy} from '@/lib/imgproxy';
 import type {CartItem} from '@model/cart';
 import {SpinNumber} from '@ui/spin-number';
 
@@ -28,7 +29,7 @@ export default function CartItem({
     <div className='flex gap-x-2'>
       <div className='size-[100px] shrink-0 bg-gray-100'>
         <img
-          src={cart.variation.image}
+          src={imgproxy(cart.variation.image ?? '', ['rs:fit:200'])}
           alt=''
           className='size-full object-contain'
         />

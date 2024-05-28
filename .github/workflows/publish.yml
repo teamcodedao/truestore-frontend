@@ -20,7 +20,7 @@ jobs:
 
       - name: Create Environment
         run: |
-          echo "NEXT_PUBLIC_VERSION=${GITHUB_REF#refs/tags}" >> $GITHUB_ENV
+          echo "NEXT_PUBLIC_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Set Environment
         run: env | grep "^NEXT_" >> .env.production.local
@@ -44,6 +44,6 @@ jobs:
           push: true
           build-args: NEXT_PUBLIC_VERSION
           target: runner
-          tags: nghiepit/truestore-frontend::${{ env.NEXT_PUBLIC_VERSION }}
+          tags: nghiepit/truestore-frontend:${{ env.NEXT_PUBLIC_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

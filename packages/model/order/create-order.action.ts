@@ -2,7 +2,7 @@
 
 import {client} from '@/lib/client';
 
-import {CreateOrder, Order} from './typings';
+import type {CreateOrder, Order} from './typings';
 
 export async function createOrder(carts: CreateOrder['line_items']) {
   return client

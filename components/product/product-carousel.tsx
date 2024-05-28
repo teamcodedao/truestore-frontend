@@ -7,6 +7,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import {usePrevNextButtons} from '@/lib/embla-carousel';
+import {imgproxy} from '@/lib/imgproxy';
 import type {ProductImage} from '@model/product';
 
 interface ProductCarouselProps {
@@ -59,10 +60,10 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
             return (
               <div
                 key={index}
-                className='embla__slide aspect-square flex-[0_0_100%]'
+                className='embla__slide aspect-square flex-[0_0_100%] bg-slate-100'
               >
                 <img
-                  src={image.src}
+                  src={imgproxy(image.src)}
                   alt=''
                   className='size-full object-contain'
                 />
@@ -93,9 +94,9 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
                     onClick={() => onThumbClick(index)}
                   >
                     <img
-                      src={image.src}
+                      src={imgproxy(image.src, ['rs:fit:200'])}
                       alt=''
-                      className='h-full object-cover'
+                      className='size-full object-cover'
                     />
                   </button>
                 );

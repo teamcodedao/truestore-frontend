@@ -1,6 +1,6 @@
 import {Suspense} from 'react';
 
-import {Price, PriceProps} from '@/components/common';
+import {Price, type PriceProps} from '@/components/common';
 import {getProductVariations} from '@model/product';
 
 import ProductPrice from './product-price';

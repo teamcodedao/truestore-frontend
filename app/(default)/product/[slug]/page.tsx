@@ -2,7 +2,12 @@ import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {YourCart} from '@/components/cart';
-import {Countdown, PaypalButton, RandomNumber} from '@/components/common';
+import {
+  Countdown,
+  HtmlReplaceImgproxy,
+  PaypalButton,
+  RandomNumber,
+} from '@/components/common';
 import {
   ProductAttribute,
   ProductCarousel,
@@ -137,10 +142,9 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
           <span className='block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-2xl font-semibold text-white sm:w-auto'>
             Description
           </span>
-          <div
-            className='[&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block'
-            dangerouslySetInnerHTML={{__html: product.description}}
-          ></div>
+          <div className='[&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block'>
+            <HtmlReplaceImgproxy html={product.description} />
+          </div>
         </div>
       </div>
       <Suspense>
