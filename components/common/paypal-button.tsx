@@ -106,7 +106,6 @@ function ImplPaypalButton() {
           toast.success('Payment successful', {
             description: 'Your order has been processed successfully',
           });
-          clearCart();
 
           //Tracking for fbpixel
           fbpixel.trackPurchase({
@@ -133,6 +132,7 @@ function ImplPaypalButton() {
 
           // Tracking for firebase
           firebaseTracking.trackingOrder(result.order_key);
+          clearCart();
           return order;
         }}
       />
