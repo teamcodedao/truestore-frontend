@@ -1,4 +1,5 @@
 export {default as Countdown} from './countdown';
+export {default as HtmlReplaceImgproxy} from './html-replace-imgproxy';
 export {default as MenuOffcanvas} from './menu-offcanvas';
 export {default as PaypalButton} from './paypal-button';
 export {default as Price, type PriceProps} from './price';

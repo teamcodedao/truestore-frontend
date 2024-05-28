@@ -60,7 +60,7 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
             return (
               <div
                 key={index}
-                className='embla__slide aspect-square flex-[0_0_100%]'
+                className='embla__slide aspect-square flex-[0_0_100%] bg-slate-100'
               >
                 <img
                   src={imgproxy(image.src)}
