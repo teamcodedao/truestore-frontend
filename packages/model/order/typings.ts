@@ -1,9 +1,7 @@
 import type {Except} from 'type-fest';
 
-export * from './create-order.action';
-export * from './create-order-notes.action';
-export * from './get-shipping.action';
-export * from './update-order.action';
+export * from './client';
+export * from './server';
 
 type PaymentMethod = 'bacs' | 'paypal';
 
@@ -117,6 +115,6 @@ interface SettingBase {
 
 interface SettingWithOptions extends SettingBase {
   options?: {
-      [key: string]: string;
+    [key: string]: string;
   };
 }

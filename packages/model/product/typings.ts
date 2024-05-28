@@ -1,7 +1,5 @@
-export * from './get-product';
-export * from './get-product-variations';
-export * from './use-params-variation';
-export * from './use-product-variation';
+export * from './client';
+export * from './server';
 
 export interface ProductAttribute<O> {
   id: number;

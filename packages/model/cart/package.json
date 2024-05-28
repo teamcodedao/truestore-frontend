@@ -2,6 +2,10 @@
   "name": "@model/cart",
   "version": "0.0.0",
   "private": true,
-  "main": "index.ts",
-  "types": "typings.ts"
+  "exports": {
+    ".": {
+      "types": "./typings.ts",
+      "default": "./client.ts"
+    }
+  }
 }
