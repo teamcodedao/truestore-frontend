@@ -1,6 +1,7 @@
 import type {Except} from 'type-fest';
 
 export * from './create-order.action';
+export * from './create-order-notes.action';
 export * from './update-order.action';
 
 type PaymentMethod = 'bacs' | 'paypal';

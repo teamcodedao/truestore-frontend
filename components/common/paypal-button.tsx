@@ -4,7 +4,7 @@ import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {useCart} from '@model/cart';
-import {createOrder, type UpdateOrder, updateOrder} from '@model/order';
+import {createOrder, createOrderNotes,type UpdateOrder, updateOrder} from '@model/order';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -12,7 +12,6 @@ import {
 } from '@paypal/react-paypal-js';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
-import { createOrderNotes } from '@/packages/model/order/create-order-notes.action';
 
 const initialOptions = {
   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
@@ -132,7 +131,7 @@ function ImplPaypalButton() {
 
           // Tracking for firebase
           firebaseTracking.trackingOrder(result.order_key);
-          
+
           clearCart();
         }}
       />
