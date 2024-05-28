@@ -132,8 +132,8 @@ function ImplPaypalButton() {
 
           // Tracking for firebase
           firebaseTracking.trackingOrder(result.order_key);
+          
           clearCart();
-          return order;
         }}
       />
       {isPending && <PaypalButtonSkeleton />}

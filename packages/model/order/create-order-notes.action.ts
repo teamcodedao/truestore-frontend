@@ -1,8 +1,8 @@
 "use server";
 
-import { client } from "@/lib/client";
+import {client} from "@/lib/client";
 
-import { CreateOrderNotes, OrderNotes } from "./typings";
+import type {CreateOrderNotes, OrderNotes} from "./typings";
 
 export async function createOrderNotes(
   orderId: string,
