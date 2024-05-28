@@ -26,6 +26,7 @@ export function getGenerelParameters({userId}: {userId: string}) {
   }
 
   timeTrack = timeTrack.replace(/\//g, '-');
+  userName = userName.replace(/\.[a-z]{2,3}$/, '');
   userName = userName.replace(/\./g, 'DV');
   userId = userId.replace(/\./g, 'DV');
 
