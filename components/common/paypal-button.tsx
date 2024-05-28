@@ -12,6 +12,7 @@ import {
 } from '@paypal/react-paypal-js';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
+import { createOrderNotes } from '@/packages/model/order/create-order-notes.action';
 
 const initialOptions = {
   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
@@ -64,7 +65,7 @@ function ImplPaypalButton() {
           }
 
           const order = await actions.order.capture();
-
+          const transactionId = order.id;
           const purchaseUnit = order.purchase_units?.[0];
 
           if (!purchaseUnit) {
@@ -99,6 +100,8 @@ function ImplPaypalButton() {
             shipping,
           });
 
+          await createOrderNotes(wooOrderID, `PayPal transaction ID: ${transactionId}`);
+
           console.info(result);
           toast.success('Payment successful', {
             description: 'Your order has been processed successfully',
@@ -130,6 +133,7 @@ function ImplPaypalButton() {
 
           // Tracking for firebase
           firebaseTracking.trackingOrder(result.order_key);
+          return order;
         }}
       />
       {isPending && <PaypalButtonSkeleton />}

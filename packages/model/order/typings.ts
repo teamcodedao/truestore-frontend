@@ -73,3 +73,12 @@ interface LineItem {
   quantity: number;
   variation_id?: number;
 }
+
+export interface CreateOrderNotes {
+  note: string;
+}
+
+export interface OrderNotes {
+  id: number;
+  note: string;
+}
