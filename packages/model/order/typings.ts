@@ -1,4 +1,4 @@
-import {Except} from 'type-fest';
+import type {Except} from 'type-fest';
 
 export * from './create-order.action';
 export * from './update-order.action';

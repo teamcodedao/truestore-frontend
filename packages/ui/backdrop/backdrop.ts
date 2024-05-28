@@ -1,7 +1,7 @@
 import type {Except} from 'type-fest';
 
 import {element, EVENT_NAME} from './constants';
-import {EventProps} from './typings';
+import type {EventProps} from './typings';
 
 function showBackdrop(props?: Except<EventProps, 'action'>) {
   const event = new CustomEvent<EventProps>(EVENT_NAME, {

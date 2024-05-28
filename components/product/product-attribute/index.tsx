@@ -11,7 +11,7 @@ import {useParamsVariation} from '@model/product';
 
 import {
   ProductAttribute as ImplProductAttribute,
-  ProductAttributeProps,
+  type ProductAttributeProps,
 } from './product-attribute';
 
 function ProductAttribute(

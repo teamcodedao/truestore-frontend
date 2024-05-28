@@ -3,7 +3,7 @@
 import {use} from 'react';
 
 import {Price, type PriceProps} from '@/components/common';
-import {ProductVariation, useProductVariation} from '@model/product';
+import {type ProductVariation, useProductVariation} from '@model/product';
 
 export default function ProductPrice({
   getVariationPromise,
