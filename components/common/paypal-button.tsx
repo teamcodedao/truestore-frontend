@@ -41,34 +41,22 @@ function ImplPaypalButton() {
           );
         }}
         createOrder={async (data, actions) => {
+          if (carts.length === 0) {
+            throw new Error(
+              'Please select at least one product to complete your purchase'
+            );
+          }
+
           let shippingLines: CreateOrder['shipping_lines'] = [];
-          const maxItem = carts.reduce(
-            (max, item) => {
-              const shippingValue = item.variation.shipping_value;
-              if (shippingValue !== undefined) {
-                return shippingValue > (max.variation?.shipping_value || 0)
-                  ? item
-                  : max;
-              }
-              return max;
-            },
-            {
-              product: {id: 0, name: ''},
-              quantity: 0,
-              variation: {
-                id: 0,
-                price: '0',
-                regular_price: '0',
-                sale_price: '0',
-                shipping_class: '',
-                shipping_class_id: '',
-                shipping_value: 0,
-                image: '',
-                attributes: [],
-                link: '',
-              },
+          const maxItem = carts.reduce((max, item) => {
+            const shippingValue = item.variation.shipping_value;
+            if (shippingValue !== undefined) {
+              return shippingValue > (max.variation?.shipping_value || 0)
+                ? item
+                : max;
             }
-          );
+            return max;
+          }, carts[0]);
           if (
             maxItem.variation?.shipping_class_id !== undefined &&
             maxItem.variation.shipping_value !== undefined
