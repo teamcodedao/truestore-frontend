@@ -1,17 +1,17 @@
 'use client';
 
-import {toast} from 'sonner';
+import { toast } from 'sonner';
 
-import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {useCart} from '@model/cart';
-import {createOrder, createOrderNotes,type UpdateOrder, updateOrder} from '@model/order';
+import { PaypalButtonSkeleton } from '@/components/skeleton';
+import { useCart } from '@model/cart';
+import { type CreateOrder, createOrder, createOrderNotes, type UpdateOrder, updateOrder } from '@model/order';
 import {
   PayPalButtons,
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
-import {fbpixel} from '@tracking/fbpixel';
-import {firebaseTracking} from '@tracking/firebase';
+import { fbpixel } from '@tracking/fbpixel';
+import { firebaseTracking } from '@tracking/firebase';
 
 const initialOptions = {
   clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
@@ -19,8 +19,8 @@ const initialOptions = {
 };
 
 function ImplPaypalButton() {
-  const [{isPending}] = usePayPalScriptReducer();
-  const [{carts, countTotal, subTotal}, {clearCart}] = useCart();
+  const [{ isPending }] = usePayPalScriptReducer();
+  const [{ carts, countTotal, subTotal }, { clearCart }] = useCart();
 
   return (
     <>
@@ -35,6 +35,35 @@ function ImplPaypalButton() {
           );
         }}
         createOrder={async (data, actions) => {
+          let shippingLines: CreateOrder['shipping_lines'] = [];
+          const maxItem = carts.reduce((max, item) => {
+            const shippingValue = item.variation.shipping_value;
+            if (shippingValue !== undefined) {
+              return shippingValue > (max.variation?.shipping_value || 0) ? item : max;
+            }
+            return max;
+          }, {
+            product: { id: 0, name: '' },
+            quantity: 0,
+            variation: {
+              id: 0,
+              price: '0',
+              regular_price: '0',
+              sale_price: '0',
+              shipping_class: '',
+              shipping_class_id: '',
+              shipping_value: 0,
+              image: '',
+              attributes: [],
+              link: ''
+            }
+          });
+          if (maxItem.variation?.shipping_class_id !== undefined && maxItem.variation.shipping_value !== undefined) {
+            shippingLines = [{
+              method_id: "flat_rate",
+              total: maxItem.variation?.shipping_value.toString()
+            }];
+          }
           const order = await createOrder(
             carts.map(item => {
               return {
@@ -42,7 +71,8 @@ function ImplPaypalButton() {
                 quantity: item.quantity,
                 variation_id: item.variation?.id,
               };
-            })
+            }),
+            shippingLines
           );
 
           return actions.order.create({

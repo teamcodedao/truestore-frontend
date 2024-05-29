@@ -5,7 +5,7 @@ import {formatCurrency} from '@automattic/format-currency';
 import {useCart} from '@model/cart';
 
 export default function CheckoutInformation() {
-  const [{carts, subTotal}] = useCart();
+  const [{carts, subTotal, total, shippingTotal}] = useCart();
 
   return (
     <>
@@ -91,7 +91,7 @@ export default function CheckoutInformation() {
         <div className='flex justify-between gap-x-2'>
           <dt>Shipping</dt>
           <dd className='text-gray-900'>
-            {formatCurrency(0, 'USD', {
+            {formatCurrency(shippingTotal, 'USD', {
               stripZeros: true,
             })}
           </dd>
@@ -101,7 +101,7 @@ export default function CheckoutInformation() {
       <div className='ml-7 mt-8 flex justify-between gap-x-2 font-semibold text-gray-900'>
         <span>Total</span>
         <span>
-          {formatCurrency(subTotal, 'USD', {
+          {formatCurrency(total, 'USD', {
             stripZeros: true,
           })}
         </span>

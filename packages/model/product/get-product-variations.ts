@@ -18,7 +18,6 @@ export const getProductVariations = async (id: string) => {
       .json<ProductVariation[]>();
 
     let variations = res;
-
     while (res.length >= perPage) {
       page += 1;
       res = await client
@@ -31,7 +30,6 @@ export const getProductVariations = async (id: string) => {
         .json<ProductVariation[]>();
       variations = variations.concat(res);
     }
-
     return variations;
   } catch (error) {
     console.error(error);

@@ -14,7 +14,7 @@ interface CheckoutCartProps {
 }
 
 export default function CheckoutCart({onClose}: CheckoutCartProps) {
-  const [{carts, countTotal, subTotal}] = useCart();
+  const [{carts, countTotal, subTotal, shippingTotal, total}] = useCart();
 
   return (
     <div className='flex h-screen w-[480px] max-w-full flex-col p-4 sm:p-8'>
@@ -39,9 +39,25 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
 
       <footer className='mt-auto shrink-0 border-t pt-5'>
         <div className='flex justify-between'>
-          <span className='text-lg font-bold'>Subtotal:</span>
+          <span className='text-lg'>Subtotal:</span>
           <span className='font-medium'>
             {formatCurrency(subTotal, 'USD', {
+              stripZeros: true,
+            })}
+          </span>
+        </div>
+        <div className='flex justify-between'>
+          <span className='text-lg'>Shipping:</span>
+          <span className='font-medium'>
+            {formatCurrency(shippingTotal, 'USD', {
+              stripZeros: true,
+            })}
+          </span>
+        </div>
+        <div className='flex justify-between'>
+          <span className='text-lg font-bold'>Total:</span>
+          <span className='font-medium'>
+            {formatCurrency(total, 'USD', {
               stripZeros: true,
             })}
           </span>

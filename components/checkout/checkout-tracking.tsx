@@ -10,7 +10,7 @@ import {firebaseTracking} from '@tracking/firebase';
 export default function CheckoutTracking() {
   const searchParams = useSearchParams();
 
-  const [{carts, countTotal, subTotal}] = useCart();
+  const [{carts, countTotal, subTotal, total}] = useCart();
 
   useEffect(() => {
     fbpixel.trackInitiateCheckout({
@@ -19,7 +19,7 @@ export default function CheckoutTracking() {
       content_name: carts.map(cart => cart.product.name).join(' - '),
       currency: 'USD',
       num_items: countTotal,
-      value: subTotal,
+      value: total,
 
       // Custom properties
       content_type: 'product',
@@ -30,7 +30,7 @@ export default function CheckoutTracking() {
         quantity: cart.quantity,
       })),
     });
-  }, [carts, countTotal, subTotal]);
+  }, [carts, countTotal, subTotal, total]);
 
   useEffect(() => {
     firebaseTracking.trackingCheckout({

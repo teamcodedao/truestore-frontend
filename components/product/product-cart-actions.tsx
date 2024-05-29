@@ -96,6 +96,9 @@ export default function ProductCartActions({
                 image: variation.image.src || product.images?.[0].src,
                 link: window.location.href,
                 attributes: variation.attributes.map(attr => attr.option),
+                shipping_class: variation.shipping_class,
+                shipping_class_id: variation.shipping_class_id,
+                shipping_value: variation.shipping_value
               },
             });
 

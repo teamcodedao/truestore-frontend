@@ -25,7 +25,8 @@ export interface ProductVariation {
   regular_price?: string;
   image: ProductImage;
   shipping_class: string;
-  shipping_class_id: string;
+  shipping_class_id: number;
+  shipping_value: number;
   attributes: ReadonlyArray<
     Pick<ProductAttribute<unknown>, 'id' | 'name'> & {option: string}
   >;
