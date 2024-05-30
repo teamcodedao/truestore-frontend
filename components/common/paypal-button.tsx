@@ -3,11 +3,11 @@
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {orderMetaData} from '@/lib/order-meta-data';
 import {useCart} from '@model/cart';
 import {
   type CreateOrder,
   createOrder,
+  createOrderMetadata,
   createOrderNotes,
   type UpdateOrder,
   updateOrder,
@@ -49,7 +49,7 @@ function ImplPaypalButton() {
           }
 
           let shippingLines: CreateOrder['shipping_lines'] = [];
-          const metaDatas: CreateOrder['meta_data'] = orderMetaData();
+          const metadata: CreateOrder['meta_data'] = createOrderMetadata();
 
           const maxItem = carts.reduce((max, item) => {
             const shippingValue = item.variation.shipping_value;
@@ -60,6 +60,7 @@ function ImplPaypalButton() {
             }
             return max;
           }, carts[0]);
+
           if (
             maxItem.variation?.shipping_class_id !== undefined &&
             maxItem.variation.shipping_value !== undefined
@@ -71,6 +72,7 @@ function ImplPaypalButton() {
               },
             ];
           }
+
           const order = await createOrder(
             carts.map(item => {
               return {
@@ -79,8 +81,10 @@ function ImplPaypalButton() {
                 variation_id: item.variation?.id,
               };
             }),
-            shippingLines,
-            metaDatas
+            {
+              shipping_lines: shippingLines,
+              meta_data: metadata,
+            }
           );
 
           return actions.order.create({
@@ -103,7 +107,8 @@ function ImplPaypalButton() {
 
           const order = await actions.order.capture();
           console.log(order);
-          const transactionId = order.purchase_units?.[0].payments?.captures?.[0].id;
+          const transactionId =
+            order.purchase_units?.[0].payments?.captures?.[0].id;
           const purchaseUnit = order.purchase_units?.[0];
 
           if (!purchaseUnit) {
@@ -136,7 +141,7 @@ function ImplPaypalButton() {
           const result = await updateOrder(wooOrderID, {
             billing,
             shipping,
-            transaction_id: transactionId || ''
+            transaction_id: transactionId || '',
           });
 
           await createOrderNotes(
