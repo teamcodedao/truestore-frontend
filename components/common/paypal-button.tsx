@@ -3,6 +3,7 @@
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
+import {orderMetaData} from '@/lib/order-meta-data';
 import {useCart} from '@model/cart';
 import {
   type CreateOrder,
@@ -48,6 +49,8 @@ function ImplPaypalButton() {
           }
 
           let shippingLines: CreateOrder['shipping_lines'] = [];
+          const metaDatas: CreateOrder['meta_data'] = orderMetaData();
+
           const maxItem = carts.reduce((max, item) => {
             const shippingValue = item.variation.shipping_value;
             if (shippingValue !== undefined) {
@@ -76,7 +79,8 @@ function ImplPaypalButton() {
                 variation_id: item.variation?.id,
               };
             }),
-            shippingLines
+            shippingLines,
+            metaDatas
           );
 
           return actions.order.create({
@@ -131,6 +135,7 @@ function ImplPaypalButton() {
           const result = await updateOrder(wooOrderID, {
             billing,
             shipping,
+            transaction_id: order.id || ''
           });
 
           await createOrderNotes(

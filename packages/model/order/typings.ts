@@ -3,7 +3,7 @@ import type {Except} from 'type-fest';
 export * from './client';
 export * from './server';
 
-type PaymentMethod = 'bacs' | 'paypal';
+type PaymentMethod = 'bacs' | 'ppcp-gateway';
 
 export interface Order {
   id: number;
@@ -55,18 +55,19 @@ type Shipping = Except<Billing, 'email' | 'phone'>;
 
 export interface CreateOrder {
   payment_method: PaymentMethod;
-  payment_method_title: string;
   set_paid: boolean;
   line_items: LineItem[];
   billing?: Billing;
   shipping?: Shipping;
   shipping_lines: LineShipping[];
+  meta_data?: Metadata[];
 }
 
 export interface UpdateOrder {
   billing: Billing;
   shipping: Shipping;
   set_paid: boolean;
+  transaction_id: string;
 }
 
 interface LineItem {
@@ -77,6 +78,11 @@ interface LineItem {
 interface LineShipping {
   method_id: string;
   total: string;
+}
+
+interface Metadata {
+  key: string;
+  value: string;
 }
 
 export interface CreateOrderNotes {
