@@ -81,7 +81,13 @@ interface LineShipping {
 }
 
 interface Metadata {
-  key: string;
+  key:
+    | 'UA'
+    | 'QUERY'
+    | 'FB_UTM'
+    | (string & {
+        //
+      });
   value: string;
 }
 

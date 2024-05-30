@@ -1,6 +1,6 @@
-export function getUTM() {
+export function getUTM(search?: string) {
   let utm = '';
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(search ?? window.location.search);
 
   const utmSource = searchParams.get('utm_source') || 'none';
   const utmMedium = searchParams.get('utm_medium') || 'none';
@@ -26,5 +26,14 @@ export function getUTM() {
       'DHV' +
       utmTerm;
   }
-  return utm;
+  return [
+    utm,
+    {
+      utmSource,
+      utmMedium,
+      utmCamp,
+      utmContent,
+      utmTerm,
+    },
+  ] as const;
 }

@@ -1,4 +1,4 @@
-import {getUTM} from '@/lib/url';
+import {getTrackingData} from '@tracking/data';
 
 import {type CreateOrder} from './typings';
 
@@ -12,8 +12,7 @@ export function createOrderMetadata() {
     key: 'QUERY',
     value: window.location.href.replace(/^https?:\/\//, ''),
   });
-  let utm = '';
-  utm = getUTM();
+  const [utm] = getTrackingData()?.utm ?? [''];
   if (utm != '') {
     metadata.push({
       key: 'FB_UTM',
