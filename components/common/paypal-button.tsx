@@ -102,7 +102,8 @@ function ImplPaypalButton() {
           }
 
           const order = await actions.order.capture();
-          const transactionId = order.id;
+          console.log(order);
+          const transactionId = order.purchase_units?.[0].payments?.captures?.[0].id;
           const purchaseUnit = order.purchase_units?.[0];
 
           if (!purchaseUnit) {
@@ -135,7 +136,7 @@ function ImplPaypalButton() {
           const result = await updateOrder(wooOrderID, {
             billing,
             shipping,
-            transaction_id: order.id || ''
+            transaction_id: transactionId || ''
           });
 
           await createOrderNotes(
@@ -143,7 +144,6 @@ function ImplPaypalButton() {
             `PayPal transaction ID: ${transactionId}`
           );
 
-          console.info(result);
           toast.success('Payment successful', {
             description: 'Your order has been processed successfully',
           });
