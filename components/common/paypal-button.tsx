@@ -1,7 +1,9 @@
 'use client';
 
+import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
+import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
@@ -30,8 +32,14 @@ const initialOptions = {
 function ImplPaypalButton() {
   const router = useRouter();
 
+  const timeRef = useRef<NodeJS.Timeout>();
+
   const [{isPending}] = usePayPalScriptReducer();
   const [{carts, countTotal, subTotal}, {clearCart}] = useCart();
+
+  useWillUnmount(() => {
+    clearTimeout(timeRef.current);
+  });
 
   return (
     <>
@@ -152,8 +160,8 @@ function ImplPaypalButton() {
             `PayPal transaction ID: ${transactionId}`
           );
 
-          const timer = setTimeout(() => {
-            router.replace(`/order-received/${wooOrderID}`);
+          timeRef.current = setTimeout(() => {
+            router.replace(`/orders/${result.id}?key=${result.order_key}`);
           }, 1000);
 
           toast.success('Thank you for shopping', {
@@ -161,8 +169,7 @@ function ImplPaypalButton() {
             action: {
               label: 'Undo',
               onClick: () => {
-                clearTimeout(timer);
-                router.replace(`/order-received/${wooOrderID}`);
+                router.replace(`/orders/${result.id}?key=${result.order_key}`);
               },
             },
           });

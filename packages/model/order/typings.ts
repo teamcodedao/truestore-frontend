@@ -35,6 +35,7 @@ export interface Order {
   total_tax: string;
   transaction_id: string;
   version: string;
+  billing: Billing;
   shipping: Shipping;
 }
 
