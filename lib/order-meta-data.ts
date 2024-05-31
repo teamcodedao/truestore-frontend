@@ -3,27 +3,6 @@ import {
     type CreateOrder,
     type UpdateOrder,
   } from '@model/order';
-  
-export function orderMetaData() {
-  const metaDatas: CreateOrder["meta_data"] = [];
-  metaDatas.push({
-    key: "UA",
-    value: navigator.userAgent,
-  });
-  metaDatas.push({
-    key: "QUERY",
-    value: window.location.href.replace(/^https?:\/\//, ""),
-  });
-  let utm = "";
-  utm = getUTM();
-  if (utm != "") {
-    metaDatas.push({
-      key: "FB_UTM",
-      value: utm,
-    });
-  }
-  return metaDatas;
-}
 
 export function orderUpdateMetaData(transaction_id: string|undefined) {
   const metaDatas: UpdateOrder["meta_data"] = [];

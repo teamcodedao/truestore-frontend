@@ -10,9 +10,9 @@ export function createOrderMetadata() {
   });
   metadata.push({
     key: 'QUERY',
-    value: window.location.href.replace(/^https?:\/\//, ''),
+    value: getTrackingData()?.referrerUrl.replace(/^https?:\/\//, '') || '',
   });
-  const [utm] = getTrackingData()?.utm ?? [''];
+  const utm = getTrackingData()?.utm ?? '';
   if (utm != '') {
     metadata.push({
       key: 'FB_UTM',

@@ -9,7 +9,6 @@ export function getTrackingData() {
     try {
       const data = v.parse(TrackingDataSchema, JSON.parse(raw));
       const [utm] = getUTM(new URL(data.referrerUrl).search) ?? [''];
-
       return {
         ...data,
         utm,
