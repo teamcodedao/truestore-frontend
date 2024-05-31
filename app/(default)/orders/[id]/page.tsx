@@ -6,6 +6,7 @@ import {TrackPageView} from '@/components/common';
 
 export const metadata: Metadata = {
   title: 'Order Received',
+  robots: 'noindex',
 };
 
 export default function OrderReceivedPage() {

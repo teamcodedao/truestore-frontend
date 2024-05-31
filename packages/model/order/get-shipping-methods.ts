@@ -1,5 +1,4 @@
-'use server';
-
+import 'server-only';
 import {unstable_cache as cache} from 'next/cache';
 
 import {HTTPError} from 'got';
@@ -8,8 +7,8 @@ import {client} from '@/lib/client';
 
 import type {ShippingMethod} from './typings';
 
-export const getShipping = cache(async () => {
-  const response = client.get(`v3/shipping/zones/1/methods`);
+export const getShippingMethods = cache(async (zone: number) => {
+  const response = client.get(`v3/shipping/zones/${zone}/methods`);
 
   const [shippingMethod] = await response.json<ShippingMethod[]>();
 

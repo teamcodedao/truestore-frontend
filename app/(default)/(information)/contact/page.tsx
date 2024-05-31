@@ -11,7 +11,7 @@ export default function ContactPage() {
       <p>
         Email:{' '}
         <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          help@shoptroveusa.com
+          {process.env.NEXT_PUBLIC_EMAIL}
         </a>
       </p>
       <address className='space-y-2 font-medium'>

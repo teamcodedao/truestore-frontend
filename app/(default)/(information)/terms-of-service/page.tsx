@@ -14,7 +14,8 @@ export default function TermOfServicePage() {
       </p>
 
       <p>
-        By accessing our website <strong>” localhost”</strong>, operated under
+        By accessing our website{' '}
+        <strong>”{process.env.NEXT_PUBLIC_BASE}”</strong>, operated under{' '}
         <strong>CuTeng Queue Pte. Ltd</strong> and its affiliates, even you do
         not use our Goods, you are agreeing to be bound by the following terms
         and conditions (the “Terms”).

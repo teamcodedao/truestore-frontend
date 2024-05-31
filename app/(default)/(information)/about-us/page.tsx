@@ -12,11 +12,14 @@ export default function AboutPage() {
       <div>
         Dear Valued Customers,
         <p>
-          Welcome to <strong>shoptroveusa.com</strong> that is operated under{' '}
-          <strong>CuTeng Queue Pte. Ltd</strong> - a company incorporated under{' '}
-          <strong>Singapore</strong> law located at: 244 Fast North Drive 1,
-          #02-05, Singapore, 528559 and its affiliates provide access to the{' '}
-          <strong>{'"'} shoptroveusa.com </strong>
+          Welcome to <strong>{process.env.NEXT_PUBLIC_BASE}</strong> that is
+          operated under <strong>CuTeng Queue Pte. Ltd</strong> - a company
+          incorporated under <strong>Singapore</strong> law located at:{' '}
+          <strong>244 Fast North Drive 1, #02-05, Singapore, 528559</strong> and
+          its affiliates provide access to the{' '}
+          <strong>
+            {'"'} {process.env.NEXT_PUBLIC_BASE}{' '}
+          </strong>
           {'"'} to your shopping experience.
         </p>
         <p>

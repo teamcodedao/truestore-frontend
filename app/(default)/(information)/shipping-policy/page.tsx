@@ -85,7 +85,7 @@ export default function ShippingPolicyPage() {
         This is our promise to you! If there&apos;s a missing order, please let
         us know via
         <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          process.env.NEXT_PUBLIC_EMAIL
+          {process.env.NEXT_PUBLIC_EMAIL}
         </a>
         . We&apos;ll investigate (it usually took <strong>3-5</strong> business
         days) and send you another one after we got a conclusion.
