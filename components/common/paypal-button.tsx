@@ -7,7 +7,6 @@ import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {orderUpdateMetaData} from '@/lib/order-meta-data';
 import {useCart} from '@model/cart';
 import {
   type CreateOrder,
@@ -16,6 +15,7 @@ import {
   createOrderNotes,
   type UpdateOrder,
   updateOrder,
+  updateOrderMetadata,
 } from '@model/order';
 import {
   PayPalButtons,
@@ -150,13 +150,15 @@ function ImplPaypalButton() {
             email: order.payer?.email_address,
           };
 
-          const metaDatas: UpdateOrder['meta_data'] = orderUpdateMetaData(transactionId);
+          const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
+            transaction_id: transactionId,
+          });
 
           const result = await updateOrder(wooOrderID, {
             billing,
             shipping,
             transaction_id: transactionId || '',
-            meta_data: metaDatas
+            meta_data: metadata,
           });
 
           await createOrderNotes(

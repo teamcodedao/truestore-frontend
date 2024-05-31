@@ -61,7 +61,7 @@ export interface CreateOrder {
   billing?: Billing;
   shipping?: Shipping;
   shipping_lines: LineShipping[];
-  meta_data?: Metadata[];
+  meta_data?: OrderMetadata[];
 }
 
 export interface UpdateOrder {
@@ -69,7 +69,7 @@ export interface UpdateOrder {
   shipping: Shipping;
   set_paid: boolean;
   transaction_id: string;
-  meta_data?: Metadata[];
+  meta_data?: OrderMetadata[];
 }
 
 interface LineItem {
@@ -82,7 +82,7 @@ interface LineShipping {
   total: string;
 }
 
-interface Metadata {
+interface OrderMetadata {
   key:
     | 'UA'
     | 'QUERY'
@@ -111,9 +111,7 @@ export interface ShippingMethod {
   method_id: string;
   method_title: string;
   method_description: string;
-  settings: {
-    [key: string]: SettingBase | SettingWithOptions;
-  };
+  settings: Record<string, SettingBase | SettingWithOptions>;
 }
 
 interface SettingBase {
@@ -128,7 +126,9 @@ interface SettingBase {
 }
 
 interface SettingWithOptions extends SettingBase {
-  options?: {
-    [key: string]: string;
-  };
+  options?: Record<string, string>;
+}
+
+export interface UpdateOrderMetadata {
+  transaction_id?: string;
 }
