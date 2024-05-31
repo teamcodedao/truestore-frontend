@@ -3,7 +3,7 @@
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {orderMetaData} from '@/lib/order-meta-data';
+import {orderMetaData, orderUpdateMetaData} from '@/lib/order-meta-data';
 import {useCart} from '@model/cart';
 import {
   type CreateOrder,
@@ -102,7 +102,6 @@ function ImplPaypalButton() {
           }
 
           const order = await actions.order.capture();
-          console.log(order);
           const transactionId = order.purchase_units?.[0].payments?.captures?.[0].id;
           const purchaseUnit = order.purchase_units?.[0];
 
@@ -133,10 +132,13 @@ function ImplPaypalButton() {
             email: order.payer?.email_address,
           };
 
+          const metaDatas: UpdateOrder['meta_data'] = orderUpdateMetaData(transactionId);
+
           const result = await updateOrder(wooOrderID, {
             billing,
             shipping,
-            transaction_id: transactionId || ''
+            transaction_id: transactionId || '',
+            meta_data: metaDatas
           });
 
           await createOrderNotes(

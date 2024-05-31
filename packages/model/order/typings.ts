@@ -68,6 +68,7 @@ export interface UpdateOrder {
   shipping: Shipping;
   set_paid: boolean;
   transaction_id: string;
+  meta_data?: Metadata[];
 }
 
 interface LineItem {

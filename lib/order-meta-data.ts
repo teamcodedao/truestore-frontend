@@ -1,6 +1,7 @@
 
 import {
     type CreateOrder,
+    type UpdateOrder,
   } from '@model/order';
   
 export function orderMetaData() {
@@ -21,6 +22,26 @@ export function orderMetaData() {
       value: utm,
     });
   }
+  return metaDatas;
+}
+
+export function orderUpdateMetaData(transaction_id: string|undefined) {
+  const metaDatas: UpdateOrder["meta_data"] = [];
+  if(!transaction_id) {
+    return metaDatas;
+  }
+  metaDatas.push({
+    key: "_ppcp_paypal_order_id",
+    value: transaction_id,
+  });
+  metaDatas.push({
+    key: "_ppcp_paypal_intent",
+    value: "CAPTURE",
+  });
+  metaDatas.push({
+    key: "_ppcp_paypal_payment_mode",
+    value: "live",
+  });
   return metaDatas;
 }
 
