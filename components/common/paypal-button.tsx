@@ -3,11 +3,12 @@
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {orderMetaData, orderUpdateMetaData} from '@/lib/order-meta-data';
+import {orderUpdateMetaData} from '@/lib/order-meta-data';
 import {useCart} from '@model/cart';
 import {
   type CreateOrder,
   createOrder,
+  createOrderMetadata,
   createOrderNotes,
   type UpdateOrder,
   updateOrder,
@@ -49,7 +50,7 @@ function ImplPaypalButton() {
           }
 
           let shippingLines: CreateOrder['shipping_lines'] = [];
-          const metaDatas: CreateOrder['meta_data'] = orderMetaData();
+          const metadata: CreateOrder['meta_data'] = createOrderMetadata();
 
           const maxItem = carts.reduce((max, item) => {
             const shippingValue = item.variation.shipping_value;
@@ -60,6 +61,7 @@ function ImplPaypalButton() {
             }
             return max;
           }, carts[0]);
+
           if (
             maxItem.variation?.shipping_class_id !== undefined &&
             maxItem.variation.shipping_value !== undefined
@@ -71,6 +73,7 @@ function ImplPaypalButton() {
               },
             ];
           }
+
           const order = await createOrder(
             carts.map(item => {
               return {
@@ -79,8 +82,10 @@ function ImplPaypalButton() {
                 variation_id: item.variation?.id,
               };
             }),
-            shippingLines,
-            metaDatas
+            {
+              shipping_lines: shippingLines,
+              meta_data: metadata,
+            }
           );
 
           return actions.order.create({

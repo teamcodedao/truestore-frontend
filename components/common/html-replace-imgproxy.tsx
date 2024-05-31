@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import parse from 'html-react-parser';
 
 import {imgproxy} from '@/lib/imgproxy';
@@ -26,7 +27,7 @@ export default function HtmlReplaceImgproxy({html}: HtmlReplaceImgproxyProps) {
             width={width}
             height={height}
             alt={alt}
-            className={className}
+            className={clsx(className, 'bg-slate-100')}
             srcSet={srcset}
             loading='lazy'
             {...(src

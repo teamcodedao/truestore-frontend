@@ -29,6 +29,9 @@ importers:
       '@rehooks/local-storage':
         specifier: ^2.4.5
         version: 2.4.5(react@18.3.1)
+      '@tracking/data':
+        specifier: workspace:^
+        version: link:packages/tracking/data
       '@tracking/fbpixel':
         specifier: workspace:^
         version: link:packages/tracking/fbpixel
@@ -57,8 +60,8 @@ importers:
         specifier: ^8.1.3
         version: 8.1.3(react@18.3.1)
       embla-carousel-wheel-gestures:
-        specifier: 8.0.0-rc05
-        version: 8.0.0-rc05(embla-carousel@8.1.3)
+        specifier: 8.0.1
+        version: 8.0.1(embla-carousel@8.1.3)
       firebase:
         specifier: ^10.12.2
         version: 10.12.2
@@ -83,6 +86,9 @@ importers:
       react-error-boundary:
         specifier: ^4.0.13
         version: 4.0.13(react@18.3.1)
+      react-use-cookie:
+        specifier: ^1.6.1
+        version: 1.6.1(react@18.3.1)
       rooks:
         specifier: ^7.14.1
         version: 7.14.1(react-dom@18.3.1)(react@18.3.1)
@@ -98,6 +104,9 @@ importers:
       superjson:
         specifier: ^2.2.1
         version: 2.2.1
+      valibot:
+        specifier: 0.31.0-rc.6
+        version: 0.31.0-rc.6
     devDependencies:
       '@egoist/tailwindcss-icons':
         specifier: ^1.8.0
@@ -115,8 +124,8 @@ importers:
         specifier: ^0.0.31
         version: 0.0.31
       '@types/node':
-        specifier: ^20
-        version: 20.12.12
+        specifier: ^20.12.13
+        version: 20.12.13
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -170,6 +179,8 @@ importers:
   packages/model/order: {}
 
   packages/model/product: {}
+
+  packages/tracking/data: {}
 
   packages/tracking/fbpixel: {}
 
@@ -770,7 +781,7 @@ packages:
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.13
-      '@types/node': 20.12.12
+      '@types/node': 20.12.13
     dev: false
 
   /@grpc/proto-loader@0.7.13:
@@ -2657,8 +2668,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/node@20.12.12:
-    resolution: {integrity: sha512-eWLDGF/FOSPtAvEqeRAQ4C8LSA7M1I7i0ky1I8U7kD1J5ITyW3AsRhQrKVoWf5pFKZ2kILsEGJhsI9r93PYnOw==}
+  /@types/node@20.12.13:
+    resolution: {integrity: sha512-gBGeanV41c1L171rR7wjbMiEpEI/l5XFQdLLfhr/REwpgDy/4U8y89+i8kRiLzDyZdOkXh+cRaTetUnCYutoXA==}
     dependencies:
       undici-types: 5.26.5
 
@@ -3427,8 +3438,8 @@ packages:
       embla-carousel: 8.1.3
     dev: false
 
-  /embla-carousel-wheel-gestures@8.0.0-rc05(embla-carousel@8.1.3):
-    resolution: {integrity: sha512-KfPlGuOvMterlg01FDd+Iws5wefInkyks4ai3p4n4B5WAiyel+DHs4AFu09UmshcnHpIH5cLJQ6VJCbp/kyy1A==}
+  /embla-carousel-wheel-gestures@8.0.1(embla-carousel@8.1.3):
+    resolution: {integrity: sha512-LMAnruDqDmsjL6UoQD65aLotpmfO49Fsr3H0bMi7I+BH6jbv9OJiE61kN56daKsVtCQEt0SU1MrJslbhtgF3yQ==}
     engines: {node: '>=10'}
     peerDependencies:
       embla-carousel: ^8.0.0 || ~8.0.0-rc03
@@ -4168,6 +4179,7 @@ packages:
 
   /glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -5229,7 +5241,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.12.12
+      '@types/node': 20.12.13
       long: 5.2.3
     dev: false
 
@@ -5391,6 +5403,15 @@ packages:
       react: 18.3.1
     dev: false
 
+  /react-use-cookie@1.6.1(react@18.3.1):
+    resolution: {integrity: sha512-77bENFpc+pi1roLJIrRvekprB4IjwG1Mowir0QdbwA0pDjgMtp3Ya9E1H9dJAisCxBvTZih6k5+2SSVo9BR2qw==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 18.3.1
+    dev: false
+
   /react@18.3.1:
     resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
     engines: {node: '>=0.10.0'}
@@ -5487,6 +5508,7 @@ packages:
 
   /rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
     dependencies:
       glob: 7.2.3
@@ -5828,13 +5850,13 @@ packages:
   /tailwindcss-mixins@0.0.11:
     resolution: {integrity: sha512-mi+wX83EJ0pGXuqWrxiU3/6nn9Bb79U7r/Danlnf1uSj/2DTIM1kpbgacb14qqN6b9dNSBunNGn6A90bTZIi7Q==}
     dependencies:
-      '@types/node': 20.12.12
+      '@types/node': 20.12.13
     dev: true
 
   /tailwindcss-multi@0.4.6:
     resolution: {integrity: sha512-Bn9yLrMkeYFrJjRYuuTfqT9ibm6U2qnTwlIKYchWyGX3qgL+1+NN4JgiHJG1qrR4QQeU28eCl8sMSBobdzijvQ==}
     dependencies:
-      '@types/node': 20.12.12
+      '@types/node': 20.12.13
     dev: true
 
   /tailwindcss@3.4.3:
@@ -6030,6 +6052,10 @@ packages:
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
+
+  /valibot@0.31.0-rc.6:
+    resolution: {integrity: sha512-NW4mnZsSyLCj2TweTPBuo7jzhZywh3C2M0T5UU53po2jhg/0k7B63pQTt3hkcdZl2JkSZEYHliKzO/2OsLFqlQ==}
+    dev: false
 
   /websocket-driver@0.7.4:
     resolution: {integrity: sha512-b17KeDIQVjvb0ssuSDF2cYXSg2iztliJ4B9WdsuB6J952qCPKmnVq4DyW5motImXHDC1cBT/1UezrJVsKw5zjg==}

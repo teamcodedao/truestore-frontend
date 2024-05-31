@@ -4,7 +4,10 @@ import {client} from '@/lib/client';
 
 import type {CreateOrder, Order} from './typings';
 
-export async function createOrder(carts: CreateOrder['line_items'], shipping_lines: CreateOrder['shipping_lines'], meta_data: CreateOrder['meta_data']) {
+export async function createOrder(
+  carts: CreateOrder['line_items'],
+  {shipping_lines, meta_data}: Pick<CreateOrder, 'shipping_lines' | 'meta_data'>
+) {
   return client
     .post(`v3/orders`, {
       json: {
@@ -12,7 +15,7 @@ export async function createOrder(carts: CreateOrder['line_items'], shipping_lin
         set_paid: false,
         line_items: carts,
         shipping_lines,
-        meta_data
+        meta_data,
       } satisfies CreateOrder,
     })
     .json<Order>();

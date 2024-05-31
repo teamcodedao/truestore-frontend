@@ -89,7 +89,7 @@ export default function CheckoutInformation() {
           </dd>
         </div>
         <div className='flex justify-between gap-x-2'>
-          <dt>Shipping</dt>
+          <dt>Secured Shipping</dt>
           <dd className='text-gray-900'>
             {formatCurrency(shippingTotal, 'USD', {
               stripZeros: true,

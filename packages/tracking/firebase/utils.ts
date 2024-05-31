@@ -1,6 +1,7 @@
+import {getUTM} from '@tracking/data';
+
 export function getGenerelParameters({userId}: {userId: string}) {
   let userName = window.location.host;
-  const searchParams = new URLSearchParams(window.location.search);
 
   const usTime = new Date().toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles',
@@ -15,11 +16,8 @@ export function getGenerelParameters({userId}: {userId: string}) {
   if (timeTrack.length < 5) return;
 
   let isPub = 'PRI';
-  const utmSource = searchParams.get('utm_source') || 'none';
-  const utmMedium = searchParams.get('utm_medium') || 'none';
-  const utmCamp = searchParams.get('utm_campaign') || 'none';
-  const utmContent = searchParams.get('utm_content') || 'none';
-  const utmTerm = searchParams.get('utm_term') || 'none';
+
+  const [, {utmSource, utmMedium, utmCamp, utmContent, utmTerm}] = getUTM();
 
   if (utmSource.length <= 0 || utmSource == 'none') {
     isPub = 'PUB';
