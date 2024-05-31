@@ -1,5 +1,7 @@
 'use client';
 
+import {useRouter} from 'next/navigation';
+
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
@@ -26,6 +28,8 @@ const initialOptions = {
 };
 
 function ImplPaypalButton() {
+  const router = useRouter();
+
   const [{isPending}] = usePayPalScriptReducer();
   const [{carts, countTotal, subTotal}, {clearCart}] = useCart();
 
@@ -106,7 +110,6 @@ function ImplPaypalButton() {
           }
 
           const order = await actions.order.capture();
-          console.log(order);
           const transactionId =
             order.purchase_units?.[0].payments?.captures?.[0].id;
           const purchaseUnit = order.purchase_units?.[0];
@@ -149,8 +152,19 @@ function ImplPaypalButton() {
             `PayPal transaction ID: ${transactionId}`
           );
 
-          toast.success('Payment successful', {
-            description: 'Your order has been processed successfully',
+          const timer = setTimeout(() => {
+            router.replace(`/order-received/${wooOrderID}`);
+          }, 1000);
+
+          toast.success('Thank you for shopping', {
+            description: `Your #${111} order has been received successfully`,
+            action: {
+              label: 'Undo',
+              onClick: () => {
+                clearTimeout(timer);
+                router.replace(`/order-received/${wooOrderID}`);
+              },
+            },
           });
 
           //Tracking for fbpixel
