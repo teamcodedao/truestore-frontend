@@ -2,6 +2,8 @@ import {headers} from 'next/headers';
 
 import type {Metadata} from 'next';
 
+import {Signature} from '@/components/common';
+
 export const metadata: Metadata = {
   title: 'Terms of Service',
 };
@@ -101,16 +103,7 @@ export default function TermOfServicePage() {
         and will not limit or otherwise affect these terms.
       </p>
       <p>Please direct any legal questions to:</p>
-      <p>
-        Email:{' '}
-        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          {process.env.NEXT_PUBLIC_EMAIL}
-        </a>
-      </p>
-      <h4>CuTeng Queue Pte. Ltd</h4>
-      <address>
-        Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
-      </address>
+      <Signature />
 
       <h4>SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION</h4>
       <p>

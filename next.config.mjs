@@ -4,9 +4,6 @@ import pkg from './package.json' assert {type: 'json'};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    typedRoutes: true,
-  },
   poweredByHeader: false,
   eslint: {
     dirs: ['app', 'components', 'lib', 'packages'],

@@ -2,6 +2,8 @@ import {headers} from 'next/headers';
 
 import type {Metadata} from 'next';
 
+import {Signature} from '@/components/common';
+
 export const metadata: Metadata = {
   title: 'About Us',
 };
@@ -48,16 +50,7 @@ export default function AboutPage() {
           If you have any questions or comments, please do not hesitate to
           contact us through:
         </p>
-        <p>
-          Email:{' '}
-          <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-            {process.env.NEXT_PUBLIC_EMAIL}
-          </a>
-        </p>
-        <h4>CuTeng Queue Pte. Ltd</h4>
-        <address>
-          Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
-        </address>
+        <Signature />
         <p>Sincerely,</p>
       </div>
     </article>
