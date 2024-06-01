@@ -1,22 +1,12 @@
 module.exports = {
-  apps: [
-    {
-      name: "nextjs-app-dev",
-      script: "pnpm",
-      args: "dev",
-      env: {
-        NODE_ENV: "development",
+    apps: [
+      {
+        name: 'supper-web',
+        script: "node_modules/next/dist/bin/next",
+        args: "start",
+        instances: "8", 
+        exec_mode: 'cluster',
+        autorestart: true,
       },
-    },
-    {
-      name: "nextjs-app-prod",
-      script: "pnpm",
-      args: "start",
-      instances: 3,
-      exec_mode: "cluster",
-      env: {
-        NODE_ENV: "production",
-      },
-    },
-  ],
+    ],
 };
