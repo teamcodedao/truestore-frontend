@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 import pkg from './package.json' assert {type: 'json'};
 
 /** @type {import('next').NextConfig} */
@@ -9,6 +11,10 @@ const nextConfig = {
   eslint: {
     dirs: ['app', 'components', 'lib', 'packages'],
   },
+  cacheHandler: process.env.NEXT_WITH_CACHE_HANDLER
+    ? path.resolve('./cache-handler.mjs')
+    : null,
+  cacheMaxMemorySize: 0,
   headers() {
     return [
       {

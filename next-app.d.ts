@@ -31,6 +31,8 @@ declare global {
 
       NEXT_API: string;
       NEXT_API_AUTH: string;
+      NEXT_WITH_CACHE_HANDLER?: 0 | 1;
+      REDIS_URL?: string;
 
       NEXT_PUBLIC_BASE: string;
       NEXT_PUBLIC_EMAIL: string;

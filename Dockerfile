@@ -9,7 +9,7 @@ RUN corepack prepare pnpm@8 --activate
 ENV NEXT_TELEMETRY_DISABLED 1
 
 WORKDIR /app
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml next.config.mjs ./
+COPY .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml cache-handler.mjs next.config.mjs ./
 
 
 # State 1
