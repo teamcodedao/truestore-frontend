@@ -11,10 +11,6 @@ const nextConfig = {
   eslint: {
     dirs: ['app', 'components', 'lib', 'packages'],
   },
-  cacheHandler: process.env.NEXT_CACHE_HANDLER
-    ? path.resolve('./cache-handler.mjs')
-    : null,
-  cacheMaxMemorySize: 0,
   headers() {
     return [
       {
