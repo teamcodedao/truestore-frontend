@@ -44,6 +44,6 @@ jobs:
           push: true
           build-args: NEXT_PUBLIC_VERSION
           target: runner
-          tags: nghiepit/truestore-frontend:${{ env.NEXT_PUBLIC_VERSION }}
+          tags: nghiepit/truestore-frontend:${{ env.NEXT_PUBLIC_VERSION }},nghiepit/truestore-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

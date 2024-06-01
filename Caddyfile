@@ -1,0 +1,7 @@
+{
+
+}
+
+shoptroveusa.com {
+  reverse_proxy truestore-frontend:3000
+}

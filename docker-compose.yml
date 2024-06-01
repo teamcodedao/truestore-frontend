@@ -1,0 +1,38 @@
+services:
+  webserver:
+   image: caddy
+   cap_add:
+    - NET_ADMIN
+   ports:
+    - 80:80
+    - 443:443
+    - 443:443/udp
+   volumes:
+    - ./Caddyfile:/etc/caddy/Caddyfile
+    - caddy_data:/data
+    - caddy_config:/config
+   restart: unless-stopped
+
+
+  truestore-frontend:
+    image: nghiepit/truestore-frontend
+    environment:
+      NEXT_API: 'https://gilterlifehack.com/wp-json/wc'
+      NEXT_API_AUTH: 'ck_9eb7bb32ef2d39df2931d106ecb5bfbcc97dce30:cs_bb58f4304c9d3f8ed9b109b9ed5eaf3196565b84'      
+      NEXT_CACHE_HANDLER: 1
+      NEXT_REDIS_URL: redis://redis-stack:6379
+    restart: unless-stopped
+
+
+  redis-stack:
+    image: redis/redis-stack:edge
+    volumes:
+      - redis-stack:/data
+    environment:
+      - "REDIS_ARGS=--appendonly yes"
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
+  redis-stack:
