@@ -2,6 +2,7 @@
   "name": "@model/cart",
   "version": "0.0.0",
   "private": true,
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./typings.ts",

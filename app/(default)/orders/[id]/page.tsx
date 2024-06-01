@@ -3,6 +3,7 @@ import {Suspense} from 'react';
 import type {Metadata} from 'next';
 
 import {TrackPageView} from '@/components/common';
+import {OrderDetails} from '@/components/order';
 
 export const metadata: Metadata = {
   title: 'Order Received',
@@ -12,10 +13,9 @@ export const metadata: Metadata = {
 export default function OrderReceivedPage() {
   return (
     <>
-      <article className='prose lg:prose-lg'>
-        <h2>Order Tracking</h2>
-        <p>COMING SOON</p>
-      </article>
+      <div className=''>
+        <OrderDetails />
+      </div>
       <Suspense>
         <TrackPageView />
       </Suspense>
