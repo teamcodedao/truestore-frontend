@@ -1,3 +1,4 @@
+export {default as Badge} from './badge';
 export {default as Countdown} from './countdown';
 export {default as HtmlReplaceImgproxy} from './html-replace-imgproxy';
 export {default as MenuOffcanvas} from './menu-offcanvas';

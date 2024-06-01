@@ -22,6 +22,7 @@ export interface Order {
   shipping_tax: string;
   shipping_total: string;
   cart_tax: string;
+  customer_note: string;
   status:
     | 'pending'
     | 'processing'
@@ -37,6 +38,9 @@ export interface Order {
   version: string;
   billing: Billing;
   shipping: Shipping;
+  line_items: LineItem[];
+  date_created: string;
+  date_paid: string;
 }
 
 interface Billing {
@@ -52,12 +56,14 @@ interface Billing {
   phone?: string;
 }
 
-type Shipping = Except<Billing, 'email' | 'phone'>;
+type Shipping = Except<Billing, 'email'>;
 
 export interface CreateOrder {
   payment_method: PaymentMethod;
   set_paid: boolean;
-  line_items: LineItem[];
+  line_items: ReadonlyArray<
+    Pick<LineItem, 'product_id' | 'variation_id' | 'quantity'>
+  >;
   billing?: Billing;
   shipping?: Shipping;
   shipping_lines: LineShipping[];
@@ -73,9 +79,31 @@ export interface UpdateOrder {
 }
 
 interface LineItem {
+  id: number;
+  name: string;
   product_id: number;
   quantity: number;
   variation_id?: number;
+  tax_class: string;
+  subtotal: string;
+  subtotal_tax: string;
+  total: string;
+  total_tax: string;
+  sku: string;
+  price: number;
+  parent_name: string;
+  taxes: unknown[];
+  meta_data: ReadonlyArray<{
+    id: number;
+    key: string;
+    value: string;
+    display_key: string;
+    display_value: string;
+  }>;
+  image: {
+    id: number;
+    src: string;
+  };
 }
 interface LineShipping {
   method_id: string;

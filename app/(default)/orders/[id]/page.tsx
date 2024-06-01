@@ -27,9 +27,7 @@ export default function OrderReceivedPage({
 
   return (
     <>
-      <div className=''>
-        <OrderDetails />
-      </div>
+      <OrderDetails retrieveOrderPromise={retrieveOrderPromise} />
       <Suspense>
         <TrackPageView />
       </Suspense>
