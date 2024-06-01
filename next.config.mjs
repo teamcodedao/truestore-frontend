@@ -13,7 +13,7 @@ const nextConfig = {
   },
   cacheHandler: process.env.NEXT_CACHE_HANDLER
     ? path.resolve('./cache-handler.mjs')
-    : null,
+    : undefined,
   cacheMaxMemorySize: 0,
   headers() {
     return [
