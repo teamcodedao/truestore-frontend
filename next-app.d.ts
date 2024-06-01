@@ -1,6 +1,26 @@
 export {};
 
 declare global {
+  namespace NodeJS {
+    interface ProcessEnv {
+      NEXT_PUBLIC_VERSION?: string;
+
+      NEXT_API: string;
+      NEXT_API_AUTH: string;
+      NEXT_CACHE_HANDLER?: 0 | 1;
+      NEXT_REDIS_URL?: string;
+
+      NEXT_PUBLIC_BASE: string;
+      NEXT_PUBLIC_EMAIL: string;
+
+      NEXT_PUBLIC_PAYPAL_CLIENT_ID: string;
+
+      NEXT_PUBLIC_FIREBASE_API_KEY: string;
+
+      NEXT_PUBLIC_IMGPROXY_URL: string;
+    }
+  }
+
   type LayoutProps<P = Record<string | string[]>> = Readonly<{
     children: React.ReactNode;
     params: P;
@@ -24,24 +44,4 @@ declare global {
   type RouteHandlerContext<P = Record<string | string[]>> = Readonly<{
     params: P;
   }>;
-
-  namespace NodeJS {
-    interface ProcessEnv {
-      NEXT_PUBLIC_VERSION?: string;
-
-      NEXT_API: string;
-      NEXT_API_AUTH: string;
-      NEXT_WITH_CACHE_HANDLER?: 0 | 1;
-      REDIS_URL?: string;
-
-      NEXT_PUBLIC_BASE: string;
-      NEXT_PUBLIC_EMAIL: string;
-
-      NEXT_PUBLIC_PAYPAL_CLIENT_ID: string;
-
-      NEXT_PUBLIC_FIREBASE_API_KEY: string;
-
-      NEXT_PUBLIC_IMGPROXY_URL: string;
-    }
-  }
 }

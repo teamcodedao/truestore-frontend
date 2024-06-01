@@ -9,7 +9,7 @@ CacheHandler.onCreation(async () => {
 
   try {
     client = createClient({
-      url: process.env.REDIS_URL,
+      url: process.env.NEXT_REDIS_URL,
     });
 
     client.on('error', () => {});
