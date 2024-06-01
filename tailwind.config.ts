@@ -38,6 +38,7 @@ const config: Config = {
   },
   plugins: [
     require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
     require('tailwindcss-mixins'),
     require('tailwindcss-multi'),
     require('tailwind-scrollbar-hide'),
