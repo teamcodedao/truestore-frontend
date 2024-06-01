@@ -12,7 +12,7 @@ const nextConfig = {
     dirs: ['app', 'components', 'lib', 'packages'],
   },
   cacheHandler:
-    process.env.NEXT_CACHE_HANDLER != '0'
+    process.env.NEXT_CACHE_HANDLER === '1'
       ? path.resolve('./cache-handler.mjs')
       : undefined,
   headers() {

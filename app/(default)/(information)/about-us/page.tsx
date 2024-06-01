@@ -1,3 +1,5 @@
+import {headers} from 'next/headers';
+
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
@@ -5,6 +7,8 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const host = headers().get('host');
+
   return (
     <article className='prose lg:prose-lg'>
       <h2>About Us</h2>
@@ -12,13 +16,13 @@ export default function AboutPage() {
       <div>
         Dear Valued Customers,
         <p>
-          Welcome to <strong>{process.env.NEXT_PUBLIC_BASE}</strong> that is
-          operated under <strong>CuTeng Queue Pte. Ltd</strong> - a company
-          incorporated under <strong>Singapore</strong> law located at:{' '}
+          Welcome to <strong>{host}</strong> that is operated under{' '}
+          <strong>CuTeng Queue Pte. Ltd</strong> - a company incorporated under{' '}
+          <strong>Singapore</strong> law located at:{' '}
           <strong>244 Fast North Drive 1, #02-05, Singapore, 528559</strong> and
           its affiliates provide access to the{' '}
           <strong>
-            {'"'} {process.env.NEXT_PUBLIC_BASE}{' '}
+            {'"'} {host}{' '}
           </strong>
           {'"'} to your shopping experience.
         </p>

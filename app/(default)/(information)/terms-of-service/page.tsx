@@ -1,3 +1,5 @@
+import {headers} from 'next/headers';
+
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
@@ -5,6 +7,8 @@ export const metadata: Metadata = {
 };
 
 export default function TermOfServicePage() {
+  const host = headers().get('host');
+
   return (
     <article className='prose lg:prose-lg'>
       <h2>Terms of Service</h2>
@@ -14,8 +18,7 @@ export default function TermOfServicePage() {
       </p>
 
       <p>
-        By accessing our website{' '}
-        <strong>”{process.env.NEXT_PUBLIC_BASE}”</strong>, operated under{' '}
+        By accessing our website <strong>”{host}”</strong>, operated under{' '}
         <strong>CuTeng Queue Pte. Ltd</strong> and its affiliates, even you do
         not use our Goods, you are agreeing to be bound by the following terms
         and conditions (the “Terms”).
