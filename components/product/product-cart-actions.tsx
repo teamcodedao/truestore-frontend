@@ -1,7 +1,7 @@
 'use client';
 
 import {use, useState} from 'react';
-import Link from 'next/link';
+import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
 import {toast} from 'sonner';
@@ -47,7 +47,52 @@ export default function ProductCartActions({
   const variation = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
-  const [, {addCart}] = useCart();
+  const [, {addCart }] = useCart();
+  const router = useRouter();
+
+  const handleAddToCart = () => {
+    if (!variation) {
+      toast.warning('Please, choose product options');
+      return;
+    }
+
+    fbpixel.trackToCart({
+      content_name: product.name,
+      content_ids: [String(variation.id)],
+      value: parseFloat(variation.sale_price || variation.price),
+      contents: [
+        {
+          id: variation.id,
+          quantity,
+        },
+      ],
+      post_id: product.id,
+    });
+
+    addCart({
+      product: {
+        id: product.id,
+        name: product.name,
+      },
+      quantity,
+      variation: {
+        id: variation.id,
+        price: variation.price,
+        regular_price: variation.regular_price,
+        sale_price: variation.sale_price,
+        image: variation.image.src || product.images?.[0].src,
+        link: window.location.href,
+        attributes: variation.attributes.map((attr) => attr.option),
+        shipping_class: variation.shipping_class,
+        shipping_class_id: variation.shipping_class_id,
+        shipping_value: variation.shipping_value,
+      },
+    });
+
+    firebaseTracking.trackingLogs('VC', product);
+    firebaseTracking.trackingLogs('ATC', product);
+  };
+
 
   return (
     <div className='flex gap-x-3'>
@@ -63,48 +108,7 @@ export default function ProductCartActions({
         <button
           className='bg-black hover:bg-black/80'
           onClick={() => {
-            if (!variation) {
-              toast.warning('Please, choose product options');
-              return;
-            }
-
-            fbpixel.trackToCart({
-              content_name: product.name,
-              content_ids: [String(variation.id)],
-              value: parseFloat(variation.sale_price || variation.price),
-              // Custom properties
-              contents: [
-                {
-                  id: variation.id,
-                  quantity,
-                },
-              ],
-              post_id: product.id,
-            });
-
-            addCart({
-              product: {
-                id: product.id,
-                name: product.name,
-              },
-              quantity,
-              variation: {
-                id: variation.id,
-                price: variation.price,
-                regular_price: variation.regular_price,
-                sale_price: variation.sale_price,
-                image: variation.image.src || product.images?.[0].src,
-                link: window.location.href,
-                attributes: variation.attributes.map(attr => attr.option),
-                shipping_class: variation.shipping_class,
-                shipping_class_id: variation.shipping_class_id,
-                shipping_value: variation.shipping_value
-              },
-            });
-
-            firebaseTracking.trackingLogs('VC', product);
-            firebaseTracking.trackingLogs('ATC', product);
-
+            handleAddToCart();
             offcanvas.show({
               direction: 'right',
               ssr: false,
@@ -116,13 +120,16 @@ export default function ProductCartActions({
           <span className='i-carbon-shopping-cart-plus'></span>
           <span>Add to cart</span>
         </button>
-        <Link
-          href='/checkout?from=product'
+        <button
           className='bg-orange-600 hover:bg-orange-500'
+          onClick={() => {
+            handleAddToCart();
+            router.push('/checkout?from=product');
+          }}
         >
           <span className='i-carbon-wallet'></span>
           <span>Buy now</span>
-        </Link>
+        </button>
       </div>
     </div>
   );
