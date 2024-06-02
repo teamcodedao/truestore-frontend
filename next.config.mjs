@@ -4,13 +4,14 @@ import pkg from './package.json' assert {type: 'json'};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    typedRoutes: true,
-  },
   poweredByHeader: false,
   eslint: {
     dirs: ['app', 'components', 'lib', 'packages'],
   },
+  cacheHandler:
+    process.env.NEXT_CACHE_HANDLER === '1'
+      ? path.resolve('./cache-handler.mjs')
+      : undefined,
   headers() {
     return [
       {

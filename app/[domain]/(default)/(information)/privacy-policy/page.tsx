@@ -1,5 +1,7 @@
 import type {Metadata} from 'next';
 
+import {Signature} from '@/components/common';
+
 export const metadata: Metadata = {
   title: 'Privacy Policy',
 };
@@ -210,16 +212,7 @@ export default function PrivacyPolicyPage() {
         If you have any questions as to how we collect and use your personal
         information, please contact us:
       </p>
-      <p>
-        Email:{' '}
-        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          {process.env.NEXT_PUBLIC_EMAIL}
-        </a>
-      </p>
-      <h4>CuTeng Queue Pte. Ltd</h4>
-      <address>
-        Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
-      </address>
+      <Signature />
     </article>
   );
 }

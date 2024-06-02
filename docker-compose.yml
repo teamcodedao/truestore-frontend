@@ -1,0 +1,19 @@
+services:
+  webserver:
+    image: caddy
+    ports:
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  truestore:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  caddy_data:
+  caddy_config:

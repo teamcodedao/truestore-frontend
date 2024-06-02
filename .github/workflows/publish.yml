@@ -7,7 +7,6 @@ on:
       - '[0-9]+.[0-9]+.[0-9]+-rc.[0-9]+'
 
 env:
-  NEXT_PUBLIC_BASE: ${{ secrets.NEXT_PUBLIC_BASE }}
   NEXT_PUBLIC_PAYPAL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_PAYPAL_CLIENT_ID }}
   NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
 
@@ -41,9 +40,10 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: ./Dockerfile.prod
           push: true
           build-args: NEXT_PUBLIC_VERSION
           target: runner
-          tags: nghiepit/truestore-frontend:${{ env.NEXT_PUBLIC_VERSION }}
+          tags: nghiepit/truestore-frontend:${{ env.NEXT_PUBLIC_VERSION }},nghiepit/truestore-frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

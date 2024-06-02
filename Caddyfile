@@ -1,0 +1,8 @@
+{
+  local_certs
+}
+
+
+shop1.truestore.com, shop2.truestore.com {
+  reverse_proxy truestore:3000
+}

@@ -1,5 +1,7 @@
 import type {Metadata} from 'next';
 
+import {Signature} from '@/components/common';
+
 export const metadata: Metadata = {
   title: 'Payment Methods',
 };
@@ -16,16 +18,7 @@ export default function PaymentMethodPage() {
       </p>
 
       <h4>CONTACT US</h4>
-      <p>
-        Email:{' '}
-        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          {process.env.NEXT_PUBLIC_EMAIL}
-        </a>
-      </p>
-      <h4>CuTeng Queue Pte. Ltd</h4>
-      <address>
-        Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
-      </address>
+      <Signature />
     </article>
   );
 }

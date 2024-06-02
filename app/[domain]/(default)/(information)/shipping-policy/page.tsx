@@ -1,10 +1,16 @@
+import {headers} from 'next/headers';
+
 import type {Metadata} from 'next';
+
+import {Signature} from '@/components/common';
 
 export const metadata: Metadata = {
   title: 'Shipping Policy',
 };
 
 export default function ShippingPolicyPage() {
+  const host = headers().get('host');
+
   return (
     <article className='prose lg:prose-lg'>
       <h2>Shipping Policy</h2>
@@ -84,11 +90,9 @@ export default function ShippingPolicyPage() {
         <strong>6</strong>0 days, you will be refunded in FULL for that item.
         This is our promise to you! If there&apos;s a missing order, please let
         us know via
-        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          {process.env.NEXT_PUBLIC_EMAIL}
-        </a>
-        . We&apos;ll investigate (it usually took <strong>3-5</strong> business
-        days) and send you another one after we got a conclusion.
+        <a href={`mailto:${`help@${host}`}`}>{`help@${host}`}</a>. We&apos;ll
+        investigate (it usually took <strong>3-5</strong> business days) and
+        send you another one after we got a conclusion.
       </p>
       <h4>CUSTOMS AND TAXES</h4>
       <p>
@@ -126,16 +130,7 @@ export default function ShippingPolicyPage() {
         If you have any questions or comments, please do not hesitate to contact
         us through:
       </p>
-      <p>
-        Email:{' '}
-        <a href={`mailto:${process.env.NEXT_PUBLIC_EMAIL}`}>
-          {process.env.NEXT_PUBLIC_EMAIL}
-        </a>
-      </p>
-      <h4>CuTeng Queue Pte. Ltd</h4>
-      <address>
-        Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
-      </address>
+      <Signature />
     </article>
   );
 }
