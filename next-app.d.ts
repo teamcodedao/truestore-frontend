@@ -18,16 +18,13 @@ declare global {
     }
   }
 
-  type LayoutProps<P = Record<string | string[]>> = Readonly<{
+  type LayoutProps<P = object> = Readonly<{
     children: React.ReactNode;
-    params: P;
+    params: P & {domain: string};
   }>;
 
-  type PageProps<
-    P = Record<string | string[]>,
-    S = Record<string | string[] | undefined>
-  > = Readonly<{
-    params: P;
+  type PageProps<P = object, S = object> = Readonly<{
+    params: P & {domain: string};
     searchParams: S;
   }>;
 
@@ -38,7 +35,7 @@ declare global {
     reset: () => void;
   }>;
 
-  type RouteHandlerContext<P = Record<string | string[]>> = Readonly<{
+  type RouteHandlerContext<P = object> = Readonly<{
     params: P;
   }>;
 }

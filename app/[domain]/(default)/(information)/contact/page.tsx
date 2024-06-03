@@ -1,19 +1,17 @@
-import {headers} from 'next/headers';
-
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
 };
 
-export default function ContactPage() {
-  const host = headers().get('host');
+export default function ContactPage({params}: PageProps) {
+  const domain = params.domain;
 
   return (
     <article className='prose lg:prose-lg'>
       <h2>Contact Us</h2>
       <p>
-        Email: <a href={`mailto:${`help@${host}`}`}>{`help@${host}`}</a>
+        Email: <a href={`mailto:${`help@${domain}`}`}>{`help@${domain}`}</a>
       </p>
       <address className='space-y-2 font-medium'>
         <h4>CuTeng Queue Pte. Ltd</h4>

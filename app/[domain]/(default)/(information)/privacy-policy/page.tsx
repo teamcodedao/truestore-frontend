@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   title: 'Privacy Policy',
 };
 
-export default function PrivacyPolicyPage() {
+export default function PrivacyPolicyPage({params}: PageProps) {
+  const domain = params.domain;
+
   return (
     <article className='prose lg:prose-lg'>
       <h2>Privacy Policy</h2>
@@ -212,7 +214,7 @@ export default function PrivacyPolicyPage() {
         If you have any questions as to how we collect and use your personal
         information, please contact us:
       </p>
-      <Signature />
+      <Signature domain={domain} />
     </article>
   );
 }

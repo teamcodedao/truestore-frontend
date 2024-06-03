@@ -1,5 +1,3 @@
-import {headers} from 'next/headers';
-
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
@@ -8,8 +6,8 @@ export const metadata: Metadata = {
   title: 'Terms of Service',
 };
 
-export default function TermOfServicePage() {
-  const host = headers().get('host');
+export default function TermOfServicePage({params}: PageProps) {
+  const domain = params.domain;
 
   return (
     <article className='prose lg:prose-lg'>
@@ -20,7 +18,7 @@ export default function TermOfServicePage() {
       </p>
 
       <p>
-        By accessing our website <strong>”{host}”</strong>, operated under{' '}
+        By accessing our website <strong>”{domain}”</strong>, operated under{' '}
         <strong>CuTeng Queue Pte. Ltd</strong> and its affiliates, even you do
         not use our Goods, you are agreeing to be bound by the following terms
         and conditions (the “Terms”).
@@ -103,7 +101,7 @@ export default function TermOfServicePage() {
         and will not limit or otherwise affect these terms.
       </p>
       <p>Please direct any legal questions to:</p>
-      <Signature />
+      <Signature domain={domain} />
 
       <h4>SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION</h4>
       <p>

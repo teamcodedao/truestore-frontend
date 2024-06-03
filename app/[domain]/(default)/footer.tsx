@@ -1,4 +1,3 @@
-import {headers} from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -7,11 +6,11 @@ import clsx from 'clsx';
 import paypalImg from '@/images/payments/paypal.webp';
 import visaMasterImg from '@/images/payments/visa_master.webp';
 
-interface FooterProps extends React.ComponentProps<'footer'> {}
+interface FooterProps extends React.ComponentProps<'footer'> {
+  domain: string;
+}
 
-export default function Footer({className}: FooterProps) {
-  const host = headers().get('host');
-
+export default function Footer({className, domain}: FooterProps) {
   return (
     <footer className={clsx(className, 'bg-[#042449] text-white')}>
       <div className='container'>
@@ -26,10 +25,10 @@ export default function Footer({className}: FooterProps) {
                 </span>
               </p>
               <a
-                href={`mailto:${`help@${host}`}`}
+                href={`mailto:${`help@${domain}`}`}
                 className='block font-semibold text-white hover:text-slate-200'
               >
-                {`help@${host}`}
+                {`help@${domain}`}
               </a>
             </address>
             <div className='mt-10 flex justify-center gap-x-2 *:multi-[`object-contain`]'>

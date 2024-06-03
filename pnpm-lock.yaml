@@ -117,8 +117,8 @@ importers:
         specifier: ^2.2.1
         version: 2.2.1
       valibot:
-        specifier: 0.31.0-rc.7
-        version: 0.31.0-rc.7
+        specifier: 0.31.0-rc.9
+        version: 0.31.0-rc.9
     devDependencies:
       '@egoist/tailwindcss-icons':
         specifier: ^1.8.0
@@ -136,8 +136,8 @@ importers:
         specifier: ^0.0.31
         version: 0.0.31
       '@types/node':
-        specifier: ^20.13.0
-        version: 20.13.0
+        specifier: ^20.14.0
+        version: 20.14.0
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -792,7 +792,7 @@ packages:
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.13
-      '@types/node': 20.13.0
+      '@types/node': 20.14.0
     dev: false
 
   /@grpc/proto-loader@0.7.13:
@@ -2738,8 +2738,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
-  /@types/node@20.13.0:
-    resolution: {integrity: sha512-FM6AOb3khNkNIXPnHFDYaHerSv8uN22C91z098AnGccVu+Pcdhi+pNUFDi0iLmPIsVE0JBD0KVS7mzUYt4nRzQ==}
+  /@types/node@20.14.0:
+    resolution: {integrity: sha512-5cHBxFGJx6L4s56Bubp4fglrEpmyJypsqI6RgzMfBHWUJQGWAAi8cWcgetEbZXHYXo9C2Fa4EEds/uSyS4cxmA==}
     dependencies:
       undici-types: 5.26.5
 
@@ -5265,7 +5265,7 @@ packages:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.13.0
+      '@types/node': 20.14.0
       long: 5.2.3
     dev: false
 
@@ -5881,13 +5881,13 @@ packages:
   /tailwindcss-mixins@0.0.11:
     resolution: {integrity: sha512-mi+wX83EJ0pGXuqWrxiU3/6nn9Bb79U7r/Danlnf1uSj/2DTIM1kpbgacb14qqN6b9dNSBunNGn6A90bTZIi7Q==}
     dependencies:
-      '@types/node': 20.13.0
+      '@types/node': 20.14.0
     dev: true
 
   /tailwindcss-multi@0.4.6:
     resolution: {integrity: sha512-Bn9yLrMkeYFrJjRYuuTfqT9ibm6U2qnTwlIKYchWyGX3qgL+1+NN4JgiHJG1qrR4QQeU28eCl8sMSBobdzijvQ==}
     dependencies:
-      '@types/node': 20.13.0
+      '@types/node': 20.14.0
     dev: true
 
   /tailwindcss@3.4.3:
@@ -6078,8 +6078,8 @@ packages:
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  /valibot@0.31.0-rc.7:
-    resolution: {integrity: sha512-7cFx/n1F1kaPSe9pBxZO3g9PsQnhvWcQhPwE/zH5GJpQ/oMgo8HLxpfE87BEWwOqGVYNIcLIkiWfnCAbHik6uA==}
+  /valibot@0.31.0-rc.9:
+    resolution: {integrity: sha512-AxG5C4GsYViioVaTZAx5nxfO9DshJjZORvFZzlsd0ezobdTXkmBKZd2oN8Lflu4fRk+QG3HG64+IHAdDo3vNWA==}
     dev: false
 
   /websocket-driver@0.7.4:

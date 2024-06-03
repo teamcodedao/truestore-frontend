@@ -1,12 +1,12 @@
-import {headers} from 'next/headers';
+interface SignatureProps {
+  domain: string;
+}
 
-export default function Signature() {
-  const host = headers().get('host');
-
+export default function Signature({domain}: SignatureProps) {
   return (
     <>
       <p>
-        Email: <a href={`mailto:${`help@${host}`}`}>{`help@${host}`}</a>
+        Email: <a href={`mailto:${`help@${domain}`}`}>{`help@${domain}`}</a>
       </p>
       <h4>CuTeng Queue Pte. Ltd</h4>
       <address>

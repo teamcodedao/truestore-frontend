@@ -6,7 +6,11 @@ import logoImg from '@/images/logo.webp';
 
 import Footer from './footer';
 
-export default function DefaultLayout({children}: LayoutProps) {
+export const dynamic = 'error';
+
+export default function DefaultLayout({children, params}: LayoutProps) {
+  const domain = params.domain;
+
   return (
     <div className='flex min-h-screen flex-col'>
       <div className='container'>
@@ -26,7 +30,7 @@ export default function DefaultLayout({children}: LayoutProps) {
         <div className='mt-5'>{children}</div>
       </div>
       <div className='h-10 lg:h-16'></div>
-      <Footer className='mt-auto' />
+      <Footer domain={domain} className='mt-auto' />
     </div>
   );
 }

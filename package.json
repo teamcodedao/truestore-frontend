@@ -48,7 +48,7 @@
     "sharp": "^0.33.4",
     "sonner": "^1.4.41",
     "superjson": "^2.2.1",
-    "valibot": "0.31.0-rc.7"
+    "valibot": "0.31.0-rc.9"
   },
   "devDependencies": {
     "@egoist/tailwindcss-icons": "^1.8.0",
@@ -56,7 +56,7 @@
     "@iconify-json/radix-icons": "^1.1.14",
     "@tailwindcss/typography": "^0.5.13",
     "@types/facebook-pixel": "^0.0.31",
-    "@types/node": "^20.13.0",
+    "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18",
     "@typescript-eslint/eslint-plugin": "^7.11.0",

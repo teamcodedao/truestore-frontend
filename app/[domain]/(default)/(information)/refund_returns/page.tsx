@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   title: 'Return & Refund Policy',
 };
 
-export default function RefundReturnsPage() {
+export default function RefundReturnsPage({params}: PageProps) {
+  const domain = params.domain;
+
   return (
     <article className='prose lg:prose-lg'>
       <h2>Return & Refund Policy</h2>
@@ -81,7 +83,7 @@ export default function RefundReturnsPage() {
       </p>
 
       <h4>CONTACT US</h4>
-      <Signature />
+      <Signature domain={domain} />
     </article>
   );
 }

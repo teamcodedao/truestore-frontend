@@ -1,3 +1,5 @@
+import firbaseConfig from '@/config/firebase.json';
+
 import {getGenerelParameters} from './utils';
 
 export class Fbpixel {
@@ -10,7 +12,7 @@ export class Fbpixel {
     }
 
     const response = await fetch(
-      'https://king-fruit-slot.firebaseio.com/PXTRUE/ALL/.json'
+      new URL('/PXTRUE/ALL/.json', firbaseConfig.clientConfig.databaseURL)
     );
 
     if (response.ok) {

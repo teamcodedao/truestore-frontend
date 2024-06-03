@@ -6,7 +6,9 @@ export const metadata: Metadata = {
   title: 'Payment Methods',
 };
 
-export default function PaymentMethodPage() {
+export default function PaymentMethodPage({params}: PageProps) {
+  const domain = params.domain;
+
   return (
     <article className='prose lg:prose-lg'>
       <h2>Payment Methods</h2>
@@ -18,7 +20,7 @@ export default function PaymentMethodPage() {
       </p>
 
       <h4>CONTACT US</h4>
-      <Signature />
+      <Signature domain={domain} />
     </article>
   );
 }
