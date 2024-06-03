@@ -16,6 +16,7 @@ export default function OrderReceivedPage({
   params,
   searchParams,
 }: PageProps<{id: string}, {key: string}>) {
+  const domain = params.domain;
   const id = params.id;
   const key = searchParams.key;
 
@@ -23,7 +24,9 @@ export default function OrderReceivedPage({
     notFound();
   }
 
-  const retrieveOrderPromise = retrieveOrder(id, key, {throwNotFound: true});
+  const retrieveOrderPromise = retrieveOrder(domain, id, key, {
+    throwNotFound: true,
+  });
 
   return (
     <>

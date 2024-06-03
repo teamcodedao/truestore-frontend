@@ -4,7 +4,7 @@ import {notFound} from 'next/navigation';
 
 import {HTTPError} from 'got';
 
-import {client} from '@/lib/client';
+import {createPlatformClient} from '@common/platform';
 
 import type {Order} from './typings';
 
@@ -14,10 +14,12 @@ interface RetriveProductParams {
 
 export const retrieveOrder = cache(
   async (
+    domain: string,
     id: string | number,
     addtionalKey: string,
     params?: RetriveProductParams
   ) => {
+    const client = await createPlatformClient(domain);
     try {
       const response = client.get(`v3/orders/${id}`);
       const order = await response.json<Order>();

@@ -1,5 +1,6 @@
 'use server';
 
+import {headers} from 'next/headers';
 import {redirect} from 'next/navigation';
 
 import {retrieveOrder} from '@model/order';
@@ -10,6 +11,7 @@ export interface FormValues {
 }
 
 export async function submit({email, order_number}: FormValues) {
-  const order = await retrieveOrder(order_number, email);
+  const domain = headers().get('host') ?? '';
+  const order = await retrieveOrder(domain, order_number, email);
   redirect(`/orders/${order.id}?key=${order.order_key}`);
 }

@@ -26,7 +26,9 @@ export const revalidate = 180;
 export async function generateMetadata({
   params,
 }: GenerateMetadataProps<{slug: string}>) {
-  const product = await getProduct(params.slug, {throwNotFound: true});
+  const product = await getProduct(params.domain, params.slug, {
+    throwNotFound: true,
+  });
 
   return {
     title: product.name,
@@ -34,8 +36,13 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({params}: PageProps<{slug: string}>) {
-  const product = await getProduct(params.slug, {throwNotFound: true});
-  const getVariationPromise = getProductVariations(String(product.id));
+  const domain = params.domain;
+  const slug = params.slug;
+
+  const product = await getProduct(domain, slug, {
+    throwNotFound: true,
+  });
+  const getVariationPromise = getProductVariations(domain, String(product.id));
 
   return (
     <>
@@ -59,6 +66,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
               <ProductPrice
+                domain={domain}
                 id={String(product.id)}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}

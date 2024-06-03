@@ -6,10 +6,11 @@ import {getProductVariations} from '@model/product';
 import ProductPrice from './product-price';
 
 export default function SuspenseProductPrice({
+  domain,
   id,
   ...props
-}: PriceProps & {id: string}) {
-  const promise = getProductVariations(id);
+}: PriceProps & {domain: string; id: string}) {
+  const promise = getProductVariations(domain, id);
 
   return (
     <Suspense

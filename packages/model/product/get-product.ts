@@ -4,7 +4,7 @@ import {notFound} from 'next/navigation';
 
 import {HTTPError} from 'got';
 
-import {client} from '@/lib/client';
+import {createPlatformClient} from '@common/platform';
 import type {Product} from '@model/product';
 
 interface GetProductParams {
@@ -12,7 +12,8 @@ interface GetProductParams {
 }
 
 export const getProduct = cache(
-  async (slug: string, params?: GetProductParams) => {
+  async (domain: string, slug: string, params?: GetProductParams) => {
+    const client = await createPlatformClient(domain);
     try {
       const response = client.get(`v3/products`, {
         searchParams: {

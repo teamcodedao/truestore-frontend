@@ -5,7 +5,6 @@ declare global {
     interface ProcessEnv {
       NEXT_PUBLIC_VERSION?: string;
 
-      NEXT_API: string;
       NEXT_API_AUTH: string;
       NEXT_CACHE_HANDLER?: 0 | 1;
       NEXT_REDIS_URL?: string;

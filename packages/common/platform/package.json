@@ -1,5 +1,5 @@
 {
-  "name": "@common/no-ssr",
+  "name": "@common/platform",
   "version": "0.0.0",
   "private": true,
   "sideEffects": false,
