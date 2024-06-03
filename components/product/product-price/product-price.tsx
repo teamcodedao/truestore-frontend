@@ -2,7 +2,7 @@
 
 import {use} from 'react';
 
-import {Price, type PriceProps} from '@/components/common';
+import {Price, type PriceProps} from '@/components/ui';
 import {type ProductVariation, useProductVariation} from '@model/product';
 
 export default function ProductPrice({

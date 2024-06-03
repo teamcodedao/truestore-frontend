@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import {MenuOffcanvas} from '@/components/common';
+import {MenuOffcanvas} from '@/components/ui';
 import logoImg from '@/images/logo.webp';
 
 import Footer from './footer';

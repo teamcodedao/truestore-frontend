@@ -2,10 +2,10 @@ import {Suspense} from 'react';
 import Image from 'next/image';
 
 import {YourCart} from '@/components/cart';
+import {PaypalButton} from '@/components/checkout';
 import {
   Countdown,
   HtmlReplaceImgproxy,
-  PaypalButton,
   RandomNumber,
 } from '@/components/common';
 import {

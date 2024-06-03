@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
+import {SpinNumber} from '@/components/ui';
 import {useCart} from '@model/cart';
 import {
   type Product,
@@ -16,7 +17,6 @@ import {
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
-import {SpinNumber} from '@ui/spin-number';
 
 interface ProductCartActionsProps {
   min?: number;
@@ -47,7 +47,7 @@ export default function ProductCartActions({
   const variation = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
-  const [, {addCart }] = useCart();
+  const [, {addCart}] = useCart();
   const router = useRouter();
 
   const handleAddToCart = () => {
@@ -82,7 +82,7 @@ export default function ProductCartActions({
         sale_price: variation.sale_price,
         image: variation.image.src || product.images?.[0].src,
         link: window.location.href,
-        attributes: variation.attributes.map((attr) => attr.option),
+        attributes: variation.attributes.map(attr => attr.option),
         shipping_class: variation.shipping_class,
         shipping_class_id: variation.shipping_class_id,
         shipping_value: variation.shipping_value,
@@ -92,7 +92,6 @@ export default function ProductCartActions({
     firebaseTracking.trackingLogs('VC', product);
     firebaseTracking.trackingLogs('ATC', product);
   };
-
 
   return (
     <div className='flex gap-x-3'>

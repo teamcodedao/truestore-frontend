@@ -11,7 +11,8 @@ import {
   CheckoutPayment,
   CheckoutTracking,
 } from '@/components/checkout';
-import {MenuOffcanvas, TrackPageView} from '@/components/common';
+import {TrackPageView} from '@/components/common';
+import {MenuOffcanvas} from '@/components/ui';
 import logoImg from '@/images/logo.webp';
 
 const CheckoutInformation = dynamic(

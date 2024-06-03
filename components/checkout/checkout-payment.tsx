@@ -3,7 +3,7 @@
 import {Suspense} from 'react';
 import Image from 'next/image';
 
-import {PaypalButton} from '@/components/common';
+import {PaypalButton} from '@/components/checkout';
 import trustbadge from '@/images/trustbadge.png';
 
 export default function CheckoutPayment() {

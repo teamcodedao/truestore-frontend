@@ -2,10 +2,9 @@
 
 import {useState} from 'react';
 
-import {Price} from '@/components/common';
+import {Price, SpinNumber} from '@/components/ui';
 import {imgproxy} from '@/lib/imgproxy';
 import type {CartItem} from '@model/cart';
-import {SpinNumber} from '@ui/spin-number';
 
 interface CartItemProps {
   cart: CartItem;

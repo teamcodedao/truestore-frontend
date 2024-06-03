@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import dayjs from 'dayjs';
 
-import {Badge} from '@/components/common';
+import {Badge} from '@/components/ui';
 import paypalImg from '@/images/payments/paypal.webp';
 import {imgproxy} from '@/lib/imgproxy';
 import {formatCurrency} from '@automattic/format-currency';
