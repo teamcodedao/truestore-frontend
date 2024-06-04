@@ -4,5 +4,10 @@
 
 
 shop1.truestore.com, shop2.truestore.com {
+  #root * /srv/truestore-static
+  #handle_path /_next/static/* {
+  #  file_server
+  #}
+
   reverse_proxy truestore:3000
 }

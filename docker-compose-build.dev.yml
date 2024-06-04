@@ -16,7 +16,7 @@ services:
       dockerfile: ./Dockerfile-build.dev
     env_file:
       - .env
-      - .env.development.local
+      - .env.production.local
 
 volumes:
   caddy_data:
