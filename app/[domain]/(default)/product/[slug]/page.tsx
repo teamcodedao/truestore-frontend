@@ -31,7 +31,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: product.name,
+    title: params.domain + " | " + product.name,
   };
 }
 

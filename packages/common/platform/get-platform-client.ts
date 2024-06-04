@@ -6,6 +6,7 @@ import {baseClient} from './base-client';
 import {getPlatformConfig} from './get-platform-config';
 
 async function getClient(domain: string) {
+  console.log(domain)
   const platform = await getPlatformConfig(domain);
 
   return baseClient.extend({

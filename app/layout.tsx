@@ -2,16 +2,10 @@ import './globals.css';
 import {Inter} from 'next/font/google';
 
 import clsx from 'clsx';
-import type {Metadata} from 'next';
 
 import Providers from './providers';
 
 const inter = Inter({subsets: ['latin']});
-
-export const metadata: Metadata = {
-  title: 'Ace Store',
-  description: 'Ace Store',
-};
 
 export default function RootLayout({children}: LayoutProps) {
   return (
