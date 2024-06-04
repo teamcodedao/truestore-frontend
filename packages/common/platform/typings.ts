@@ -21,5 +21,4 @@ export type PublicPlatformConfig = Pick<
   | 'address'
   | 'imgproxy_url'
   | 'paypal_client_id'
-  | 'pixel_ids'
-> & {domain: string};
+> & {domain: string; pixel_ids: string[]};

@@ -1,19 +1,20 @@
 'use client';
 
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import Script from 'next/script';
 
 import {Fbpixel} from './fbpixel';
 
 export const fbpixel = new Fbpixel();
 
-export default function FbpixelProvider() {
-  const [ids, setIds] = useState<string[]>([]);
+interface FbpixelProps {
+  pixel_ids: string[];
+}
 
+export default function FbpixelProvider({pixel_ids}: FbpixelProps) {
   useEffect(() => {
-    const handler = async () => {
-      const ids = await fbpixel.initialize();
-      setIds(ids);
+    const handler = () => {
+      fbpixel.initialize(pixel_ids);
     };
     if (document.readyState === 'complete') {
       handler();
@@ -21,9 +22,9 @@ export default function FbpixelProvider() {
       window.addEventListener('load', handler, {once: true});
       return () => document.removeEventListener('load', handler);
     }
-  }, []);
+  }, [pixel_ids]);
 
-  if (ids.length === 0) {
+  if (pixel_ids.length === 0) {
     return null;
   }
 
@@ -37,7 +38,7 @@ export default function FbpixelProvider() {
         t.src=v;s=b.getElementsByTagName(e)[0];
         s.parentNode.insertBefore(t,s)}(window, document,'script',
         'https://connect.facebook.net/en_US/fbevents.js');
-        ${ids.map(id => `fbq('init', ${id});`).join('\n')}
+        ${pixel_ids.map(id => `fbq('init', ${id});`).join('\n')}
         `}
     </Script>
   );
