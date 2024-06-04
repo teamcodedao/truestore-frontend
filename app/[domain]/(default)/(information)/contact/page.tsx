@@ -14,7 +14,7 @@ export default async function ContactPage({params}: PageProps) {
     <article className='prose lg:prose-lg'>
       <h2>Contact Us</h2>
       <p>
-        Email: <a href={`mailto:${`help@${domain}`}`}>{`help@${domain}`}</a>
+        Email: <a href={`mailto:${platform.email}`}>{platform.email}</a>
       </p>
       <address className='space-y-2 font-medium'>
         <h4>{platform.company}</h4>
