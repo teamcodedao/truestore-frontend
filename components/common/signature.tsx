@@ -1,17 +1,20 @@
-interface SignatureProps {
-  domain: string;
-}
+'use client';
 
-export default function Signature({domain}: SignatureProps) {
+import {usePlatform} from '@common/platform';
+
+export default function Signature() {
+  const platform = usePlatform();
+
   return (
     <>
       <p>
-        Email: <a href={`mailto:${`help@${domain}`}`}>{`help@${domain}`}</a>
+        Email:{' '}
+        <a
+          href={`mailto:${`help@${platform.domain}`}`}
+        >{`help@${platform.domain}`}</a>
       </p>
-      <h4>CuTeng Queue Pte. Ltd</h4>
-      <address>
-        Address: 244 Fast North Drive 1, #02-05, Singapore, 528559
-      </address>
+      <h4>{platform.company}</h4>
+      <address>{platform.address}</address>
     </>
   );
 }

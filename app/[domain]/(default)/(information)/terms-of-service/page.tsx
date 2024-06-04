@@ -1,13 +1,15 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
+import {getPlatformConfig} from '@common/platform';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
 };
 
-export default function TermOfServicePage({params}: PageProps) {
+export default async function TermOfServicePage({params}: PageProps) {
   const domain = params.domain;
+  const platform = await getPlatformConfig(domain);
 
   return (
     <article className='prose lg:prose-lg'>
@@ -19,12 +21,12 @@ export default function TermOfServicePage({params}: PageProps) {
 
       <p>
         By accessing our website <strong>”{domain}”</strong>, operated under{' '}
-        <strong>CuTeng Queue Pte. Ltd</strong> and its affiliates, even you do
-        not use our Goods, you are agreeing to be bound by the following terms
-        and conditions (the “Terms”).
+        <strong>{platform.company}</strong> and its affiliates, even you do not
+        use our Goods, you are agreeing to be bound by the following terms and
+        conditions (the “Terms”).
       </p>
       <p>
-        As used in these terms: “we”, “us” and “localhost” means the applicable
+        As used in these terms: “we”, “us” and “{domain}” means the applicable
         Website Party. These Terms apply to all users of the site, including
         without limitation users who are browsers, vendors, customers,
         merchants, and/ or contributors of content.
@@ -101,7 +103,7 @@ export default function TermOfServicePage({params}: PageProps) {
         and will not limit or otherwise affect these terms.
       </p>
       <p>Please direct any legal questions to:</p>
-      <Signature domain={domain} />
+      <Signature />
 
       <h4>SECTION 3 - ACCURACY, COMPLETENESS AND TIMELINESS OF INFORMATION</h4>
       <p>
@@ -330,27 +332,26 @@ export default function TermOfServicePage({params}: PageProps) {
         non-infringement.
       </p>
       <p>
-        In no case shall CuTeng Queue Pte. Ltd, our directors, officers,
-        employees, affiliates, agents, contractors, interns, suppliers, service
-        providers or licensors be liable for any injury, loss, claim, or any
-        direct, indirect, incidental, punitive, special, or consequential
-        damages of any kind, including, without limitation lost profits, lost
-        revenue, lost savings, loss of data, replacement costs, or any similar
-        damages, whether based in contract, tort (including negligence), strict
-        liability or otherwise, arising from your use of any of goods,
-        including, but not limited to, any errors or omissions in any content,
-        or any loss or damage of any kind incurred as a result of the use of
-        goods posted, transmitted, or otherwise made available via the service,
-        even if advised of their possibility. Because some states or
-        jurisdictions do not allow the exclusion or the limitation of liability
-        for consequential or incidental damages, in such states or
-        jurisdictions, our liability shall be limited to the maximum extent
-        permitted by law.
+        In no case shall {platform.company}, our directors, officers, employees,
+        affiliates, agents, contractors, interns, suppliers, service providers
+        or licensors be liable for any injury, loss, claim, or any direct,
+        indirect, incidental, punitive, special, or consequential damages of any
+        kind, including, without limitation lost profits, lost revenue, lost
+        savings, loss of data, replacement costs, or any similar damages,
+        whether based in contract, tort (including negligence), strict liability
+        or otherwise, arising from your use of any of goods, including, but not
+        limited to, any errors or omissions in any content, or any loss or
+        damage of any kind incurred as a result of the use of goods posted,
+        transmitted, or otherwise made available via the service, even if
+        advised of their possibility. Because some states or jurisdictions do
+        not allow the exclusion or the limitation of liability for consequential
+        or incidental damages, in such states or jurisdictions, our liability
+        shall be limited to the maximum extent permitted by law.
       </p>
 
       <h4>SECTION 13 - INDEMNIFICATION</h4>
       <p>
-        You agree to indemnify, defend and hold harmless CuTeng Queue Pte. Ltd
+        You agree to indemnify, defend and hold harmless {platform.company}
         and our parent, subsidiaries, affiliates, partners, officers, directors,
         agents, contractors, licensors, service providers, subcontractors,
         suppliers, interns and employees, harmless from any claim or demand,

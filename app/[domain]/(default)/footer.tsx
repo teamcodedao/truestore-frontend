@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -5,30 +7,28 @@ import clsx from 'clsx';
 
 import paypalImg from '@/images/payments/paypal.webp';
 import visaMasterImg from '@/images/payments/visa_master.webp';
+import {usePlatform} from '@common/platform';
 
-interface FooterProps extends React.ComponentProps<'footer'> {
-  domain: string;
-}
+interface FooterProps extends React.ComponentProps<'footer'> {}
 
-export default function Footer({className, domain}: FooterProps) {
+export default function Footer({className}: FooterProps) {
+  const platform = usePlatform();
+
   return (
     <footer className={clsx(className, 'bg-[#042449] text-white')}>
       <div className='container'>
         <footer className='flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20'>
           <div className='text-center'>
-            <h2 className='text-2xl font-bold'>CuTeng Queue Pte. Ltd</h2>
+            <h2 className='text-2xl font-bold'>{platform.company}</h2>
             <address className='mt-8 space-y-4 text-sm font-semibold text-gray-300'>
               <p>
-                Address:{' '}
-                <span className='text-white'>
-                  244 Fast North Drive 1, #02-05, Singapore, 528559
-                </span>
+                Address: <span className='text-white'>{platform.address}</span>
               </p>
               <a
-                href={`mailto:${`help@${domain}`}`}
+                href={`mailto:${`help@${platform.domain}`}`}
                 className='block font-semibold text-white hover:text-slate-200'
               >
-                {`help@${domain}`}
+                {`help@${platform.domain}`}
               </a>
             </address>
             <div className='mt-10 flex justify-center gap-x-2 *:multi-[`object-contain`]'>

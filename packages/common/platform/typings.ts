@@ -1,3 +1,6 @@
+export * from './client';
+export * from './server';
+
 export interface PlatformConfig {
   wp_api: string;
   pixel_ids: string;
@@ -7,3 +10,8 @@ export interface PlatformConfig {
   company: string;
   address: string;
 }
+
+export type PublicPlatformConfig = Pick<
+  PlatformConfig,
+  'email' | 'phone' | 'company' | 'address'
+> & {domain: string};
