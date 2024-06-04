@@ -7,6 +7,7 @@ import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
+import {usePlatform} from '@common/platform';
 import {useCart} from '@model/cart';
 import {
   type CreateOrder,
@@ -24,11 +25,6 @@ import {
 } from '@paypal/react-paypal-js';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
-
-const initialOptions = {
-  clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
-  currency: 'USD',
-};
 
 function ImplPaypalButton() {
   const router = useRouter();
@@ -215,8 +211,15 @@ function ImplPaypalButton() {
 }
 
 export default function PaypalButton() {
+  const platform = usePlatform();
+
   return (
-    <PayPalScriptProvider options={initialOptions}>
+    <PayPalScriptProvider
+      options={{
+        clientId: platform.paypal_client_id,
+        currency: 'USD',
+      }}
+    >
       <ImplPaypalButton />
     </PayPalScriptProvider>
   );
