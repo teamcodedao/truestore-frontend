@@ -3,13 +3,15 @@
 import clsx from 'clsx';
 import parse from 'html-react-parser';
 
-import {imgproxy} from '@/lib/imgproxy';
+import {useImgproxy} from '@common/platform';
 
 interface HtmlReplaceImgproxyProps {
   html: string;
 }
 
 export default function HtmlReplaceImgproxy({html}: HtmlReplaceImgproxyProps) {
+  const imgproxy = useImgproxy();
+
   return parse(html, {
     replace(domNode) {
       if (domNode.type === 'tag' && domNode.name === 'img') {

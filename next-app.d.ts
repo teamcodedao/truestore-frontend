@@ -9,8 +9,6 @@ declare global {
       NEXT_REDIS_URL?: string;
 
       NEXT_PUBLIC_FIREBASE_API_KEY: string;
-
-      NEXT_PUBLIC_IMGPROXY_URL: string;
     }
   }
 

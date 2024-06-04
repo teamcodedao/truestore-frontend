@@ -30,7 +30,10 @@ export default function OrderReceivedPage({
 
   return (
     <>
-      <OrderDetails retrieveOrderPromise={retrieveOrderPromise} />
+      <OrderDetails
+        domain={domain}
+        retrieveOrderPromise={retrieveOrderPromise}
+      />
       <Suspense>
         <TrackPageView />
       </Suspense>

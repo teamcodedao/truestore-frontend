@@ -1,10 +1,11 @@
 'use client';
 
-import {imgproxy} from '@/lib/imgproxy';
 import {formatCurrency} from '@automattic/format-currency';
+import {useImgproxy} from '@common/platform';
 import {useCart} from '@model/cart';
 
 export default function CheckoutInformation() {
+  const imgproxy = useImgproxy()
   const [{carts, subTotal, total, shippingTotal}] = useCart();
 
   return (
