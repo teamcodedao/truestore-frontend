@@ -128,7 +128,7 @@ export default function ShippingPolicyPage({params}: PageProps) {
         If you have any questions or comments, please do not hesitate to contact
         us through:
       </p>
-      <Signature domain={domain} />
+      <Signature />
     </article>
   );
 }

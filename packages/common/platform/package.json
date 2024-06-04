@@ -3,6 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "sideEffects": false,
-  "main": "index.ts",
-  "types": "index.ts"
+  "exports": {
+    ".": {
+      "types": "./typings.ts",
+      "react-server": "./server.ts",
+      "default": "./client.ts"
+    }
+  }
 }

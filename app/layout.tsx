@@ -7,7 +7,7 @@ import Providers from './providers';
 
 const inter = Inter({subsets: ['latin']});
 
-export default function RootLayout({children}: LayoutProps) {
+export default function RootLayout({children}: LayoutProps & {domain: never}) {
   return (
     <html lang='en'>
       <body className={clsx(inter.className, 'antialiased')}>

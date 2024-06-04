@@ -1,11 +1,14 @@
 import type {Metadata} from 'next';
 
+import {getPlatformConfig} from '@common/platform';
+
 export const metadata: Metadata = {
   title: 'Contact Us',
 };
 
-export default function ContactPage({params}: PageProps) {
+export default async function ContactPage({params}: PageProps) {
   const domain = params.domain;
+  const platform = await getPlatformConfig(domain);
 
   return (
     <article className='prose lg:prose-lg'>
@@ -14,8 +17,8 @@ export default function ContactPage({params}: PageProps) {
         Email: <a href={`mailto:${`help@${domain}`}`}>{`help@${domain}`}</a>
       </p>
       <address className='space-y-2 font-medium'>
-        <h4>CuTeng Queue Pte. Ltd</h4>
-        <div>Address: 244 Fast North Drive 1, #02-05, Singapore, 528559</div>
+        <h4>{platform.company}</h4>
+        <div>{platform.address}</div>
         <div>
           <strong>Hours:</strong>
           <ul className='indent-10'>

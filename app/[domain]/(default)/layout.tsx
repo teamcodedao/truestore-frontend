@@ -8,9 +8,7 @@ import Footer from './footer';
 
 export const dynamic = 'error';
 
-export default function DefaultLayout({children, params}: LayoutProps) {
-  const domain = params.domain;
-
+export default function DefaultLayout({children}: LayoutProps) {
   return (
     <div className='flex min-h-screen flex-col'>
       <div className='container'>
@@ -30,7 +28,7 @@ export default function DefaultLayout({children, params}: LayoutProps) {
         <div className='mt-5'>{children}</div>
       </div>
       <div className='h-10 lg:h-16'></div>
-      <Footer domain={domain} className='mt-auto' />
+      <Footer className='mt-auto' />
     </div>
   );
 }

@@ -15,6 +15,7 @@ FROM base as deps
 COPY packages ./packages
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
 
+
 # Stage 2
 FROM base as builder
 COPY packages ./packages
@@ -30,7 +31,8 @@ ARG NEXT_PUBLIC_VERSION
 ENV NEXT_PUBLIC_VERSION $NEXT_PUBLIC_VERSION
 ENV NODE_ENV production
 ENV PORT 3000
-COPY --from=builder /app/.env* /app/pm2.json ./
+COPY --from=builder /app/.env* ./
+COPY --from=builder /app/pm2.json ./
 COPY --from=builder /app/.next ./.next
 # COPY --from=builder /app/public ./public
 COPY --from=deps /app/node_modules ./node_modules

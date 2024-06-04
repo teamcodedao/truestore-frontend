@@ -1,13 +1,14 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
+import {getPlatformConfig} from '@common/platform';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
 };
 
-export default function PrivacyPolicyPage({params}: PageProps) {
-  const domain = params.domain;
+export default async function PrivacyPolicyPage({params}: PageProps) {
+  const platform = await getPlatformConfig(params.domain);
 
   return (
     <article className='prose lg:prose-lg'>
@@ -16,34 +17,35 @@ export default function PrivacyPolicyPage({params}: PageProps) {
       <p>
         We know that you care how information about you is used and shared, and
         we appreciate your trust that we will do so carefully and sensibly. This
-        Privacy Notice describes how localhost and its affiliates (collectively
-        <strong>“CuTeng Queue Pte. Ltd”</strong>collect and process your
-        personal information through <strong>“CuTeng Queue Pte. Ltd”</strong>
+        Privacy Notice describes how <strong>{params.domain}</strong> and its
+        affiliates (collectively
+        <strong>“{platform.company}”</strong>collect and process your personal
+        information through <strong>“{platform.company}”</strong>
         ebsites, devices, products, services that reference this Privacy Policy.
-        By using <strong>CuTeng Queue Pte</strong>. Ltd Services, you are
+        By using <strong>{platform.company}</strong> Services, you are
         consenting to the practices described in this Privacy Privacy.
       </p>
 
       <ul>
         <li>
           What Personal Information About Customers Does{' '}
-          <strong>CuTeng Queue Pte. Ltd</strong>
+          <strong>{platform.company}</strong>
           Collect?
         </li>
         <li>
-          For What Purposes Does <strong>CuTeng Queue Pte. Ltd</strong> Use Your
+          For What Purposes Does <strong>{platform.company}</strong> Use Your
           Personal Information?
         </li>
         <li>What About Cookies and Other Identifiers?</li>
         <li>
-          Does <strong>CuTeng Queue Pte. Ltd</strong> Share Your Personal
+          Does <strong>{platform.company}</strong> Share Your Personal
           Information?
         </li>
         <li>How Secure Is Information About Me?</li>
       </ul>
 
       <h4>
-        What Personal Information About Customers Does CuTeng Queue Pte. Ltd
+        What Personal Information About Customers Does {platform.company}
         Collect?
       </h4>
       <p>
@@ -56,19 +58,18 @@ export default function PrivacyPolicyPage({params}: PageProps) {
         provide when you access to our Website and take actions to sell our
         Goods through Website. You can choose not to provide certain
         information, but then you might not be able to take advantage of many of
-        our <strong>CuTeng Queue Pte. Ltd</strong> Services.
+        our <strong>{platform.company}</strong> Services.
       </p>
       <p>
         Automatic Information: We automatically collect and store certain types
-        of information about your use of <strong>CuTeng Queue Pte. Ltd</strong>{' '}
+        of information about your use of <strong>{platform.company}</strong>{' '}
         Services, including information about your interaction with content and
-        services available through <strong>CuTeng Queue Pte. Ltd</strong>{' '}
-        Services. Like many websites, we use &quot;cookies&quot; and other
-        unique identifiers, and we obtain certain types of information when your
-        web browser or device accesses
-        <strong>CuTeng Queue Pte. Ltd</strong> Services and other content served
-        by or on behalf of <strong>CuTeng Queue Pte. Ltd</strong> on other
-        websites.
+        services available through <strong>{platform.company}</strong> Services.
+        Like many websites, we use &quot;cookies&quot; and other unique
+        identifiers, and we obtain certain types of information when your web
+        browser or device accesses
+        <strong>{platform.company}</strong> Services and other content served by
+        or on behalf of <strong>{platform.company}</strong> on other websites.
       </p>
       <p>
         Information from Other Sources: We might receive information about you
@@ -79,8 +80,7 @@ export default function PrivacyPolicyPage({params}: PageProps) {
       </p>
 
       <h4>
-        For What Purposes Does CuTeng Queue Pte. Ltd Use Your Personal
-        Information?
+        For What Purposes Does {platform.company} Use Your Personal Information?
       </h4>
       <p>
         We use your personal information to operate, provide, develop, and
@@ -94,17 +94,17 @@ export default function PrivacyPolicyPage({params}: PageProps) {
         services, and promotional offers.
       </p>
       <p>
-        Provide, troubleshoot, and improve{' '}
-        <strong>CuTeng Queue Pte. Ltd</strong> Services. We use your personal
-        information to provide functionality, analyze performance, fix errors,
-        and improve the usability and effectiveness of the CuTeng Queue Pte. Ltd
+        Provide, troubleshoot, and improve <strong>{platform.company}</strong>{' '}
+        Services. We use your personal information to provide functionality,
+        analyze performance, fix errors, and improve the usability and
+        effectiveness of the {platform.company}
         Services.
       </p>
       <p>
         Recommendations and personalization. We use your personal information to
         recommend features, products, and services that might be of interest to
         you, identify your preferences, and personalize your experience with
-        CuTeng Queue Pte. Ltd Services.
+        {platform.company} Services.
       </p>
       <p>
         Comply with legal obligations. In certain cases, we collect and use your
@@ -114,7 +114,7 @@ export default function PrivacyPolicyPage({params}: PageProps) {
       </p>
       <p>
         Communicate with you. We use your personal information to communicate
-        with you in relation to CuTeng Queue Pte. Ltd Services via different
+        with you in relation to {platform.company} Services via different
         channels (e.g., by phone, e-mail, chat).
       </p>
       <p>
@@ -127,26 +127,26 @@ export default function PrivacyPolicyPage({params}: PageProps) {
       <p>
         Fraud Prevention and Credit Risks. We use personal information to
         prevent and detect fraud and abuse in order to protect the security of
-        our customers, <strong>CuTeng Queue Pte. Ltd</strong>, and others. We
-        may also use scoring methods to assess and manage credit risks.
+        our customers, <strong>{platform.company}</strong>, and others. We may
+        also use scoring methods to assess and manage credit risks.
       </p>
 
       <h1>What About Cookies and Other Identifiers?</h1>
       <p>
         To enable our systems to recognize your browser or device and to provide
-        and improve <strong>CuTeng Queue Pte. Ltd</strong> Services, we use
-        cookies and other identifiers. For more information about cookies and
-        how we use them, please read our Cookies Notice.
+        and improve <strong>{platform.company}</strong> Services, we use cookies
+        and other identifiers. For more information about cookies and how we use
+        them, please read our Cookies Notice.
       </p>
 
-      <h4>Does CuTeng Queue Pte. Ltd Share Your Personal Information?</h4>
+      <h4>Does {platform.company} Share Your Personal Information?</h4>
       <p>
         Information about our customers is an important part of our business,
         and we are not in the business of selling our customers’ personal
         information to others. We share customers’ personal information only as
         described below and with subsidiaries{' '}
-        <strong>CuTeng Queue Pte. Ltd PTE</strong>. LTD. controls that either
-        are subject to this Privacy Privacy or follow practices at least as
+        <strong>{platform.company} PTE</strong>. LTD. controls that either are
+        subject to this Privacy Privacy or follow practices at least as
         protective as those described in this Privacy Privacy.
       </p>
       <p>
@@ -167,16 +167,16 @@ export default function PrivacyPolicyPage({params}: PageProps) {
         information generally is one of the transferred business assets but
         remains subject to the promises made in any pre-existing Privacy Policy
         (unless, of course, the customer consents otherwise). Also, in the
-        unlikely event that <strong>CuTeng Queue Pte. Ltd PTE. LTD</strong>. or
+        unlikely event that <strong>{platform.company} PTE. LTD</strong>. or
         substantially all of its assets are acquired, customer information will
         of course be one of the transferred assets.
       </p>
       <p>
-        Protection of <strong>CuTeng Queue Pte. Ltd</strong> and Others: We
-        release account and other personal information when we believe release
-        is appropriate to comply with the law; enforce or apply our Terms of
+        Protection of <strong>{platform.company}</strong> and Others: We release
+        account and other personal information when we believe release is
+        appropriate to comply with the law; enforce or apply our Terms of
         Services and other agreements; or protect the rights, property, or
-        safety of <strong>CuTeng Queue Pte. Ltd</strong>, our users, or others.
+        safety of <strong>{platform.company}</strong>, our users, or others.
         This includes exchanging information with other companies and
         organizations for fraud protection and credit risk reduction.
       </p>
@@ -214,7 +214,7 @@ export default function PrivacyPolicyPage({params}: PageProps) {
         If you have any questions as to how we collect and use your personal
         information, please contact us:
       </p>
-      <Signature domain={domain} />
+      <Signature />
     </article>
   );
 }

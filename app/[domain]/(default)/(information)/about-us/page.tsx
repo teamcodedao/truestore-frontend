@@ -1,13 +1,15 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
+import {getPlatformConfig} from '@common/platform';
 
 export const metadata: Metadata = {
   title: 'About Us',
 };
 
-export default function AboutPage({params}: PageProps) {
+export default async function AboutPage({params}: PageProps) {
   const domain = params.domain;
+  const platform = await getPlatformConfig(domain);
 
   return (
     <article className='prose lg:prose-lg'>
@@ -17,10 +19,10 @@ export default function AboutPage({params}: PageProps) {
         Dear Valued Customers,
         <p>
           Welcome to <strong>{domain}</strong> that is operated under{' '}
-          <strong>CuTeng Queue Pte. Ltd</strong> - a company incorporated under{' '}
+          <strong>{platform.company}</strong> - a company incorporated under{' '}
           <strong>Singapore</strong> law located at:{' '}
-          <strong>244 Fast North Drive 1, #02-05, Singapore, 528559</strong> and
-          its affiliates provide access to the{' '}
+          <strong>{platform.address}</strong> and its affiliates provide access
+          to the{' '}
           <strong>
             {'"'} {domain}{' '}
           </strong>
@@ -48,7 +50,7 @@ export default function AboutPage({params}: PageProps) {
           If you have any questions or comments, please do not hesitate to
           contact us through:
         </p>
-        <Signature domain={domain} />
+        <Signature />
         <p>Sincerely,</p>
       </div>
     </article>
