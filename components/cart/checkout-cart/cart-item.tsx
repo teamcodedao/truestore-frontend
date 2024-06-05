@@ -3,7 +3,7 @@
 import {useState} from 'react';
 
 import {Price, SpinNumber} from '@/components/ui';
-import {imgproxy} from '@/lib/imgproxy';
+import {useImgproxy} from '@common/platform';
 import type {CartItem} from '@model/cart';
 
 interface CartItemProps {
@@ -18,6 +18,8 @@ export default function CartItem({
   onQuantityChange,
 }: CartItemProps) {
   const [quantity, setQuantity] = useState(cart.quantity);
+
+  const imgproxy = useImgproxy();
 
   async function handleChangeQuantity(quantity: number) {
     setQuantity(quantity);

@@ -5,15 +5,10 @@ declare global {
     interface ProcessEnv {
       NEXT_PUBLIC_VERSION?: string;
 
-      NEXT_API_AUTH: string;
       NEXT_CACHE_HANDLER?: 0 | 1;
       NEXT_REDIS_URL?: string;
 
-      NEXT_PUBLIC_PAYPAL_CLIENT_ID: string;
-
       NEXT_PUBLIC_FIREBASE_API_KEY: string;
-
-      NEXT_PUBLIC_IMGPROXY_URL: string;
     }
   }
 

@@ -8,10 +8,7 @@ export default function Signature() {
   return (
     <>
       <p>
-        Email:{' '}
-        <a
-          href={`mailto:${`help@${platform.domain}`}`}
-        >{`help@${platform.domain}`}</a>
+        Email: <a href={`mailto:${platform.email}`}>{platform.email}</a>
       </p>
       <h4>{platform.company}</h4>
       <address>{platform.address}</address>

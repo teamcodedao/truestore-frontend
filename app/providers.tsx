@@ -6,7 +6,6 @@ import {usePathname} from 'next/navigation';
 import {Toaster} from 'sonner';
 
 import {trackingInitialize} from '@tracking/data';
-import {Fbpixel} from '@tracking/fbpixel';
 import backdrop, {Backdropper} from '@ui/backdrop';
 import offcanvas, {Offcanvaser} from '@ui/offcanvas';
 
@@ -28,7 +27,6 @@ export default function Provider({children}: React.PropsWithChildren) {
       <Offcanvaser />
       <Backdropper />
       <Toaster richColors position='top-center' />
-      <Fbpixel />
     </>
   );
 }

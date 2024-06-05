@@ -7,7 +7,7 @@ import useEmblaCarousel from 'embla-carousel-react';
 import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import {usePrevNextButtons} from '@/lib/embla-carousel';
-import {imgproxy} from '@/lib/imgproxy';
+import {useImgproxy} from '@common/platform';
 import type {ProductImage} from '@model/product';
 
 interface ProductCarouselProps {
@@ -15,6 +15,8 @@ interface ProductCarouselProps {
 }
 
 export default function ProductCarousel({images = []}: ProductCarouselProps) {
+  const imgproxy = useImgproxy();
+
   const [emblaRef, emblaMainApi] = useEmblaCarousel({}, [
     WheelGesturesPlugin(),
   ]);

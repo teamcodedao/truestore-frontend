@@ -1,13 +1,15 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
+import {getPlatformConfig} from '@common/platform';
 
 export const metadata: Metadata = {
   title: 'Shipping Policy',
 };
 
-export default function ShippingPolicyPage({params}: PageProps) {
+export default async function ShippingPolicyPage({params}: PageProps) {
   const domain = params.domain;
+  const platform = await getPlatformConfig(domain);
 
   return (
     <article className='prose lg:prose-lg'>
@@ -88,9 +90,9 @@ export default function ShippingPolicyPage({params}: PageProps) {
         <strong>6</strong>0 days, you will be refunded in FULL for that item.
         This is our promise to you! If there&apos;s a missing order, please let
         us know via
-        <a href={`mailto:${`help@${domain}`}`}>{`help@${domain}`}</a>.
-        We&apos;ll investigate (it usually took <strong>3-5</strong> business
-        days) and send you another one after we got a conclusion.
+        <a href={`mailto:${platform.email}`}>{platform.email}</a>. We&apos;ll
+        investigate (it usually took <strong>3-5</strong> business days) and
+        send you another one after we got a conclusion.
       </p>
       <h4>CUSTOMS AND TAXES</h4>
       <p>

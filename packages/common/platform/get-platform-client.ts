@@ -10,6 +10,11 @@ async function getClient(domain: string) {
 
   return baseClient.extend({
     prefixUrl: platform.wp_api,
+    headers: {
+      Authorization: `Basic ${Buffer.from(platform.wp_auth, 'utf-8').toString(
+        'base64'
+      )}`,
+    },
   });
 }
 

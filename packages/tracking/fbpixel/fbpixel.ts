@@ -1,35 +1,18 @@
-import firbaseConfig from '@/config/firebase.json';
-
 import {getGenerelParameters} from './utils';
 
 export class Fbpixel {
   private isReady: boolean | null = null;
   private queueList: Array<() => void> = [];
 
-  async initialize() {
+  initialize(ids: string[]) {
     if (this.isReady != null) {
-      return [];
+      return;
     }
 
-    const response = await fetch(
-      new URL('/PXTRUE/ALL/.json', firbaseConfig.clientConfig.databaseURL)
-    );
-
-    if (response.ok) {
-      try {
-        const data: string = await response.json();
-        const ids = data.split('DHV').filter(id => !!id);
-        if (ids.length) {
-          this.isReady = false;
-          this.initializeSdk();
-        }
-        return ids;
-      } catch {
-        return [];
-      }
+    if (ids.length) {
+      this.isReady = false;
+      this.initializeSdk();
     }
-
-    return [];
   }
 
   private async initializeSdk() {

@@ -25,10 +25,10 @@ export default function Footer({className}: FooterProps) {
                 Address: <span className='text-white'>{platform.address}</span>
               </p>
               <a
-                href={`mailto:${`help@${platform.domain}`}`}
+                href={`mailto:${platform.email}`}
                 className='block font-semibold text-white hover:text-slate-200'
               >
-                {`help@${platform.domain}`}
+                {platform.email}
               </a>
             </address>
             <div className='mt-10 flex justify-center gap-x-2 *:multi-[`object-contain`]'>

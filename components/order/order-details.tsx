@@ -4,17 +4,20 @@ import dayjs from 'dayjs';
 
 import {Badge} from '@/components/ui';
 import paypalImg from '@/images/payments/paypal.webp';
-import {imgproxy} from '@/lib/imgproxy';
 import {formatCurrency} from '@automattic/format-currency';
+import {getImgProxy} from '@common/platform';
 import type {Order} from '@model/order';
 
 interface OrderDetailsProps {
+  domain: string;
   retrieveOrderPromise: Promise<Order>;
 }
 
 export default async function OrderDetails({
+  domain,
   retrieveOrderPromise,
 }: OrderDetailsProps) {
+  const imgproxy = await getImgProxy(domain);
   const order = await retrieveOrderPromise;
 
   const subtotal = order.line_items.reduce((acc, item) => {
