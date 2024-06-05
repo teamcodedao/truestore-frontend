@@ -6,7 +6,10 @@
       "args": "start",
       "instances": "8",
       "exec_mode": "cluster",
-      "autorestart": true
+      "autorestart": true,
+      "env": {
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      }
     }
   ]
 }
