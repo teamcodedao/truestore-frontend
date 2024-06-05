@@ -3,6 +3,7 @@
 import {useEffect} from 'react';
 import {usePathname} from 'next/navigation';
 
+import ReactGA from 'react-ga4';
 import {Toaster} from 'sonner';
 
 import {
@@ -30,6 +31,16 @@ export default function PlatformProvider({
   useEffect(() => {
     trackingInitialize();
   }, []);
+
+  useEffect(() => {
+    if (platformRest.ga_ids.length) {
+      ReactGA.initialize(
+        platformRest.ga_ids.map(trackingId => ({
+          trackingId,
+        }))
+      );
+    }
+  }, [platformRest.ga_ids]);
 
   return (
     <BasePlatformProvider initialState={platformRest}>

@@ -4,7 +4,8 @@ export * from './server';
 export interface PlatformConfig {
   wp_api: string;
   wp_auth: string;
-  pixel_ids: string;
+  pixel_ids?: string;
+  ga_ids?: string;
   paypal_client_id: string;
   email: string;
   phone?: string;
@@ -21,4 +22,4 @@ export type PublicPlatformConfig = Pick<
   | 'address'
   | 'imgproxy_url'
   | 'paypal_client_id'
-> & {domain: string; pixel_ids: string[]};
+> & {domain: string; pixel_ids: string[]; ga_ids: string[]};

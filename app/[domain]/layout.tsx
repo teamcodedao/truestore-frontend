@@ -7,7 +7,8 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
   const domain = params.domain;
   const platform = await getPlatformConfig(domain);
 
-  const pixel_ids = platform.pixel_ids.split('|');
+  const pixel_ids = platform.pixel_ids?.split('|') ?? [];
+  const ga_ids = platform.ga_ids?.split('|') ?? [];
 
   return (
     <Provider
@@ -19,6 +20,7 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
       imgproxy_url={platform.imgproxy_url}
       paypal_client_id={platform.paypal_client_id}
       pixel_ids={pixel_ids}
+      ga_ids={ga_ids}
     >
       {children}
       <Fbpixel pixel_ids={pixel_ids} />
