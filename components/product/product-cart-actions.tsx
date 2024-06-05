@@ -47,7 +47,7 @@ export default function ProductCartActions({
   const variation = useProductVariation(productVariations);
   const [quantity, setQuantity] = useState(1);
 
-  const [, {addCart}] = useCart();
+  const [{carts}, {addCart}] = useCart();
   const router = useRouter();
 
   const handleAddToCart = (options?: {noVerify: boolean}) => {
@@ -125,7 +125,9 @@ export default function ProductCartActions({
         <button
           className='bg-orange-600 hover:bg-orange-500'
           onClick={() => {
-            handleAddToCart({noVerify: true});
+            if (carts.length === 0) {
+              handleAddToCart({noVerify: true});
+            }
             router.push('/checkout?from=product');
           }}
         >
