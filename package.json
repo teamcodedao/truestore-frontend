@@ -9,7 +9,10 @@
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "preinstall": "npx only-allow pnpm"
+    "clean:build": "npx rimraf .next",
+    "preinstall": "npx only-allow pnpm",
+    "predev": "pnpm clean:build",
+    "prebuild": "pnpm clean:build"
   },
   "dependencies": {
     "@automattic/format-currency": "^2.0.0",
