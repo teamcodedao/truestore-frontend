@@ -31,7 +31,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: params.domain + " | " + product.name,
+    title: params.domain + ' | ' + product.name,
   };
 }
 
@@ -42,6 +42,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
   const product = await getProduct(domain, slug, {
     throwNotFound: true,
   });
+
   const getVariationPromise = getProductVariations(domain, String(product.id));
 
   return (

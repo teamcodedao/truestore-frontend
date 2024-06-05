@@ -50,10 +50,12 @@ export default function ProductCartActions({
   const [, {addCart}] = useCart();
   const router = useRouter();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (options?: {noVerify: boolean}) => {
     if (!variation) {
-      toast.warning('Please, choose product options');
-      return;
+      if (!options?.noVerify) {
+        toast.error('Please, choose product options');
+      }
+      return null;
     }
 
     fbpixel.trackToCart({
@@ -107,13 +109,14 @@ export default function ProductCartActions({
         <button
           className='bg-black hover:bg-black/80'
           onClick={() => {
-            handleAddToCart();
-            offcanvas.show({
-              direction: 'right',
-              ssr: false,
-              fallback: <CheckoutCartError onClose={offcanvas.close} />,
-              content: <CheckoutCart onClose={offcanvas.close} />,
-            });
+            if (handleAddToCart() !== null) {
+              offcanvas.show({
+                direction: 'right',
+                ssr: false,
+                fallback: <CheckoutCartError onClose={offcanvas.close} />,
+                content: <CheckoutCart onClose={offcanvas.close} />,
+              });
+            }
           }}
         >
           <span className='i-carbon-shopping-cart-plus'></span>
@@ -122,7 +125,7 @@ export default function ProductCartActions({
         <button
           className='bg-orange-600 hover:bg-orange-500'
           onClick={() => {
-            handleAddToCart();
+            handleAddToCart({noVerify: true});
             router.push('/checkout?from=product');
           }}
         >
