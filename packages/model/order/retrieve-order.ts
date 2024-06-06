@@ -1,8 +1,7 @@
 import 'server-only';
-import {unstable_cache as cache} from 'next/cache';
 import {notFound} from 'next/navigation';
 
-import {HTTPError} from 'got';
+import {HTTPError} from 'ky';
 
 import {createPlatformClient} from '@common/platform';
 
@@ -12,35 +11,54 @@ interface RetriveProductParams {
   throwNotFound?: boolean;
 }
 
-export const retrieveOrder = cache(
-  async (
-    domain: string,
-    id: string | number,
-    addtionalKey: string,
-    params?: RetriveProductParams
-  ) => {
-    const client = await createPlatformClient(domain);
-    try {
-      const response = client.get(`v3/orders/${id}`);
-      const order = await response.json<Order>();
+export async function retrieveOrder(
+  domain: string,
+  id: string | number,
+  addtionalKey: string,
+  params?: RetriveProductParams
+) {
+  const client = await createPlatformClient(domain);
+  try {
+    const order = await client
+      .get(`v3/orders/${id}`, {
+        cache: 'no-store',
+        hooks: {
+          afterResponse: [
+            async (request, options, response) => {
+              if (response.ok) {
+                const order: Order = await response.clone().json();
 
-      if (
-        order.order_key === addtionalKey ||
-        order.billing.email === addtionalKey
-      ) {
-        return order;
-      }
+                if (
+                  order.order_key === addtionalKey ||
+                  order.billing.email === addtionalKey
+                ) {
+                  return response;
+                }
 
-      const customResponse = await response;
-      customResponse.statusCode = 404;
-      throw new HTTPError(customResponse);
-    } catch (error) {
-      if (error instanceof HTTPError) {
-        if (params?.throwNotFound && error.response.statusCode === 404) {
-          notFound();
-        }
+                throw new HTTPError(
+                  new Response(response.body, {
+                    status: 404,
+                    headers: response.headers,
+                  }),
+                  request,
+                  options
+                );
+              }
+
+              return response;
+            },
+          ],
+        },
+      })
+      .json<Order>();
+
+    return order;
+  } catch (error) {
+    if (error instanceof HTTPError) {
+      if (params?.throwNotFound && error.response.status === 404) {
+        notFound();
       }
-      throw error;
     }
+    throw error;
   }
-);
+}

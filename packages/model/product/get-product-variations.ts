@@ -39,5 +39,10 @@ export const getProductVariations = cache(
       console.error(error);
       return [];
     }
+  },
+  [],
+  {
+    revalidate: 180,
+    tags: ['product-variations'],
   }
 );
