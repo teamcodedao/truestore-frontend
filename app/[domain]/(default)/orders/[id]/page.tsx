@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   robots: 'noindex',
 };
 
-export default function OrderReceivedPage({
+export default function OrderPage({
   params,
   searchParams,
 }: PageProps<{id: string}, {key: string}>) {
