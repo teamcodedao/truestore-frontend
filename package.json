@@ -1,6 +1,6 @@
 {
   "name": "trustore-frontend",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": true,
   "packageManager": "pnpm@9.2.0",
   "scripts": {
