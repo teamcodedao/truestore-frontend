@@ -3,7 +3,7 @@ import type {Product, ProductVariation} from '@model/product';
 export * from './client';
 
 export interface CartItem {
-  product: Pick<Product, 'id' | 'name'>;
+  product: Pick<Product, 'id' | 'name' | 'slug'>;
   quantity: number;
   variation: Pick<
     ProductVariation,
