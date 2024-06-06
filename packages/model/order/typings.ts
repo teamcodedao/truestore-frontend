@@ -1,13 +1,7 @@
 import type {Except} from 'type-fest';
 
 export * from './client';
-export {
-  createOrder,
-  createOrderNotes,
-  getShippingMethods,
-  retrieveOrder,
-  updateOrder,
-} from './server';
+export * from './rsc';
 
 type PaymentMethod = 'bacs' | 'ppcp-gateway';
 

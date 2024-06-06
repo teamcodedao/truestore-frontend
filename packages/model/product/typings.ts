@@ -1,5 +1,5 @@
 export * from './client';
-export {getProduct, getProductVariations} from './server';
+export * from './rsc';
 
 export interface ProductAttribute<O> {
   id: number;

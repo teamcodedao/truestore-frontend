@@ -3,7 +3,7 @@
 import {headers} from 'next/headers';
 import {redirect} from 'next/navigation';
 
-import {retrieveOrder} from '@model/order';
+import {retrieveOrder} from '@model/order/ssr';
 
 export interface FormValues {
   email: string;

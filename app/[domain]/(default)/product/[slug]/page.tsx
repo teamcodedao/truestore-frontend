@@ -18,7 +18,7 @@ import {
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {NoSSR} from '@common/no-ssr';
-import {getProduct, getProductVariations} from '@model/product';
+import {getProduct, getProductVariations} from '@model/product/ssr';
 
 export const revalidate = 180;
 

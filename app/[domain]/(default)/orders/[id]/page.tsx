@@ -5,7 +5,7 @@ import type {Metadata} from 'next';
 
 import {TrackPageView} from '@/components/common';
 import {OrderDetails} from '@/components/order';
-import {retrieveOrder} from '@model/order';
+import {retrieveOrder} from '@model/order/ssr';
 
 export const metadata: Metadata = {
   title: 'Order Received',
