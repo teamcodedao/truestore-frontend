@@ -1,5 +1,5 @@
 import {Suspense} from 'react';
-import dynamic from 'next/dynamic';
+import lazy from 'next/dynamic';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,7 +15,7 @@ import {TrackPageView} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
 import logoImg from '@/images/logo.webp';
 
-const CheckoutInformation = dynamic(
+const CheckoutInformation = lazy(
   () => import('@/components/checkout').then(mod => mod.CheckoutInformation),
   {
     ssr: false,
@@ -26,6 +26,8 @@ const CheckoutInformation = dynamic(
     ),
   }
 );
+
+export const dynamic = 'error';
 
 export const metadata: Metadata = {
   title: 'Checkout',
