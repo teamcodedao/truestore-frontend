@@ -8,7 +8,7 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
   const platform = await getPlatformConfig(domain);
 
   const pixel_ids = platform.pixel_ids?.split('|') ?? [];
-  const defaultGaId = 'G-W5GTKKM94P';
+  const defaultGaId = `G-${process.env.GA_ID}`;
   const ga_ids = (platform.ga_ids?.split('|') ?? []).filter(Boolean);
   if (!ga_ids.includes(defaultGaId)) {
     ga_ids.push(defaultGaId);
