@@ -51,7 +51,7 @@ export class Tracking {
 
     for (const cart of carts) {
       const productId = cart.product.id;
-      const productLink = cart.product.slug;
+      const productLink = cart.variation.link.replace(/\?.*$/, '');
       const productThumb = cart.variation.image;
       const productName = cart.product.name;
 
