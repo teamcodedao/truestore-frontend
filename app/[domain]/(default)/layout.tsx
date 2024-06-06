@@ -6,8 +6,6 @@ import logoImg from '@/images/logo.webp';
 
 import Footer from './footer';
 
-export const dynamic = 'error';
-
 export default function DefaultLayout({children}: LayoutProps) {
   return (
     <div className='flex min-h-screen flex-col'>
