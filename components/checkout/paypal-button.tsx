@@ -218,6 +218,7 @@ export default function PaypalButton() {
       options={{
         clientId: platform.paypal_client_id,
         currency: 'USD',
+        "disable-funding": "paylater"
       }}
     >
       <ImplPaypalButton />
