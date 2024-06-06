@@ -87,7 +87,7 @@ export class Tracking {
 
       // 5
       set(
-        child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/LK`),
+        child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/TB`),
         productThumb
       );
 
@@ -169,7 +169,7 @@ export class Tracking {
     set(
       child(
         this.dbRef,
-        `${userName}/PUB/${timeTrack}/${productId}/${contentInfo}/${userId}/LK`
+        `${userName}/PUB/${timeTrack}/${productId}/${contentInfo}/${userId}`
       ),
       timeTrack2
     );
