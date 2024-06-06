@@ -6,6 +6,8 @@ import {TrackPageView} from '@/components/common';
 
 import FormHandler from './form-handler';
 
+export const dynamic = 'error';
+
 export const metadata: Metadata = {
   title: 'Order Tracking',
 };

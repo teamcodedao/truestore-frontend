@@ -20,6 +20,8 @@ import safeCheckoutImg from '@/images/safe-checkout.png';
 import {NoSSR} from '@common/no-ssr';
 import {getProduct, getProductVariations} from '@model/product/ssr';
 
+export const dynamic = 'error';
+
 export async function generateMetadata({
   params,
 }: GenerateMetadataProps<{slug: string}>) {
@@ -31,8 +33,6 @@ export async function generateMetadata({
     title: params.domain + ' | ' + product.name,
   };
 }
-
-export const dynamic = 'error';
 
 export default async function ProductPage({params}: PageProps<{slug: string}>) {
   const domain = params.domain;
