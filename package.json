@@ -12,7 +12,8 @@
     "clean:build": "npx rimraf .next",
     "preinstall": "npx only-allow pnpm",
     "predev": "pnpm clean:build",
-    "prebuild": "pnpm clean:build"
+    "prebuild": "pnpm clean:build",
+    "prepare": "husky"
   },
   "dependencies": {
     "@automattic/format-currency": "^2.0.0",
@@ -100,5 +101,5 @@
     "type": "git+ssh",
     "url": "git@github.com:teamcodedao/truestore-frontend.git"
   },
-  "author": "Nghiep <me@nghiep.dev>"
+  "author": "CodeDaoTeam (https://github.com/teamcodedao)"
 }
