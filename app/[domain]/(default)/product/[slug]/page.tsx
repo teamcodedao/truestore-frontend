@@ -19,6 +19,7 @@ import {
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {NoSSR} from '@common/no-ssr';
 import {getProduct, getProductVariations} from '@model/product/ssr';
+import {firebaseTracking} from '@tracking/firebase';
 
 export const dynamic = 'error';
 
@@ -41,6 +42,8 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
   const product = await getProduct(domain, slug, {
     throwNotFound: true,
   });
+
+  firebaseTracking.trackingLogs('VC', product);
 
   const getVariationPromise = getProductVariations(domain, String(product.id));
 
