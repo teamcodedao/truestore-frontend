@@ -163,8 +163,11 @@ export class Tracking {
       utmTerm,
     } = data;
     const productId = product.id;
-    const productLink = product.slug;
-    const productThumb = product.images ? product.images[0] : '';
+    const productLink = product.permalink.replace(
+      /^https?:\/\/admin\./,
+      'https://',
+    );
+    const productThumb = product.images ? product.images[0]['src'] : '';
     const productName = product.name;
     set(
       child(
