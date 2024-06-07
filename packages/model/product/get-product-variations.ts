@@ -43,6 +43,6 @@ export const getProductVariations = cache(
   [],
   {
     revalidate: 180,
-    tags: ['product-variations'],
+    tags: ['product'],
   }
 );
