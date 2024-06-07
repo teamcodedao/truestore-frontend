@@ -2,7 +2,7 @@
 
 import {headers} from 'next/headers';
 
-import {createPlatformClient} from '@common/platform';
+import {createPlatformClient} from '@common/platform/ssr';
 
 import type {Order, UpdateOrder} from './typings';
 
@@ -13,7 +13,7 @@ export async function updateOrder(
     billing,
     transaction_id,
     meta_data,
-  }: Pick<UpdateOrder, 'shipping' | 'billing' | 'transaction_id' | 'meta_data'>
+  }: Pick<UpdateOrder, 'shipping' | 'billing' | 'transaction_id' | 'meta_data'>,
 ) {
   const domain = headers().get('host') ?? '';
   const client = await createPlatformClient(domain);

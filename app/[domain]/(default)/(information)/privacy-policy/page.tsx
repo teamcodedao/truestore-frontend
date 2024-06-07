@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
-import {getPlatformConfig} from '@common/platform';
+import {getPlatformConfig} from '@common/platform/ssr';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
@@ -11,7 +11,7 @@ export default async function PrivacyPolicyPage({params}: PageProps) {
   const platform = await getPlatformConfig(params.domain);
 
   return (
-    <article className='prose lg:prose-lg'>
+    <article className="prose lg:prose-lg">
       <h2>Privacy Policy</h2>
 
       <p>

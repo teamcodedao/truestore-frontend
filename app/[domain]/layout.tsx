@@ -1,4 +1,4 @@
-import {getPlatformConfig} from '@common/platform';
+import {getPlatformConfig} from '@common/platform/ssr';
 import {Fbpixel} from '@tracking/fbpixel';
 
 import Provider from './providers';

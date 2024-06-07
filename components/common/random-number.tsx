@@ -25,7 +25,7 @@ export default function RandomNumber({
       setNumber(Math.ceil(randomNumber(min, max)));
     },
     interval,
-    true
+    true,
   );
 
   return (

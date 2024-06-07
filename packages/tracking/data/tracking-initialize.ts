@@ -14,7 +14,7 @@ function setCookieData() {
     {
       path: '/',
       days: 1 / 24,
-    }
+    },
   );
 }
 

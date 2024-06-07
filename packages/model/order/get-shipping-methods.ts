@@ -4,7 +4,7 @@ import {unstable_cache as cache} from 'next/cache';
 import {HTTPError} from 'ky';
 import ms from 'ms';
 
-import {createPlatformClient} from '@common/platform';
+import {createPlatformClient} from '@common/platform/ssr';
 
 import type {ShippingMethod} from './typings';
 
@@ -27,7 +27,7 @@ export const getShippingMethods = cache(
                       headers: response.headers,
                     }),
                     request,
-                    options
+                    options,
                   );
                 }
               }
@@ -44,5 +44,5 @@ export const getShippingMethods = cache(
   {
     revalidate: ms('1 day') / 1000,
     tags: ['shipping-methods'],
-  }
+  },
 );

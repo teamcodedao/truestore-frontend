@@ -1,14 +1,14 @@
 import 'server-only';
 import {unstable_cache as cache} from 'next/cache';
 
-import {createPlatformClient} from '@common/platform';
+import {createPlatformClient} from '@common/platform/ssr';
 import type {ProductVariation} from '@model/product';
 
 async function fetchVariations(
   domain: string,
   id: string,
   page: number,
-  perPage: number
+  perPage: number,
 ) {
   const client = await createPlatformClient(domain);
   return client
@@ -44,5 +44,5 @@ export const getProductVariations = cache(
   {
     revalidate: 180,
     tags: ['product'],
-  }
+  },
 );

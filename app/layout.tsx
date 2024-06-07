@@ -7,7 +7,7 @@ const inter = Inter({subsets: ['latin']});
 
 export default function RootLayout({children}: LayoutProps & {domain: never}) {
   return (
-    <html lang='en'>
+    <html lang="en">
       <body className={clsx(inter.className, 'antialiased')}>{children}</body>
     </html>
   );

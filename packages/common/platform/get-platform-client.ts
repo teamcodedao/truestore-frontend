@@ -13,7 +13,7 @@ async function getClient(domain: string) {
     prefixUrl: platform.wp_api,
     headers: {
       Authorization: `Basic ${Buffer.from(platform.wp_auth, 'utf-8').toString(
-        'base64'
+        'base64',
       )}`,
     },
   });

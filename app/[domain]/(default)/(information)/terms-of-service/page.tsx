@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
-import {getPlatformConfig} from '@common/platform';
+import {getPlatformConfig} from '@common/platform/ssr';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
@@ -12,7 +12,7 @@ export default async function TermOfServicePage({params}: PageProps) {
   const platform = await getPlatformConfig(domain);
 
   return (
-    <article className='prose lg:prose-lg'>
+    <article className="prose lg:prose-lg">
       <h2>Terms of Service</h2>
 
       <p>

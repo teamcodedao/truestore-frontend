@@ -13,11 +13,11 @@ export default function CheckoutPayment() {
         <PaypalButton />
       </Suspense>
       <hr />
-      <div className='mt-4 flex flex-col items-center gap-4 text-center'>
-        <p className='font-medium'>
+      <div className="mt-4 flex flex-col items-center gap-4 text-center">
+        <p className="font-medium">
           All transactions are secure and encrypted by
         </p>
-        <Image src={trustbadge} alt='' />
+        <Image src={trustbadge} alt="" />
       </div>
     </>
   );

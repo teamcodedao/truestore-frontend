@@ -59,36 +59,36 @@ export class Tracking {
       set(
         child(
           this.dbRef,
-          `${userName}/PUB/${timeTrack}/${productId}/VC/${userId}`
+          `${userName}/PUB/${timeTrack}/${productId}/VC/${userId}`,
         ),
-        timeTrack2
+        timeTrack2,
       );
 
       // 2
       set(
         child(
           this.dbRef,
-          `${userName}/PUB/${timeTrack}/${productId}/CO/${userId}`
+          `${userName}/PUB/${timeTrack}/${productId}/CO/${userId}`,
         ),
-        timeTrack2
+        timeTrack2,
       );
 
       // 3
       set(
         child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/NAME`),
-        productName
+        productName,
       );
 
       // 4
       set(
         child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/LK`),
-        productLink
+        productLink,
       );
 
       // 5
       set(
         child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/TB`),
-        productThumb
+        productThumb,
       );
 
       if (isPub == 'PRI') {
@@ -96,45 +96,45 @@ export class Tracking {
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/VC/${userId}`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/VC/${userId}`,
           ),
-          timeTrack2
+          timeTrack2,
         );
 
         // 7
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/CO/${userId}`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/CO/${userId}`,
           ),
-          timeTrack2
+          timeTrack2,
         );
 
         // 8
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/NAME`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/NAME`,
           ),
-          productName
+          productName,
         );
 
         // 9
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/LK`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/LK`,
           ),
-          productLink
+          productLink,
         );
 
         // 10
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`,
           ),
-          productThumb
+          productThumb,
         );
       }
     }
@@ -164,76 +164,64 @@ export class Tracking {
     } = data;
     const productId = product.id;
     const productLink = product.slug;
-    const productThumb = product.images ? product.images[0]: "";
+    const productThumb = product.images ? product.images[0] : '';
     const productName = product.name;
     set(
       child(
         this.dbRef,
-        `${userName}/PUB/${timeTrack}/${productId}/${contentInfo}/${userId}`
+        `${userName}/PUB/${timeTrack}/${productId}/${contentInfo}/${userId}`,
       ),
-      timeTrack2
+      timeTrack2,
     );
 
-
-    if(this.trackThumb <= 0) {
+    if (this.trackThumb <= 0) {
       set(
-        child(
-          this.dbRef,
-          `${userName}/PUB/${timeTrack}/${productId}/NAME`
-        ),
-        productName
+        child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/NAME`),
+        productName,
       );
       set(
-        child(
-          this.dbRef,
-          `${userName}/PUB/${timeTrack}/${productId}/LK`
-        ),
-        productLink
+        child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/LK`),
+        productLink,
       );
       set(
-        child(
-          this.dbRef,
-          `${userName}/PUB/${timeTrack}/${productId}/TB`
-        ),
-        productThumb
+        child(this.dbRef, `${userName}/PUB/${timeTrack}/${productId}/TB`),
+        productThumb,
       );
     }
 
-    if(isPub == "PRI") {
+    if (isPub == 'PRI') {
       set(
         child(
           this.dbRef,
-          `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/${contentInfo}/${userId}/${timeTrack2}`
+          `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/${contentInfo}/${userId}/${timeTrack2}`,
         ),
-        productName
+        productName,
       );
 
-      if(this.trackThumb <= 0) {
-        
+      if (this.trackThumb <= 0) {
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/NAME`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/NAME`,
           ),
-          productName
+          productName,
         );
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/LK`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/LK`,
           ),
-          productLink
+          productLink,
         );
         set(
           child(
             this.dbRef,
-            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`
+            `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`,
           ),
-          productThumb
+          productThumb,
         );
         this.trackThumb = 1;
       }
     }
-
   }
 }

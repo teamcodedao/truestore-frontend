@@ -37,7 +37,7 @@ export default function PlatformProvider({
       ReactGA.initialize(
         platformRest.ga_ids.map(trackingId => ({
           trackingId,
-        }))
+        })),
       );
     }
   }, [platformRest.ga_ids]);
@@ -47,7 +47,7 @@ export default function PlatformProvider({
       {children}
       <Offcanvaser />
       <Backdropper />
-      <Toaster richColors position='top-center' />
+      <Toaster richColors position="top-center" />
       <Fbpixel pixel_ids={platformRest.pixel_ids} />
     </BasePlatformProvider>
   );

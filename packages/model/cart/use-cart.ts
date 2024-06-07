@@ -1,17 +1,17 @@
 'use client';
 
-import { useMemo } from 'react';
+import {useMemo} from 'react';
 
 import useLocalStorage from '@rehooks/local-storage';
 
-import type { CartItem } from './typings';
+import type {CartItem} from './typings';
 
 const STORAGE_NAME = 'carts';
 
 export function useCart() {
   const [carts, writeCarts, clearCart] = useLocalStorage<CartItem[]>(
     STORAGE_NAME,
-    []
+    [],
   );
 
   const countTotal = useMemo(() => {
@@ -24,7 +24,8 @@ export function useCart() {
     return carts.reduce((total, item) => {
       return (
         total +
-        item.quantity * parseFloat(item.variation.sale_price || item.variation.price)
+        item.quantity *
+          parseFloat(item.variation.sale_price || item.variation.price)
       );
     }, 0);
   }, [carts]);
@@ -32,7 +33,9 @@ export function useCart() {
   const shippingTotal = useMemo(() => {
     return carts.reduce((max, item) => {
       const shippingValue = item.variation.shipping_value;
-      return (shippingValue !== undefined && shippingValue > max) ? shippingValue : max;
+      return shippingValue !== undefined && shippingValue > max
+        ? shippingValue
+        : max;
     }, 0);
   }, [carts]);
 
@@ -99,7 +102,7 @@ export function useCart() {
   }
 
   return [
-    { carts, countTotal, subTotal, shippingTotal, total },
-    { addCart, setCartQuantity, deleteCart, clearCart },
+    {carts, countTotal, subTotal, shippingTotal, total},
+    {addCart, setCartQuantity, deleteCart, clearCart},
   ] as const;
 }

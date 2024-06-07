@@ -20,11 +20,11 @@ const CheckoutInformation = lazy(
   {
     ssr: false,
     loading: () => (
-      <div className='w-[--w-base] max-w-full'>
+      <div className="w-[--w-base] max-w-full">
         <CheckoutInformationSkeleton />
       </div>
     ),
-  }
+  },
 );
 
 export const dynamic = 'error';
@@ -37,30 +37,30 @@ export const metadata: Metadata = {
 export default function CheckoutPage() {
   return (
     <>
-      <div className='flex min-h-screen w-full flex-col [--max-w:100%] [--w-base:550px] sm:multi-[`[--max-w:min(100%,var(--w-base))];flex-row;`]'>
-        <div className='flex grow justify-end overflow-hidden bg-gray-50 px-5 pb-10 sm:flex-1 lg:px-8'>
-          <div className='max-w-[--max-w]'>
-            <MenuOffcanvas className='mb-12 mt-5' />
+      <div className="flex min-h-screen w-full flex-col [--max-w:100%] [--w-base:550px] sm:multi-[`[--max-w:min(100%,var(--w-base))];flex-row;`]">
+        <div className="flex grow justify-end overflow-hidden bg-gray-50 px-5 pb-10 sm:flex-1 lg:px-8">
+          <div className="max-w-[--max-w]">
+            <MenuOffcanvas className="mb-12 mt-5" />
             <CheckoutHeading />
-            <div className='h-4'></div>
+            <div className="h-4"></div>
             <CheckoutInformation />
           </div>
         </div>
 
-        <div className='grow px-5 pb-12 pt-5 sm:flex-1 lg:px-8'>
-          <div className='-ml-3 hidden sm:block'>
-            <Link href='/'>
+        <div className="grow px-5 pb-12 pt-5 sm:flex-1 lg:px-8">
+          <div className="-ml-3 hidden sm:block">
+            <Link href="/">
               <Image
                 src={logoImg}
                 quality={100}
                 priority
                 unoptimized
                 height={65}
-                alt=''
+                alt=""
               />
             </Link>
           </div>
-          <div className='mt-10 max-w-[--max-w]'>
+          <div className="mt-10 max-w-[--max-w]">
             <CheckoutPayment />
           </div>
         </div>

@@ -47,13 +47,13 @@ function ImplPaypalButton() {
             {
               description:
                 'Your order could not be processed. Please try again, and contact for adminitration',
-            }
+            },
           );
         }}
         createOrder={async (data, actions) => {
           if (carts.length === 0) {
             throw new Error(
-              'Please select at least one product to complete your purchase'
+              'Please select at least one product to complete your purchase',
             );
           }
 
@@ -93,7 +93,7 @@ function ImplPaypalButton() {
             {
               shipping_lines: shippingLines,
               meta_data: metadata,
-            }
+            },
           );
 
           return actions.order.create({
@@ -159,7 +159,7 @@ function ImplPaypalButton() {
 
           await createOrderNotes(
             wooOrderID,
-            `PayPal transaction ID: ${transactionId}`
+            `PayPal transaction ID: ${transactionId}`,
           );
 
           timeRef.current = setTimeout(() => {
@@ -218,7 +218,7 @@ export default function PaypalButton() {
       options={{
         clientId: platform.paypal_client_id,
         currency: 'USD',
-        "disable-funding": "paylater"
+        'disable-funding': 'paylater',
       }}
     >
       <ImplPaypalButton />

@@ -15,7 +15,7 @@ export function useProductVariation(productVariations: ProductVariation[]) {
     return productVariations.find(item => {
       for (const [key, value] of Object.entries(paramVariation)) {
         const exists = item.attributes.find(
-          attr => attr.name === key && attr.option === value
+          attr => attr.name === key && attr.option === value,
         );
         if (!exists) {
           return false;

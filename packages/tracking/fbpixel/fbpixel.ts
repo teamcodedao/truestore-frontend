@@ -41,7 +41,7 @@ export class Fbpixel {
   }
 
   trackToCart(
-    parameters: facebook.Pixel.AddToCartParameters & Record<string, unknown>
+    parameters: facebook.Pixel.AddToCartParameters & Record<string, unknown>,
   ) {
     if (this.isReady === false) {
       return;
@@ -88,7 +88,7 @@ export class Fbpixel {
   }
 
   trackViewContent(
-    parameters?: facebook.Pixel.ViewContentParameters & Record<string, unknown>
+    parameters?: facebook.Pixel.ViewContentParameters & Record<string, unknown>,
   ) {
     const generel = getGenerelParameters();
 
@@ -110,7 +110,7 @@ export class Fbpixel {
 
   trackInitiateCheckout(
     parameters?: facebook.Pixel.InitiateCheckoutParameters &
-      Record<string, unknown>
+      Record<string, unknown>,
   ) {
     const generel = getGenerelParameters();
 
@@ -134,7 +134,7 @@ export class Fbpixel {
   }
 
   trackPurchase(
-    parameters?: facebook.Pixel.PurchaseParameters & Record<string, unknown>
+    parameters?: facebook.Pixel.PurchaseParameters & Record<string, unknown>,
   ) {
     const generel = getGenerelParameters();
 

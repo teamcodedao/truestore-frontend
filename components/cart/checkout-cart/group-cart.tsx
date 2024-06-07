@@ -8,9 +8,9 @@ export default function GroupCart() {
   const [{carts}, {setCartQuantity, deleteCart}] = useCart();
 
   return (
-    <div className='mt-5 grow overflow-y-auto ios:scrollbar-hide'>
+    <div className="mt-5 grow overflow-y-auto ios:scrollbar-hide">
       {carts.length ? (
-        <div className='space-y-5'>
+        <div className="space-y-5">
           {carts.map(cart => (
             <CartItem
               key={`${cart.product.id}-${cart.variation.id}`}

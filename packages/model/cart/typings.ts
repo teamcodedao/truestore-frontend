@@ -7,7 +7,13 @@ export interface CartItem {
   quantity: number;
   variation: Pick<
     ProductVariation,
-    'id' | 'price' | 'regular_price' | 'sale_price' | 'shipping_class' | 'shipping_class_id' | 'shipping_value'
+    | 'id'
+    | 'price'
+    | 'regular_price'
+    | 'sale_price'
+    | 'shipping_class'
+    | 'shipping_class_id'
+    | 'shipping_value'
   > & {image?: string; attributes: string[]; link: string};
 }
 

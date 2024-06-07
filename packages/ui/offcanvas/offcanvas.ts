@@ -4,7 +4,7 @@ import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';
 
 function showOffcanvas(
-  props: SetOptional<Except<EventProps, 'action'>, 'direction'>
+  props: SetOptional<Except<EventProps, 'action'>, 'direction'>,
 ) {
   const event = new CustomEvent<EventProps>(EVENT_NAME, {
     detail: {
