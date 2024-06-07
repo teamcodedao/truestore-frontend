@@ -1,66 +1,55 @@
 'use client';
 
-import { useEffect } from 'react';
+import {useEffect} from 'react';
 
-import { fbpixel } from '@tracking/fbpixel';
-import { firebaseTracking } from '@tracking/firebase';
-import type { ProductImage } from '@model/product';
+import type {Product} from '@model/product';
+import {fbpixel} from '@tracking/fbpixel';
+import {firebaseTracking} from '@tracking/firebase';
 
 interface TrackingProductProps {
-  id: number;
-  title: string;
-  slug: string;
-  images?: ProductImage[];
-  productPrice?: string;
-  price: string;
+  product: Product;
 }
 
-export default function ProductTracking({
-  id,
-  slug,
-  images,
-  title,
-  productPrice,
-  price,
-}: TrackingProductProps) {
+export default function ProductTracking({product}: TrackingProductProps) {
   useEffect(() => {
-    firebaseTracking.trackingLogs('VC', {
-      id,
-      slug,
-      images,
-      name: title
-    });
-  }, [id, slug, title, images]);
+    firebaseTracking.trackingLogs('VC', product);
+  }, [product]);
 
   useEffect(() => {
     fbpixel.trackPageView({
       categories: 'Uncategorized',
-      post_id: id,
-      page_title: title,
+      post_id: product.id,
+      page_title: product.name,
       post_type: 'product',
     });
-  }, [id, title]);
+  }, [product.id, product.name]);
 
   useEffect(() => {
     fbpixel.trackViewContent({
       category_name: 'Uncategorized',
-      post_id: id,
-      page_title: title,
+      post_id: product.id,
+      page_title: product.name,
       post_type: 'product',
       content_type: 'product_group',
-      content_ids: [String(id)],
-      content_name: title,
+      content_ids: [String(product.id)],
+      content_name: product.name,
       contents: [
         {
-          id: String(id),
+          id: String(product.id),
           quantity: 1,
         },
       ],
       currency: 'USD',
-      product_price: parseFloat(productPrice ?? price),
-      value: parseFloat(price),
+      product_price: parseFloat(product.regular_price ?? product.price),
+      value: parseFloat(product.sale_price || product.price),
     });
-  }, [id, price, productPrice, title]);
+  }, [
+    product.id,
+    product.name,
+    product.price,
+    product.regular_price,
+    product.sale_price,
+  ]);
 
   return null;
 }

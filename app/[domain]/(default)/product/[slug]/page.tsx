@@ -66,8 +66,8 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <h2 className='text-balance text-4xl font-bold'>{product.name}</h2>
             <div className='mt-5 space-x-1'>
               <ProductPrice
-                domain={domain}
                 id={String(product.id)}
+                domain={domain}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}
               />
@@ -151,14 +151,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
       </Suspense>
 
       <Suspense>
-        <ProductTracking
-          id={product.id}
-          slug={product.slug}
-          images={product.images}
-          title={product.name}
-          productPrice={product.regular_price}
-          price={product.sale_price || product.price}
-        />
+        <ProductTracking product={product} />
       </Suspense>
     </>
   );
