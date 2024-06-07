@@ -1,10 +1,5 @@
 export * from './client';
-export {
-  clearPlatformClient,
-  createPlatformClient,
-  getImgProxy,
-  getPlatformConfig,
-} from './server';
+export * from './rsc';
 
 export interface PlatformConfig {
   wp_api: string;

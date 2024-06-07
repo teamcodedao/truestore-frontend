@@ -1,7 +1,7 @@
 import type {Metadata} from 'next';
 
 import {Signature} from '@/components/common';
-import {getPlatformConfig} from '@common/platform';
+import {getPlatformConfig} from '@common/platform/ssr';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',

@@ -4,7 +4,7 @@ import {notFound} from 'next/navigation';
 
 import {HTTPError} from 'ky';
 
-import {createPlatformClient} from '@common/platform';
+import {createPlatformClient} from '@common/platform/ssr';
 import type {Product} from '@model/product';
 
 interface GetProductParams {

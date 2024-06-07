@@ -5,8 +5,9 @@
   "exports": {
     ".": {
       "types": "./typings.ts",
-      "react-server": "./server.ts",
+      "react-server": "./rsc.ts",
       "default": "./client.ts"
-    }
+    },
+    "./ssr": "./ssr.ts"
   }
 }

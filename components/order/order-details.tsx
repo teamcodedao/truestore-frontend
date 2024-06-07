@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import {Badge} from '@/components/ui';
 import paypalImg from '@/images/payments/paypal.webp';
 import {formatCurrency} from '@automattic/format-currency';
-import {getImgProxy} from '@common/platform';
+import {getImgProxy} from '@common/platform/ssr';
 import type {Order} from '@model/order';
 
 interface OrderDetailsProps {

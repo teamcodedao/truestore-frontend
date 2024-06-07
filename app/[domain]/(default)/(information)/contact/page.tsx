@@ -1,6 +1,6 @@
 import type {Metadata} from 'next';
 
-import {getPlatformConfig} from '@common/platform';
+import {getPlatformConfig} from '@common/platform/ssr';
 
 export const metadata: Metadata = {
   title: 'Contact Us',

@@ -1,7 +1,7 @@
 import 'server-only';
 import {unstable_cache as cache} from 'next/cache';
 
-import {createPlatformClient} from '@common/platform';
+import {createPlatformClient} from '@common/platform/ssr';
 import type {ProductVariation} from '@model/product';
 
 async function fetchVariations(
