@@ -1,22 +1,37 @@
 'use client';
 
-import {useEffect} from 'react';
+import { useEffect } from 'react';
 
-import {fbpixel} from '@tracking/fbpixel';
+import { fbpixel } from '@tracking/fbpixel';
+import { firebaseTracking } from '@tracking/firebase';
+import type { ProductImage } from '@model/product';
 
 interface TrackingProductProps {
   id: number;
   title: string;
+  slug: string;
+  images?: ProductImage[];
   productPrice?: string;
   price: string;
 }
 
 export default function ProductTracking({
   id,
+  slug,
+  images,
   title,
   productPrice,
   price,
 }: TrackingProductProps) {
+  useEffect(() => {
+    firebaseTracking.trackingLogs('VC', {
+      id,
+      slug,
+      images,
+      name: title
+    });
+  }, [id, slug, title, images]);
+
   useEffect(() => {
     fbpixel.trackPageView({
       categories: 'Uncategorized',

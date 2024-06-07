@@ -92,6 +92,7 @@ export default function ProductCartActions({
       },
     });
 
+    firebaseTracking.trackingLogs('VC', product);
     firebaseTracking.trackingLogs('ATC', product);
   };
 
