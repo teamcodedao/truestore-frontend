@@ -13,14 +13,14 @@ export async function getPlatformConfig(domain: string) {
     .get(
       new URL(
         `PXTRUE2/${normalizeUrl(domain)}/.json`,
-        firebaseConfig.clientConfig.databaseURL
+        firebaseConfig.clientConfig.databaseURL,
       ),
       {
         next: {
           revalidate: ms('1 day') / 1000,
           tags: ['platform-config'],
         },
-      }
+      },
     )
     .json<PlatformConfig>();
 

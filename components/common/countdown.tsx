@@ -27,7 +27,7 @@ export default function Countdown({
       setMeanTime(meanTime => meanTime - 1);
     },
     1000,
-    meanTime > 0
+    meanTime > 0,
   );
 
   return (

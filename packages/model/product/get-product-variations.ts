@@ -8,7 +8,7 @@ async function fetchVariations(
   domain: string,
   id: string,
   page: number,
-  perPage: number
+  perPage: number,
 ) {
   const client = await createPlatformClient(domain);
   return client
@@ -44,5 +44,5 @@ export const getProductVariations = cache(
   {
     revalidate: 180,
     tags: ['product'],
-  }
+  },
 );

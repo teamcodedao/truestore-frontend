@@ -12,7 +12,7 @@ export default async function ShippingPolicyPage({params}: PageProps) {
   const platform = await getPlatformConfig(domain);
 
   return (
-    <article className='prose lg:prose-lg'>
+    <article className="prose lg:prose-lg">
       <h2>Shipping Policy</h2>
       <h4>When will I get the tracking number?</h4>
       <p>
@@ -47,18 +47,18 @@ export default async function ShippingPolicyPage({params}: PageProps) {
         and shipping to your address that you provide to us. We shall commit
         about delivery time to you as table below:
       </p>
-      <table className='min-w-full divide-y divide-gray-300'>
+      <table className="min-w-full divide-y divide-gray-300">
         <thead>
-          <tr className='*:multi-[`px-3;py-3.5;text-left;font-semibold;text-gray-900`]'>
-            <th scope='col' className='!pl-0'>
+          <tr className="*:multi-[`px-3;py-3.5;text-left;font-semibold;text-gray-900`]">
+            <th scope="col" className="!pl-0">
               Region
             </th>
-            <th scope='col'>Commitment processing time</th>
-            <th scope='col'>Commitment delivery time</th>
-            <th scope='col'>Commitment timeframe</th>
+            <th scope="col">Commitment processing time</th>
+            <th scope="col">Commitment delivery time</th>
+            <th scope="col">Commitment timeframe</th>
           </tr>
         </thead>
-        <tbody className='[&>tr:nth-child(even)]:bg-gray-50'>
+        <tbody className="[&>tr:nth-child(even)]:bg-gray-50">
           <tr>
             <td>North America region (excluded Mexico)</td>
             <td>3-5 days </td>

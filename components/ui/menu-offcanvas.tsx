@@ -10,41 +10,41 @@ interface MenuOffcanvasProps extends React.ComponentProps<'button'> {}
 
 function MenuContent() {
   return (
-    <aside className='relative w-[350px]'>
+    <aside className="relative w-[350px]">
       <menu
         className={clsx(
           'space-y-5 p-10 font-bold',
           '[&_a]:multi-[`flex;items-center;gap-x-1.5`]',
-          '[&_span[class*=i-]]:multi-[`text-2xl;-translate-y-0.5`]'
+          '[&_span[class*=i-]]:multi-[`text-2xl;-translate-y-0.5`]',
         )}
       >
         <li>
-          <Link href='/'>
-            <span className='i-carbon-home'></span>
+          <Link href="/">
+            <span className="i-carbon-home"></span>
             <span>Home</span>
           </Link>
         </li>
         <li>
-          <Link href='/order-tracking'>
-            <span className='i-carbon-settings-adjust'></span>
+          <Link href="/order-tracking">
+            <span className="i-carbon-settings-adjust"></span>
             <span>Order Tracking</span>
           </Link>
         </li>
         <li>
-          <Link href='/contact'>
-            <span className='i-carbon-email'></span>
+          <Link href="/contact">
+            <span className="i-carbon-email"></span>
             <span>Contact Us</span>
           </Link>
         </li>
       </menu>
       <button
-        aria-label='Close Menu'
-        className='absolute right-5 top-5'
+        aria-label="Close Menu"
+        className="absolute right-5 top-5"
         onClick={() => {
           offcanvas.close();
         }}
       >
-        <span className='i-carbon-close text-2xl'></span>
+        <span className="i-carbon-close text-2xl"></span>
       </button>
     </aside>
   );
@@ -53,7 +53,7 @@ function MenuContent() {
 export default function MenuOffcanvas(props: MenuOffcanvasProps) {
   return (
     <button
-      aria-label='Menu'
+      aria-label="Menu"
       {...props}
       onClick={() => {
         offcanvas.show({
@@ -61,7 +61,7 @@ export default function MenuOffcanvas(props: MenuOffcanvasProps) {
         });
       }}
     >
-      <span className='i-radix-icons-hamburger-menu text-4xl'></span>
+      <span className="i-radix-icons-hamburger-menu text-4xl"></span>
     </button>
   );
 }

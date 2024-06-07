@@ -33,7 +33,7 @@ export const getProduct = cache(
                         headers: response.headers,
                       }),
                       request,
-                      options
+                      options,
                     );
                   }
                 }
@@ -58,5 +58,5 @@ export const getProduct = cache(
   {
     revalidate: 180,
     tags: ['product'],
-  }
+  },
 );

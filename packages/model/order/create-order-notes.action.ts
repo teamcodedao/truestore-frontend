@@ -8,7 +8,7 @@ import type {CreateOrderNotes, OrderNotes} from './typings';
 
 export async function createOrderNotes(
   orderId: string,
-  note: CreateOrderNotes['note']
+  note: CreateOrderNotes['note'],
 ) {
   const domain = headers().get('host') ?? '';
   const client = await createPlatformClient(domain);

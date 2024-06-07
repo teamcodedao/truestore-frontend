@@ -46,11 +46,11 @@ export default function SpinNumber({
     <div
       className={clsx(
         'flex shrink-0 items-stretch border border-gray-300',
-        '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500`]'
+        '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500`]',
       )}
     >
-      <button aria-label='Decrease' onClick={decrease} className='pl-2'>
-        <span className='i-radix-icons-minus translate-y-1'></span>
+      <button aria-label="Decrease" onClick={decrease} className="pl-2">
+        <span className="i-radix-icons-minus translate-y-1"></span>
       </button>
       <span
         className={clsx('self-center text-center  font-medium', {
@@ -60,8 +60,8 @@ export default function SpinNumber({
       >
         {value}
       </span>
-      <button aria-label='Incecrease' onClick={increase} className='pr-2'>
-        <span className='i-radix-icons-plus translate-y-1'></span>
+      <button aria-label="Incecrease" onClick={increase} className="pr-2">
+        <span className="i-radix-icons-plus translate-y-1"></span>
       </button>
     </div>
   );

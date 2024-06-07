@@ -27,11 +27,11 @@ interface ProductCartActionsProps {
 
 export function ProductCartActionsSkeleton() {
   return (
-    <div className='flex h-[48px] animate-pulse gap-x-3'>
-      <div className='w-[88px] bg-gray-200'></div>
-      <div className='flex grow gap-x-3'>
-        <div className='flex-1 rounded bg-gray-200'></div>
-        <div className='flex-1 rounded bg-gray-200'></div>
+    <div className="flex h-[48px] animate-pulse gap-x-3">
+      <div className="w-[88px] bg-gray-200"></div>
+      <div className="flex grow gap-x-3">
+        <div className="flex-1 rounded bg-gray-200"></div>
+        <div className="flex-1 rounded bg-gray-200"></div>
       </div>
     </div>
   );
@@ -75,7 +75,7 @@ export default function ProductCartActions({
       product: {
         id: product.id,
         name: product.name,
-        slug: product.slug
+        slug: product.slug,
       },
       quantity,
       variation: {
@@ -97,18 +97,18 @@ export default function ProductCartActions({
   };
 
   return (
-    <div className='flex gap-x-3'>
+    <div className="flex gap-x-3">
       <SpinNumber value={quantity} min={min} max={max} onChange={setQuantity} />
       <div
         className={clsx(
           'flex grow gap-x-3',
           '*:multi-[`rounded;text-white;font-bold;px-2;py-3;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
           '[&_span[class*=i-]]:multi-[`text-xl`]',
-          'sm:*:multi-[`px-5`]'
+          'sm:*:multi-[`px-5`]',
         )}
       >
         <button
-          className='bg-black hover:bg-black/80'
+          className="bg-black hover:bg-black/80"
           onClick={() => {
             if (handleAddToCart() !== null) {
               offcanvas.show({
@@ -120,11 +120,11 @@ export default function ProductCartActions({
             }
           }}
         >
-          <span className='i-carbon-shopping-cart-plus'></span>
+          <span className="i-carbon-shopping-cart-plus"></span>
           <span>Add to cart</span>
         </button>
         <button
-          className='bg-orange-600 hover:bg-orange-500'
+          className="bg-orange-600 hover:bg-orange-500"
           onClick={() => {
             if (carts.length === 0) {
               handleAddToCart({noVerify: true});
@@ -132,7 +132,7 @@ export default function ProductCartActions({
             router.push('/checkout?from=product');
           }}
         >
-          <span className='i-carbon-wallet'></span>
+          <span className="i-carbon-wallet"></span>
           <span>Buy now</span>
         </button>
       </div>

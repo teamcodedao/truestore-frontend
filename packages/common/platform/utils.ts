@@ -5,7 +5,7 @@ export function normalizeUrl(domain: string) {
 export function imgproxy(
   imgproxy_url: string,
   src: string,
-  processing: string | string[] = ''
+  processing: string | string[] = '',
 ) {
   if (!src || imgproxy_url) {
     let path = `/_/plain/${src}`;

@@ -12,7 +12,7 @@ export default async function AboutPage({params}: PageProps) {
   const platform = await getPlatformConfig(domain);
 
   return (
-    <article className='prose lg:prose-lg'>
+    <article className="prose lg:prose-lg">
       <h2>About Us</h2>
 
       <div>

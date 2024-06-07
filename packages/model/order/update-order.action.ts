@@ -13,7 +13,7 @@ export async function updateOrder(
     billing,
     transaction_id,
     meta_data,
-  }: Pick<UpdateOrder, 'shipping' | 'billing' | 'transaction_id' | 'meta_data'>
+  }: Pick<UpdateOrder, 'shipping' | 'billing' | 'transaction_id' | 'meta_data'>,
 ) {
   const domain = headers().get('host') ?? '';
   const client = await createPlatformClient(domain);

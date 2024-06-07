@@ -15,19 +15,19 @@ import {
 } from './product-attribute';
 
 function ProductAttribute(
-  props: Except<ProductAttributeProps, 'selectedIndex' | 'onSelect'>
+  props: Except<ProductAttributeProps, 'selectedIndex' | 'onSelect'>,
 ) {
   const router = useRouter();
   const pathname = usePathname();
 
   const [variation, addOptimistic] = useOptimistic(
     useParamsVariation<Record<string, string>>(),
-    (_state, value: Record<string, string>) => value
+    (_state, value: Record<string, string>) => value,
   );
 
   const selectedIndex = useMemo(() => {
     return props.options.findIndex(
-      option => option === variation?.[props.name]
+      option => option === variation?.[props.name],
     );
   }, [props.name, props.options, variation]);
 
@@ -35,11 +35,11 @@ function ProductAttribute(
     const json = {...variation, [props.name]: value};
     router.replace(
       `${pathname}?variation=${encodeURIComponent(
-        superjson.stringify(json)
+        superjson.stringify(json),
       )}` as Route,
       {
         scroll: false,
-      }
+      },
     );
     startTransition(() => {
       addOptimistic(json);
@@ -56,7 +56,7 @@ function ProductAttribute(
 }
 
 export default function SuspenseProductAttribute(
-  props: Except<ProductAttributeProps, 'selectedIndex' | 'onSelect'>
+  props: Except<ProductAttributeProps, 'selectedIndex' | 'onSelect'>,
 ) {
   if (props.options.length === 0) return null;
   return (

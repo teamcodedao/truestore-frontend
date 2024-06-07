@@ -21,12 +21,12 @@ export default function YourCart({className, ...rest}: YourCartProps) {
       setIsShake(prev => !prev);
     },
     3000,
-    true
+    true,
   );
 
   return (
     <button
-      aria-label='Cart'
+      aria-label="Cart"
       {...rest}
       className={clsx(className, 'relative', {
         'animate-shake': isShake,
@@ -40,11 +40,11 @@ export default function YourCart({className, ...rest}: YourCartProps) {
         });
       }}
     >
-      <div className='aspect-square overflow-hidden rounded-full bg-orange-400 p-2 text-white'>
-        <span className='i-carbon-shopping-cart text-3xl'></span>
+      <div className="aspect-square overflow-hidden rounded-full bg-orange-400 p-2 text-white">
+        <span className="i-carbon-shopping-cart text-3xl"></span>
       </div>
-      <span className='absolute -right-2 -top-2 flex aspect-square min-w-[20px] items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 p-1.5 text-white'>
-        <span suppressHydrationWarning className='text-sm font-medium'>
+      <span className="absolute -right-2 -top-2 flex aspect-square min-w-[20px] items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 p-1.5 text-white">
+        <span suppressHydrationWarning className="text-sm font-medium">
           {countTotal}
         </span>
       </span>

@@ -11,7 +11,7 @@ export interface PriceProps {
 
 export default function Price({size = 'lg', regular_price, price}: PriceProps) {
   return (
-    <div className='space-x-1'>
+    <div className="space-x-1">
       {!!regular_price && (
         <span
           suppressHydrationWarning

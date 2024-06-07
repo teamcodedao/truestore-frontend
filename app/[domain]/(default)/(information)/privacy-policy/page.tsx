@@ -11,7 +11,7 @@ export default async function PrivacyPolicyPage({params}: PageProps) {
   const platform = await getPlatformConfig(params.domain);
 
   return (
-    <article className='prose lg:prose-lg'>
+    <article className="prose lg:prose-lg">
       <h2>Privacy Policy</h2>
 
       <p>

@@ -15,7 +15,7 @@ export async function retrieveOrder(
   domain: string,
   id: string | number,
   addtionalKey: string,
-  params?: RetriveProductParams
+  params?: RetriveProductParams,
 ) {
   const client = await createPlatformClient(domain);
   try {
@@ -41,7 +41,7 @@ export async function retrieveOrder(
                     headers: response.headers,
                   }),
                   request,
-                  options
+                  options,
                 );
               }
 

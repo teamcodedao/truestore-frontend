@@ -31,7 +31,7 @@ export default function HtmlReplaceImgproxy({html}: HtmlReplaceImgproxyProps) {
             alt={alt}
             className={clsx(className, 'bg-slate-100')}
             srcSet={srcset}
-            loading='lazy'
+            loading="lazy"
             {...(src
               ? {
                   src: imgproxy(src),
