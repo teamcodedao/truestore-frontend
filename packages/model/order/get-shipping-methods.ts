@@ -43,6 +43,6 @@ export const getShippingMethods = cache(
   [],
   {
     revalidate: ms('1 day') / 1000,
-    tags: ['shipping-methods','all'],
+    tags: ['shipping-methods', 'all'],
   },
 );
