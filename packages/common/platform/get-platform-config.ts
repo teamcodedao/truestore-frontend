@@ -18,7 +18,7 @@ export async function getPlatformConfig(domain: string) {
       {
         next: {
           revalidate: ms('1 day') / 1000,
-          tags: ['platform-config'],
+          tags: ['platform-config','all'],
         },
       },
     )

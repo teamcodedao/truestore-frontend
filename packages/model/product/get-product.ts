@@ -57,6 +57,6 @@ export const getProduct = cache(
   [],
   {
     revalidate: 180,
-    tags: ['product'],
+    tags: ['product','all'],
   },
 );
