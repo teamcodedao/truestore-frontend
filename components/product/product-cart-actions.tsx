@@ -76,7 +76,7 @@ export default function ProductCartActions({
         id: product.id,
         name: product.name,
         slug: product.slug,
-        permalink: product.permalink
+        permalink: product.permalink,
       },
       quantity,
       variation: {
