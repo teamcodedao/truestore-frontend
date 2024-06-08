@@ -45,7 +45,7 @@ export default function SpinNumber({
   return (
     <div
       className={clsx(
-        'flex shrink-0 items-stretch border border-gray-300',
+        'flex shrink-0 items-stretch rounded border border-gray-300',
         '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500`]',
       )}
     >
@@ -53,7 +53,7 @@ export default function SpinNumber({
         <span className="i-radix-icons-minus translate-y-1"></span>
       </button>
       <span
-        className={clsx('self-center text-center  font-medium', {
+        className={clsx('self-center text-center font-medium text-slate-500', {
           'text-lg min-w-[30px]': size === 'base',
           'text-base min-w-[24px]': size === 'sm',
         })}

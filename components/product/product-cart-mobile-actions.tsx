@@ -13,11 +13,13 @@ import {transformProductToCart} from './utils';
 
 interface ProductCartMobileActionsProps {
   product: Product;
+  priceSlot: React.ReactNode;
   variationPromise: Promise<ProductVariation[]>;
 }
 
 export default function ProductCartMobileActions({
   product,
+  priceSlot,
   variationPromise,
 }: ProductCartMobileActionsProps) {
   const router = useRouter();
@@ -48,37 +50,39 @@ export default function ProductCartMobileActions({
   };
 
   return (
-    <div
-      className={clsx(
-        'fixed bottom-0 left-0 z-[997] w-full bg-white p-2',
-        'flex',
-        '*:multi-[`text-white;font-semibold;px-1;py-2.5;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
-        '[&_span[class*=i-]]:multi-[`text-lg`]',
-        'sm:*:multi-[`px-5`]',
-      )}
-    >
-      <button
-        className="rounded-l-full bg-gradient-to-r from-yellow-500 to-orange-500"
-        onClick={() => {
-          handleOpenToCartSheet();
-        }}
+    <div className="fixed bottom-0 left-0 z-[997] flex w-full gap-2 bg-white p-2">
+      <div className="shrink-0">{priceSlot}</div>
+      <div
+        className={clsx(
+          'flex grow',
+          '*:multi-[`text-white;font-semibold;px-1;py-2.5;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
+          '[&_span[class*=i-]]:multi-[`text-lg`]',
+          'sm:*:multi-[`px-5`]',
+        )}
       >
-        <span className="i-carbon-shopping-cart-plus"></span>
-        <span>Add to cart</span>
-      </button>
-      <button
-        className="rounded-r-full bg-gradient-to-r from-red-600 to-orange-500"
-        onClick={() => {
-          if (carts.length === 0) {
-            handleOpenToCartSheet({buyNow: true});
-            return;
-          }
-          router.push('/checkout?from=mobile_product');
-        }}
-      >
-        <span className="i-carbon-wallet"></span>
-        <span>Buy now</span>
-      </button>
+        <button
+          className="rounded-l-full bg-gradient-to-r from-yellow-500 to-orange-500"
+          onClick={() => {
+            handleOpenToCartSheet();
+          }}
+        >
+          <span className="i-carbon-shopping-cart-plus"></span>
+          <span>Add to cart</span>
+        </button>
+        <button
+          className="rounded-r-full bg-gradient-to-r from-red-600 to-orange-500"
+          onClick={() => {
+            if (carts.length === 0) {
+              handleOpenToCartSheet({buyNow: true});
+              return;
+            }
+            router.push('/checkout?from=mobile_product');
+          }}
+        >
+          <span className="i-carbon-wallet"></span>
+          <span>Buy now</span>
+        </button>
+      </div>
     </div>
   );
 }

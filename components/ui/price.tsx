@@ -4,14 +4,24 @@ import {formatCurrency} from '@automattic/format-currency';
 
 export interface PriceProps {
   size?: 'sm' | 'md' | 'lg';
+  horizontal?: boolean;
   regular_price?: string;
   /** Fallback to `sale_price` */
   price: string;
 }
 
-export default function Price({size = 'lg', regular_price, price}: PriceProps) {
+export default function Price({
+  size = 'lg',
+  horizontal,
+  regular_price,
+  price,
+}: PriceProps) {
   return (
-    <div className="space-x-1">
+    <div
+      className={clsx('flex gap-x-1', {
+        'flex-col-reverse justify-center': horizontal,
+      })}
+    >
       {!!regular_price && (
         <span
           suppressHydrationWarning
@@ -19,6 +29,7 @@ export default function Price({size = 'lg', regular_price, price}: PriceProps) {
             'text-xl': size === 'lg',
             'text-base': size === 'md',
             'text-sm': size === 'sm',
+            'self-end': horizontal,
           })}
         >
           {formatCurrency(parseFloat(regular_price), 'USD', {

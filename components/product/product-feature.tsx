@@ -1,6 +1,6 @@
 export default function ProductFeature() {
   return (
-    <ul className="space-y-3 text-lg *:multi-[`flex;gap-x-2;items-start`] [&_span[class*=i-]]:multi-[`text-2xl;shrink-0;translate-y-px`]">
+    <ul className="space-y-3 text-base *:multi-[`flex;gap-x-2;items-start`] lg:text-lg [&_span[class*=i-]]:multi-[`text-2xl;shrink-0;translate-y-px`]">
       <li>
         <span className="i-radix-icons-globe"></span>
         <div>

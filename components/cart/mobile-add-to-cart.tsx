@@ -8,6 +8,8 @@ import {toast} from 'sonner';
 
 import {ProductAttribute} from '@/components/product';
 import {SpinNumber} from '@/components/ui';
+import {formatCurrency} from '@automattic/format-currency';
+import {useImgproxy} from '@common/platform';
 import {
   type Product,
   type ProductVariation,
@@ -35,13 +37,20 @@ export default function MobileAddToCart({
   onAddtoCart,
 }: MobileAddToCartProps) {
   const router = useRouter();
+  const imgproxy = useImgproxy();
 
   const variations = use(variationPromise);
   const variation = useProductVariation(variations);
 
   const [quantity, setQuantity] = useState(1);
 
-  console.log({variation});
+  let regular_price = product.regular_price;
+  let price = product.price;
+
+  if (variation) {
+    regular_price = variation.regular_price || regular_price;
+    price = variation.sale_price || variation.price || price;
+  }
 
   function handleAddToCart() {
     if (!variation) {
@@ -78,9 +87,44 @@ export default function MobileAddToCart({
   }
 
   return (
-    <div className="flex size-full flex-col gap-y-5">
-      <div>product info</div>
-      <div>
+    <div className="flex size-full flex-col overflow-y-auto scrollbar-hide">
+      <div className="flex gap-2">
+        <div className="size-[70px] shrink-0 bg-gray-50">
+          <img
+            src={imgproxy(
+              variation?.image.thumb ?? variation?.image.src ?? '',
+              ['rs:fit:100'],
+            )}
+            alt=""
+            className="size-full object-contain"
+          />
+        </div>
+        <div className="space-y-1">
+          <p className="font-semibold text-red-500">
+            This deal will end soon!!
+          </p>
+          <p className="text-2xl font-bold text-red-500">
+            {formatCurrency(parseFloat(price), 'USD', {
+              stripZeros: true,
+            })}
+          </p>
+          {regular_price && (
+            <p className="space-x-1 text-base font-medium">
+              <span className="text-gray-400 line-through">
+                {formatCurrency(parseFloat(regular_price), 'USD', {
+                  stripZeros: true,
+                })}
+              </span>
+              {price < regular_price && (
+                <span className="rounded bg-red-50 px-0.5 text-red-500/80">
+                  -{((Number(price) / Number(regular_price)) * 100).toFixed(0)}%
+                </span>
+              )}
+            </p>
+          )}
+        </div>
+      </div>
+      <div className="mt-5 border-t border-gray-200">
         {!!product.attributes?.length && (
           <div className="mt-5 space-y-4">
             {product.attributes.map((attribute, index) => (
@@ -94,7 +138,7 @@ export default function MobileAddToCart({
           </div>
         )}
       </div>
-      <div className="flex items-center justify-between">
+      <div className="my-5 flex items-center justify-between border-t border-gray-200 pt-5">
         <span className="text-sm font-medium capitalize">Quantity</span>
         <SpinNumber value={quantity} min={1} size="sm" onChange={setQuantity} />
       </div>

@@ -64,7 +64,9 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             </div>
           </section>
           <section className="mt-4">
-            <h2 className="text-balance text-4xl font-bold">{product.name}</h2>
+            <h2 className="text-balance text-2xl font-bold sm:text-3xl lg:text-4xl">
+              {product.name}
+            </h2>
             <div className="mt-5 space-x-1">
               <ProductPrice
                 id={String(product.id)}
@@ -73,14 +75,14 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 price={product.sale_price || product.price}
               />
             </div>
-            <div className="my-5 px-5">
+            <div className="my-5 sm:px-5">
               <hr className="border-slate-300" />
             </div>
-            <div className="text-2xl font-medium uppercase">
+            <div className="text-xl font-medium uppercase lg:text-2xl">
               HURRY! ONLY <span className="text-red-500">45</span> LEFT IN
               STOCK.
             </div>
-            <article className="mt-5 text-xl italic [&>span]:multi-[`text-red-600;font-bold`]">
+            <article className="mt-5 text-lg italic lg:text-xl [&>span]:multi-[`text-red-600;font-bold`]">
               <span>98%</span> customer buy <span>2-4</span> items to use daily
               and gifts for their beloved one
             </article>
@@ -89,11 +91,11 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 min={500}
                 max={700}
                 interval={3000}
-                className="text-xl font-extrabold text-black"
+                className="text-lg font-extrabold text-black lg:text-xl"
               />{' '}
               People are viewing right now
             </article>
-            <div className="mt-3 text-xl font-bold text-red-700">
+            <div className="mt-3 text-lg font-bold text-red-700 lg:text-xl">
               Hurry up. This deal will end soon!!
             </div>
             <Countdown
@@ -106,18 +108,18 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <article className="mt-5">
               <ProductFeature />
             </article>
+            {!!product.attributes?.length && (
+              <div className="mt-5 space-y-4">
+                {product.attributes.map((attribute, index) => (
+                  <ProductAttribute
+                    key={index}
+                    name={attribute.name}
+                    options={attribute.options}
+                  />
+                ))}
+              </div>
+            )}
             <MatchDevice show={false} devices={['mobile']}>
-              {!!product.attributes?.length && (
-                <div className="mt-5 space-y-4">
-                  {product.attributes.map((attribute, index) => (
-                    <ProductAttribute
-                      key={index}
-                      name={attribute.name}
-                      options={attribute.options}
-                    />
-                  ))}
-                </div>
-              )}
               <div className="mt-5">
                 <Suspense fallback={<ProductCartActionsSkeleton />}>
                   <ProductCartActions
@@ -139,10 +141,10 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
       </div>
       <div className="mt-10 sm:mt-20 lg:mt-32">
         <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
-          <span className="block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-2xl font-semibold text-white sm:w-auto">
+          <span className="block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-xl font-semibold text-white sm:w-auto lg:text-2xl">
             Description
           </span>
-          <div className="[&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block">
+          <div className="text-base [&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block">
             <HtmlReplaceImgproxy html={product.description} />
           </div>
         </div>
@@ -158,6 +160,16 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         <MatchDevice devices={['mobile']}>
           <ProductCartMobileActions
             product={product}
+            priceSlot={
+              <ProductPrice
+                id={String(product.id)}
+                domain={'shop1.truestore.com'}
+                regular_price={product.regular_price}
+                price={product.sale_price || product.price}
+                size="sm"
+                horizontal
+              />
+            }
             variationPromise={getVariationPromise}
           />
         </MatchDevice>
