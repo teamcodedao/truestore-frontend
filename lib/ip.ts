@@ -1,5 +1,9 @@
 export async function fetchIp() {
-  const res = await fetch('/api/ip', {
+  if (typeof window !== 'undefined' && window.client_ip) {
+    return window.client_ip;
+  }
+
+  const res = await fetch('https://api.ipify.org?format=json', {
     next: {
       revalidate: false,
     },
@@ -7,6 +11,9 @@ export async function fetchIp() {
 
   if (res.ok) {
     const result: {ip: string} = await res.json();
+    if (typeof window !== 'undefined') {
+      window.client_ip = result.ip;
+    }
     return result.ip;
   }
 
