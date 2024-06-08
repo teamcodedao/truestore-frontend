@@ -105,32 +105,34 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <article className="mt-5">
               <ProductFeature />
             </article>
-            {!!product.attributes?.length && (
-              <div className="mt-5 space-y-4">
-                {product.attributes.map((attribute, index) => (
-                  <ProductAttribute
-                    key={index}
-                    name={attribute.name}
-                    options={attribute.options}
+            <MatchDevice show={false} devices={['mobile']}>
+              {!!product.attributes?.length && (
+                <div className="mt-5 space-y-4">
+                  {product.attributes.map((attribute, index) => (
+                    <ProductAttribute
+                      key={index}
+                      name={attribute.name}
+                      options={attribute.options}
+                    />
+                  ))}
+                </div>
+              )}
+              <div className="mt-5">
+                <Suspense fallback={<ProductCartActionsSkeleton />}>
+                  <ProductCartActions
+                    product={product}
+                    variationPromise={getVariationPromise}
                   />
-                ))}
+                </Suspense>
               </div>
-            )}
-            <div className="mt-5">
-              <Suspense fallback={<ProductCartActionsSkeleton />}>
-                <ProductCartActions
-                  product={product}
-                  variationPromise={getVariationPromise}
+              <div className="mt-5">
+                <Image
+                  src={safeCheckoutImg}
+                  alt=""
+                  className="w-full object-cover"
                 />
-              </Suspense>
-            </div>
-            <div className="mt-5">
-              <Image
-                src={safeCheckoutImg}
-                alt=""
-                className="w-full object-cover"
-              />
-            </div>
+              </div>
+            </MatchDevice>
           </section>
         </div>
       </div>

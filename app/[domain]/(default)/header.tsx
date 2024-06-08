@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import {useSelectedLayoutSegment} from 'next/navigation';
 
 import clsx from 'clsx';
 import Sticky from 'react-stickynode';
@@ -14,6 +15,7 @@ import {useDevice} from '@/lib/use-device';
 
 export default function Header() {
   const device = useDevice();
+  const layoutSegment = useSelectedLayoutSegment();
 
   return (
     <Sticky enabled={device === 'mobile'} innerZ={997}>
@@ -36,11 +38,13 @@ export default function Header() {
             alt=""
           />
         </Link>
-        <MatchDevice devices={['mobile']}>
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
-            <YourCart size="small" />
-          </div>
-        </MatchDevice>
+        {layoutSegment === 'product' && (
+          <MatchDevice devices={['mobile']}>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2">
+              <YourCart size="small" />
+            </div>
+          </MatchDevice>
+        )}
       </header>
     </Sticky>
   );
