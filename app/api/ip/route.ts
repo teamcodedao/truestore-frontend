@@ -1,9 +1,8 @@
-import {NextResponse} from 'next/server';
+import {headers} from 'next/headers';
 
 export async function GET() {
-  const response = await fetch('https://api.ipify.org/?format=json');
-  const data = await response.json();
-  return NextResponse.json({
-    ip: data.ip,
+  const ip = headers().get('x-forwarded-for');
+  return Response.json({
+    ip,
   });
 }
