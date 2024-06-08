@@ -2,8 +2,8 @@ import {getTrackingData} from '@tracking/data';
 
 import type {CreateOrder, UpdateOrder, UpdateOrderMetadata} from './typings';
 
-export function createOrderMetadata() {
-  const metadata: CreateOrder['meta_data'] = [];
+function getCommonMetadata() {
+  const metadata: Array<{key: string; value: string}> = [];
 
   metadata.push({
     key: 'UA',
@@ -19,7 +19,7 @@ export function createOrderMetadata() {
       value: referrerUrl.replace(/^https?:\/\//, '') || '',
     });
 
-    if (utm != '') {
+    if (utm !== '') {
       metadata.push({
         key: 'FB_UTM',
         value: utm,
@@ -30,27 +30,31 @@ export function createOrderMetadata() {
   return metadata;
 }
 
-export function updateOrderMetadata(params: UpdateOrderMetadata) {
-  const metadata: UpdateOrder['meta_data'] = [];
+export function createOrderMetadata(): CreateOrder['meta_data'] {
+  return getCommonMetadata();
+}
 
-  if (!params.transaction_id) {
-    return metadata;
+export function updateOrderMetadata(
+  params: UpdateOrderMetadata,
+): UpdateOrder['meta_data'] {
+  const metadata = getCommonMetadata();
+
+  if (params.transaction_id) {
+    metadata.push({
+      key: '_ppcp_paypal_order_id',
+      value: params.transaction_id,
+    });
+
+    metadata.push({
+      key: '_ppcp_paypal_intent',
+      value: 'CAPTURE',
+    });
+
+    metadata.push({
+      key: '_ppcp_paypal_payment_mode',
+      value: 'live',
+    });
   }
-
-  metadata.push({
-    key: '_ppcp_paypal_order_id',
-    value: params.transaction_id,
-  });
-
-  metadata.push({
-    key: '_ppcp_paypal_intent',
-    value: 'CAPTURE',
-  });
-
-  metadata.push({
-    key: '_ppcp_paypal_payment_mode',
-    value: 'live',
-  });
 
   return metadata;
 }
