@@ -13,6 +13,10 @@ declare global {
     }
   }
 
+  interface Window {
+    client_ip?: string;
+  }
+
   type LayoutProps<P = object> = Readonly<{
     children: React.ReactNode;
     params: P & {domain: string};

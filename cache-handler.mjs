@@ -33,7 +33,7 @@ CacheHandler.onCreation(async () => {
         })
         .catch(() => {
           console.error(
-            'Failed to quit the Redis client after failing to connect.'
+            'Failed to quit the Redis client after failing to connect.',
           );
         });
     }
@@ -51,7 +51,7 @@ CacheHandler.onCreation(async () => {
   } else {
     handler = createLruHandler();
     console.error(
-      'Falling back to LRU handler because Redis client is not available.'
+      'Falling back to LRU handler because Redis client is not available.',
     );
   }
 
