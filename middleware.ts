@@ -23,11 +23,7 @@ export default async function middleware(req: NextRequest) {
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`;
 
-  const response = NextResponse.rewrite(
-    new URL(`/${hostname}${path}`, req.url),
+  return NextResponse.rewrite(
+    new URL(`/${device.type || 'desktop'}/${hostname}${path}`, req.url),
   );
-
-  response.cookies.set('device', device.type || 'desktop');
-
-  return response;
 }

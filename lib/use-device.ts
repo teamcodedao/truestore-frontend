@@ -1,15 +1,10 @@
-import {useEffect, useState} from 'react';
+'use client';
 
-import {getCookie} from 'react-use-cookie';
+import {useParams} from 'next/navigation';
 
 type Device = 'mobile' | 'table' | 'desktop';
 
-export function useDevice(initialDevice?: Device) {
-  const [device, setDevice] = useState<Device>(initialDevice ?? 'desktop');
-
-  useEffect(() => {
-    setDevice(getCookie('device') as Device);
-  }, []);
-
+export function useDevice() {
+  const {device} = useParams<{device: Device}>();
   return device;
 }

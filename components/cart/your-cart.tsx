@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import {useIntervalWhen} from 'rooks';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
-import {useMounted} from '@/lib/use-mounted';
 import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
@@ -19,7 +18,6 @@ export default function YourCart({
   size = 'default',
   ...rest
 }: YourCartProps) {
-  const isMounted = useMounted();
   const [{countTotal}] = useCart();
 
   const [isShake, setIsShake] = useState(false);
@@ -36,8 +34,7 @@ export default function YourCart({
     <button
       aria-label="Cart"
       {...rest}
-      className={clsx(className, 'relative transition', {
-        'opacity-0': !isMounted,
+      className={clsx(className, 'relative', {
         'animate-shake': isShake,
       })}
       onClick={() => {
