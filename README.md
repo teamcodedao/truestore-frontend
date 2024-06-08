@@ -3,7 +3,10 @@
 ## Getting started
 
 ```bash
-docker compose build
+pnpm dev
+```
+
+```bash
 docker compose up -d
 ```
 

@@ -7,15 +7,10 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
       - caddy_config:/config
-      - ./.next/static:/srv/truestore-static:ro
-    depends_on:
-      - truestore
-
-  truestore:
-    build: .
-    volumes:
-      - .:/app
-      - /app/node_modules
+    environment: 
+      - UPSTREAM_ADDRESSES="host.docker.internal:${PORT:-3000}"
+    extra_hosts:
+      - host.docker.internal:host-gateway
 
 volumes:
   caddy_data:
