@@ -6,12 +6,20 @@ import clsx from 'clsx';
 import {useIntervalWhen} from 'rooks';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
+import {useMounted} from '@/lib/use-mounted';
 import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
-interface YourCartProps extends React.ComponentProps<'button'> {}
+interface YourCartProps extends React.ComponentProps<'button'> {
+  size?: 'default' | 'small';
+}
 
-export default function YourCart({className, ...rest}: YourCartProps) {
+export default function YourCart({
+  className,
+  size = 'default',
+  ...rest
+}: YourCartProps) {
+  const isMounted = useMounted();
   const [{countTotal}] = useCart();
 
   const [isShake, setIsShake] = useState(false);
@@ -28,7 +36,8 @@ export default function YourCart({className, ...rest}: YourCartProps) {
     <button
       aria-label="Cart"
       {...rest}
-      className={clsx(className, 'relative', {
+      className={clsx(className, 'relative transition', {
+        'opacity-0': !isMounted,
         'animate-shake': isShake,
       })}
       onClick={() => {
@@ -41,9 +50,22 @@ export default function YourCart({className, ...rest}: YourCartProps) {
       }}
     >
       <div className="aspect-square overflow-hidden rounded-full bg-orange-400 p-2 text-white">
-        <span className="i-carbon-shopping-cart text-3xl"></span>
+        <span
+          className={clsx('i-carbon-shopping-cart', {
+            'text-2xl': size === 'default',
+            'text-xl': size === 'small',
+          })}
+        ></span>
       </div>
-      <span className="absolute -right-2 -top-2 flex aspect-square min-w-[20px] items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 p-1.5 text-white">
+      <span
+        className={clsx(
+          'absolute -right-2 -top-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 p-1.5 text-white',
+          {
+            'min-w-[20px]': size === 'default',
+            'min-w-[15px]': size === 'small',
+          },
+        )}
+      >
         <span suppressHydrationWarning className="text-sm font-medium">
           {countTotal}
         </span>

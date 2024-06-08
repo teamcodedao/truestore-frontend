@@ -5,6 +5,7 @@ import {YourCart} from '@/components/cart';
 import {
   Countdown,
   HtmlReplaceImgproxy,
+  MatchDevice,
   RandomNumber,
 } from '@/components/common';
 import {
@@ -17,7 +18,6 @@ import {
   ProductTracking,
 } from '@/components/product';
 import safeCheckoutImg from '@/images/safe-checkout.png';
-import {NoSSR} from '@common/no-ssr';
 import {getProduct, getProductVariations} from '@model/product/ssr';
 
 export const dynamic = 'error';
@@ -144,10 +144,11 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
           </div>
         </div>
       </div>
+
       <Suspense>
-        <NoSSR>
+        <MatchDevice show={false} devices={['mobile']}>
           <YourCart className="!fixed right-10 top-3/4 z-[100] sm:right-20 lg:right-36" />
-        </NoSSR>
+        </MatchDevice>
       </Suspense>
 
       <Suspense>
