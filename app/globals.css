@@ -46,6 +46,15 @@
       transform: translateX(0);
     }
   }
+
+  @keyframes slide-bottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
 }
 
 @keyframes shake {

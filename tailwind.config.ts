@@ -19,6 +19,8 @@ const config: Config = {
         'slide-left-out': 'slide-left 300ms reverse ease-in',
         'slide-right-in': 'slide-right 300ms',
         'slide-right-out': 'slide-right 300ms reverse ease-in',
+        'slide-bottom-in': 'slide-bottom 300ms',
+        'slide-bottom-out': 'slide-bottom 300ms reverse ease-in',
         shake: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both',
       },
     },

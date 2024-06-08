@@ -49,15 +49,15 @@ function OffcanvasProvider() {
     >
       <Modal
         onOpenChange={setOpen}
-        className={clsx(
-          'fixed inset-y-0 min-w-[300px] max-w-full bg-white shadow-lg',
-          {
-            'left-0 data-[entering]:animate-slide-left-in data-[exiting]:animate-slide-left-out':
-              canvas?.direction === 'left',
-            'right-0 data-[entering]:animate-slide-right-in data-[exiting]:animate-slide-right-out':
-              canvas?.direction === 'right',
-          },
-        )}
+        className={clsx('fixed min-w-[300px] max-w-full bg-white shadow-lg', {
+          'left-0 data-[entering]:animate-slide-left-in data-[exiting]:animate-slide-left-out':
+            canvas?.direction === 'left',
+          'right-0 data-[entering]:animate-slide-right-in data-[exiting]:animate-slide-right-out':
+            canvas?.direction === 'right',
+          'bottom-0 w-full h-[calc(75vh)] px-3 pt-3 pb-1 overflow-y-auto ios:scrollbar-hide data-[entering]:animate-slide-bottom-in data-[exiting]:animate-slide-bottom-out':
+            canvas?.direction === 'bottom',
+          'inset-y-0': canvas?.direction !== 'bottom',
+        })}
       >
         <Dialog>
           <Heading slot="title"></Heading>
@@ -78,6 +78,15 @@ function OffcanvasProvider() {
               )}
             </Suspense>
           </ErrorBoundary>
+          {canvas?.direction === 'bottom' && (
+            <button
+              className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-gray-100"
+              aria-label="Close"
+              onClick={() => setOpen(false)}
+            >
+              <span className="i-carbon-close text-base text-gray-600"></span>
+            </button>
+          )}
         </Dialog>
       </Modal>
     </ModalOverlay>
