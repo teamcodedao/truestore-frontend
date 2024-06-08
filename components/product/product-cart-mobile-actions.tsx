@@ -6,17 +6,44 @@ import clsx from 'clsx';
 
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
 import {useCart} from '@model/cart';
+import {type Product, type ProductVariation} from '@model/product';
 import offcanvas from '@ui/offcanvas';
 
-export default function ProductCartMobileActions() {
-  const [{carts}] = useCart();
+import {transformProductToCart} from './utils';
+
+interface ProductCartMobileActionsProps {
+  product: Product;
+  variationPromise: Promise<ProductVariation[]>;
+}
+
+export default function ProductCartMobileActions({
+  product,
+  variationPromise,
+}: ProductCartMobileActionsProps) {
   const router = useRouter();
+  const [{carts}, {addCart}] = useCart();
 
   const handleOpenToCartSheet = (options?: {buyNow: boolean}) => {
     offcanvas.bottomSheet({
       ssr: false,
+      loading: <div>Loading...</div>,
       fallback: <CheckoutCartError onClose={offcanvas.close} />,
-      content: <MobileAddToCart buyNow={options?.buyNow} />,
+      content: (
+        <MobileAddToCart
+          product={product}
+          buyNow={options?.buyNow}
+          variationPromise={variationPromise}
+          onClose={offcanvas.close}
+          onAddtoCart={params =>
+            addCart(
+              transformProductToCart({
+                ...params,
+                product,
+              }),
+            )
+          }
+        />
+      ),
     });
   };
 
@@ -46,7 +73,7 @@ export default function ProductCartMobileActions() {
             handleOpenToCartSheet({buyNow: true});
             return;
           }
-          router.push('/checkout?from=product');
+          router.push('/checkout?from=mobile_product');
         }}
       >
         <span className="i-carbon-wallet"></span>

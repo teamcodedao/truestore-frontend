@@ -1,5 +1,3 @@
-import 'server-only';
-
 import {getPlatformConfig} from './get-platform-config';
 import {imgproxy} from './utils';
 

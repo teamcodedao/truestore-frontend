@@ -1,5 +1,3 @@
-import 'server-only';
-
 import ky from 'ky';
 import memoize, {memoizeClear} from 'memoize';
 import ms from 'ms';

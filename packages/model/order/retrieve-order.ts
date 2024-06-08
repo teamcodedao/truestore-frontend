@@ -1,4 +1,3 @@
-import 'server-only';
 import {notFound} from 'next/navigation';
 
 import {HTTPError} from 'ky';

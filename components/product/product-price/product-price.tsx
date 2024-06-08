@@ -6,10 +6,12 @@ import {Price, type PriceProps} from '@/components/ui';
 import {type ProductVariation, useProductVariation} from '@model/product';
 
 export default function ProductPrice({
-  getVariationPromise,
+  getProductVariations,
   ...props
-}: PriceProps & {getVariationPromise: Promise<ProductVariation[]>}) {
-  const productVariations = use(getVariationPromise);
+}: PriceProps & {
+  getProductVariations: Promise<ProductVariation[]>;
+}) {
+  const productVariations = use(getProductVariations);
 
   let regular_price = props.regular_price;
   let price = props.price;

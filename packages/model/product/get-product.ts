@@ -1,4 +1,3 @@
-import 'server-only';
 import {unstable_cache as cache} from 'next/cache';
 import {notFound} from 'next/navigation';
 

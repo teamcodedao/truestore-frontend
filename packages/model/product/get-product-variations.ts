@@ -1,4 +1,3 @@
-import 'server-only';
 import {unstable_cache as cache} from 'next/cache';
 
 import {createPlatformClient} from '@common/platform/ssr';
@@ -6,7 +5,7 @@ import type {ProductVariation} from '@model/product';
 
 async function fetchVariations(
   domain: string,
-  id: string,
+  id: string | number,
   page: number,
   perPage: number,
 ) {
@@ -22,7 +21,7 @@ async function fetchVariations(
 }
 
 export const getProductVariations = cache(
-  async (domain: string, id: string) => {
+  async (domain: string, id: string | number) => {
     let page = 1;
     const perPage = 100;
 

@@ -1,3 +1,5 @@
+// 'use client';
+
 import {Suspense} from 'react';
 
 import {Price, type PriceProps} from '@/components/ui';
@@ -10,15 +12,16 @@ export default function SuspenseProductPrice({
   id,
   ...props
 }: PriceProps & {domain: string; id: string}) {
-  const promise = getProductVariations(domain, id);
-
   return (
     <Suspense
       fallback={
         <Price regular_price={props.regular_price} price={props.price} />
       }
     >
-      <ProductPrice {...props} getVariationPromise={promise} />
+      <ProductPrice
+        {...props}
+        getProductVariations={getProductVariations(domain, id)}
+      />
     </Suspense>
   );
 }

@@ -156,7 +156,10 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
 
       <Suspense>
         <MatchDevice devices={['mobile']}>
-          <ProductCartMobileActions />
+          <ProductCartMobileActions
+            product={product}
+            variationPromise={getVariationPromise}
+          />
         </MatchDevice>
       </Suspense>
 

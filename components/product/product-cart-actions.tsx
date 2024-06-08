@@ -18,6 +18,8 @@ import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
 
+import {transformProductToCart} from './utils';
+
 interface ProductCartActionsProps {
   min?: number;
   max?: number;
@@ -50,13 +52,21 @@ export default function ProductCartActions({
   const [{carts}, {addCart}] = useCart();
   const router = useRouter();
 
-  const handleAddToCart = (options?: {noVerify: boolean}) => {
+  function handleAddToCart(options?: {noVerify: boolean}) {
     if (!variation) {
       if (!options?.noVerify) {
         toast.error('Please, choose product options');
       }
       return null;
     }
+
+    addCart(
+      transformProductToCart({
+        product,
+        quantity,
+        variation,
+      }),
+    );
 
     fbpixel.trackToCart({
       content_name: product.name,
@@ -71,31 +81,9 @@ export default function ProductCartActions({
       post_id: product.id,
     });
 
-    addCart({
-      product: {
-        id: product.id,
-        name: product.name,
-        slug: product.slug,
-        permalink: product.permalink,
-      },
-      quantity,
-      variation: {
-        id: variation.id,
-        price: variation.price,
-        regular_price: variation.regular_price,
-        sale_price: variation.sale_price,
-        image: variation.image.src || product.images?.[0].src,
-        link: window.location.href,
-        attributes: variation.attributes.map(attr => attr.option),
-        shipping_class: variation.shipping_class,
-        shipping_class_id: variation.shipping_class_id,
-        shipping_value: variation.shipping_value,
-      },
-    });
-
     firebaseTracking.trackingLogs('VC', product);
     firebaseTracking.trackingLogs('ATC', product);
-  };
+  }
 
   return (
     <div className="flex gap-x-3">
