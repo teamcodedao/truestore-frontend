@@ -13,6 +13,7 @@ import {
   ProductCarousel,
   ProductCartActions,
   ProductCartActionsSkeleton,
+  ProductCartMobileActions,
   ProductFeature,
   ProductPrice,
   ProductTracking,
@@ -150,6 +151,12 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
       <Suspense>
         <MatchDevice show={false} devices={['mobile']}>
           <YourCart className="!fixed right-10 top-3/4 z-[100] sm:right-20 lg:right-36" />
+        </MatchDevice>
+      </Suspense>
+
+      <Suspense>
+        <MatchDevice devices={['mobile']}>
+          <ProductCartMobileActions />
         </MatchDevice>
       </Suspense>
 

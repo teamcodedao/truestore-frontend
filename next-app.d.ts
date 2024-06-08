@@ -17,13 +17,15 @@ declare global {
     client_ip?: string;
   }
 
+  type Device = 'mobile' | 'table' | 'desktop';
+
   type LayoutProps<P = object> = Readonly<{
     children: React.ReactNode;
-    params: P & {domain: string};
+    params: P & {device: Device; domain: string};
   }>;
 
   type PageProps<P = object, S = object> = Readonly<{
-    params: P & {domain: string};
+    params: P & {device: Device; domain: string};
     searchParams: S;
   }>;
 
