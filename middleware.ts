@@ -1,4 +1,4 @@
-import {NextRequest, NextResponse} from 'next/server';
+import {NextRequest, NextResponse, userAgent} from 'next/server';
 
 export const config = {
   matcher: [
@@ -14,14 +14,20 @@ export const config = {
 };
 
 export default async function middleware(req: NextRequest) {
-  const url = req.nextUrl;
-
   const hostname = req.headers.get('host');
+  const {device} = userAgent(req);
+  const url = req.nextUrl;
 
   const searchParams = req.nextUrl.searchParams.toString();
   const path = `${url.pathname}${
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`;
 
-  return NextResponse.rewrite(new URL(`/${hostname}${path}`, req.url));
+  const response = NextResponse.rewrite(
+    new URL(`/${hostname}${path}`, req.url),
+  );
+
+  response.cookies.set('device', device.type || 'desktop');
+
+  return response;
 }
