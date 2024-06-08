@@ -41,7 +41,7 @@ export default function Header() {
         {layoutSegment === 'product' && (
           <MatchDevice devices={['mobile']}>
             <div className="absolute right-0 top-1/2 -translate-y-1/2">
-              <YourCart size="small" />
+              <YourCart size="sm" />
             </div>
           </MatchDevice>
         )}

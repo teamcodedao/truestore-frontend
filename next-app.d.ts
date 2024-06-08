@@ -19,6 +19,8 @@ declare global {
 
   type Device = 'mobile' | 'table' | 'desktop';
 
+  type Size = 'base' | 'sm';
+
   type LayoutProps<P = object> = Readonly<{
     children: React.ReactNode;
     params: P & {device: Device; domain: string};

@@ -9,7 +9,7 @@ interface SpinNumberProps {
   min?: number;
   max?: number;
   onChange: (value: number) => void;
-  size?: 'base' | 'sm';
+  size?: Size;
 }
 
 export default function SpinNumber({

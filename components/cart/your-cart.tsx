@@ -10,12 +10,12 @@ import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
 interface YourCartProps extends React.ComponentProps<'button'> {
-  size?: 'default' | 'small';
+  size?: Size;
 }
 
 export default function YourCart({
   className,
-  size = 'default',
+  size = 'base',
   ...rest
 }: YourCartProps) {
   const [{countTotal}] = useCart();
@@ -49,8 +49,8 @@ export default function YourCart({
       <div className="aspect-square overflow-hidden rounded-full bg-orange-400 p-2 text-white">
         <span
           className={clsx('i-carbon-shopping-cart', {
-            'text-2xl': size === 'default',
-            'text-xl': size === 'small',
+            'text-2xl': size === 'base',
+            'text-xl': size === 'sm',
           })}
         ></span>
       </div>
@@ -58,8 +58,8 @@ export default function YourCart({
         className={clsx(
           'absolute -right-2 -top-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 p-1.5 text-white',
           {
-            'min-w-[20px]': size === 'default',
-            'min-w-[15px]': size === 'small',
+            'min-w-[20px]': size === 'base',
+            'min-w-[15px]': size === 'sm',
           },
         )}
       >

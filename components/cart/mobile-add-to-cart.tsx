@@ -1,12 +1,13 @@
 'use client';
 
-import {use} from 'react';
+import {use, useState} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
 import {toast} from 'sonner';
 
 import {ProductAttribute} from '@/components/product';
+import {SpinNumber} from '@/components/ui';
 import {
   type Product,
   type ProductVariation,
@@ -38,8 +39,7 @@ export default function MobileAddToCart({
   const variations = use(variationPromise);
   const variation = useProductVariation(variations);
 
-  //TODO
-  const quantity = 1;
+  const [quantity, setQuantity] = useState(1);
 
   console.log({variation});
 
@@ -78,7 +78,7 @@ export default function MobileAddToCart({
   }
 
   return (
-    <div className="flex size-full flex-col">
+    <div className="flex size-full flex-col gap-y-5">
       <div>product info</div>
       <div>
         {!!product.attributes?.length && (
@@ -88,12 +88,16 @@ export default function MobileAddToCart({
                 key={index}
                 name={attribute.name}
                 options={attribute.options}
+                size="sm"
               />
             ))}
           </div>
         )}
       </div>
-      <div>quantity</div>
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium capitalize">Quantity</span>
+        <SpinNumber value={quantity} min={1} size="sm" onChange={setQuantity} />
+      </div>
       <div className="sticky bottom-0 mt-auto shrink-0">
         <button
           className={clsx(
