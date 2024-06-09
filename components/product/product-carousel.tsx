@@ -1,6 +1,6 @@
 'use client';
 
-import {useCallback, useEffect, useState} from 'react';
+import {use, useCallback, useEffect, useMemo, useState} from 'react';
 
 import clsx from 'clsx';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -8,14 +8,35 @@ import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import {usePrevNextButtons} from '@/lib/embla-carousel';
 import {useImgproxy} from '@common/platform';
-import type {ProductImage} from '@model/product';
+import {
+  type ProductImage,
+  type ProductVariation,
+  useProductVariation,
+} from '@model/product';
 
 interface ProductCarouselProps {
   images?: ProductImage[];
+  variationPromise: Promise<ProductVariation[]>;
 }
 
-export default function ProductCarousel({images = []}: ProductCarouselProps) {
+export default function ProductCarousel({
+  variationPromise,
+  ...restProps
+}: ProductCarouselProps) {
+  const productVariations = use(variationPromise);
+  const variation = useProductVariation(productVariations);
+
   const imgproxy = useImgproxy();
+
+  const variationCurrentImg = variation?.image.src;
+
+  const images = useMemo(() => {
+    const images = (restProps.images ?? []).map(image => image.src);
+    if (variationCurrentImg) {
+      images.push(variationCurrentImg);
+    }
+    return [...new Set(images)];
+  }, [restProps.images, variationCurrentImg]);
 
   const [emblaRef, emblaMainApi] = useEmblaCarousel({}, [
     WheelGesturesPlugin(),
@@ -54,6 +75,15 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
     emblaMainApi.on('reInit', onSelect);
   }, [emblaMainApi, onSelect]);
 
+  useEffect(() => {
+    if (variationCurrentImg) {
+      const index = images.indexOf(variationCurrentImg);
+      if (index !== -1) {
+        onThumbClick(index);
+      }
+    }
+  }, [images, onThumbClick, variationCurrentImg]);
+
   return (
     <div className="embla">
       <div ref={emblaRef} className="embla__viewport">
@@ -65,7 +95,7 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
                 className="embla__slide aspect-square flex-[0_0_100%] bg-slate-100"
               >
                 <img
-                  src={imgproxy(image.src)}
+                  src={imgproxy(image)}
                   alt=""
                   className="size-full object-contain"
                 />
@@ -96,7 +126,7 @@ export default function ProductCarousel({images = []}: ProductCarouselProps) {
                     onClick={() => onThumbClick(index)}
                   >
                     <img
-                      src={imgproxy(image.src, ['rs:fit:200'])}
+                      src={imgproxy(image, ['rs:fit:200'])}
                       alt=""
                       className="size-full object-cover"
                     />
