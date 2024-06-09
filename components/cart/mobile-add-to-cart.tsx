@@ -6,6 +6,7 @@ import {useRouter} from 'next/navigation';
 import clsx from 'clsx';
 import {toast} from 'sonner';
 
+import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {ProductAttribute} from '@/components/product';
 import {SpinNumber} from '@/components/ui';
 import {formatCurrency} from '@automattic/format-currency';
@@ -17,6 +18,7 @@ import {
 } from '@model/product';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
+import offcanvas from '@ui/offcanvas';
 
 interface MobileAddToCartProps {
   buyNow?: boolean;
@@ -67,6 +69,12 @@ export default function MobileAddToCart({
       router.push(`/checkout?from=mobile_cart`);
     } else {
       onClose();
+      offcanvas.show({
+        direction: 'right',
+        ssr: false,
+        fallback: <CheckoutCartError onClose={offcanvas.close} />,
+        content: <CheckoutCart onClose={offcanvas.close} />,
+      });
     }
 
     fbpixel.trackToCart({
