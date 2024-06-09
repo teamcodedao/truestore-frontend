@@ -1,24 +1,31 @@
+'use client';
+
+import {use} from 'react';
 import Image from 'next/image';
+import {notFound} from 'next/navigation';
 
 import dayjs from 'dayjs';
 
 import {Badge} from '@/components/ui';
 import paypalImg from '@/images/payments/paypal.webp';
 import {formatCurrency} from '@automattic/format-currency';
-import {getImgProxy} from '@common/platform/ssr';
+import {useImgproxy} from '@common/platform';
 import type {Order} from '@model/order';
 
 interface OrderDetailsProps {
-  domain: string;
   retrieveOrderPromise: Promise<Order>;
 }
 
-export default async function OrderDetails({
-  domain,
+export default function OrderDetails({
   retrieveOrderPromise,
 }: OrderDetailsProps) {
-  const imgproxy = await getImgProxy(domain);
-  const order = await retrieveOrderPromise;
+  const order = use(retrieveOrderPromise);
+
+  const imgproxy = useImgproxy();
+
+  if (!order) {
+    notFound();
+  }
 
   const subtotal = order.line_items.reduce((acc, item) => {
     return acc + Number(item.subtotal);
