@@ -6,7 +6,6 @@ import Provider from './providers';
 export default async function PlatformLayout({children, params}: LayoutProps) {
   const domain = params.domain;
   const platform = await getPlatformConfig(domain);
-  console.log(platform);
   const pixel_ids = platform.pixel_ids?.split('|') ?? [];
   const defaultGaId = `G-${process.env.NEXT_PUBLIC_GA_ID}`;
   const ga_ids = (platform.ga_ids?.split('|') ?? []).filter(Boolean);
