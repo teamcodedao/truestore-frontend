@@ -49,10 +49,13 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
     <>
       <div className="flex flex-col gap-5 sm:mt-7 sm:flex-row sm:gap-x-10">
         <div className="flex-1 overflow-hidden">
-          <ProductCarousel images={product.images} />
+          <ProductCarousel
+            images={product.images}
+            variationPromise={getVariationPromise}
+          />
         </div>
         <div className="flex-1 shrink-0">
-          <section className="flex items-end gap-x-2">
+          <section className="-mt-2 flex items-end gap-x-2">
             <span className="font-medium">Rated</span>
             <div className="translate-y-0.5">
               {Array.from({length: 5}).map((_, index) => (

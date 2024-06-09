@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+
 import {formatCurrency} from '@automattic/format-currency';
 import {useImgproxy} from '@common/platform';
 import {useCart} from '@model/cart';
@@ -23,12 +25,14 @@ export default function CheckoutInformation() {
                   />
                 </div>
                 <div>
-                  <h4
-                    className="line-clamp-2 font-semibold"
-                    title={cart.product.name}
-                  >
-                    {cart.product.name}
-                  </h4>
+                  <Link href={cart.variation.link}>
+                    <h4
+                      className="line-clamp-2 font-semibold"
+                      title={cart.product.name}
+                    >
+                      {cart.product.name}
+                    </h4>
+                  </Link>
                   <div className="flex items-center justify-between gap-x-2">
                     <div className="mt-1 space-x-1 text-sm font-medium text-gray-900">
                       {!!cart.variation.regular_price && (
