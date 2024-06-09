@@ -40,6 +40,13 @@ function OffcanvasProvider() {
     };
   }, []);
 
+  const content =
+    canvas?.direction === 'bottom' ? (
+      <div className="absolute inset-0 px-3 pb-2 pt-3">{canvas.content}</div>
+    ) : (
+      canvas?.content
+    );
+
   return (
     <ModalOverlay
       isDismissable
@@ -49,15 +56,26 @@ function OffcanvasProvider() {
     >
       <Modal
         onOpenChange={setOpen}
-        className={clsx('fixed min-w-[300px] max-w-full bg-white shadow-lg', {
-          'left-0 data-[entering]:animate-slide-left-in data-[exiting]:animate-slide-left-out':
-            canvas?.direction === 'left',
-          'right-0 data-[entering]:animate-slide-right-in data-[exiting]:animate-slide-right-out':
-            canvas?.direction === 'right',
-          'bottom-0 w-full min-h-[200px] max-h-[calc(75vh)] px-3 pt-3 pb-2 overflow-y-auto ios:scrollbar-hide data-[entering]:animate-slide-bottom-in data-[exiting]:animate-slide-bottom-out [&_.react-aria-Dialog]:size-full':
-            canvas?.direction === 'bottom',
-          'inset-y-0': canvas?.direction !== 'bottom',
-        })}
+        className={clsx(
+          'fixed min-w-[300px] max-w-full bg-white shadow-lg',
+          '[&_.react-aria-Dialog]:outline-none',
+          {
+            'left-0 data-[entering]:animate-slide-left-in data-[exiting]:animate-slide-left-out':
+              canvas?.direction === 'left',
+            'right-0 data-[entering]:animate-slide-right-in data-[exiting]:animate-slide-right-out':
+              canvas?.direction === 'right',
+            'bottom-0 w-full data-[entering]:animate-slide-bottom-in data-[exiting]:animate-slide-bottom-out [&_.react-aria-Dialog]:multi-[`size-full;overflow-hidden;relative`]':
+              canvas?.direction === 'bottom',
+            'inset-y-0': canvas?.direction !== 'bottom',
+          },
+        )}
+        style={{
+          ...(canvas?.direction === 'bottom'
+            ? {
+                height: canvas?.height || '75vh',
+              }
+            : {}),
+        }}
       >
         <Dialog>
           <Heading slot="title"></Heading>
@@ -71,11 +89,7 @@ function OffcanvasProvider() {
                 })}
           >
             <Suspense fallback={canvas?.loading}>
-              {canvas?.ssr === false ? (
-                <NoSSR>{canvas?.content}</NoSSR>
-              ) : (
-                canvas?.content
-              )}
+              {canvas?.ssr === false ? <NoSSR>{content}</NoSSR> : content}
             </Suspense>
           </ErrorBoundary>
           {canvas?.direction === 'bottom' && (

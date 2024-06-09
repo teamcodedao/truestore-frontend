@@ -1,8 +1,19 @@
-export interface EventProps {
+interface BaseEventProps {
   action: 'open' | 'close';
-  direction: 'left' | 'right' | 'bottom';
+
   ssr?: boolean;
   loading?: React.ReactNode;
   fallback?: React.ReactElement;
   content: React.ReactNode;
 }
+
+export type EventProps = BaseEventProps &
+  (
+    | {
+        direction: 'bottom';
+        height?: number;
+      }
+    | {
+        direction: 'left' | 'right';
+      }
+  );

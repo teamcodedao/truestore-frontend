@@ -118,7 +118,13 @@ export default function MobileAddToCart({
               </span>
               {Number(price) < Number(regular_price) && (
                 <span className="rounded bg-red-50 px-0.5 text-red-500">
-                  -{((Number(price) / Number(regular_price)) * 100).toFixed(0)}%
+                  -
+                  {Math.floor(
+                    ((Number(regular_price) - Number(price)) /
+                      Number(regular_price)) *
+                      100,
+                  )}
+                  %
                 </span>
               )}
             </p>
