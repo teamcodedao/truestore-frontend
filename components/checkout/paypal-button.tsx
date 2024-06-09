@@ -14,8 +14,10 @@ import {
   createOrder,
   createOrderMetadata,
   createOrderNotes,
+  type Order,
   type UpdateOrder,
   updateOrder,
+  updateOrderFailed,
   updateOrderMetadata,
 } from '@model/order';
 import {
@@ -26,11 +28,22 @@ import {
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 
+function generateReferenceId(domain: string, orderId: string): string {
+  const domainPart = domain.substring(0, 4);
+
+  const randomChars = Math.random().toString(36).substring(2, 4);
+
+  const referenceId = `${domainPart}${randomChars}${orderId}`;
+
+  return referenceId;
+}
+
 function ImplPaypalButton() {
   const router = useRouter();
+  const platform = usePlatform();
 
   const timeRef = useRef<NodeJS.Timeout>();
-
+  const orderRef = useRef<Order>();
   const [{isPending}] = usePayPalScriptReducer();
   const [{carts, countTotal, subTotal}, {clearCart}] = useCart();
 
@@ -41,7 +54,17 @@ function ImplPaypalButton() {
   return (
     <>
       <PayPalButtons
-        onError={error => {
+        onError={async error => {
+          if (
+            error instanceof Error &&
+            error.message?.includes('Instrument declined')
+          ) {
+            await updateOrderFailed(String(orderRef.current?.id));
+            await createOrderNotes(
+              String(orderRef.current?.id),
+              `Instrument declined. The instrument presented was either declined by the processor or bank, or it can’t be used for this payment. Order status changed from Pending payment to Failed.`,
+            );
+          }
           toast.error(
             error instanceof Error ? error.message : 'Unknown error!!',
             {
@@ -82,7 +105,7 @@ function ImplPaypalButton() {
             ];
           }
 
-          const order = await createOrder(
+          orderRef.current = await createOrder(
             carts.map(item => {
               return {
                 product_id: item.product.id,
@@ -101,11 +124,14 @@ function ImplPaypalButton() {
             purchase_units: [
               {
                 amount: {
-                  value: order.total,
+                  value: orderRef.current.total,
                   currency_code: 'USD',
                 },
-                custom_id: String(order.id),
-                // reference_id: String(order.id)
+                custom_id: String(orderRef.current.id),
+                reference_id: generateReferenceId(
+                  platform.domain,
+                  String(orderRef.current.id),
+                ),
               },
             ],
           });
@@ -168,7 +194,7 @@ function ImplPaypalButton() {
           }, 1000);
 
           toast.success('Thank you for shopping', {
-            description: `Your #${111} order has been received successfully`,
+            description: `Your #${result.id} order has been received successfully`,
             action: {
               label: 'Undo',
               onClick: () => {
