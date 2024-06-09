@@ -119,23 +119,21 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 ))}
               </div>
             )}
-            <MatchDevice show={false} devices={['mobile']}>
-              <div className="mt-5">
-                <Suspense fallback={<ProductCartActionsSkeleton />}>
-                  <ProductCartActions
-                    product={product}
-                    variationPromise={getVariationPromise}
-                  />
-                </Suspense>
-              </div>
-              <div className="mt-5">
-                <Image
-                  src={safeCheckoutImg}
-                  alt=""
-                  className="w-full object-cover"
+            <div className="mt-5">
+              <Suspense fallback={<ProductCartActionsSkeleton />}>
+                <ProductCartActions
+                  product={product}
+                  variationPromise={getVariationPromise}
                 />
-              </div>
-            </MatchDevice>
+              </Suspense>
+            </div>
+            <div className="mt-5">
+              <Image
+                src={safeCheckoutImg}
+                alt=""
+                className="w-full object-cover"
+              />
+            </div>
           </section>
         </div>
       </div>
