@@ -40,7 +40,7 @@ export default function CheckoutPage() {
       <div className="flex min-h-screen w-full flex-col [--max-w:100%] [--w-base:550px] sm:multi-[`[--max-w:min(100%,var(--w-base))];flex-row;`]">
         <div className="flex grow justify-end overflow-hidden bg-gray-50 px-5 pb-10 sm:flex-1 lg:px-8">
           <div className="max-w-[--max-w]">
-            <MenuOffcanvas className="mb-12 mt-5" />
+            <MenuOffcanvas className="my-5 sm:mb-10" />
             <CheckoutHeading />
             <div className="h-4"></div>
             <CheckoutInformation />
@@ -48,7 +48,7 @@ export default function CheckoutPage() {
         </div>
 
         <div className="grow px-5 pb-12 pt-5 sm:flex-1 lg:px-8">
-          <div className="-ml-3 hidden sm:block">
+          <div className="hidden sm:block">
             <Link href="/">
               <Image src={logoImg} quality={100} priority alt="" />
             </Link>

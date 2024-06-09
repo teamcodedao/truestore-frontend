@@ -39,7 +39,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
 
       <footer className="mt-auto shrink-0 border-t pt-5">
         <div className="flex justify-between">
-          <span className="text-lg">Subtotal:</span>
+          <span className="text-lg">Subtotal</span>
           <span className="font-medium">
             {formatCurrency(subTotal, 'USD', {
               stripZeros: true,
@@ -47,16 +47,16 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-lg">Shipping:</span>
+          <span className="text-lg">Secured Shipping</span>
           <span className="font-medium">
             {formatCurrency(shippingTotal, 'USD', {
               stripZeros: true,
             })}
           </span>
         </div>
-        <div className="flex justify-between">
-          <span className="text-lg font-bold">Total:</span>
-          <span className="font-medium">
+        <div className="flex justify-between font-bold">
+          <span className="text-lg">Total</span>
+          <span>
             {formatCurrency(total, 'USD', {
               stripZeros: true,
             })}
