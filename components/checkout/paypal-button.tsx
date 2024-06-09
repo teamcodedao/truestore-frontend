@@ -29,11 +29,11 @@ import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 
 function generateReferenceId(domain: string, orderId: string): string {
-  const domainPart = domain.substring(0, 4);
+  const domainPart = domain.substring(0, 6);
 
   const randomChars = Math.random().toString(36).substring(2, 4);
 
-  const referenceId = `${domainPart}${randomChars}${orderId}`;
+  const referenceId = `${domainPart}${randomChars}-${orderId}`;
 
   return referenceId;
 }
@@ -128,7 +128,7 @@ function ImplPaypalButton() {
                   currency_code: 'USD',
                 },
                 custom_id: String(orderRef.current.id),
-                reference_id: generateReferenceId(
+                invoice_id: generateReferenceId(
                   platform.domain,
                   String(orderRef.current.id),
                 ),
