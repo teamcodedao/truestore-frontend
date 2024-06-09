@@ -13,13 +13,13 @@ COPY .npmrc package.json pnpm-lock.yaml pnpm-workspace.yaml cache-handler.mjs ne
 # State 1
 FROM base as deps
 COPY packages ./packages
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts --production
 
 
 # Stage 2
 FROM base as builder
 COPY packages ./packages
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts
 COPY . .
 ENV NODE_ENV production
 RUN pnpm build
