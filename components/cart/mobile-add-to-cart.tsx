@@ -83,6 +83,7 @@ export default function MobileAddToCart({
     });
 
     firebaseTracking.trackingLogs('VC', product);
+    firebaseTracking.trackingLogs('ATC', product);
     firebaseTracking.trackingLogs('ATC1', product);
   }
 

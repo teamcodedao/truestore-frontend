@@ -10,7 +10,7 @@ import Sticky from 'react-stickynode';
 import {YourCart} from '@/components/cart';
 import {MatchDevice} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
-import logoImg from '@/images/logo.webp';
+import logoImg from '@/images/logo_home_page.png';
 import {useDevice} from '@/lib/use-device';
 
 export default function Header() {
@@ -21,10 +21,7 @@ export default function Header() {
     <Sticky enabled={device === 'mobile'} innerZ={997}>
       <header
         className={clsx(
-          'relative flex items-center justify-center gap-x-10 bg-white',
-          {
-            'py-4': device !== 'mobile',
-          },
+          'relative flex items-center justify-center gap-x-10 bg-white py-3',
         )}
       >
         <MenuOffcanvas className="absolute left-0" />
@@ -34,7 +31,7 @@ export default function Header() {
             quality={100}
             priority
             unoptimized
-            height={65}
+            height={40}
             alt=""
           />
         </Link>

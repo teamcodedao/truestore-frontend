@@ -13,7 +13,7 @@ import {
 } from '@/components/checkout';
 import {TrackPageView} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
-import logoImg from '@/images/logo.webp';
+import logoImg from '@/images/logo_home_page.png';
 
 const CheckoutInformation = lazy(
   () => import('@/components/checkout').then(mod => mod.CheckoutInformation),
