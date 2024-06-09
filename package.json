@@ -11,8 +11,7 @@
     "lint:fix": "next lint --fix",
     "clean:build": "npx rimraf .next",
     "preinstall": "npx only-allow pnpm",
-    "prebuild": "pnpm clean:build",
-    "prepare": "husky"
+    "prebuild": "pnpm clean:build"
   },
   "dependencies": {
     "@automattic/format-currency": "^2.0.0",
