@@ -1,11 +1,22 @@
 'use client';
 
-export default function HorizontalCardSkeleton() {
+import clsx from 'clsx';
+
+interface HorizontalCardSkeletonProps extends React.ComponentProps<'div'> {}
+
+export default function HorizontalCardSkeleton({
+  className,
+}: HorizontalCardSkeletonProps) {
   return (
-    <div className="flex animate-pulse gap-x-5">
-      <div className="size-[120px] shrink-0 bg-gray-200 sm:size-[150px]"></div>
+    <div
+      className={clsx(
+        className,
+        'flex animate-pulse gap-x-5 [--aside-size:120px] sm:[--aside-size:150px]',
+      )}
+    >
+      <div className="size-[--aside-size] shrink-0 bg-gray-200"></div>
       <div className="grow">
-        <div className="h-5 bg-gray-200"></div>
+        <div className="h-5 max-w-lg bg-gray-200"></div>
         <div className="mt-1 h-5 w-12 bg-gray-200"></div>
         <div className="mt-2 flex justify-between">
           <div className="h-5 w-32 bg-gray-200"></div>

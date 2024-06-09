@@ -80,7 +80,7 @@ export default function CheckoutInformation() {
         </div>
       )}
       <hr className="-mr-8" />
-      <dl className="my-7 ml-7 space-y-6 text-sm font-medium text-gray-500">
+      <dl className="my-7 space-y-6 text-sm font-medium text-gray-500 sm:ml-7">
         <div className="flex justify-between gap-x-2">
           <dt>Subtotal</dt>
           <dd className="text-gray-900">
@@ -99,7 +99,7 @@ export default function CheckoutInformation() {
         </div>
       </dl>
       <hr className="-mr-8" />
-      <div className="ml-7 mt-8 flex justify-between gap-x-2 font-semibold text-gray-900">
+      <div className="mt-8 flex justify-between gap-x-2 font-semibold text-gray-900 sm:ml-7">
         <span>Total</span>
         <span>
           {formatCurrency(total, 'USD', {

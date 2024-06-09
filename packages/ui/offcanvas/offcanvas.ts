@@ -33,7 +33,9 @@ function closeOffcanvas() {
   element.dispatchEvent(event);
 }
 
-function bottomSheet(props: Except<EventProps, 'action' | 'direction'>) {
+function bottomSheet(
+  props: Except<EventProps, 'action' | 'direction'> & {height?: string},
+) {
   return showOffcanvas({
     ...props,
     direction: 'bottom' as 'right', // Hack

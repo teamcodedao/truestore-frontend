@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import {useIntervalWhen} from 'rooks';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
+import {useDevice} from '@/lib/use-device';
 import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
@@ -18,6 +19,7 @@ export default function YourCart({
   size = 'base',
   ...rest
 }: YourCartProps) {
+  const device = useDevice();
   const [{countTotal}] = useCart();
 
   const [isShake, setIsShake] = useState(false);
@@ -27,7 +29,7 @@ export default function YourCart({
       setIsShake(prev => !prev);
     },
     3000,
-    true,
+    device !== 'mobile',
   );
 
   return (
@@ -56,15 +58,19 @@ export default function YourCart({
       </div>
       <span
         className={clsx(
-          'absolute -right-2 -top-2 flex aspect-square items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 p-1.5 text-white',
+          'absolute -top-2 left-5 flex items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 text-white',
           {
             'min-w-[20px]': size === 'base',
             'min-w-[15px]': size === 'sm',
+            'p-1': countTotal > 9,
+            'p-1.5': countTotal <= 9,
+            'py-0': countTotal > 99 || device === 'mobile',
+            'aspect-square': countTotal < 100,
           },
         )}
       >
         <span suppressHydrationWarning className="text-sm font-medium">
-          {countTotal}
+          {countTotal > 99 && device === 'mobile' ? '99+' : countTotal}
         </span>
       </span>
     </button>

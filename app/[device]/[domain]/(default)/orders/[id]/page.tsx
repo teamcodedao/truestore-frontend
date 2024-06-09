@@ -5,6 +5,7 @@ import type {Metadata} from 'next';
 
 import {TrackPageView} from '@/components/common';
 import {OrderDetails} from '@/components/order';
+import {OrderDetailPageSkeleton} from '@/components/skeleton';
 import {retrieveOrder} from '@model/order/ssr';
 
 export const metadata: Metadata = {
@@ -30,10 +31,9 @@ export default function OrderPage({
 
   return (
     <>
-      <OrderDetails
-        domain={domain}
-        retrieveOrderPromise={retrieveOrderPromise}
-      />
+      <Suspense fallback={<OrderDetailPageSkeleton className="mt-10" />}>
+        <OrderDetails retrieveOrderPromise={retrieveOrderPromise} />
+      </Suspense>
       <Suspense>
         <TrackPageView />
       </Suspense>
