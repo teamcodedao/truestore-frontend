@@ -21,6 +21,8 @@ declare global {
 
   type Size = 'base' | 'sm';
 
+  type Aspect = 'square' | 'video' | (string & object);
+
   type LayoutProps<P = object> = Readonly<{
     children: React.ReactNode;
     params: P & {device: Device; domain: string};
