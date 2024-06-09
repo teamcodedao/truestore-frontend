@@ -1,3 +1,5 @@
+import {notFound} from 'next/navigation';
+
 import {getPlatformConfig} from '@common/platform/ssr';
 import {Fbpixel} from '@tracking/fbpixel';
 
@@ -6,6 +8,12 @@ import Provider from './providers';
 export default async function PlatformLayout({children, params}: LayoutProps) {
   const domain = params.domain;
   const platform = await getPlatformConfig(domain);
+
+  if (!platform) {
+    console.info(`Platform not found: ${domain}`);
+    notFound();
+  }
+
   const pixel_ids = platform.pixel_ids?.split('|') ?? [];
   const defaultGaId = `G-${process.env.NEXT_PUBLIC_GA_ID}`;
   const ga_ids = (platform.ga_ids?.split('|') ?? []).filter(Boolean);

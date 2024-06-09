@@ -117,15 +117,15 @@ export default function MobileAddToCart({
               stripZeros: true,
             })}
           </p>
-          {regular_price && (
+          {!!regular_price && (
             <p className="space-x-1 text-base font-medium">
               <span className="text-gray-400 line-through">
                 {formatCurrency(parseFloat(regular_price), 'USD', {
                   stripZeros: true,
                 })}
               </span>
-              {price < regular_price && (
-                <span className="rounded bg-red-50 px-0.5 text-red-500/80">
+              {Number(price) < Number(regular_price) && (
+                <span className="rounded bg-red-50 px-0.5 text-red-500">
                   -{((Number(price) / Number(regular_price)) * 100).toFixed(0)}%
                 </span>
               )}
@@ -154,7 +154,7 @@ export default function MobileAddToCart({
       <div className="sticky bottom-0 mt-auto shrink-0">
         <button
           className={clsx(
-            'w-full rounded-full bg-gradient-to-r px-2 py-3 font-semibold text-white',
+            'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
             {
               'from-red-600 to-orange-500': buyNow,
               'from-yellow-500 to-orange-500': !buyNow,

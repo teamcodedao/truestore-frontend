@@ -54,7 +54,7 @@ function OffcanvasProvider() {
             canvas?.direction === 'left',
           'right-0 data-[entering]:animate-slide-right-in data-[exiting]:animate-slide-right-out':
             canvas?.direction === 'right',
-          'bottom-0 w-full h-[calc(75vh)] px-3 pt-3 pb-2 overflow-y-auto ios:scrollbar-hide data-[entering]:animate-slide-bottom-in data-[exiting]:animate-slide-bottom-out [&_.react-aria-Dialog]:size-full':
+          'bottom-0 w-full min-h-[200px] max-h-[calc(75vh)] px-3 pt-3 pb-2 overflow-y-auto ios:scrollbar-hide data-[entering]:animate-slide-bottom-in data-[exiting]:animate-slide-bottom-out [&_.react-aria-Dialog]:size-full':
             canvas?.direction === 'bottom',
           'inset-y-0': canvas?.direction !== 'bottom',
         })}

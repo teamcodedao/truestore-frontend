@@ -26,14 +26,7 @@ export default function Header() {
       >
         <MenuOffcanvas className="absolute left-0" />
         <Link href="/">
-          <Image
-            src={logoImg}
-            quality={100}
-            priority
-            unoptimized
-            height={40}
-            alt=""
-          />
+          <Image src={logoImg} quality={100} priority alt="" />
         </Link>
         {layoutSegment === 'product' && (
           <MatchDevice devices={['mobile']}>

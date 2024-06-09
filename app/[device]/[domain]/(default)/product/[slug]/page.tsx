@@ -43,11 +43,11 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
     throwNotFound: true,
   });
 
-  const getVariationPromise = getProductVariations(domain, String(product.id));
+  const getVariationPromise = getProductVariations(domain, product.id);
 
   return (
     <>
-      <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:gap-x-10">
+      <div className="flex flex-col gap-5 sm:mt-7 sm:flex-row sm:gap-x-10">
         <div className="flex-1 overflow-hidden">
           <ProductCarousel images={product.images} />
         </div>
@@ -69,7 +69,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             </h2>
             <div className="mt-5 space-x-1">
               <ProductPrice
-                id={String(product.id)}
+                id={product.id}
                 domain={domain}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}
@@ -119,23 +119,21 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 ))}
               </div>
             )}
-            <MatchDevice show={false} devices={['mobile']}>
-              <div className="mt-5">
-                <Suspense fallback={<ProductCartActionsSkeleton />}>
-                  <ProductCartActions
-                    product={product}
-                    variationPromise={getVariationPromise}
-                  />
-                </Suspense>
-              </div>
-              <div className="mt-5">
-                <Image
-                  src={safeCheckoutImg}
-                  alt=""
-                  className="w-full object-cover"
+            <div className="mt-5">
+              <Suspense fallback={<ProductCartActionsSkeleton />}>
+                <ProductCartActions
+                  product={product}
+                  variationPromise={getVariationPromise}
                 />
-              </div>
-            </MatchDevice>
+              </Suspense>
+            </div>
+            <div className="mt-5">
+              <Image
+                src={safeCheckoutImg}
+                alt=""
+                className="w-full object-cover"
+              />
+            </div>
           </section>
         </div>
       </div>
@@ -162,8 +160,8 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             product={product}
             priceSlot={
               <ProductPrice
-                id={String(product.id)}
-                domain={'shop1.truestore.com'}
+                id={product.id}
+                domain={domain}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}
                 size="sm"
