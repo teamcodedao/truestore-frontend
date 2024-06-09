@@ -83,6 +83,14 @@ export default function ProductCartMobileActions({
           <span>Buy now</span>
         </button>
       </div>
+
+      <style jsx global>
+        {`
+          #footer {
+            padding-bottom: 40px;
+          }
+        `}
+      </style>
     </div>
   );
 }

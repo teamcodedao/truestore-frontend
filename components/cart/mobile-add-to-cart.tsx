@@ -109,15 +109,15 @@ export default function MobileAddToCart({
               stripZeros: true,
             })}
           </p>
-          {regular_price && (
+          {!!regular_price && (
             <p className="space-x-1 text-base font-medium">
               <span className="text-gray-400 line-through">
                 {formatCurrency(parseFloat(regular_price), 'USD', {
                   stripZeros: true,
                 })}
               </span>
-              {price < regular_price && (
-                <span className="rounded bg-red-50 px-0.5 text-red-500/80">
+              {Number(price) < Number(regular_price) && (
+                <span className="rounded bg-red-50 px-0.5 text-red-500">
                   -{((Number(price) / Number(regular_price)) * 100).toFixed(0)}%
                 </span>
               )}

@@ -47,7 +47,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
 
   return (
     <>
-      <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:gap-x-10">
+      <div className="flex flex-col gap-5 sm:mt-7 sm:flex-row sm:gap-x-10">
         <div className="flex-1 overflow-hidden">
           <ProductCarousel images={product.images} />
         </div>

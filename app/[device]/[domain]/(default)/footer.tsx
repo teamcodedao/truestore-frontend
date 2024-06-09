@@ -15,9 +15,9 @@ export default function Footer({className}: FooterProps) {
   const platform = usePlatform();
 
   return (
-    <footer className={clsx(className, 'bg-[#042449] text-white')}>
+    <footer id="footer" className={clsx(className, 'bg-[#042449] text-white')}>
       <div className="container">
-        <footer className="flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20">
+        <div className="flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20">
           <div className="text-center">
             <h2 className="text-2xl font-bold">{platform.company}</h2>
             <address className="mt-8 space-y-4 text-sm font-semibold text-gray-300">
@@ -78,7 +78,7 @@ export default function Footer({className}: FooterProps) {
               </ul>
             </div>
           </div>
-        </footer>
+        </div>
       </div>
     </footer>
   );
