@@ -11,7 +11,7 @@ export default function SuspenseProductPrice({
   domain,
   id,
   ...props
-}: PriceProps & {domain: string; id: string}) {
+}: PriceProps & {domain: string; id: string | number}) {
   return (
     <Suspense
       fallback={

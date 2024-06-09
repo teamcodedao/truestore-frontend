@@ -146,7 +146,7 @@ export default function MobileAddToCart({
       <div className="sticky bottom-0 mt-auto shrink-0">
         <button
           className={clsx(
-            'w-full rounded-full bg-gradient-to-r px-2 py-3 font-semibold text-white',
+            'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
             {
               'from-red-600 to-orange-500': buyNow,
               'from-yellow-500 to-orange-500': !buyNow,

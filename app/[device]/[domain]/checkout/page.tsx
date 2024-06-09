@@ -50,14 +50,7 @@ export default function CheckoutPage() {
         <div className="grow px-5 pb-12 pt-5 sm:flex-1 lg:px-8">
           <div className="-ml-3 hidden sm:block">
             <Link href="/">
-              <Image
-                src={logoImg}
-                quality={100}
-                priority
-                unoptimized
-                height={65}
-                alt=""
-              />
+              <Image src={logoImg} quality={100} priority height={40} alt="" />
             </Link>
           </div>
           <div className="mt-10 max-w-[--max-w]">

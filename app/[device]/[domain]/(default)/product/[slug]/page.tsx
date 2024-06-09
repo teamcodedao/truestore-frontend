@@ -43,7 +43,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
     throwNotFound: true,
   });
 
-  const getVariationPromise = getProductVariations(domain, String(product.id));
+  const getVariationPromise = getProductVariations(domain, product.id);
 
   return (
     <>
@@ -69,7 +69,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             </h2>
             <div className="mt-5 space-x-1">
               <ProductPrice
-                id={String(product.id)}
+                id={product.id}
                 domain={domain}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}
@@ -162,8 +162,8 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             product={product}
             priceSlot={
               <ProductPrice
-                id={String(product.id)}
-                domain={'shop1.truestore.com'}
+                id={product.id}
+                domain={domain}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}
                 size="sm"

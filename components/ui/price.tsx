@@ -19,7 +19,8 @@ export default function Price({
   return (
     <div
       className={clsx('flex gap-x-1', {
-        'flex-col-reverse justify-center': horizontal,
+        'flex-col-reverse justify-center items-end *:multi-[`inline-block;max-w-[150px];break-all`]':
+          horizontal,
       })}
     >
       {!!regular_price && (
@@ -29,7 +30,6 @@ export default function Price({
             'text-xl': size === 'lg',
             'text-base': size === 'md',
             'text-sm': size === 'sm',
-            'self-end': horizontal,
           })}
         >
           {formatCurrency(parseFloat(regular_price), 'USD', {
@@ -43,6 +43,7 @@ export default function Price({
           'text-2xl': size === 'lg',
           'text-lg': size === 'md',
           'text-base': size === 'sm',
+          'text-xl': size === 'sm' && !regular_price,
         })}
       >
         {formatCurrency(parseFloat(price), 'USD', {
