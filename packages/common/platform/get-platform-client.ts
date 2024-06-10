@@ -14,6 +14,19 @@ async function getClient(domain: string) {
         'base64',
       )}`,
     },
+    hooks: {
+      // Fallback to wc-api v1 and v2
+      beforeRequest: [
+        (request, options) => {
+          if (/wp-json\/wc\/v[1|2]/.test(request.url)) {
+            return ky(request.url.replace('wp-json/wc', 'wc-api'), {
+              ...options,
+              prefixUrl: undefined,
+            });
+          }
+        },
+      ],
+    },
   });
 }
 
