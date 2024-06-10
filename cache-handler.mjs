@@ -1,3 +1,4 @@
+import ms from 'ms';
 import {createClient} from 'redis';
 
 import {CacheHandler} from '@neshca/cache-handler';
@@ -57,6 +58,9 @@ CacheHandler.onCreation(async () => {
 
   return {
     handlers: [handler],
+    ttl: {
+      estimateExpireAge: () => ms('1 year') / 1000,
+    },
   };
 });
 
