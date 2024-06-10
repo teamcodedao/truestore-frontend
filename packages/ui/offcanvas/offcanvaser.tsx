@@ -72,7 +72,7 @@ function OffcanvasProvider() {
         style={{
           ...(canvas?.direction === 'bottom'
             ? {
-                height: canvas?.height || '75vh',
+                height: canvas?.height || '70vh',
               }
             : {}),
         }}

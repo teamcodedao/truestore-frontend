@@ -62,6 +62,7 @@ export default function FormHandler() {
             })}
             id="email"
             type="email"
+            autoFocus
             autoComplete="email"
             placeholder="name@domain.com"
             className={clsx(

@@ -65,7 +65,10 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
           </Suspense>
         </div>
         <div className="flex-1 shrink-0">
-          <section className="-mt-2 flex items-end gap-x-2">
+          <a
+            href="#product-reviews"
+            className="-mt-2 inline-flex items-end gap-x-2"
+          >
             <span className="font-medium">Rated</span>
             <div className="translate-y-0.5">
               {Array.from({length: 5}).map((_, index) => (
@@ -75,7 +78,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 ></span>
               ))}
             </div>
-          </section>
+          </a>
           <section className="mt-4">
             <h2 className="text-balance text-2xl font-bold sm:text-3xl lg:text-4xl">
               {product.name}
@@ -184,7 +187,10 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         </MatchDevice>
       </Suspense>
 
-      <div className="mt-10 has-[[data-empty='true']]:hidden sm:mt-20 lg:mt-32">
+      <div
+        id="product-reviews"
+        className="mt-10 has-[[data-empty='true']]:hidden sm:mt-20 lg:mt-32"
+      >
         <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
           <SectionHeading>Reviews</SectionHeading>
           <Suspense fallback={<div>Loading...</div>}>
