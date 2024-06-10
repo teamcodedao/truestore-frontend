@@ -8,10 +8,10 @@ export async function GET(request: NextRequest) {
 
   if (tag) {
     revalidateTag(tag);
-  }
 
-  if (tag === 'platform-config') {
-    clearPlatformClient();
+    if (['all', 'platform-config'].includes(tag)) {
+      clearPlatformClient();
+    }
   }
 
   return Response.json({

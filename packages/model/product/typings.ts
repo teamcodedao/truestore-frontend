@@ -42,3 +42,13 @@ export interface Product {
   attributes?: ProductAttribute<string>[];
   images?: ProductImage[];
 }
+
+export interface ProductReview {
+  id: number;
+  created_at: string;
+  review: string;
+  rating: string;
+  reviewer_name: string;
+  reviewer_email: string;
+  verified: boolean;
+}

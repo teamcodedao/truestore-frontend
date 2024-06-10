@@ -7,6 +7,7 @@ import {
   HtmlReplaceImgproxy,
   MatchDevice,
   RandomNumber,
+  SectionHeading,
 } from '@/components/common';
 import {
   ProductAttribute,
@@ -17,10 +18,15 @@ import {
   ProductFeature,
   ProductPrice,
   ProductTracking,
+  SuspenseProductReview,
 } from '@/components/product';
 import {CarouselThumbSkeleton} from '@/components/skeleton';
 import safeCheckoutImg from '@/images/safe-checkout.png';
-import {getProduct, getProductVariations} from '@model/product/ssr';
+import {
+  getProduct,
+  getProductReviews,
+  getProductVariations,
+} from '@model/product/ssr';
 
 export const dynamic = 'error';
 
@@ -44,7 +50,8 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
     throwNotFound: true,
   });
 
-  const getVariationPromise = getProductVariations(domain, product.id);
+  const variationPromise = getProductVariations(domain, product.id);
+  const promiseproductReview = getProductReviews(domain, product.id);
 
   return (
     <>
@@ -53,7 +60,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
           <Suspense fallback={<CarouselThumbSkeleton />}>
             <ProductCarousel
               images={product.images}
-              variationPromise={getVariationPromise}
+              variationPromise={variationPromise}
             />
           </Suspense>
         </div>
@@ -129,7 +136,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               <Suspense fallback={<ProductCartActionsSkeleton />}>
                 <ProductCartActions
                   product={product}
-                  variationPromise={getVariationPromise}
+                  variationPromise={variationPromise}
                 />
               </Suspense>
             </div>
@@ -145,9 +152,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
       </div>
       <div className="mt-10 sm:mt-20 lg:mt-32">
         <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
-          <span className="block w-full rounded-md bg-orange-400 px-8 py-2 text-center text-xl font-semibold text-white sm:w-auto lg:text-2xl">
-            Description
-          </span>
+          <SectionHeading>Description</SectionHeading>
           <div className="text-base [&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block">
             <HtmlReplaceImgproxy html={product.description} />
           </div>
@@ -174,10 +179,21 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 horizontal
               />
             }
-            variationPromise={getVariationPromise}
+            variationPromise={variationPromise}
           />
         </MatchDevice>
       </Suspense>
+
+      <div className="mt-10 has-[[data-empty='true']]:hidden sm:mt-20 lg:mt-32">
+        <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
+          <SectionHeading>Reviews</SectionHeading>
+          <Suspense fallback={<div>Loading...</div>}>
+            <SuspenseProductReview
+              promiseproductReview={promiseproductReview}
+            />
+          </Suspense>
+        </div>
+      </div>
 
       <Suspense>
         <ProductTracking product={product} />
