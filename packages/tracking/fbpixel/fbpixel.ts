@@ -18,14 +18,14 @@ export class Fbpixel {
   private async initializeSdk() {
     let timer: NodeJS.Timeout;
     const isReady = await new Promise<boolean>(resolve => {
-      const timout = setTimeout(() => {
+      const timeout = setTimeout(() => {
         clearInterval(timer);
         resolve(false);
       }, 10_000);
       timer = setInterval(() => {
         if (typeof window !== 'undefined' && 'fbq' in window) {
           clearInterval(timer);
-          clearTimeout(timout);
+          clearTimeout(timeout);
           resolve(true);
         }
       }, 10);

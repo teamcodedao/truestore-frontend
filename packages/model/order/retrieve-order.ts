@@ -6,15 +6,15 @@ import {createPlatformClient} from '@common/platform/ssr';
 
 import type {Order} from './typings';
 
-interface RetriveProductParams {
+interface RetrieveProductParams {
   throwNotFound?: boolean;
 }
 
 export async function retrieveOrder(
   domain: string,
   id: string | number,
-  addtionalKey: string,
-  params?: RetriveProductParams,
+  additionalKey: string,
+  params?: RetrieveProductParams,
 ) {
   const client = await createPlatformClient(domain);
   try {
@@ -28,8 +28,8 @@ export async function retrieveOrder(
                 const order: Order = await response.clone().json();
 
                 if (
-                  order.order_key === addtionalKey ||
-                  order.billing.email === addtionalKey
+                  order.order_key === additionalKey ||
+                  order.billing.email === additionalKey
                 ) {
                   return response;
                 }
