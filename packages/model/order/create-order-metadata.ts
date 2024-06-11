@@ -55,6 +55,11 @@ export function updateOrderMetadata(
       value: 'live',
     });
   }
-
+  if (params.ip) {
+    metadata.push({
+      key: 'ip',
+      value: params.ip,
+    });
+  }
   return metadata;
 }

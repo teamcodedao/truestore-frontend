@@ -7,6 +7,7 @@ import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
+import {fetchIp} from '@/lib/ip';
 import {usePlatform} from '@common/platform';
 import {useCart} from '@model/cart';
 import {
@@ -140,7 +141,7 @@ function ImplPaypalButton() {
           if (!actions.order) {
             throw new Error('No order found');
           }
-
+          const ip = await fetchIp();
           const order = await actions.order.capture();
           const transactionId =
             order.purchase_units?.[0].payments?.captures?.[0].id;
@@ -175,6 +176,7 @@ function ImplPaypalButton() {
 
           const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
             transaction_id: transactionId,
+            ip: ip ?? '',
           });
 
           const result = await updateOrder(wooOrderID, {

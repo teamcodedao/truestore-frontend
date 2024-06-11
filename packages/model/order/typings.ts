@@ -112,6 +112,7 @@ interface LineShipping {
 
 interface OrderMetadata {
   key:
+    | 'ip'
     | 'UA'
     | 'QUERY'
     | 'FB_UTM'
@@ -159,4 +160,5 @@ interface SettingWithOptions extends SettingBase {
 
 export interface UpdateOrderMetadata {
   transaction_id?: string;
+  ip?: string;
 }
