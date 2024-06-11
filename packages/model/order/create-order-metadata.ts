@@ -2,9 +2,14 @@ import {getTrackingData} from '@tracking/data';
 
 import type {CreateOrder, UpdateOrder, UpdateOrderMetadata} from './typings';
 
-function getCommonMetadata() {
+function getCommonMetadata(ip?: string) {
   const metadata: Array<{key: string; value: string}> = [];
-
+  if (ip) {
+    metadata.push({
+      key: 'ip',
+      value: ip,
+    });
+  }
   metadata.push({
     key: 'UA',
     value: navigator.userAgent,
@@ -30,14 +35,14 @@ function getCommonMetadata() {
   return metadata;
 }
 
-export function createOrderMetadata(): CreateOrder['meta_data'] {
-  return getCommonMetadata();
+export function createOrderMetadata(ip?: string): CreateOrder['meta_data'] {
+  return getCommonMetadata(ip);
 }
 
 export function updateOrderMetadata(
   params: UpdateOrderMetadata,
 ): UpdateOrder['meta_data'] {
-  const metadata = getCommonMetadata();
+  const metadata = getCommonMetadata(params.ip);
 
   if (params.transaction_id) {
     metadata.push({
@@ -55,11 +60,6 @@ export function updateOrderMetadata(
       value: 'live',
     });
   }
-  if (params.ip) {
-    metadata.push({
-      key: 'ip',
-      value: params.ip,
-    });
-  }
+
   return metadata;
 }

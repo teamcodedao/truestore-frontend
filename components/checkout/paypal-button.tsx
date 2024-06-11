@@ -80,9 +80,11 @@ function ImplPaypalButton() {
               'Please select at least one product to complete your purchase',
             );
           }
-
+          const ip = await fetchIp();
           let shippingLines: CreateOrder['shipping_lines'] = [];
-          const metadata: CreateOrder['meta_data'] = createOrderMetadata();
+          const metadata: CreateOrder['meta_data'] = createOrderMetadata(
+            ip ?? '',
+          );
 
           const maxItem = carts.reduce((max, item) => {
             const shippingValue = item.variation.shipping_value;
@@ -105,7 +107,6 @@ function ImplPaypalButton() {
               },
             ];
           }
-
           orderRef.current = await createOrder(
             carts.map(item => {
               return {
