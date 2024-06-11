@@ -41,7 +41,7 @@ export const getProductVariations = cache(
   },
   [],
   {
-    revalidate: 180,
+    revalidate: 86400,
     tags: ['product', 'all'],
   },
 );

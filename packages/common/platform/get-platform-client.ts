@@ -14,8 +14,17 @@ async function getClient(domain: string) {
         'base64',
       )}`,
     },
+    timeout: ms('30s'),
+    retry: {
+      limit: 3,
+      methods: ['post'],
+    },
     hooks: {
-      // Fallback to wc-api v1 and v2
+      beforeRetry: [
+        ({request, options, error, retryCount}) => {
+          console.log(`Retrying [${retryCount + 1}]: ${request.url}`);
+        },
+      ],
       beforeRequest: [
         (request, options) => {
           if (/wp-json\/wc\/v[1|2]/.test(request.url)) {

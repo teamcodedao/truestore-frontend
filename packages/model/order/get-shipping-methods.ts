@@ -41,7 +41,7 @@ export const getShippingMethods = cache(
   },
   [],
   {
-    revalidate: ms('1 day') / 1000,
+    revalidate: 86400,
     tags: ['shipping-methods', 'all'],
   },
 );

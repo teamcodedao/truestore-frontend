@@ -21,7 +21,7 @@ export const getProductReviews = cache(
   },
   [],
   {
-    revalidate: ms('1 hour') / 1000,
+    revalidate: 86400,
     tags: ['reviews', 'all'],
   },
 );

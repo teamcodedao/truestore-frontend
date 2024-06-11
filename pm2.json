@@ -4,7 +4,8 @@
       "name": "truestore-frontend",
       "script": "./node_modules/next/dist/bin/next",
       "args": "start",
-      "instances": "8",
+      "cwd": "/var/www/truestore-frontend",
+      "instances": 8,
       "exec_mode": "cluster",
       "autorestart": true,
       "env": {
