@@ -1,6 +1,10 @@
+import {getCookie, setCookie} from 'react-use-cookie';
+
 export async function fetchIp() {
-  if (typeof window !== 'undefined' && window.client_ip) {
-    return window.client_ip;
+  const clientIp = getCookie('client_ip');
+
+  if (clientIp) {
+    return clientIp;
   }
 
   const res = await fetch('https://api.ipify.org?format=json', {
@@ -11,9 +15,9 @@ export async function fetchIp() {
 
   if (res.ok) {
     const result: {ip: string} = await res.json();
-    if (typeof window !== 'undefined') {
-      window.client_ip = result.ip;
-    }
+    setCookie('client_ip', result.ip, {
+      path: '/',
+    });
     return result.ip;
   }
 
