@@ -13,10 +13,6 @@ declare global {
     }
   }
 
-  interface Window {
-    client_ip?: string;
-  }
-
   type Device = 'mobile' | 'table' | 'desktop';
 
   type Size = 'base' | 'sm';
