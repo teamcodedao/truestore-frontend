@@ -17,7 +17,7 @@ async function getClient(domain: string) {
     timeout: ms('30s'),
     retry: {
       limit: 3,
-      methods: ['post'],
+      methods: ['post', 'put'],
     },
     hooks: {
       beforeRetry: [
