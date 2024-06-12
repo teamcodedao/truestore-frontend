@@ -1,3 +1,5 @@
+import * as v from 'valibot';
+
 export function normalizeUrl(domain: string) {
   return domain.replace(/\./g, '');
 }
@@ -22,4 +24,8 @@ export function imgproxy(
   }
 
   return src;
+}
+
+export function isIp(ip?: unknown): ip is string {
+  return v.safeParse(v.pipe(v.string(), v.ip()), ip).success;
 }

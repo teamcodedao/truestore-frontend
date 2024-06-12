@@ -26,6 +26,14 @@ async function getClient(domain: string) {
         },
       ],
       beforeRequest: [
+        // Should be work in the future
+        // request => {
+        //   const clientIp = cookies().get('client_ip')?.value;
+        //   if (isIp(clientIp)) {
+        //     request.headers.set('x-forwarded-for', clientIp);
+        //     request.headers.set('x-real-ip', clientIp);
+        //   }
+        // },
         (request, options) => {
           if (/wp-json\/wc\/v[1|2]/.test(request.url)) {
             return ky(request.url.replace('wp-json/wc', 'wc-api'), {
