@@ -56,15 +56,19 @@ function ImplPaypalButton() {
     <>
       <PayPalButtons
         onError={async error => {
+          console.log(error.message);
           if (
             error instanceof Error &&
             error.message?.includes('Instrument declined')
           ) {
-            await updateOrderFailed(String(orderRef.current?.id));
+            await updateOrderFailed(String(orderRef.current?.id), 'failed');
             await createOrderNotes(
               String(orderRef.current?.id),
               `Instrument declined. The instrument presented was either declined by the processor or bank, or it can’t be used for this payment. Order status changed from Pending payment to Failed.`,
             );
+          } else if (error instanceof Error && error.message) {
+            await updateOrderFailed(String(orderRef.current?.id), 'cancelled');
+            await createOrderNotes(String(orderRef.current?.id), error.message);
           }
           toast.error(
             error instanceof Error ? error.message : 'Unknown error!!',

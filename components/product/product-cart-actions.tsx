@@ -115,6 +115,7 @@ export default function ProductCartActions({
         <button
           className="bg-orange-600 hover:bg-orange-500"
           onClick={() => {
+            firebaseTracking.trackingLogs('CO', product);
             if (carts.length === 0) {
               handleAddToCart({noVerify: true});
             }

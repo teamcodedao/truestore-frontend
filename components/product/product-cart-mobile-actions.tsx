@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
 import {useCart} from '@model/cart';
 import {type Product, type ProductVariation} from '@model/product';
+import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
 
 import {transformProductToCart} from './utils';
@@ -72,6 +73,7 @@ export default function ProductCartMobileActions({
         <button
           className="rounded-r-full from-red-600 to-orange-500"
           onClick={() => {
+            firebaseTracking.trackingLogs('CO', product);
             if (carts.length === 0) {
               handleOpenToCartSheet({buyNow: true});
               return;
