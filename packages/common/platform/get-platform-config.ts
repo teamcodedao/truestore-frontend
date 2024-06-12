@@ -1,6 +1,7 @@
 import {unstable_cache as cache} from 'next/cache';
 
 import ky from 'ky';
+import type {Except} from 'type-fest';
 
 import firebaseConfig from '@/config/firebase.json';
 
@@ -8,8 +9,20 @@ import {getPlatformPixel} from './get-platform-pixel';
 import type {PlatformConfig} from './typings';
 import {normalizeUrl} from './utils';
 
+type PlatformConfigOutput = Except<PlatformConfig, 'pixel_ids' | 'ga_ids'> & {
+  pixel_ids: string[];
+  ga_ids: string[];
+};
+
 export const getPlatformConfig = cache(
   async (domain: string) => {
+    if (domain.includes('localhost')) {
+      return {
+        domain,
+        internalRedirect: true,
+      } as unknown as PlatformConfigOutput;
+    }
+
     const [platform, commonPixelIds] = await Promise.all([
       ky
         .get(
@@ -24,6 +37,10 @@ export const getPlatformConfig = cache(
         .json<PlatformConfig>(),
       getPlatformPixel(),
     ]);
+
+    if (!platform) {
+      return null!;
+    }
 
     const pixelIds = [
       ...new Set([
@@ -43,7 +60,7 @@ export const getPlatformConfig = cache(
       ...platform,
       ga_ids: gaIds,
       pixel_ids: pixelIds,
-    };
+    } satisfies PlatformConfigOutput;
   },
   [],
   {

@@ -7,7 +7,7 @@ import {createPlatformClient} from '@common/platform/ssr';
 import type {CreateOrderNotes, OrderNotes} from './typings';
 
 export async function createOrderNotes(
-  orderId: string,
+  orderId: string | number,
   note: CreateOrderNotes['note'],
 ) {
   const domain = headers().get('host') ?? '';

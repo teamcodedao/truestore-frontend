@@ -6,7 +6,10 @@ import {createPlatformClient} from '@common/platform/ssr';
 
 import type {Order} from './typings';
 
-export async function updateOrderFailed(orderId: string, status: string) {
+export async function updateOrderFailed(
+  orderId: string | number,
+  status: string,
+) {
   const domain = headers().get('host') ?? '';
   const client = await createPlatformClient(domain);
 
