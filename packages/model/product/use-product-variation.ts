@@ -10,7 +10,7 @@ export function useProductVariation(productVariations: ProductVariation[]) {
 
   return useMemo(() => {
     if (!paramVariation) {
-      return null;
+      return undefined;
     }
     return productVariations.find(item => {
       for (const [key, value] of Object.entries(paramVariation)) {
