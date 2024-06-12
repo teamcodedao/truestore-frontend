@@ -1,5 +1,6 @@
 import {notFound} from 'next/navigation';
 
+import {ForceRefresh} from '@/components/common';
 import {getPlatformConfig} from '@common/platform/ssr';
 import {Fbpixel} from '@tracking/fbpixel';
 
@@ -12,6 +13,10 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
   if (!platform) {
     console.info(`Platform not found: ${domain}`);
     notFound();
+  }
+
+  if ('internalRedirect' in platform) {
+    return <ForceRefresh />;
   }
 
   return (

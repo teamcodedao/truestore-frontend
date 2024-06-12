@@ -10,6 +10,13 @@ import {normalizeUrl} from './utils';
 
 export const getPlatformConfig = cache(
   async (domain: string) => {
+    if (domain.includes('localhost')) {
+      return {
+        domain,
+        internalRedirect: true,
+      };
+    }
+
     const [platform, commonPixelIds] = await Promise.all([
       ky
         .get(
@@ -24,6 +31,10 @@ export const getPlatformConfig = cache(
         .json<PlatformConfig>(),
       getPlatformPixel(),
     ]);
+
+    if (!platform) {
+      return null;
+    }
 
     const pixelIds = [
       ...new Set([
