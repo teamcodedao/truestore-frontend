@@ -2,6 +2,8 @@ import ky from 'ky';
 import memoize, {memoizeClear} from 'memoize';
 import ms from 'ms';
 
+import * as Sentry from '@sentry/nextjs';
+
 import {getPlatformConfig} from './get-platform-config';
 
 async function getClient(domain: string) {
@@ -41,6 +43,14 @@ async function getClient(domain: string) {
               prefixUrl: undefined,
             });
           }
+        },
+      ],
+      beforeError: [
+        async error => {
+          Sentry.captureException(error);
+          await Sentry.flush(2000);
+
+          return error;
         },
       ],
     },

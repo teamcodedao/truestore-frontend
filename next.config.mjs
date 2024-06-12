@@ -1,4 +1,11 @@
+import {
+  PHASE_PRODUCTION_BUILD,
+  PHASE_PRODUCTION_SERVER,
+} from 'next/constants.js';
+
 import path from 'node:path';
+
+import {withSentryConfig} from '@sentry/nextjs';
 
 import pkg from './package.json' assert {type: 'json'};
 
@@ -31,4 +38,24 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default async function config(phase) {
+  const plugins = [];
+
+  if ([PHASE_PRODUCTION_BUILD, PHASE_PRODUCTION_SERVER].includes(phase)) {
+    plugins.push(nextConfig =>
+      withSentryConfig(nextConfig, {
+        telemetry: false,
+        silent: false,
+        hideSourceMaps: true,
+        sourcemaps: {
+          disable: false,
+        },
+        org: 'thesky9',
+        project: 'truestore-frontend',
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+      }),
+    );
+  }
+
+  return plugins.reduce((acc, plugin) => plugin(acc), nextConfig);
+}

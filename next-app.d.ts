@@ -11,6 +11,9 @@ declare global {
       NEXT_PUBLIC_FIREBASE_API_KEY: string;
       NEXT_PUBLIC_PAYPAL_CLIENT_ID: string;
       NEXT_PUBLIC_GA_ID: string;
+
+      NEXT_PUBLIC_SENTRY_DSN?: string;
+      SENTRY_AUTH_TOKEN?: string;
     }
   }
 
