@@ -259,7 +259,10 @@ export default function PaypalButton(props?: PaypalButtonProps) {
   return (
     <PayPalScriptProvider
       options={{
-        clientId: platform.paypal_client_id,
+        clientId:
+          process.env.NODE_ENV === 'production'
+            ? platform.paypal_client_id
+            : process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID,
         currency: 'USD',
         'disable-funding': 'paylater',
       }}
