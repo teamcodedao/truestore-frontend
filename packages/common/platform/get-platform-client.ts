@@ -21,8 +21,8 @@ async function getClient(domain: string) {
     },
     hooks: {
       beforeRetry: [
-        ({request, options, error, retryCount}) => {
-          console.log(`Retrying [${retryCount + 1}]: ${request.url}`);
+        ({request, retryCount}) => {
+          console.info(`Retrying [${retryCount + 1}]: ${request.url}`);
         },
       ],
       beforeRequest: [

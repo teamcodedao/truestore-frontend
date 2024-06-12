@@ -1,7 +1,5 @@
 import {unstable_cache as cache} from 'next/cache';
 
-import ms from 'ms';
-
 import {createPlatformClient} from '@common/platform/ssr';
 
 import type {ProductReview} from './typings';
