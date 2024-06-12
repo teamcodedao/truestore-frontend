@@ -9,7 +9,10 @@ export {
 export {default as ProductCartMobileActions} from './product-cart-mobile-actions';
 export {default as ProductFeature} from './product-feature';
 export {default as ProductPrice} from './product-price';
-export {default as SuspenseProductReview} from './product-review';
+export {
+  default as ProductReview,
+  type ProductReviewProps,
+} from './product-review';
 
 export const ProductTracking = lazy(() => import('./product-tracking'), {
   ssr: false,

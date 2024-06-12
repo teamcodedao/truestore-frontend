@@ -16,17 +16,19 @@ import {
   ProductCartActionsSkeleton,
   ProductCartMobileActions,
   ProductFeature,
-  ProductPrice,
   ProductTracking,
-  SuspenseProductReview,
 } from '@/components/product';
 import {CarouselThumbSkeleton} from '@/components/skeleton';
+import {Price} from '@/components/ui';
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {
   getProduct,
   getProductReviews,
   getProductVariations,
 } from '@model/product/ssr';
+
+import ProductPrice from './product-price';
+import ProductReview from './product-review';
 
 export const dynamic = 'error';
 
@@ -84,12 +86,20 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               {product.name}
             </h2>
             <div className="mt-5 space-x-1">
-              <ProductPrice
-                id={product.id}
-                domain={domain}
-                regular_price={product.regular_price}
-                price={product.sale_price || product.price}
-              />
+              <Suspense
+                fallback={
+                  <Price
+                    regular_price={product.regular_price}
+                    price={product.price}
+                  />
+                }
+              >
+                <ProductPrice
+                  regular_price={product.regular_price}
+                  price={product.sale_price || product.price}
+                  variationPromise={variationPromise}
+                />
+              </Suspense>
             </div>
             <div className="my-5 sm:px-5">
               <hr className="border-slate-300" />
@@ -174,12 +184,11 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             product={product}
             priceSlot={
               <ProductPrice
-                id={product.id}
-                domain={domain}
                 regular_price={product.regular_price}
                 price={product.sale_price || product.price}
                 size="sm"
                 horizontal
+                variationPromise={variationPromise}
               />
             }
             variationPromise={variationPromise}
@@ -194,9 +203,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
           <SectionHeading>Reviews</SectionHeading>
           <Suspense fallback={<div>Loading...</div>}>
-            <SuspenseProductReview
-              promiseproductReview={promiseproductReview}
-            />
+            <ProductReview promiseproductReview={promiseproductReview} />
           </Suspense>
         </div>
       </div>

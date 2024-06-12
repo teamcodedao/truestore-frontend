@@ -2,9 +2,11 @@ import {use} from 'react';
 
 import type {Except} from 'type-fest';
 
+import {
+  ProductReview as ImplProductReview,
+  type ProductReviewProps,
+} from '@/components/product';
 import type {ProductReview} from '@model/product';
-
-import ImplProductReview, {type ProductReviewProps} from './product-review';
 
 export default function SuspenseProductReview({
   promiseproductReview,
