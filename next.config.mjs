@@ -47,6 +47,7 @@ export default async function config(phase) {
         telemetry: false,
         silent: false,
         hideSourceMaps: true,
+        disableLogger: true,
         sourcemaps: {
           disable: false,
         },

@@ -61,8 +61,6 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
     <>
       <PayPalButtons
         onError={async error => {
-          console.error(error.message);
-
           let status: 'failed' | 'cancelled' = 'cancelled';
           let errorMessage = 'Unknown error!!';
 
@@ -76,8 +74,19 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           }
 
           if (orderRef.current) {
-            await updateOrderFailed(orderRef.current.id, status);
-            await createOrderNotes(orderRef.current.id, errorMessage);
+            try {
+              await updateOrderFailed(orderRef.current.id, status);
+              await createOrderNotes(orderRef.current.id, errorMessage);
+            } catch (error) {
+              console.error(error);
+              Sentry.withScope(scope => {
+                scope.setTags({
+                  update_order: 'failed',
+                  update_order_notes: 'failed',
+                });
+                Sentry.captureException(error);
+              });
+            }
           }
 
           toast.error('Your order could not be processed', {
@@ -85,9 +94,13 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           });
 
           Sentry.withScope(scope => {
-            scope.setTag('payment', 'failed');
+            scope.setTags({
+              payment: 'failed',
+            });
             Sentry.captureException(error);
           });
+
+          console.error(error.message);
         }}
         createOrder={async (data, actions) => {
           const newCarts = [...carts];
