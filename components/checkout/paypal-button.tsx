@@ -111,11 +111,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             }
             return max;
           }, newCarts[0]);
-
-          if (
-            maxItem.variation?.shipping_class_id &&
-            maxItem.variation.shipping_value
-          ) {
+          if (maxItem.variation?.shipping_value) {
             shippingLines = [
               {
                 method_id: 'flat_rate',
