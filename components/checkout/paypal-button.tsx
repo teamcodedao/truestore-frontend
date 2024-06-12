@@ -26,6 +26,7 @@ import {
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
+import * as Sentry from '@sentry/nextjs';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 
@@ -81,6 +82,11 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
 
           toast.error('Your order could not be processed', {
             description: errorMessage,
+          });
+
+          Sentry.withScope(scope => {
+            scope.setTag('payment', 'failed');
+            Sentry.captureException(error);
           });
         }}
         createOrder={async (data, actions) => {
