@@ -14,7 +14,6 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
     console.info(`Platform not found: ${domain}`);
     notFound();
   }
-
   const pixel_ids = platform.pixel_ids
     ? pixels_default.concat(platform.pixel_ids.split('|'))
     : pixels_default;

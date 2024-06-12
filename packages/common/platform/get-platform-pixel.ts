@@ -15,7 +15,9 @@ export const getPlatformPixel = cache(
       )
       .text();
 
-    const pixelIds = response.split(/(?=DHV)/);
+    const pixelIds = response
+      .split('DHV')
+      .map(id => id.trim().replace(/"/g, ''));
 
     return pixelIds;
   },
