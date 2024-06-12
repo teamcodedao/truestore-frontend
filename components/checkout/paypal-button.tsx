@@ -60,27 +60,28 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
     <>
       <PayPalButtons
         onError={async error => {
-          console.log(error.message);
-          if (
-            error instanceof Error &&
-            error.message?.includes('Instrument declined')
-          ) {
-            await updateOrderFailed(String(orderRef.current?.id), 'failed');
-            await createOrderNotes(
-              String(orderRef.current?.id),
-              `Instrument declined. The instrument presented was either declined by the processor or bank, or it can’t be used for this payment. Order status changed from Pending payment to Failed.`,
-            );
-          } else if (error instanceof Error && error.message) {
-            await updateOrderFailed(String(orderRef.current?.id), 'cancelled');
-            await createOrderNotes(String(orderRef.current?.id), error.message);
+          console.error(error.message);
+
+          let status: 'failed' | 'cancelled' = 'cancelled';
+          let errorMessage = 'Unknown error!!';
+
+          if (error instanceof Error) {
+            if (error.message.includes('Instrument declined')) {
+              status = 'failed';
+              errorMessage = `Instrument declined. The instrument presented was either declined by the processor or bank, or it can’t be used for this payment. Order status changed from Pending payment to Failed.`;
+            } else {
+              errorMessage = error.message;
+            }
           }
-          toast.error(
-            error instanceof Error ? error.message : 'Unknown error!!',
-            {
-              description:
-                'Your order could not be processed. Please try again, and contact for adminitration',
-            },
-          );
+
+          if (orderRef.current) {
+            await updateOrderFailed(orderRef.current.id, status);
+            await createOrderNotes(orderRef.current.id, errorMessage);
+          }
+
+          toast.error('Your order could not be processed', {
+            description: errorMessage,
+          });
         }}
         createOrder={async (data, actions) => {
           const newCarts = [...carts];
@@ -215,7 +216,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           toast.success('Thank you for shopping', {
             description: `Your #${result.id} order has been received successfully`,
             action: {
-              label: 'Undo',
+              label: 'My Order',
               onClick: () => {
                 router.replace(`/orders/${result.id}?key=${result.order_key}`);
               },
