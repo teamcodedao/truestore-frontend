@@ -18,7 +18,10 @@ import {
   ProductFeature,
   ProductTracking,
 } from '@/components/product';
-import {CarouselThumbSkeleton} from '@/components/skeleton';
+import {
+  CarouselThumbSkeleton,
+  PaypalButtonSkeleton,
+} from '@/components/skeleton';
 import {Price} from '@/components/ui';
 import safeCheckoutImg from '@/images/safe-checkout.png';
 import {
@@ -27,6 +30,7 @@ import {
   getProductVariations,
 } from '@model/product/ssr';
 
+import ProductPayment from './product-payment';
 import ProductPrice from './product-price';
 import ProductReview from './product-review';
 
@@ -148,6 +152,19 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <div className="mt-5">
               <Suspense fallback={<ProductCartActionsSkeleton />}>
                 <ProductCartActions
+                  product={product}
+                  variationPromise={variationPromise}
+                />
+              </Suspense>
+            </div>
+            <div className="mt-0">
+              <div className="relative my-2 text-center after:multi-[`absolute;w-full;h-0.5;bg-gray-200;left-0;top-1/2;-translate-y-1/2`]">
+                <span className="relative z-10 inline-block bg-white px-3 text-sm font-medium">
+                  OR
+                </span>
+              </div>
+              <Suspense fallback={<PaypalButtonSkeleton />}>
+                <ProductPayment
                   product={product}
                   variationPromise={variationPromise}
                 />

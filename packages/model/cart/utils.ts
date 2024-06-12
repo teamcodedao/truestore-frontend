@@ -1,5 +1,7 @@
 import type {Product, ProductVariation} from '@model/product';
 
+import type {CartItem} from './typings';
+
 interface AddProductToCartData {
   product: Product;
   variation: ProductVariation;
@@ -31,5 +33,5 @@ export function transformProductToCart({
       shipping_class_id: variation.shipping_class_id,
       shipping_value: variation.shipping_value,
     },
-  };
+  } satisfies CartItem;
 }

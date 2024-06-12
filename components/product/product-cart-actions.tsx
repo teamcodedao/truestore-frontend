@@ -8,7 +8,7 @@ import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {SpinNumber} from '@/components/ui';
-import {useCart} from '@model/cart';
+import {transformProductToCart, useCart} from '@model/cart';
 import {
   type Product,
   type ProductVariation,
@@ -17,8 +17,6 @@ import {
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
-
-import {transformProductToCart} from './utils';
 
 interface ProductCartActionsProps {
   min?: number;

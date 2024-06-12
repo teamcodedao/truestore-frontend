@@ -9,7 +9,7 @@ import {toast} from 'sonner';
 import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {fetchIp} from '@/lib/ip';
 import {usePlatform} from '@common/platform';
-import {useCart} from '@model/cart';
+import {type CartItem, useCart} from '@model/cart';
 import {
   type CreateOrder,
   createOrder,
@@ -29,6 +29,10 @@ import {
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 
+interface PaypalButtonProps {
+  onCreateCartItem?: () => CartItem | undefined;
+}
+
 function generateReferenceId(domain: string, orderId: string): string {
   const domainPart = domain.substring(0, 6);
 
@@ -39,14 +43,14 @@ function generateReferenceId(domain: string, orderId: string): string {
   return referenceId;
 }
 
-function ImplPaypalButton() {
+function ImplPaypalButton(props?: PaypalButtonProps) {
   const router = useRouter();
-  const platform = usePlatform();
-
   const timeRef = useRef<NodeJS.Timeout>();
-  const orderRef = useRef<Order>();
+  const orderRef = useRef<Order | null>(null);
+
+  const platform = usePlatform();
   const [{isPending}] = usePayPalScriptReducer();
-  const [{carts, countTotal, subTotal}, {clearCart}] = useCart();
+  const [{carts, countTotal, subTotal}, {addCart, clearCart}] = useCart();
 
   useWillUnmount(() => {
     clearTimeout(timeRef.current);
@@ -75,10 +79,18 @@ function ImplPaypalButton() {
           );
         }}
         createOrder={async (data, actions) => {
+          const newCarts = [...carts];
+
           if (carts.length === 0) {
-            throw new Error(
-              'Please select at least one product to complete your purchase',
-            );
+            const cartItem = props?.onCreateCartItem?.();
+            if (cartItem) {
+              newCarts.push(cartItem);
+              addCart(cartItem);
+            } else {
+              throw new Error(
+                'Please select at least one product to complete your purchase',
+              );
+            }
           }
           const ip = await fetchIp();
           let shippingLines: CreateOrder['shipping_lines'] = [];
@@ -86,19 +98,19 @@ function ImplPaypalButton() {
             ip ?? '',
           );
 
-          const maxItem = carts.reduce((max, item) => {
+          const maxItem = newCarts.reduce((max, item) => {
             const shippingValue = item.variation.shipping_value;
-            if (shippingValue !== undefined) {
+            if (shippingValue) {
               return shippingValue > (max.variation?.shipping_value || 0)
                 ? item
                 : max;
             }
             return max;
-          }, carts[0]);
+          }, newCarts[0]);
 
           if (
-            maxItem.variation?.shipping_class_id !== undefined &&
-            maxItem.variation.shipping_value !== undefined
+            maxItem.variation?.shipping_class_id &&
+            maxItem.variation.shipping_value
           ) {
             shippingLines = [
               {
@@ -108,7 +120,7 @@ function ImplPaypalButton() {
             ];
           }
           orderRef.current = await createOrder(
-            carts.map(item => {
+            newCarts.map(item => {
               return {
                 product_id: item.product.id,
                 quantity: item.quantity,
@@ -240,7 +252,7 @@ function ImplPaypalButton() {
   );
 }
 
-export default function PaypalButton() {
+export default function PaypalButton(props?: PaypalButtonProps) {
   const platform = usePlatform();
 
   return (
@@ -251,7 +263,7 @@ export default function PaypalButton() {
         'disable-funding': 'paylater',
       }}
     >
-      <ImplPaypalButton />
+      <ImplPaypalButton {...props} />
     </PayPalScriptProvider>
   );
 }

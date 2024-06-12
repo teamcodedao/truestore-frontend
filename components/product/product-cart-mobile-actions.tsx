@@ -5,11 +5,9 @@ import {useRouter} from 'next/navigation';
 import clsx from 'clsx';
 
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
-import {useCart} from '@model/cart';
+import {transformProductToCart, useCart} from '@model/cart';
 import {type Product, type ProductVariation} from '@model/product';
 import offcanvas from '@ui/offcanvas';
-
-import {transformProductToCart} from './utils';
 
 interface ProductCartMobileActionsProps {
   product: Product;
