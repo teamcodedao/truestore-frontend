@@ -21,9 +21,7 @@ export default function ProductPayment({
 }: ProductPaymentProps) {
   const variations = use(variationPromise);
   const variation = useProductVariation(variations);
-
   // TOTO: Quantity
-
   function createCartItem() {
     if (variation) {
       return transformProductToCart({

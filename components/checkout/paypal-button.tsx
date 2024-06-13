@@ -129,6 +129,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           } else {
             newTotal = total;
           }
+          console.log(newTotal);
           if (newTotal <= 0) {
             toast.error('Your order could not be processed');
           }
