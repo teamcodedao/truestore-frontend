@@ -77,7 +77,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             }
           }
 
-          if (orderRef.current) {
+          if (orderRef.current && orderRef.current.id) {
             try {
               if (!orderRef.current.transaction_id) {
                 await updateOrderFailed(orderRef.current.id, status);
@@ -109,12 +109,10 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           console.error(error.message);
         }}
         createOrder={async (data, actions) => {
-          const newCarts = [...carts];
-
           if (carts.length === 0) {
             const cartItem = props?.onCreateCartItem?.();
             if (cartItem) {
-              newCarts.push(cartItem);
+              carts.push(cartItem);
               addCart(cartItem);
             } else {
               throw new Error(
@@ -122,6 +120,8 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               );
             }
           }
+
+          const newCarts = [...carts];
 
           return actions.order.create({
             intent: 'CAPTURE',
