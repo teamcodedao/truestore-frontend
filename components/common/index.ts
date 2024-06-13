@@ -1,5 +1,4 @@
 export {default as Countdown} from './countdown';
-export {default as ForceRefresh} from './force-refresh';
 export {default as HtmlReplaceImgproxy} from './html-replace-imgproxy';
 export {default as MatchDevice} from './match-device';
 export {default as RandomNumber} from './random-number';

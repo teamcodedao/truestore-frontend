@@ -19,6 +19,10 @@ const nextConfig = {
     process.env.NEXT_CACHE_HANDLER === '1'
       ? path.resolve('./cache-handler.mjs')
       : undefined,
+
+  experimental: {
+    serverComponentsExternalPackages: ['@sentry/nextjs'],
+  },
   headers() {
     return [
       {
@@ -48,9 +52,7 @@ export default async function config(phase) {
         silent: false,
         hideSourceMaps: true,
         disableLogger: true,
-        sourcemaps: {
-          disable: false,
-        },
+        release: process.env.NEXT_PUBLIC_VERSION,
         org: 'thesky9',
         project: 'truestore-frontend',
         authToken: process.env.SENTRY_AUTH_TOKEN,

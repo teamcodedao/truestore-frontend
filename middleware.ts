@@ -23,6 +23,14 @@ export default async function middleware(req: NextRequest) {
     searchParams.length > 0 ? `?${searchParams}` : ''
   }`;
 
+  if (hostname?.includes('localhost')) {
+    return new NextResponse(null, {
+      headers: {
+        refresh: '0',
+      },
+    });
+  }
+
   return NextResponse.rewrite(
     new URL(`/${device.type || 'desktop'}/${hostname}${path}`, req.url),
   );

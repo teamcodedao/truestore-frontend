@@ -13,10 +13,13 @@ Sentry.init({
     'This operation was aborted',
     'Load failed',
     'Failed to fetch',
+    'Component closed',
     'AbortError: AbortError',
+    'Unhandled Unexpected token',
     'SecurityError',
     'Unknown root exit status.',
     'Connection to Indexed Database server lost.',
+    'Failed to look up IDBObjectStoreInfo from identifier',
   ],
   beforeSend(event) {
     const userAgent = event.request?.headers?.['User-Agent'].toLowerCase();

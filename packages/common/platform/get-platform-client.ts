@@ -47,6 +47,12 @@ async function getClient(domain: string) {
       ],
       beforeError: [
         async error => {
+          if (/wp-json\/wc\/v[1|2]/.test(error.request.url)) {
+            if (error.response.status === 404) {
+              return error;
+            }
+          }
+
           Sentry.captureException(error);
           await Sentry.flush(2000);
 
