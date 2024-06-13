@@ -68,6 +68,7 @@ export interface CreateOrder {
   shipping?: Shipping;
   shipping_lines: LineShipping[];
   meta_data?: OrderMetadata[];
+  transaction_id?: string;
 }
 
 export interface UpdateOrder {
@@ -161,4 +162,5 @@ interface SettingWithOptions extends SettingBase {
 export interface UpdateOrderMetadata {
   transaction_id?: string;
   ip?: string;
+  invoice_id?: string;
 }

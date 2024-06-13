@@ -44,6 +44,12 @@ export function updateOrderMetadata(
 ): UpdateOrder['meta_data'] {
   const metadata = getCommonMetadata(params.ip);
 
+  if (params.invoice_id) {
+    metadata.push({
+      key: 'invoice_id',
+      value: params.invoice_id,
+    });
+  }
   if (params.transaction_id) {
     metadata.push({
       key: '_ppcp_paypal_order_id',

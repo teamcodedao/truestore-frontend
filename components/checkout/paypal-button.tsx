@@ -34,12 +34,15 @@ interface PaypalButtonProps {
   onCreateCartItem?: () => CartItem | undefined;
 }
 
-function generateReferenceId(domain: string, orderId: string): string {
-  const domainPart = domain.substring(0, 6);
+function generateReferenceId(domain: string): string {
+  const domainPart = domain.replace(/\.com$/, '').replace(/\.+/g, '');
+  const randomChars = Math.random().toString(36).slice(2, 7);
 
-  const randomChars = Math.random().toString(36).substring(2, 4);
+  const randomDec = function (min: number, max: number) {
+    return (Math.random() * (max - min) + min).toFixed(0);
+  };
 
-  const referenceId = `${domainPart}${randomChars}-${orderId}`;
+  const referenceId = `${domainPart}-${randomChars}-${randomDec(10000, 99999)}`;
 
   return referenceId;
 }
@@ -51,7 +54,8 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
 
   const platform = usePlatform();
   const [{isPending}] = usePayPalScriptReducer();
-  const [{carts, countTotal, subTotal}, {addCart, clearCart}] = useCart();
+  const [{carts, countTotal, subTotal, total}, {addCart, clearCart}] =
+    useCart();
 
   useWillUnmount(() => {
     clearTimeout(timeRef.current);
@@ -75,7 +79,9 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
 
           if (orderRef.current) {
             try {
-              await updateOrderFailed(orderRef.current.id, status);
+              if (!orderRef.current.transaction_id) {
+                await updateOrderFailed(orderRef.current.id, status);
+              }
               await createOrderNotes(orderRef.current.id, errorMessage);
             } catch (error) {
               console.error(error);
@@ -116,56 +122,16 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               );
             }
           }
-          const ip = await fetchIp();
-          let shippingLines: CreateOrder['shipping_lines'] = [];
-          const metadata: CreateOrder['meta_data'] = createOrderMetadata(
-            ip ?? '',
-          );
-
-          const maxItem = newCarts.reduce((max, item) => {
-            const shippingValue = item.variation.shipping_value;
-            if (shippingValue) {
-              return shippingValue > (max.variation?.shipping_value || 0)
-                ? item
-                : max;
-            }
-            return max;
-          }, newCarts[0]);
-          if (maxItem.variation?.shipping_value) {
-            shippingLines = [
-              {
-                method_id: 'flat_rate',
-                total: maxItem.variation?.shipping_value.toString(),
-              },
-            ];
-          }
-          orderRef.current = await createOrder(
-            newCarts.map(item => {
-              return {
-                product_id: item.product.id,
-                quantity: item.quantity,
-                variation_id: item.variation?.id,
-              };
-            }),
-            {
-              shipping_lines: shippingLines,
-              meta_data: metadata,
-            },
-          );
 
           return actions.order.create({
             intent: 'CAPTURE',
             purchase_units: [
               {
                 amount: {
-                  value: orderRef.current.total,
+                  value: String(total),
                   currency_code: 'USD',
                 },
-                custom_id: String(orderRef.current.id),
-                invoice_id: generateReferenceId(
-                  platform.domain,
-                  String(orderRef.current.id),
-                ),
+                invoice_id: generateReferenceId(platform.domain),
               },
             ],
           });
@@ -183,13 +149,6 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           if (!purchaseUnit) {
             throw new Error('No purchase unit found');
           }
-
-          const wooOrderID = purchaseUnit.custom_id;
-
-          if (!wooOrderID) {
-            throw new Error('No order found');
-          }
-
           const shipping: UpdateOrder['shipping'] = {
             first_name: order.payer?.name?.given_name,
             last_name: order.payer?.name?.surname,
@@ -210,30 +169,66 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
             transaction_id: transactionId,
             ip: ip ?? '',
+            invoice_id: generateReferenceId(platform.domain),
           });
 
-          const result = await updateOrder(wooOrderID, {
-            billing,
-            shipping,
-            transaction_id: transactionId || '',
-            meta_data: metadata,
-          });
+          let shippingLines: CreateOrder['shipping_lines'] = [];
+
+          const maxItem = carts.reduce((max, item) => {
+            const shippingValue = item.variation.shipping_value;
+            if (shippingValue) {
+              return shippingValue > (max.variation?.shipping_value || 0)
+                ? item
+                : max;
+            }
+            return max;
+          }, carts[0]);
+          if (maxItem.variation?.shipping_value) {
+            shippingLines = [
+              {
+                method_id: 'flat_rate',
+                total: maxItem.variation?.shipping_value.toString(),
+              },
+            ];
+          }
+
+          orderRef.current = await createOrder(
+            carts.map(item => {
+              return {
+                product_id: item.product.id,
+                quantity: item.quantity,
+                variation_id: item.variation?.id,
+              };
+            }),
+            {
+              shipping_lines: shippingLines,
+              meta_data: metadata,
+              set_paid: true,
+              billing,
+              shipping,
+              transaction_id: transactionId || '',
+            },
+          );
 
           await createOrderNotes(
-            wooOrderID,
+            orderRef.current.id,
             `PayPal transaction ID: ${transactionId}`,
           );
 
           timeRef.current = setTimeout(() => {
-            router.replace(`/orders/${result.id}?key=${result.order_key}`);
-          }, 1000);
+            router.replace(
+              `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
+            );
+          }, 500);
 
           toast.success('Thank you for shopping', {
-            description: `Your #${result.id} order has been received successfully`,
+            description: `Your #${orderRef.current.id} order has been received successfully`,
             action: {
               label: 'My Order',
               onClick: () => {
-                router.replace(`/orders/${result.id}?key=${result.order_key}`);
+                router.replace(
+                  `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
+                );
               },
             },
           });
@@ -242,27 +237,27 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           fbpixel.trackPurchase({
             currency: 'USD',
             num_items: countTotal,
-            value: parseFloat(result.total),
+            value: parseFloat(orderRef.current.total),
             subTotal,
-            total: result.total,
-            tax: result.total_tax,
+            total: orderRef.current.total,
+            tax: orderRef.current.total_tax,
             category_name: 'Uncategorized',
             content_type: 'product',
-            order_id: wooOrderID,
+            order_id: String(orderRef.current.id),
             content_ids: carts.map(cart => String(cart.product.id)),
             content_name: carts.map(cart => cart.product.name).join(' - '),
             // tags: '',
-            shipping: result.shipping,
+            shipping: orderRef.current.shipping,
             coupon_used: '',
             coupon_name: '',
-            shipping_cost: result.shipping_total,
+            shipping_cost: orderRef.current.shipping_total,
             // predicted_ltv: 0,
             // average_order: 0,
             // transaction_count: 0,
           });
 
           // Tracking for firebase
-          firebaseTracking.trackingOrder(result.order_key);
+          firebaseTracking.trackingOrder(orderRef.current.order_key);
 
           clearCart();
         }}
