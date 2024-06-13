@@ -96,9 +96,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             }
           }
 
-          toast.error('Your order could not be processed', {
-            description: errorMessage,
-          });
+          toast.error('Your order could not be processed');
 
           Sentry.withScope(scope => {
             scope.setTags({
@@ -116,17 +114,20 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             const cartItem = props?.onCreateCartItem?.();
 
             if (cartItem) {
+              firebaseTracking.trackingClickPaypal(cartItem.product.id);
               addCart(cartItem);
               newTotal = currency(
-                cartItem.variation.sale_price || cartItem.variation.price,
+                cartItem.variation?.sale_price || cartItem.variation?.price,
               )
                 .multiply(cartItem.quantity)
-                .add(cartItem.variation.shipping_value).value;
+                .add(cartItem.variation?.shipping_value).value;
             } else {
               throw new Error(
                 'The product you selected is out of stock. Please try again or choose another product.',
               );
             }
+          } else {
+            firebaseTracking.trackingClickPaypal(carts[0].product.id);
           }
 
           if (newTotal <= 0) {
@@ -183,9 +184,8 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           });
 
           let shippingLines: CreateOrder['shipping_lines'] = [];
-
           const maxItem = carts.reduce((max, item) => {
-            const shippingValue = item.variation.shipping_value;
+            const shippingValue = item.variation?.shipping_value;
             if (shippingValue) {
               return shippingValue > (max.variation?.shipping_value || 0)
                 ? item
@@ -201,6 +201,20 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               },
             ];
           }
+
+          firebaseTracking.trackPurchase(
+            {
+              shipping_lines: shippingLines,
+              meta_data: metadata,
+              set_paid: true,
+              billing,
+              shipping,
+              line_items: carts,
+              transaction_id: transactionId || '',
+              date_created: new Date().toISOString(),
+            },
+            carts[0].product.id,
+          );
 
           orderRef.current = await createOrder(
             carts.map(item => {

@@ -8,6 +8,7 @@ import {
 
 import {fetchIp} from '@/lib/ip';
 import type {CartItem} from '@model/cart';
+import type {OrderTracking} from '@model/order';
 import type {Product} from '@model/product';
 
 import {getGenerelParameters} from './utils';
@@ -24,6 +25,44 @@ export class Tracking {
 
   trackingOrder(orderKey: string) {
     set(child(this.dbRef, `OR_LIST_ANALYTICS/${orderKey}`), 'OK');
+  }
+
+  async trackingClickPaypal(productId: number) {
+    const ip = await fetchIp();
+    if (!ip) {
+      return;
+    }
+    const data = getGenerelParameters({
+      userId: ip ?? '',
+    });
+    if (!data) {
+      return;
+    }
+    const {timeTrack, userName} = data;
+    set(
+      child(
+        this.dbRef,
+        `${userName}/PUB/${timeTrack}/${productId}/PAYPAL/${ip.replaceAll('.', 'DV')}`,
+      ),
+      new Date().toISOString(),
+    );
+  }
+  async trackPurchase(order: OrderTracking, productId: number) {
+    const ip = await fetchIp();
+    const data = getGenerelParameters({
+      userId: ip ?? '',
+    });
+    if (!data) {
+      return;
+    }
+    const {timeTrack, userName} = data;
+    set(
+      child(
+        this.dbRef,
+        `${userName}/PUB/${timeTrack}/${productId}/ORDER/${order.transaction_id}`,
+      ),
+      order,
+    );
   }
 
   async trackingCheckout({carts}: {carts: CartItem[]}) {
