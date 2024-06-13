@@ -3,6 +3,7 @@
 import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
+import currency from 'currency.js';
 import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
@@ -13,11 +14,9 @@ import {type CartItem, useCart} from '@model/cart';
 import {
   type CreateOrder,
   createOrder,
-  createOrderMetadata,
   createOrderNotes,
   type Order,
   type UpdateOrder,
-  updateOrder,
   updateOrderFailed,
   updateOrderMetadata,
 } from '@model/order';
@@ -34,6 +33,9 @@ interface PaypalButtonProps {
   onCreateCartItem?: () => CartItem | undefined;
 }
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 function generateReferenceId(domain: string): string {
   const domainPart = domain.replace(/\.com$/, '').replace(/\.+/g, '');
   const randomChars = Math.random().toString(36).slice(2, 7);
@@ -109,26 +111,34 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           console.error(error.message);
         }}
         createOrder={async (data, actions) => {
+          let newTotal = 0;
           if (carts.length === 0) {
             const cartItem = props?.onCreateCartItem?.();
             if (cartItem) {
-              carts.push(cartItem);
               addCart(cartItem);
+              newTotal = currency(
+                cartItem.variation.sale_price || cartItem.variation.price,
+              )
+                .multiply(cartItem.quantity)
+                .add(cartItem.variation.shipping_value).value;
             } else {
               throw new Error(
                 'Please select at least one product to complete your purchase',
               );
             }
+          } else {
+            newTotal = total;
           }
-
-          const newCarts = [...carts];
+          if (newTotal <= 0) {
+            toast.error('Your order could not be processed');
+          }
 
           return actions.order.create({
             intent: 'CAPTURE',
             purchase_units: [
               {
                 amount: {
-                  value: String(total),
+                  value: String(newTotal),
                   currency_code: 'USD',
                 },
                 invoice_id: generateReferenceId(platform.domain),
