@@ -139,7 +139,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               );
             }
           } else {
-            productRef.current = carts[0].product.id;
+            productRef.current = carts[0];
             firebaseTracking.trackingClickPaypal(carts[0].product.id);
           }
 
