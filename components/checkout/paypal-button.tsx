@@ -1,7 +1,7 @@
 'use client';
 
 import {useRef} from 'react';
-import {useRouter} from 'next/navigation';
+import {useRouter, useSearchParams} from 'next/navigation';
 
 import currency from 'currency.js';
 import {useWillUnmount} from 'rooks';
@@ -33,9 +33,6 @@ interface PaypalButtonProps {
   onCreateCartItem?: () => CartItem | undefined;
 }
 
-function delay(ms: number) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 function generateReferenceId(domain: string): string {
   const domainPart = domain.replace(/\.com$/, '').replace(/\.+/g, '');
   const randomChars = Math.random().toString(36).slice(2, 7);
@@ -51,6 +48,7 @@ function generateReferenceId(domain: string): string {
 
 function ImplPaypalButton(props?: PaypalButtonProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const timeRef = useRef<NodeJS.Timeout>();
   const orderRef = useRef<Order | null>(null);
 
@@ -66,6 +64,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
   return (
     <>
       <PayPalButtons
+        forceReRender={[searchParams.get('variation')]}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';
           let errorMessage = 'Unknown error!!';
@@ -111,9 +110,11 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           console.error(error.message);
         }}
         createOrder={async (data, actions) => {
-          let newTotal = 0;
+          let newTotal = total;
+
           if (carts.length === 0) {
             const cartItem = props?.onCreateCartItem?.();
+
             if (cartItem) {
               addCart(cartItem);
               newTotal = currency(
@@ -123,15 +124,13 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
                 .add(cartItem.variation.shipping_value).value;
             } else {
               throw new Error(
-                'Please select at least one product to complete your purchase',
+                'The product you selected is out of stock. Please try again or choose another product.',
               );
             }
-          } else {
-            newTotal = total;
           }
-          console.log(newTotal);
+
           if (newTotal <= 0) {
-            toast.error('Your order could not be processed');
+            throw new Error('Your order could not be processed');
           }
 
           return actions.order.create({
