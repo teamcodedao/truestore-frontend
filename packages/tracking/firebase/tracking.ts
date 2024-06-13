@@ -47,6 +47,26 @@ export class Tracking {
       new Date().toISOString(),
     );
   }
+  async trackingPaypalError(productId: number, errorData: any) {
+    const ip = await fetchIp();
+    if (!ip) {
+      return;
+    }
+    const data = getGenerelParameters({
+      userId: ip ?? '',
+    });
+    if (!data) {
+      return;
+    }
+    const {timeTrack, userName} = data;
+    set(
+      child(
+        this.dbRef,
+        `${userName}/PUB/${timeTrack}/${productId}/PAYPALERROR/${ip.replaceAll('.', 'DV')}`,
+      ),
+      errorData,
+    );
+  }
   async trackPurchase(order: OrderTracking, productId: number) {
     const ip = await fetchIp();
     const data = getGenerelParameters({

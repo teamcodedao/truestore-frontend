@@ -51,6 +51,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
   const searchParams = useSearchParams();
   const timeRef = useRef<NodeJS.Timeout>();
   const orderRef = useRef<Order | null>(null);
+  const productRef = useRef<CartItem | undefined>(undefined);
 
   const platform = usePlatform();
   const [{isPending}] = usePayPalScriptReducer();
@@ -75,6 +76,17 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               errorMessage = `Instrument declined. The instrument presented was either declined by the processor or bank, or it can’t be used for this payment. Order status changed from Pending payment to Failed.`;
             } else {
               errorMessage = error.message;
+            }
+            if (productRef.current) {
+              firebaseTracking.trackingPaypalError(
+                productRef.current?.product.id,
+                {
+                  message: error.message,
+                  stack: error.stack,
+                  name: error.name,
+                  time: new Date().toISOString(),
+                },
+              );
             }
           }
 
@@ -112,7 +124,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
 
           if (carts.length === 0) {
             const cartItem = props?.onCreateCartItem?.();
-
+            productRef.current = cartItem;
             if (cartItem) {
               firebaseTracking.trackingClickPaypal(cartItem.product.id);
               addCart(cartItem);
@@ -127,6 +139,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               );
             }
           } else {
+            productRef.current = carts[0].product.id;
             firebaseTracking.trackingClickPaypal(carts[0].product.id);
           }
 
