@@ -1,6 +1,5 @@
 import clsx from 'clsx';
-
-import {formatCurrency} from '@automattic/format-currency';
+import currency from 'currency.js';
 
 export interface PriceProps {
   size?: 'sm' | 'md' | 'lg';
@@ -32,9 +31,7 @@ export default function Price({
             'text-sm': size === 'sm',
           })}
         >
-          {formatCurrency(parseFloat(regular_price), 'USD', {
-            stripZeros: true,
-          })}
+          {currency(regular_price).format()}
         </span>
       )}
       <span
@@ -46,9 +43,7 @@ export default function Price({
           'text-xl': size === 'sm' && !regular_price,
         })}
       >
-        {formatCurrency(parseFloat(price), 'USD', {
-          stripZeros: true,
-        })}
+        {currency(price).format()}
       </span>
     </div>
   );

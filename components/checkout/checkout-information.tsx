@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 
-import {formatCurrency} from '@automattic/format-currency';
+import currency from 'currency.js';
+
 import {useImgproxy} from '@common/platform';
 import {useCart} from '@model/cart';
 
@@ -37,25 +38,13 @@ export default function CheckoutInformation() {
                     <div className="mt-1 space-x-1 text-sm font-medium text-gray-900">
                       {!!cart.variation.regular_price && (
                         <span className="text-gray-500 line-through">
-                          {formatCurrency(
-                            parseFloat(cart.variation.regular_price),
-                            'USD',
-                            {
-                              stripZeros: true,
-                            },
-                          )}
+                          {currency(cart.variation.regular_price).format()}
                         </span>
                       )}
                       <span>
-                        {formatCurrency(
-                          parseFloat(
-                            cart.variation.sale_price || cart.variation.price,
-                          ),
-                          'USD',
-                          {
-                            stripZeros: true,
-                          },
-                        )}
+                        {currency(
+                          cart.variation.sale_price || cart.variation.price,
+                        ).format()}
                       </span>
                     </div>
                     <span className="text-sm font-medium text-gray-600">
@@ -87,29 +76,17 @@ export default function CheckoutInformation() {
       <dl className="my-7 space-y-6 text-sm font-medium text-gray-500 sm:ml-7">
         <div className="flex justify-between gap-x-2">
           <dt>Subtotal</dt>
-          <dd className="text-gray-900">
-            {formatCurrency(subTotal, 'USD', {
-              stripZeros: true,
-            })}
-          </dd>
+          <dd className="text-gray-900">{currency(subTotal).format()}</dd>
         </div>
         <div className="flex justify-between gap-x-2">
           <dt>Secured Shipping</dt>
-          <dd className="text-gray-900">
-            {formatCurrency(shippingTotal, 'USD', {
-              stripZeros: true,
-            })}
-          </dd>
+          <dd className="text-gray-900">{currency(shippingTotal).format()}</dd>
         </div>
       </dl>
       <hr className="-mr-8" />
       <div className="mt-8 flex justify-between gap-x-2 font-semibold text-gray-900 sm:ml-7">
         <span>Total</span>
-        <span>
-          {formatCurrency(total, 'USD', {
-            stripZeros: true,
-          })}
-        </span>
+        <span>{currency(total).format()}</span>
       </div>
     </>
   );

@@ -4,11 +4,11 @@ import {use} from 'react';
 import Image from 'next/image';
 import {notFound} from 'next/navigation';
 
+import currency from 'currency.js';
 import dayjs from 'dayjs';
 
 import {Badge} from '@/components/ui';
 import paypalImg from '@/images/payments/paypal.webp';
-import {formatCurrency} from '@automattic/format-currency';
 import {useImgproxy} from '@common/platform';
 import type {Order} from '@model/order';
 
@@ -65,9 +65,7 @@ export default function OrderDetails({
                   <div className="flex pl-4 sm:pl-6">
                     <dt className="font-medium text-gray-900">Price</dt>
                     <dd className="ml-2 text-gray-700">
-                      {formatCurrency(product.price, 'USD', {
-                        stripZeros: true,
-                      })}
+                      {currency(product.price).format()}
                     </dd>
                   </div>
                 </dl>
@@ -181,24 +179,18 @@ export default function OrderDetails({
             </div>
             <div className="flex justify-between">
               <dt className="font-medium text-gray-900">Subtotal</dt>
-              <dd className="text-gray-700">
-                {formatCurrency(subtotal, 'USD', {
-                  stripZeros: true,
-                })}
-              </dd>
+              <dd className="text-gray-700">{currency(subtotal).format()}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="font-medium text-gray-900">Secured Shipping</dt>
               <dd className="text-gray-700">
-                {formatCurrency(Number(order.shipping_total), 'USD', {
-                  stripZeros: true,
-                })}
+                {currency(order.shipping_total).format()}
               </dd>
             </div>
             <div className="flex justify-between font-bold">
               <dt className="text-gray-900">Total</dt>
               <dd className="text-gray-900">
-                {formatCurrency(Number(order.total), 'USD', {stripZeros: true})}
+                {currency(order.total).format()}
               </dd>
             </div>
           </dl>

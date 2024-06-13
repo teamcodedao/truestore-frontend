@@ -3,8 +3,8 @@
 import Link from 'next/link';
 
 import clsx from 'clsx';
+import currency from 'currency.js';
 
-import {formatCurrency} from '@automattic/format-currency';
 import {useCart} from '@model/cart';
 
 import GroupCart from './group-cart';
@@ -40,27 +40,17 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
       <footer className="mt-auto shrink-0 border-t pt-5">
         <div className="flex justify-between">
           <span className="text-lg">Subtotal</span>
-          <span className="font-medium">
-            {formatCurrency(subTotal, 'USD', {
-              stripZeros: true,
-            })}
-          </span>
+          <span className="font-medium">{currency(subTotal).format()}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-lg">Secured Shipping</span>
           <span className="font-medium">
-            {formatCurrency(shippingTotal, 'USD', {
-              stripZeros: true,
-            })}
+            {currency(shippingTotal).format()}
           </span>
         </div>
         <div className="flex justify-between font-bold">
           <span className="text-lg">Total</span>
-          <span>
-            {formatCurrency(total, 'USD', {
-              stripZeros: true,
-            })}
-          </span>
+          <span>{currency(total).format()}</span>
         </div>
         <Link
           href="/checkout?from=checkout-cart"

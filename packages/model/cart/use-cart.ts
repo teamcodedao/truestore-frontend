@@ -2,6 +2,8 @@
 
 import {useMemo} from 'react';
 
+import currency from 'currency.js';
+
 import useLocalStorage from '@rehooks/local-storage';
 
 import type {CartItem} from './typings';
@@ -22,11 +24,11 @@ export function useCart() {
 
   const subTotal = useMemo(() => {
     return carts.reduce((total, item) => {
-      return (
-        total +
-        item.quantity *
-          parseFloat(item.variation.sale_price || item.variation.price)
-      );
+      return currency(total).add(
+        currency(item.variation.sale_price || item.variation.price).multiply(
+          item.quantity,
+        ),
+      ).value;
     }, 0);
   }, [carts]);
 
@@ -40,7 +42,7 @@ export function useCart() {
   }, [carts]);
 
   const total = useMemo(() => {
-    return subTotal + shippingTotal;
+    return currency(subTotal).add(shippingTotal).value;
   }, [subTotal, shippingTotal]);
 
   function getInCart(cart: CartItem) {

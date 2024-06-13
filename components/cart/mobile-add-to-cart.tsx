@@ -4,12 +4,12 @@ import {use, useState} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
+import currency from 'currency.js';
 import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {ProductAttribute} from '@/components/product';
 import {SpinNumber} from '@/components/ui';
-import {formatCurrency} from '@automattic/format-currency';
 import {useImgproxy} from '@common/platform';
 import {
   type Product,
@@ -113,16 +113,12 @@ export default function MobileAddToCart({
             This deal will end soon!!
           </p>
           <p className="text-2xl font-bold text-red-500">
-            {formatCurrency(parseFloat(price), 'USD', {
-              stripZeros: true,
-            })}
+            {currency(price).format()}
           </p>
           {!!regular_price && (
             <p className="space-x-1 text-base font-medium">
               <span className="text-gray-400 line-through">
-                {formatCurrency(parseFloat(regular_price), 'USD', {
-                  stripZeros: true,
-                })}
+                {currency(regular_price).format()}
               </span>
               {Number(price) < Number(regular_price) && (
                 <span className="rounded bg-red-50 px-0.5 text-red-500">
