@@ -30,8 +30,8 @@ importers:
         specifier: ^1.3.2
         version: 1.3.2(next@14.2.4(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(redis@4.6.14)
       '@paypal/react-paypal-js':
-        specifier: ^8.4.0
-        version: 8.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^8.5.0
+        version: 8.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@rehooks/local-storage':
         specifier: ^2.4.5
         version: 2.4.5(react@18.3.1)
@@ -63,14 +63,14 @@ importers:
         specifier: ^1.11.11
         version: 1.11.11
       embla-carousel:
-        specifier: ^8.1.4
-        version: 8.1.4
+        specifier: ^8.1.5
+        version: 8.1.5
       embla-carousel-react:
-        specifier: ^8.1.4
-        version: 8.1.4(react@18.3.1)
+        specifier: ^8.1.5
+        version: 8.1.5(react@18.3.1)
       embla-carousel-wheel-gestures:
         specifier: 8.0.1
-        version: 8.0.1(embla-carousel@8.1.4)
+        version: 8.0.1(embla-carousel@8.1.5)
       firebase:
         specifier: ^10.12.2
         version: 10.12.2
@@ -193,8 +193,8 @@ importers:
         specifier: ^9.0.11
         version: 9.0.11
       lint-staged:
-        specifier: ^15.2.6
-        version: 15.2.6
+        specifier: ^15.2.7
+        version: 15.2.7
       postcss:
         specifier: ^8
         version: 8.4.38
@@ -1016,8 +1016,8 @@ packages:
   '@paypal/paypal-js@8.1.0':
     resolution: {integrity: sha512-f64bom5xYwmxyeKPJUFS/XpM0tXojQEgjRIADPqe1R9WmK+PFqL4SEkT85cGU0ZXLVx4EGbjwREHhqEOR+OstA==}
 
-  '@paypal/react-paypal-js@8.4.0':
-    resolution: {integrity: sha512-wTjMdR9/dq1NkoqPfpBsHsviAqdUvueE1OQu+JEvpMeJcmX6BspBfAZM+Rt2+h8b2diFM8+x0kJno6czw5/Utg==}
+  '@paypal/react-paypal-js@8.5.0':
+    resolution: {integrity: sha512-YIAyLw4OiUoHHoUgXvibrBDdluzqnqVMGsJXyBcoOzlWHQIe5zhh8dgYezNNRXjXwy6t22YmPljjw7lr+eD9cw==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
@@ -2399,15 +2399,15 @@ packages:
   electron-to-chromium@1.4.799:
     resolution: {integrity: sha512-3D3DwWkRTzrdEpntY0hMLYwj7SeBk1138CkPE8sBDSj3WzrzOiG2rHm3luw8jucpf+WiyLBCZyU9lMHyQI9M9Q==}
 
-  embla-carousel-react@8.1.4:
-    resolution: {integrity: sha512-0llfX4HlXrdgJKxlZ8q8LyI6EV+TvOI7KtZx9GkDTwdgP6/AyyuvzO8KYvDUNZOnbFBAPbVEe2qEgGMLEinlYw==}
+  embla-carousel-react@8.1.5:
+    resolution: {integrity: sha512-xFmfxgJd7mpWDHQ4iyK1Qs+5BTTwu4bkn+mSROKiUH9nKpPHTeilQ+rpeQDCHRrAPeshD67aBk0/p6FxWxXsng==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.1 || ^18.0.0
 
-  embla-carousel-reactive-utils@8.1.4:
-    resolution: {integrity: sha512-qkovXTiNaURsnYhJxUBsDx9YV6crxLIZwfO6jIFSKKn6ZZE1JVeZAvy/UsiyNxiFikVrO76iquvD6uBHI9YD8w==}
+  embla-carousel-reactive-utils@8.1.5:
+    resolution: {integrity: sha512-76uZTrSaEGGta+qpiGkMFlLK0I7N04TdjZ2obrBhyggYIFDWlxk1CriIEmt2lisLNsa1IYXM85kr863JoCMSyg==}
     peerDependencies:
-      embla-carousel: 8.1.4
+      embla-carousel: 8.1.5
 
   embla-carousel-wheel-gestures@8.0.1:
     resolution: {integrity: sha512-LMAnruDqDmsjL6UoQD65aLotpmfO49Fsr3H0bMi7I+BH6jbv9OJiE61kN56daKsVtCQEt0SU1MrJslbhtgF3yQ==}
@@ -2415,8 +2415,8 @@ packages:
     peerDependencies:
       embla-carousel: ^8.0.0 || ~8.0.0-rc03
 
-  embla-carousel@8.1.4:
-    resolution: {integrity: sha512-AMe40ZpyLpztfNnGQtMWVIgYdcBoY2MuQttRwQ/xqSPC3UvDG2QF17CR5Efz4c8qEkno7pxdZFDRO2R11y6hRQ==}
+  embla-carousel@8.1.5:
+    resolution: {integrity: sha512-R6xTf7cNdR2UTNM6/yUPZlJFRmZSogMiRjJ5vXHO65II5MoUlrVYUAP0fHQei/py82Vf15lj+WI+QdhnzBxA2g==}
 
   emoji-regex@10.3.0:
     resolution: {integrity: sha512-QpLs9D9v9kArv4lfDEgg1X/gN5XLnf/A6l9cs8SPZLRZR3ZkY9+kwIQTxm+fsSej5UMYGE8fdoaZVIBlqG0XTw==}
@@ -3146,8 +3146,8 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  lint-staged@15.2.6:
-    resolution: {integrity: sha512-M/3PdijFXT/A5lnbSK3EQNLbIIrkE00JZaD39r7t4kfFOqT1Ly9LgSZSMMtvQ3p2/C8Nyj/ou0vkNHmEwqoB8g==}
+  lint-staged@15.2.7:
+    resolution: {integrity: sha512-+FdVbbCZ+yoh7E/RosSdqKJyUM2OEjTciH0TFNkawKgvFp1zbGlEC39RADg+xKBG1R4mhoH2j85myBQZ5wR+lw==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -5194,7 +5194,7 @@ snapshots:
     dependencies:
       promise-polyfill: 8.3.0
 
-  '@paypal/react-paypal-js@8.4.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@paypal/react-paypal-js@8.5.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@paypal/paypal-js': 8.1.0
       '@paypal/sdk-constants': 1.0.148
@@ -7158,22 +7158,22 @@ snapshots:
 
   electron-to-chromium@1.4.799: {}
 
-  embla-carousel-react@8.1.4(react@18.3.1):
+  embla-carousel-react@8.1.5(react@18.3.1):
     dependencies:
-      embla-carousel: 8.1.4
-      embla-carousel-reactive-utils: 8.1.4(embla-carousel@8.1.4)
+      embla-carousel: 8.1.5
+      embla-carousel-reactive-utils: 8.1.5(embla-carousel@8.1.5)
       react: 18.3.1
 
-  embla-carousel-reactive-utils@8.1.4(embla-carousel@8.1.4):
+  embla-carousel-reactive-utils@8.1.5(embla-carousel@8.1.5):
     dependencies:
-      embla-carousel: 8.1.4
+      embla-carousel: 8.1.5
 
-  embla-carousel-wheel-gestures@8.0.1(embla-carousel@8.1.4):
+  embla-carousel-wheel-gestures@8.0.1(embla-carousel@8.1.5):
     dependencies:
-      embla-carousel: 8.1.4
+      embla-carousel: 8.1.5
       wheel-gestures: 2.2.5
 
-  embla-carousel@8.1.4: {}
+  embla-carousel@8.1.5: {}
 
   emoji-regex@10.3.0: {}
 
@@ -8078,7 +8078,7 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  lint-staged@15.2.6:
+  lint-staged@15.2.7:
     dependencies:
       chalk: 5.3.0
       commander: 12.1.0

@@ -16,13 +16,6 @@ type PlatformConfigOutput = Except<PlatformConfig, 'pixel_ids' | 'ga_ids'> & {
 
 export const getPlatformConfig = cache(
   async (domain: string) => {
-    if (domain.includes('localhost')) {
-      return {
-        domain,
-        internalRedirect: true,
-      } as unknown as PlatformConfigOutput;
-    }
-
     const [platform, commonPixelIds] = await Promise.all([
       ky
         .get(
