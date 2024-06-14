@@ -3,7 +3,7 @@
 import {Provider} from './platform-context';
 import type {PublicPlatformConfig} from './typings';
 
-export default function PlatformProvider({
+export function PlatformProvider({
   children,
   initialState,
 }: React.PropsWithChildren<{initialState: PublicPlatformConfig}>) {
