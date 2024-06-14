@@ -1,6 +1,6 @@
 'use client';
 
-import {use, useState} from 'react';
+import {useState} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
@@ -9,11 +9,7 @@ import {toast} from 'sonner';
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {SpinNumber} from '@/components/ui';
 import {transformProductToCart, useCart} from '@model/cart';
-import {
-  type Product,
-  type ProductVariation,
-  useProductVariation,
-} from '@model/product';
+import {useProduct, useProductVariation} from '@model/product';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
@@ -21,8 +17,6 @@ import offcanvas from '@ui/offcanvas';
 interface ProductCartActionsProps {
   min?: number;
   max?: number;
-  product: Product;
-  variationPromise: Promise<ProductVariation[]>;
 }
 
 export function ProductCartActionsSkeleton() {
@@ -40,11 +34,9 @@ export function ProductCartActionsSkeleton() {
 export default function ProductCartActions({
   min = 1,
   max,
-  product,
-  variationPromise,
 }: ProductCartActionsProps) {
-  const productVariations = use(variationPromise);
-  const variation = useProductVariation(productVariations);
+  const product = useProduct();
+  const variation = useProductVariation();
   const [quantity, setQuantity] = useState(1);
 
   const [{carts}, {addCart}] = useCart();
@@ -69,7 +61,7 @@ export default function ProductCartActions({
     fbpixel.trackToCart({
       content_name: product.name,
       content_ids: [String(variation.id)],
-      value: parseFloat(variation.sale_price || variation.price),
+      value: variation.price,
       contents: [
         {
           id: variation.id,

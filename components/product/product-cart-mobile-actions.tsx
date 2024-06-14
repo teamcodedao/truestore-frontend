@@ -5,23 +5,16 @@ import {useRouter} from 'next/navigation';
 import clsx from 'clsx';
 
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
+import {ProductPrice} from '@/components/product';
 import {transformProductToCart, useCart} from '@model/cart';
-import {type Product, type ProductVariation} from '@model/product';
+import {useProduct, useProductVariation} from '@model/product';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
 
-interface ProductCartMobileActionsProps {
-  product: Product;
-  priceSlot: React.ReactNode;
-  variationPromise: Promise<ProductVariation[]>;
-}
-
-export default function ProductCartMobileActions({
-  product,
-  priceSlot,
-  variationPromise,
-}: ProductCartMobileActionsProps) {
+export default function ProductCartMobileActions() {
   const router = useRouter();
+  const product = useProduct();
+  const variation = useProductVariation();
   const [{carts}, {addCart}] = useCart();
 
   const handleOpenToCartSheet = (options?: {buyNow: boolean}) => {
@@ -32,8 +25,8 @@ export default function ProductCartMobileActions({
       content: (
         <MobileAddToCart
           product={product}
+          variation={variation}
           buyNow={options?.buyNow}
-          variationPromise={variationPromise}
           onClose={offcanvas.close}
           onAddtoCart={params =>
             addCart(
@@ -50,7 +43,14 @@ export default function ProductCartMobileActions({
 
   return (
     <div className="fixed bottom-0 left-0 z-[997] flex w-full gap-2 bg-white p-2">
-      <div className="flex min-w-[65px] shrink-0 items-center">{priceSlot}</div>
+      <div className="flex min-w-[65px] shrink-0 items-center">
+        <ProductPrice
+          regular_price={product.regular_price}
+          price={product.price}
+          size="sm"
+          horizontal
+        />
+      </div>
       <div
         className={clsx(
           'flex grow',

@@ -19,7 +19,6 @@ async function getClient(domain: string) {
     timeout: ms('30s'),
     retry: {
       limit: 3,
-      methods: ['post', 'put'],
     },
     hooks: {
       beforeRetry: [
@@ -47,10 +46,8 @@ async function getClient(domain: string) {
       ],
       beforeError: [
         async error => {
-          if (/wp-json\/wc\/v[1|2]/.test(error.request.url)) {
-            if (error.response.status === 404) {
-              return error;
-            }
+          if (error.response.status === 404) {
+            return error;
           }
 
           Sentry.captureException(error);

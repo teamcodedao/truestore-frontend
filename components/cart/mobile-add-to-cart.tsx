@@ -1,6 +1,6 @@
 'use client';
 
-import {use, useState} from 'react';
+import {useState} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
@@ -11,11 +11,7 @@ import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {ProductAttribute} from '@/components/product';
 import {SpinNumber} from '@/components/ui';
 import {useImgproxy} from '@common/platform';
-import {
-  type Product,
-  type ProductVariation,
-  useProductVariation,
-} from '@model/product';
+import {type Product, type ProductVariation} from '@model/product';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
@@ -23,7 +19,7 @@ import offcanvas from '@ui/offcanvas';
 interface MobileAddToCartProps {
   buyNow?: boolean;
   product: Product;
-  variationPromise: Promise<ProductVariation[]>;
+  variation?: ProductVariation;
   onClose: () => void;
   onAddtoCart: (params: {
     variation: ProductVariation;
@@ -33,16 +29,13 @@ interface MobileAddToCartProps {
 
 export default function MobileAddToCart({
   product,
+  variation,
   buyNow,
-  variationPromise,
   onClose,
   onAddtoCart,
 }: MobileAddToCartProps) {
   const router = useRouter();
   const imgproxy = useImgproxy();
-
-  const variations = use(variationPromise);
-  const variation = useProductVariation(variations);
 
   const [quantity, setQuantity] = useState(1);
 
@@ -51,7 +44,7 @@ export default function MobileAddToCart({
 
   if (variation) {
     regular_price = variation.regular_price || regular_price;
-    price = variation.sale_price || variation.price || price;
+    price = variation.price || price;
   }
 
   function handleAddToCart() {
@@ -80,7 +73,7 @@ export default function MobileAddToCart({
     fbpixel.trackToCart({
       content_name: product.name,
       content_ids: [String(variation.id)],
-      value: parseFloat(variation.sale_price || variation.price),
+      value: variation.price,
       contents: [
         {
           id: variation.id,
@@ -100,10 +93,7 @@ export default function MobileAddToCart({
       <div className="flex gap-2">
         <div className="size-[70px] shrink-0 bg-gray-50">
           <img
-            src={imgproxy(
-              variation?.image.thumb ?? variation?.image.src ?? '',
-              ['rs:fit:100'],
-            )}
+            src={imgproxy(variation?.image ?? '', ['rs:fit:100'])}
             alt=""
             className="size-full object-contain"
           />
@@ -136,18 +126,18 @@ export default function MobileAddToCart({
         </div>
       </div>
       <div className="mt-5 border-t border-gray-200">
-        {!!product.attributes?.length && (
-          <div className="mt-5 space-y-4">
-            {product.attributes.map((attribute, index) => (
+        <div className="mt-5 space-y-4">
+          {Object.entries(product.attributes).map(([name, options]) => {
+            return (
               <ProductAttribute
-                key={index}
-                name={attribute.name}
-                options={attribute.options}
+                key={name}
+                name={name}
+                options={options}
                 size="sm"
               />
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
       </div>
       <div className="my-5 flex items-center justify-between border-t border-gray-200 pt-5">
         <span className="text-sm font-medium capitalize">Quantity</span>

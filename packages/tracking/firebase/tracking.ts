@@ -47,7 +47,7 @@ export class Tracking {
       new Date().toISOString(),
     );
   }
-  async trackingPaypalError(productId: number, errorData: any) {
+  async trackingPaypalError(productId: number, errorData: unknown) {
     const ip = await fetchIp();
     if (!ip) {
       return;
@@ -226,7 +226,7 @@ export class Tracking {
       /^https?:\/\/admin\./,
       'https://',
     );
-    const productThumb = product.images ? product.images[0]['src'] : '';
+    const productThumb = product.images[0];
     const productName = product.name;
     set(
       child(

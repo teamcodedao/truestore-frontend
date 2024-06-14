@@ -41,11 +41,7 @@ export default function CheckoutInformation() {
                           {currency(cart.variation.regular_price).format()}
                         </span>
                       )}
-                      <span>
-                        {currency(
-                          cart.variation.sale_price || cart.variation.price,
-                        ).format()}
-                      </span>
+                      <span>{currency(cart.variation.price).format()}</span>
                     </div>
                     <span className="text-sm font-medium text-gray-600">
                       x{cart.quantity}

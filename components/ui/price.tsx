@@ -4,9 +4,9 @@ import currency from 'currency.js';
 export interface PriceProps {
   size?: 'sm' | 'md' | 'lg';
   horizontal?: boolean;
-  regular_price?: string;
+  regular_price?: number;
   /** Fallback to `sale_price` */
-  price: string;
+  price: number;
 }
 
 export default function Price({
