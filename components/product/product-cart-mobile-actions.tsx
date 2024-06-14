@@ -1,11 +1,11 @@
 'use client';
 
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
 
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
-import {ProductPrice} from '@/components/product';
 import {transformProductToCart, useCart} from '@model/cart';
 import {useProduct, useProductVariation} from '@model/product';
 import {firebaseTracking} from '@tracking/firebase';
@@ -14,43 +14,56 @@ import offcanvas from '@ui/offcanvas';
 export default function ProductCartMobileActions() {
   const router = useRouter();
   const product = useProduct();
-  const variation = useProductVariation();
+  const variationHook = useProductVariation();
   const [{carts}, {addCart}] = useCart();
+  const [variation, setVariation] = useState(variationHook);
+  const isOffcanvasOpen = useRef(false);
 
-  const handleOpenToCartSheet = (options?: {buyNow: boolean}) => {
-    offcanvas.bottomSheet({
-      ssr: false,
-      loading: <div>Loading...</div>,
-      fallback: <CheckoutCartError onClose={offcanvas.close} />,
-      content: (
-        <MobileAddToCart
-          product={product}
-          variation={variation}
-          buyNow={options?.buyNow}
-          onClose={offcanvas.close}
-          onAddtoCart={params =>
-            addCart(
-              transformProductToCart({
-                ...params,
-                product,
-              }),
-            )
-          }
-        />
-      ),
-    });
-  };
+  useEffect(() => {
+    setVariation(variationHook);
+  }, [variationHook]);
+
+  const handleOpenToCartSheet = useCallback(
+    (options?: {buyNow: boolean}) => {
+      offcanvas.close(); // Đóng bất kỳ offcanvas nào đang mở trước đó
+      offcanvas.bottomSheet({
+        ssr: false,
+        loading: <div>Loading...</div>,
+        fallback: <CheckoutCartError onClose={offcanvas.close} />,
+        content: (
+          <MobileAddToCart
+            key={variation?.id} // Thêm key để buộc React render lại component khi variation thay đổi
+            product={product}
+            variation={variation}
+            buyNow={options?.buyNow}
+            onClose={() => {
+              offcanvas.close();
+              isOffcanvasOpen.current = false;
+            }}
+            onAddtoCart={params =>
+              addCart(
+                transformProductToCart({
+                  ...params,
+                  product,
+                }),
+              )
+            }
+          />
+        ),
+      });
+      isOffcanvasOpen.current = true;
+    },
+    [product, variation, addCart],
+  );
+
+  useEffect(() => {
+    if (isOffcanvasOpen.current) {
+      handleOpenToCartSheet();
+    }
+  }, [variation, handleOpenToCartSheet]);
 
   return (
     <div className="fixed bottom-0 left-0 z-[997] flex w-full gap-2 bg-white p-2">
-      {/* <div className="flex min-w-[65px] shrink-0 items-center">
-        <ProductPrice
-          regular_price={product.regular_price}
-          price={product.price}
-          size="sm"
-          horizontal
-        />
-      </div> */}
       <div
         className={clsx(
           'flex grow',
