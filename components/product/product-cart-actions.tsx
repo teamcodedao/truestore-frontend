@@ -84,18 +84,18 @@ export default function ProductCartActions({
   }
 
   return (
-    <div className="flex gap-x-3">
+    <div className="block gap-x-3 md:flex">
       <SpinNumber value={quantity} min={min} max={max} onChange={setQuantity} />
       <div
         className={clsx(
-          'flex grow gap-x-3',
+          'block grow gap-x-3 md:flex',
           '*:multi-[`rounded;text-white;font-bold;px-2;py-3;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
           '[&_span[class*=i-]]:multi-[`text-xl`]',
           'sm:*:multi-[`px-5`]',
         )}
       >
         <button
-          className="bg-black hover:bg-black/80"
+          className="my-3 w-full bg-black hover:bg-black/80 md:my-0"
           onClick={() => {
             if (handleAddToCart() !== null) {
               offcanvas.show({
@@ -111,7 +111,7 @@ export default function ProductCartActions({
           <span>Add to cart</span>
         </button>
         <button
-          className="bg-orange-600 hover:bg-orange-500"
+          className="w-full bg-orange-600 hover:bg-orange-500"
           onClick={() => {
             firebaseTracking.trackingLogs('CO', product);
             if (carts.length === 0) {

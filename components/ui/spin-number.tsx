@@ -45,18 +45,21 @@ export default function SpinNumber({
   return (
     <div
       className={clsx(
-        'flex shrink-0 items-stretch rounded border border-gray-300',
-        '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500`]',
+        'flex w-full shrink-0 items-stretch rounded border border-gray-300 md:w-fit',
+        '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500;`]',
       )}
     >
       <button aria-label="Decrease" onClick={decrease} className="pl-2">
         <span className="i-radix-icons-minus translate-y-1"></span>
       </button>
       <span
-        className={clsx('self-center text-center font-medium text-slate-500', {
-          'text-lg min-w-[30px]': size === 'base',
-          'text-base min-w-[24px]': size === 'sm',
-        })}
+        className={clsx(
+          'w-full self-center px-2 py-3 text-center font-medium text-slate-500 md:w-fit',
+          {
+            'text-base min-w-[30px]': size === 'base',
+            'text-base min-w-[24px]': size === 'sm',
+          },
+        )}
       >
         {value}
       </span>
