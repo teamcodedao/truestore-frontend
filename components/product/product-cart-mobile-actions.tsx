@@ -17,6 +17,7 @@ export default function ProductCartMobileActions() {
   const variationHook = useProductVariation();
   const [{carts}, {addCart}] = useCart();
   const [variation, setVariation] = useState(variationHook);
+  const [buyNow, setBuyNow] = useState(false);
   const isOffcanvasOpen = useRef(false);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function ProductCartMobileActions() {
 
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {
+      setBuyNow(options?.buyNow || false);
       offcanvas.bottomSheet({
         ssr: false,
         loading: <div>Loading...</div>,
@@ -57,7 +59,7 @@ export default function ProductCartMobileActions() {
 
   useEffect(() => {
     if (isOffcanvasOpen.current) {
-      handleOpenToCartSheet();
+      handleOpenToCartSheet({buyNow});
     }
   }, [variation, handleOpenToCartSheet]);
 
