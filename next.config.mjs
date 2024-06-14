@@ -21,6 +21,7 @@ const nextConfig = {
       : undefined,
 
   experimental: {
+    missingSuspenseWithCSRBailout: false,
     serverComponentsExternalPackages: ['@sentry/nextjs'],
   },
   headers() {

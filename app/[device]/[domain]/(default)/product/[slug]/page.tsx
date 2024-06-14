@@ -16,6 +16,7 @@ import {
   ProductCartActionsSkeleton,
   ProductCartMobileActions,
   ProductFeature,
+  ProductPrice,
   ProductTracking,
 } from '@/components/product';
 import {
@@ -24,14 +25,9 @@ import {
 } from '@/components/skeleton';
 import {Price} from '@/components/ui';
 import safeCheckoutImg from '@/images/safe-checkout.png';
-import {
-  getProduct,
-  getProductReviews,
-  getProductVariations,
-} from '@model/product/ssr';
+import {getProduct, getProductReviews} from '@model/product/ssr';
 
 import ProductPayment from './product-payment';
-import ProductPrice from './product-price';
 import ProductReview from './product-review';
 
 export const dynamic = 'error';
@@ -44,7 +40,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: params.domain + ' | ' + product.name,
+    title: `${params.domain} | ${product.name}`,
   };
 }
 
@@ -56,7 +52,6 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
     throwNotFound: true,
   });
 
-  const variationPromise = getProductVariations(domain, product.id);
   const promiseproductReview = getProductReviews(domain, product.id);
 
   return (
@@ -64,10 +59,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
       <div className="flex flex-col gap-5 sm:mt-7 sm:flex-row sm:gap-x-10">
         <div className="flex-1 overflow-hidden">
           <Suspense fallback={<CarouselThumbSkeleton />}>
-            <ProductCarousel
-              images={product.images}
-              variationPromise={variationPromise}
-            />
+            <ProductCarousel images={product.images} />
           </Suspense>
         </div>
         <div className="flex-1 shrink-0">
@@ -100,8 +92,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               >
                 <ProductPrice
                   regular_price={product.regular_price}
-                  price={product.sale_price || product.price}
-                  variationPromise={variationPromise}
+                  price={product.price}
                 />
               </Suspense>
             </div>
@@ -138,23 +129,18 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             <article className="mt-5">
               <ProductFeature />
             </article>
-            {!!product.attributes?.length && (
-              <div className="mt-5 space-y-4">
-                {product.attributes.map((attribute, index) => (
-                  <ProductAttribute
-                    key={index}
-                    name={attribute.name}
-                    options={attribute.options}
-                  />
-                ))}
-              </div>
-            )}
+
+            <div className="mt-5 space-y-4">
+              {Object.entries(product.attributes).map(([name, options]) => {
+                return (
+                  <ProductAttribute key={name} name={name} options={options} />
+                );
+              })}
+            </div>
+
             <div className="mt-5">
               <Suspense fallback={<ProductCartActionsSkeleton />}>
-                <ProductCartActions
-                  product={product}
-                  variationPromise={variationPromise}
-                />
+                <ProductCartActions />
               </Suspense>
             </div>
             {/* <div className="mt-0">
@@ -197,19 +183,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
 
       <Suspense>
         <MatchDevice devices={['mobile']}>
-          <ProductCartMobileActions
-            product={product}
-            priceSlot={
-              <ProductPrice
-                regular_price={product.regular_price}
-                price={product.sale_price || product.price}
-                size="sm"
-                horizontal
-                variationPromise={variationPromise}
-              />
-            }
-            variationPromise={variationPromise}
-          />
+          <ProductCartMobileActions />
         </MatchDevice>
       </Suspense>
 

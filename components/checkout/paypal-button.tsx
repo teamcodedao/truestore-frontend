@@ -128,9 +128,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             if (cartItem) {
               firebaseTracking.trackingClickPaypal(cartItem.product.id);
               addCart(cartItem);
-              newTotal = currency(
-                cartItem.variation?.sale_price || cartItem.variation?.price,
-              )
+              newTotal = currency(cartItem.variation?.price)
                 .multiply(cartItem.quantity)
                 .add(cartItem.variation?.shipping_value).value;
             } else {

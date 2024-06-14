@@ -25,9 +25,7 @@ export function useCart() {
   const subTotal = useMemo(() => {
     return carts.reduce((total, item) => {
       return currency(total).add(
-        currency(item.variation.sale_price || item.variation.price).multiply(
-          item.quantity,
-        ),
+        currency(item.variation.price).multiply(item.quantity),
       ).value;
     }, 0);
   }, [carts]);

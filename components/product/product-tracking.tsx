@@ -40,16 +40,10 @@ export default function ProductTracking({product}: TrackingProductProps) {
         },
       ],
       currency: 'USD',
-      product_price: parseFloat(product.regular_price ?? product.price),
-      value: parseFloat(product.sale_price || product.price),
+      product_price: product.regular_price ?? product.price,
+      value: product.price,
     });
-  }, [
-    product.id,
-    product.name,
-    product.price,
-    product.regular_price,
-    product.sale_price,
-  ]);
+  }, [product.id, product.name, product.price, product.regular_price]);
 
   return null;
 }

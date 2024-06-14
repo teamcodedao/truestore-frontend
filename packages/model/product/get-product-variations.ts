@@ -1,7 +1,5 @@
-import {unstable_cache as cache} from 'next/cache';
-
 import {createPlatformClient} from '@common/platform/ssr';
-import type {ProductVariation} from '@model/product';
+import type {ProductVariationResponse} from '@model/product';
 
 async function fetchVariations(
   domain: string,
@@ -17,31 +15,27 @@ async function fetchVariations(
         per_page: perPage,
       },
     })
-    .json<ProductVariation[]>();
+    .json<ProductVariationResponse[]>();
 }
 
-export const getProductVariations = cache(
-  async (domain: string, id: string | number) => {
-    let page = 1;
-    const perPage = 100;
+export async function getProductVariations(
+  domain: string,
+  id: string | number,
+) {
+  let page = 1;
+  const perPage = 100;
 
-    try {
-      let res = await fetchVariations(domain, id, page, perPage);
-      let variations = res;
-      while (res.length >= perPage) {
-        page += 1;
-        res = await fetchVariations(domain, id, page, perPage);
-        variations = variations.concat(res);
-      }
-      return variations;
-    } catch (error) {
-      console.error(error);
-      return [];
+  try {
+    let res = await fetchVariations(domain, id, page, perPage);
+    let variations = res;
+    while (res.length >= perPage) {
+      page += 1;
+      res = await fetchVariations(domain, id, page, perPage);
+      variations = variations.concat(res);
     }
-  },
-  [],
-  {
-    revalidate: 86400,
-    tags: ['product', 'all'],
-  },
-);
+    return variations;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}

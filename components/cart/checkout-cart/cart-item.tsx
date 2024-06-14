@@ -58,13 +58,8 @@ export default function CartItem({
           />
           <Price
             size="md"
-            price={String(
-              quantity *
-                Number(cart.variation.sale_price || cart.variation.price),
-            )}
-            regular_price={String(
-              quantity * Number(cart.variation.regular_price),
-            )}
+            price={quantity * cart.variation.price}
+            regular_price={quantity * cart.variation.regular_price}
           />
         </div>
       </div>

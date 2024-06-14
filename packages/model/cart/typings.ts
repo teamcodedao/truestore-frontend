@@ -10,7 +10,6 @@ export interface CartItem {
     | 'id'
     | 'price'
     | 'regular_price'
-    | 'sale_price'
     | 'shipping_class'
     | 'shipping_class_id'
     | 'shipping_value'

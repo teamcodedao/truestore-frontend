@@ -1,6 +1,6 @@
 'use client';
 
-import {use, useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 import clsx from 'clsx';
 import useEmblaCarousel from 'embla-carousel-react';
@@ -8,35 +8,18 @@ import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
 import {usePrevNextButtons} from '@/lib/embla-carousel';
 import {useImgproxy} from '@common/platform';
-import {
-  type ProductImage,
-  type ProductVariation,
-  useProductVariation,
-} from '@model/product';
+import {useProductVariation} from '@model/product';
 
 interface ProductCarouselProps {
-  images?: ProductImage[];
-  variationPromise: Promise<ProductVariation[]>;
+  images: string[];
 }
 
-export default function ProductCarousel({
-  variationPromise,
-  ...restProps
-}: ProductCarouselProps) {
-  const productVariations = use(variationPromise);
-  const variation = useProductVariation(productVariations);
+export default function ProductCarousel({images}: ProductCarouselProps) {
+  const variation = useProductVariation();
 
   const imgproxy = useImgproxy();
 
-  const variationCurrentImg = variation?.image.src;
-
-  const images = useMemo(() => {
-    const images = (restProps.images ?? []).map(image => image.src);
-    if (variationCurrentImg) {
-      images.push(variationCurrentImg);
-    }
-    return [...new Set(images)];
-  }, [restProps.images, variationCurrentImg]);
+  const variationCurrentImg = variation?.image;
 
   const [emblaRef, emblaMainApi] = useEmblaCarousel({}, [
     WheelGesturesPlugin(),
