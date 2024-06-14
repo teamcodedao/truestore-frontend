@@ -45,7 +45,7 @@ export default function SpinNumber({
   return (
     <div
       className={clsx(
-        'flex w-full shrink-0 items-stretch rounded border border-gray-300 md:w-fit',
+        'flex shrink-0 items-stretch rounded border border-gray-300 md:w-fit',
         '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500;`]',
       )}
     >

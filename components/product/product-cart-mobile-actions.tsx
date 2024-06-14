@@ -43,18 +43,18 @@ export default function ProductCartMobileActions() {
 
   return (
     <div className="fixed bottom-0 left-0 z-[997] flex w-full gap-2 bg-white p-2">
-      <div className="flex min-w-[65px] shrink-0 items-center">
+      {/* <div className="flex min-w-[65px] shrink-0 items-center">
         <ProductPrice
           regular_price={product.regular_price}
           price={product.price}
           size="sm"
           horizontal
         />
-      </div>
+      </div> */}
       <div
         className={clsx(
           'flex grow',
-          '*:multi-[`text-white;font-semibold;px-1;py-3;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap;bg-gradient-to-r;shrink-0`]',
+          '*:multi-[`text-white;font-semibold;px-1;py-4;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap;bg-gradient-to-r;shrink-0`]',
           '[&_span[class*=i-]]:multi-[`text-lg`]',
           'sm:*:multi-[`px-5`]',
         )}
