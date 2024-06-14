@@ -25,14 +25,14 @@ export default function ProductCartMobileActions() {
 
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {
-      offcanvas.close(); // Đóng bất kỳ offcanvas nào đang mở trước đó
+      offcanvas.close();
       offcanvas.bottomSheet({
         ssr: false,
         loading: <div>Loading...</div>,
         fallback: <CheckoutCartError onClose={offcanvas.close} />,
         content: (
           <MobileAddToCart
-            key={variation?.id} // Thêm key để buộc React render lại component khi variation thay đổi
+            key={variation?.id}
             product={product}
             variation={variation}
             buyNow={options?.buyNow}

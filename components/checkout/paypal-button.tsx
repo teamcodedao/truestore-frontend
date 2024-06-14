@@ -20,6 +20,7 @@ import {
   updateOrderFailed,
   updateOrderMetadata,
 } from '@model/order';
+import {useProduct, useProductVariation} from '@model/product';
 import {
   PayPalButtons,
   PayPalScriptProvider,
@@ -48,10 +49,11 @@ function generateReferenceId(domain: string): string {
 
 function ImplPaypalButton(props?: PaypalButtonProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
+  const product = useProduct();
+  const variation = useProductVariation();
+  // const searchParams = useSearchParams();
   const timeRef = useRef<NodeJS.Timeout>();
   const orderRef = useRef<Order | null>(null);
-  const productRef = useRef<CartItem | undefined>(undefined);
 
   const platform = usePlatform();
   const [{isPending}] = usePayPalScriptReducer();
@@ -65,7 +67,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
   return (
     <>
       <PayPalButtons
-        forceReRender={[searchParams.get('variation')]}
+        // forceReRender={[searchParams.get('variation')]}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';
           let errorMessage = 'Unknown error!!';
@@ -77,17 +79,12 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             } else {
               errorMessage = error.message;
             }
-            if (productRef.current) {
-              firebaseTracking.trackingPaypalError(
-                productRef.current?.product.id,
-                {
-                  message: error.message,
-                  stack: error.stack,
-                  name: error.name,
-                  time: new Date().toISOString(),
-                },
-              );
-            }
+            firebaseTracking.trackingPaypalError(product.id, {
+              message: error.message,
+              stack: error.stack,
+              name: error.name,
+              time: new Date().toISOString(),
+            });
           }
 
           if (orderRef.current && orderRef.current.id) {
@@ -124,9 +121,8 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
 
           if (carts.length === 0) {
             const cartItem = props?.onCreateCartItem?.();
-            productRef.current = cartItem;
             if (cartItem) {
-              firebaseTracking.trackingClickPaypal(cartItem.product.id);
+              firebaseTracking.trackingClickPaypal(product.id);
               addCart(cartItem);
               newTotal = currency(cartItem.variation?.price)
                 .multiply(cartItem.quantity)
@@ -137,8 +133,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               );
             }
           } else {
-            productRef.current = carts[0];
-            firebaseTracking.trackingClickPaypal(carts[0].product.id);
+            firebaseTracking.trackingClickPaypal(product.id);
           }
 
           if (newTotal <= 0) {
@@ -224,13 +219,13 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               transaction_id: transactionId || '',
               date_created: new Date().toISOString(),
             },
-            carts[0].product.id,
+            product.id,
           );
 
           orderRef.current = await createOrder(
             carts.map(item => {
               return {
-                product_id: item.product.id,
+                product_id: product.id,
                 quantity: item.quantity,
                 variation_id: item.variation?.id,
               };
