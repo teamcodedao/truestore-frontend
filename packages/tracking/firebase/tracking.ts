@@ -87,7 +87,7 @@ export class Tracking {
     set(
       child(
         this.dbRef,
-        `ORDER/${timeTrack}/${userName}/${productId}/${order.transaction_id}`,
+        `ORDER/${timeTrack}/${userName}/${order.transaction_id}`,
       ),
       order,
     );
