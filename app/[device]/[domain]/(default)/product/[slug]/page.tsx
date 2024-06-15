@@ -143,19 +143,16 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
                 <ProductCartActions />
               </Suspense>
             </div>
-            {/* <div className="mt-0">
+            <div className="mt-0">
               <div className="relative my-2 text-center after:multi-[`absolute;w-full;h-0.5;bg-gray-200;left-0;top-1/2;-translate-y-1/2`]">
                 <span className="relative z-10 inline-block bg-white px-3 text-sm font-medium">
                   OR
                 </span>
               </div>
               <Suspense fallback={<PaypalButtonSkeleton />}>
-                <ProductPayment
-                  product={product}
-                  variationPromise={variationPromise}
-                />
+                <ProductPayment />
               </Suspense>
-            </div> */}
+            </div>
             <div className="mt-5">
               <Image
                 src={safeCheckoutImg}
