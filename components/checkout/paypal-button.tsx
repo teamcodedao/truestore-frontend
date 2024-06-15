@@ -3,7 +3,6 @@
 import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
-import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
@@ -47,14 +46,9 @@ function ImplPaypalButton({
   onHandleError,
 }: PaypalButtonProps) {
   const router = useRouter();
-  const timeRef = useRef<NodeJS.Timeout>();
   const orderRef = useRef<Order | null>(null);
 
   const [{isPending}] = usePayPalScriptReducer();
-
-  useWillUnmount(() => {
-    clearTimeout(timeRef.current);
-  });
 
   return (
     <>
@@ -102,6 +96,10 @@ function ImplPaypalButton({
           console.error(error.message);
         }}
         createOrder={async (data, actions) => {
+          if (total <= 0) {
+            throw new Error('Your order could not be processed');
+          }
+
           return actions.order.create({
             intent: 'CAPTURE',
             purchase_units: [
@@ -163,12 +161,6 @@ function ImplPaypalButton({
             ip,
             invoiceId,
           });
-
-          timeRef.current = setTimeout(() => {
-            router.replace(
-              `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
-            );
-          }, 500);
 
           toast.success('Thank you for shopping', {
             description: `Your #${orderRef.current.id} order has been received successfully`,

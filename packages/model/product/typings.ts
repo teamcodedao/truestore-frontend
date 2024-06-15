@@ -23,7 +23,7 @@ export interface ProductVariationResponse {
   image: ProductImage;
   shipping_class: string;
   shipping_class_id: number;
-  shipping_value: number;
+  shipping_value?: number;
   sku: string;
   attributes: {name: string; option: string}[];
 }
@@ -53,14 +53,11 @@ export interface ProductReview {
 
 export type ProductVariation = Pick<
   ProductVariationResponse,
-  | 'id'
-  | 'attributes'
-  | 'shipping_class'
-  | 'shipping_class_id'
-  | 'shipping_value'
+  'id' | 'attributes' | 'shipping_class' | 'shipping_class_id'
 > & {
   regular_price: number;
   price: number;
+  shipping_value: number;
   image: string;
 };
 

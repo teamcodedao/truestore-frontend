@@ -119,7 +119,6 @@ export const getProduct = cache(
                   'attributes',
                   'shipping_class',
                   'shipping_class_id',
-                  'shipping_value',
                 ]),
                 R.merge({
                   regular_price: Number(
@@ -127,6 +126,7 @@ export const getProduct = cache(
                   ),
                   price: Number(variation.sale_price || variation.price),
                   image: variation.image.src,
+                  shipping_value: Number(variation.shipping_value) || 0,
                 }),
               ),
             ),
