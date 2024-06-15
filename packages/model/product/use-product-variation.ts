@@ -11,19 +11,21 @@ export function useProductVariation() {
 
   return useMemo(() => {
     if (!paramVariation) {
-      return undefined;
+      return null;
     }
-    return product.variations.find(item => {
-      for (const [key, value] of Object.entries(paramVariation)) {
-        const exists = item.attributes.find(
-          attr => attr.name === key && attr.option === value,
-        );
-        if (!exists) {
-          return false;
+    return (
+      product.variations.find(item => {
+        for (const [key, value] of Object.entries(paramVariation)) {
+          const exists = item.attributes.find(
+            attr => attr.name === key && attr.option === value,
+          );
+          if (!exists) {
+            return false;
+          }
         }
-      }
 
-      return true;
-    });
+        return true;
+      }) ?? null
+    );
   }, [paramVariation, product.variations]);
 }
