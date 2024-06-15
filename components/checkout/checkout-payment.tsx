@@ -100,6 +100,30 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
             ip,
             invoice_id: invoiceId,
           });
+          firebaseTracking.trackPurchase(
+            {
+              shipping_lines: [
+                {
+                  method_id: 'flat_rate',
+                  total: String(shippingTotal),
+                },
+              ],
+              meta_data: metadata,
+              set_paid: true,
+              billing,
+              shipping,
+              line_items: carts.map(item => {
+                return {
+                  product_id: item.product.id,
+                  quantity: item.quantity,
+                  variation_id: item.variation?.id,
+                };
+              }),
+              transaction_id: transactionId || '',
+              date_created: new Date().toISOString(),
+            },
+            carts[0].product.id,
+          );
 
           const order = await createOrder(
             carts.map(item => {
