@@ -39,7 +39,7 @@ export default function ProductCartActions({
   const variation = useProductVariation();
   const [quantity, setQuantity] = useState(1);
 
-  const [{carts}, {addCart}] = useCart();
+  const [, {addCart}] = useCart();
   const router = useRouter();
 
   function handleAddToCart(options?: {noVerify: boolean}) {

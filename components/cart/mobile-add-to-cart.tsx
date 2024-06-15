@@ -90,7 +90,7 @@ export default function MobileAddToCart({
 
   return (
     <div className="flex size-full flex-col overflow-y-auto scrollbar-hide">
-      <div className="flex gap-2">
+      <div className="sticky top-0 flex gap-2 border-b border-gray-200 bg-white pb-3">
         <div className="size-[70px] shrink-0 bg-gray-50">
           <img
             src={imgproxy(variation?.image ?? '', ['rs:fit:100'])}
@@ -122,7 +122,7 @@ export default function MobileAddToCart({
       </div>
       {!product.attributesError && (
         <>
-          <div className="mt-5 border-t border-gray-200">
+          <div className="pb-3">
             <div className="mt-5 space-y-4">
               {product.attributes.map((attribute, index) => (
                 <ProductAttribute
@@ -133,16 +133,16 @@ export default function MobileAddToCart({
               ))}
             </div>
           </div>
-          <div className="my-5 flex items-center justify-between border-t border-gray-200 pt-5">
-            <span className="font-bold">Quantity</span>
-            <SpinNumber
-              value={quantity}
-              min={1}
-              size="sm"
-              onChange={setQuantity}
-            />
-          </div>
-          <div className="sticky bottom-0 mt-auto shrink-0">
+          <div className="sticky bottom-0 mt-auto shrink-0 bg-white">
+            <div className="mb-5 flex items-center justify-between border-t border-gray-200 pt-5">
+              <span className="font-bold">Quantity</span>
+              <SpinNumber
+                value={quantity}
+                min={1}
+                size="sm"
+                onChange={setQuantity}
+              />
+            </div>
             <button
               className={clsx(
                 'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',

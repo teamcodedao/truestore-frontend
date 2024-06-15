@@ -35,7 +35,7 @@ function MobileAddToCartProvider({
 export default function ProductCartMobileActions() {
   const router = useRouter();
   const product = useProduct();
-  const [{carts}, {addCart}] = useCart();
+  const [, {addCart}] = useCart();
   const variation = useProductVariation();
   function handleAddToCart(options?: {noVerify: boolean}) {
     if (!variation) {
