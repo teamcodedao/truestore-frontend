@@ -1,6 +1,7 @@
 import {unstable_cache as cache} from 'next/cache';
 
 import ky from 'ky';
+import * as R from 'remeda';
 import type {Except} from 'type-fest';
 
 import firebaseConfig from '@/config/firebase.json';
@@ -35,19 +36,19 @@ export const getPlatformConfig = cache(
       return null!;
     }
 
-    const pixelIds = [
-      ...new Set([
-        ...(platform.pixel_ids?.split('|') ?? []),
-        ...commonPixelIds,
-      ]),
-    ].filter(Boolean);
+    const pixelIds = R.pipe(
+      platform.pixel_ids?.split('|') ?? [],
+      R.concat(commonPixelIds),
+      R.unique(),
+      R.filter<string>(Boolean),
+    );
 
-    const gaIds = [
-      ...new Set([
-        ...(platform.ga_ids?.split('|') ?? []),
-        `G-${process.env.NEXT_PUBLIC_GA_ID}`,
-      ]),
-    ].filter(Boolean);
+    const gaIds = R.pipe(
+      platform.ga_ids?.split('|') ?? [],
+      R.concat([`G-${process.env.NEXT_PUBLIC_GA_ID}`]),
+      R.unique(),
+      R.filter<string>(Boolean),
+    );
 
     return {
       ...platform,
