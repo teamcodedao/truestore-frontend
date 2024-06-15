@@ -17,5 +17,8 @@ export default function ProductPayment() {
     }
   }
 
-  return <PaypalButton onCreateCartItem={createCartItem} />;
+  // return <PaypalButton onCreateCartItem={createCartItem} />;
+
+  //TODO
+  return null;
 }

@@ -1,62 +1,56 @@
 'use client';
 
 import {useRef} from 'react';
-import {useRouter, useSearchParams} from 'next/navigation';
+import {useRouter} from 'next/navigation';
 
-import currency from 'currency.js';
 import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {fetchIp} from '@/lib/ip';
 import {usePlatform} from '@common/platform';
-import {type CartItem, useCart} from '@model/cart';
-import {
-  type CreateOrder,
-  createOrder,
-  createOrderNotes,
-  type Order,
-  type UpdateOrder,
-  updateOrderFailed,
-  updateOrderMetadata,
-} from '@model/order';
+import {type Order, type UpdateOrder} from '@model/order';
+import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 import {
   PayPalButtons,
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
 import * as Sentry from '@sentry/nextjs';
-import {fbpixel} from '@tracking/fbpixel';
-import {firebaseTracking} from '@tracking/firebase';
 
 interface PaypalButtonProps {
-  onCreateCartItem?: () => CartItem | undefined;
+  total: number;
+  subTotal: number;
+  shippingTotal: number;
+  invoiceId: string;
+  lineItems: CreateOrderRequestBody['purchase_units'][number]['items'];
+  onHandleApprove: (
+    params: Pick<UpdateOrder, 'shipping' | 'billing'> & {
+      ip: string;
+      invoiceId: string;
+      transactionId?: string;
+    },
+  ) => Promise<Order>;
+  onHandleError: (
+    order: Order,
+    options: {status: string; message: string},
+  ) => Promise<void>;
 }
 
-function generateReferenceId(domain: string): string {
-  const domainPart = domain.replace(/\.com$/, '').replace(/\.+/g, '');
-  const randomChars = Math.random().toString(36).slice(2, 7);
-
-  const randomDec = function (min: number, max: number) {
-    return (Math.random() * (max - min) + min).toFixed(0);
-  };
-
-  const referenceId = `${domainPart}-${randomChars}-${randomDec(10000, 99999)}`;
-
-  return referenceId;
-}
-
-function ImplPaypalButton(props?: PaypalButtonProps) {
+function ImplPaypalButton({
+  invoiceId,
+  total,
+  subTotal,
+  shippingTotal,
+  lineItems,
+  onHandleApprove,
+  onHandleError,
+}: PaypalButtonProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const timeRef = useRef<NodeJS.Timeout>();
   const orderRef = useRef<Order | null>(null);
-  const productRef = useRef<CartItem | undefined>(undefined);
 
-  const platform = usePlatform();
   const [{isPending}] = usePayPalScriptReducer();
-  const [{carts, countTotal, subTotal, total}, {addCart, clearCart}] =
-    useCart();
 
   useWillUnmount(() => {
     clearTimeout(timeRef.current);
@@ -65,7 +59,6 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
   return (
     <>
       <PayPalButtons
-        forceReRender={[searchParams.get('variation')]}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';
           let errorMessage = 'Unknown error!!';
@@ -73,29 +66,18 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           if (error instanceof Error) {
             if (error.message.includes('Instrument declined')) {
               status = 'failed';
-              errorMessage = `Instrument declined. The instrument presented was either declined by the processor or bank, or it can’t be used for this payment. Order status changed from Pending payment to Failed.`;
+              errorMessage = `Instrument declined. The instrument presented was either declined by the processor or bank, or it can't be used for this payment. Order status changed from Pending payment to Failed.`;
             } else {
               errorMessage = error.message;
-            }
-            if (productRef.current) {
-              firebaseTracking.trackingPaypalError(
-                productRef.current?.product.id,
-                {
-                  message: error.message,
-                  stack: error.stack,
-                  name: error.name,
-                  time: new Date().toISOString(),
-                },
-              );
             }
           }
 
           if (orderRef.current && orderRef.current.id) {
             try {
-              if (!orderRef.current.transaction_id) {
-                await updateOrderFailed(orderRef.current.id, status);
-              }
-              await createOrderNotes(orderRef.current.id, errorMessage);
+              onHandleError(orderRef.current, {
+                status,
+                message: errorMessage,
+              });
             } catch (error) {
               console.error(error);
               Sentry.withScope(scope => {
@@ -120,73 +102,26 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           console.error(error.message);
         }}
         createOrder={async (data, actions) => {
-          let newTotal = total;
-
-          if (carts.length === 0) {
-            const cartItem = props?.onCreateCartItem?.();
-            productRef.current = cartItem;
-            if (cartItem) {
-              firebaseTracking.trackingClickPaypal(cartItem.product.id);
-              addCart(cartItem);
-              newTotal = currency(cartItem.variation?.price)
-                .multiply(cartItem.quantity)
-                .add(cartItem.variation?.shipping_value).value;
-            } else {
-              throw new Error(
-                'The product you selected is out of stock. Please try again or choose another product.',
-              );
-            }
-          } else {
-            productRef.current = carts[0];
-            firebaseTracking.trackingClickPaypal(carts[0].product.id);
-          }
-
-          const shipTotal = carts.reduce((max, item) => {
-            const shippingValue = item.variation.shipping_value;
-            return shippingValue !== undefined && shippingValue > max
-              ? shippingValue
-              : max;
-          }, 0);
-
-          if (newTotal <= 0) {
-            throw new Error('Your order could not be processed');
-          }
-          const lineItems = carts.map(item => ({
-            name:
-              item.product?.name + '-' + item.variation?.attributes.join('-'),
-            quantity: String(item.quantity),
-            unit_amount: {
-              currency_code: 'USD',
-              value: String(item.variation?.price),
-            },
-            sku: String(item.variation?.id),
-          }));
           return actions.order.create({
             intent: 'CAPTURE',
             purchase_units: [
               {
                 amount: {
-                  value: String(newTotal),
+                  value: String(total),
                   currency_code: 'USD',
                   breakdown: {
                     item_total: {
                       currency_code: 'USD',
-                      value: String(
-                        carts.reduce(
-                          (sum, item) =>
-                            sum + item.variation?.price * item.quantity,
-                          0,
-                        ),
-                      ),
+                      value: String(subTotal),
                     },
                     shipping: {
                       currency_code: 'USD',
-                      value: String(shipTotal),
+                      value: String(shippingTotal),
                     },
                   },
                 },
                 items: lineItems,
-                invoice_id: generateReferenceId(platform.domain),
+                invoice_id: invoiceId,
               },
             ],
           });
@@ -195,7 +130,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
           if (!actions.order) {
             throw new Error('No order found');
           }
-          const ip = await fetchIp();
+          const ip = (await fetchIp()) ?? '';
           const order = await actions.order.capture();
           const transactionId =
             order.purchase_units?.[0].payments?.captures?.[0].id;
@@ -221,67 +156,13 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             email: order.payer?.email_address,
           };
 
-          const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
-            transaction_id: transactionId,
-            ip: ip ?? '',
-            invoice_id: generateReferenceId(platform.domain),
+          orderRef.current = await onHandleApprove({
+            transactionId,
+            shipping,
+            billing,
+            ip,
+            invoiceId,
           });
-
-          let shippingLines: CreateOrder['shipping_lines'] = [];
-          const maxItem = carts.reduce((max, item) => {
-            const shippingValue = item.variation?.shipping_value;
-            if (shippingValue) {
-              return shippingValue > (max.variation?.shipping_value || 0)
-                ? item
-                : max;
-            }
-            return max;
-          }, carts[0]);
-          if (maxItem.variation?.shipping_value) {
-            shippingLines = [
-              {
-                method_id: 'flat_rate',
-                total: maxItem.variation?.shipping_value.toString(),
-              },
-            ];
-          }
-
-          firebaseTracking.trackPurchase(
-            {
-              shipping_lines: shippingLines,
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              line_items: carts,
-              transaction_id: transactionId || '',
-              date_created: new Date().toISOString(),
-            },
-            carts[0].product.id,
-          );
-
-          orderRef.current = await createOrder(
-            carts.map(item => {
-              return {
-                product_id: item.product.id,
-                quantity: item.quantity,
-                variation_id: item.variation?.id,
-              };
-            }),
-            {
-              shipping_lines: shippingLines,
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              transaction_id: transactionId || '',
-            },
-          );
-
-          await createOrderNotes(
-            orderRef.current.id,
-            `PayPal transaction ID: ${transactionId}`,
-          );
 
           timeRef.current = setTimeout(() => {
             router.replace(
@@ -300,34 +181,6 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
               },
             },
           });
-
-          //Tracking for fbpixel
-          fbpixel.trackPurchase({
-            currency: 'USD',
-            num_items: countTotal,
-            value: parseFloat(orderRef.current.total),
-            subTotal,
-            total: orderRef.current.total,
-            tax: orderRef.current.total_tax,
-            category_name: 'Uncategorized',
-            content_type: 'product',
-            order_id: String(orderRef.current.id),
-            content_ids: carts.map(cart => String(cart.product.id)),
-            content_name: carts.map(cart => cart.product.name).join(' - '),
-            // tags: '',
-            shipping: orderRef.current.shipping,
-            coupon_used: '',
-            coupon_name: '',
-            shipping_cost: orderRef.current.shipping_total,
-            // predicted_ltv: 0,
-            // average_order: 0,
-            // transaction_count: 0,
-          });
-
-          // Tracking for firebase
-          firebaseTracking.trackingOrder(orderRef.current.order_key);
-
-          clearCart();
         }}
       />
       {isPending && <PaypalButtonSkeleton />}
@@ -335,7 +188,7 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
   );
 }
 
-export default function PaypalButton(props?: PaypalButtonProps) {
+export default function PaypalButton(props: PaypalButtonProps) {
   const platform = usePlatform();
 
   return (
