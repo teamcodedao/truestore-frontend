@@ -40,7 +40,7 @@ export async function generateMetadata({
   });
 
   return {
-    title: `${params.domain} | ${product.name}`,
+    title: product.name,
   };
 }
 

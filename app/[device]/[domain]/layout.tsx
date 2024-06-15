@@ -5,6 +5,14 @@ import {Fbpixel} from '@tracking/fbpixel';
 
 import Provider from './providers';
 
+export async function generateMetadata({params}: GenerateMetadataProps) {
+  return {
+    title: {
+      template: `${params.domain} | %s`,
+    },
+  };
+}
+
 export default async function PlatformLayout({children, params}: LayoutProps) {
   const domain = params.domain;
   const platform = await getPlatformConfig(domain);
