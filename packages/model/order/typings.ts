@@ -1,6 +1,6 @@
 import type {Except} from 'type-fest';
 
-import type {CartItem} from '@model/cart';
+import type {UpdateCartItem} from '@model/cart';
 
 export * from './client';
 export * from './rsc';
@@ -52,7 +52,7 @@ export interface OrderTracking {
   transaction_id: string;
   billing: Billing;
   shipping: Shipping;
-  line_items: CartItem[];
+  line_items: UpdateCartItem[];
   date_created: string;
 }
 

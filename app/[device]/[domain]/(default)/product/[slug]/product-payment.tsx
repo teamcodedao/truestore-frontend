@@ -38,7 +38,10 @@ export default function ProductPayment() {
     if (variation) {
       return [
         {
-          name: product.name + '-' + variation.attributes.join('-'),
+          name:
+            product.name +
+            '-' +
+            variation.attributes.map(i => i.name).join('-'),
           quantity: String(quantity),
           unit_amount: {
             currency_code: 'USD',
@@ -81,6 +84,30 @@ export default function ProductPayment() {
             ip,
             invoice_id: invoiceId,
           });
+          firebaseTracking.trackPurchase(
+            {
+              shipping_lines: [
+                {
+                  method_id: 'flat_rate',
+                  total: String(shippingTotal),
+                },
+              ],
+              meta_data: metadata,
+              set_paid: true,
+              billing,
+              shipping,
+              line_items: [
+                {
+                  product_id: product.id,
+                  quantity,
+                  variation_id: variation.id,
+                },
+              ],
+              transaction_id: transactionId || '',
+              date_created: new Date().toISOString(),
+            },
+            product.id,
+          );
 
           const order = await createOrder(
             [

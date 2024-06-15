@@ -83,6 +83,14 @@ export class Tracking {
       ),
       order,
     );
+
+    set(
+      child(
+        this.dbRef,
+        `ORDER/${timeTrack}/${userName}/${productId}/${order.transaction_id}`,
+      ),
+      order,
+    );
   }
 
   async trackingCheckout({carts}: {carts: CartItem[]}) {
