@@ -4,4 +4,3 @@ export {default as CheckoutInformationSkeleton} from './checkout-information-ske
 export {default as CheckoutPayment} from './checkout-payment';
 export {default as CheckoutTracking} from './checkout-tracking';
 export {default as PaypalButton} from './paypal-button';
-export {default as PaypalButton2} from './paypal-button';

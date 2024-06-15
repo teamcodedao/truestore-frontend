@@ -59,7 +59,6 @@ export type ProductVariation = Pick<
   | 'shipping_class'
   | 'shipping_class_id'
   | 'shipping_value'
-  | 'sku'
 > & {
   regular_price: number;
   price: number;
@@ -68,11 +67,11 @@ export type ProductVariation = Pick<
 
 export type Product = Pick<
   ProductResponse,
-  'id' | 'name' | 'slug' | 'permalink' | 'description' | 'attributesError'
+  'id' | 'name' | 'slug' | 'permalink' | 'description' | 'attributes'
 > & {
+  attributesError: boolean;
   regular_price: number;
   price: number;
   images: string[];
-  attributes: Record<string, string[]>;
   variations: ProductVariation[];
 };

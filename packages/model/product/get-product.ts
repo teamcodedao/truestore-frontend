@@ -15,13 +15,16 @@ interface GetProductParams {
 function checkAttributesError(
   attributes: Record<string, string[]>,
   attributesArray: ProductAttribute<string>[],
-) {
+): boolean {
   for (const attributeObj of attributesArray) {
     const diff = attributes[attributeObj.name].some(
       option => !attributeObj.options.includes(option),
     );
-    return diff;
+    if (diff) {
+      return true;
+    }
   }
+  return false;
 }
 export const getProduct = cache(
   async (domain: string, slug: string, params?: GetProductParams) => {

@@ -125,38 +125,44 @@ export default function MobileAddToCart({
           )}
         </div>
       </div>
-      <div className="mt-5 border-t border-gray-200">
-        <div className="mt-5 space-y-4">
-          {Object.entries(product.attributes).map(([name, options]) => {
-            return (
-              <ProductAttribute
-                key={name}
-                name={name}
-                options={options}
-                size="sm"
-              />
-            );
-          })}
-        </div>
-      </div>
-      <div className="my-5 flex items-center justify-between border-t border-gray-200 pt-5">
-        <span className="text-sm font-medium capitalize">Quantity</span>
-        <SpinNumber value={quantity} min={1} size="sm" onChange={setQuantity} />
-      </div>
-      <div className="sticky bottom-0 mt-auto shrink-0">
-        <button
-          className={clsx(
-            'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
-            {
-              'from-red-600 to-orange-500': buyNow,
-              'from-yellow-500 to-orange-500': !buyNow,
-            },
-          )}
-          onClick={handleAddToCart}
-        >
-          {buyNow ? 'Buy Now' : 'Add to Cart'}
-        </button>
-      </div>
+      {!product.attributesError && (
+        <>
+          <div className="mt-5 border-t border-gray-200">
+            <div className="mt-5 space-y-4">
+              {product.attributes.map(attribute => (
+                <ProductAttribute
+                  key={attribute.id}
+                  name={attribute.name}
+                  options={attribute.options}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="my-5 flex items-center justify-between border-t border-gray-200 pt-5">
+            <span className="text-sm font-medium capitalize">Quantity</span>
+            <SpinNumber
+              value={quantity}
+              min={1}
+              size="sm"
+              onChange={setQuantity}
+            />
+          </div>
+          <div className="sticky bottom-0 mt-auto shrink-0">
+            <button
+              className={clsx(
+                'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
+                {
+                  'from-red-600 to-orange-500': buyNow,
+                  'from-yellow-500 to-orange-500': !buyNow,
+                },
+              )}
+              onClick={handleAddToCart}
+            >
+              {buyNow ? 'Buy Now' : 'Add to Cart'}
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 }

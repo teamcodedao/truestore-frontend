@@ -13,7 +13,6 @@ export interface CartItem {
     | 'shipping_class'
     | 'shipping_class_id'
     | 'shipping_value'
-    | 'sku'
   > & {image?: string; attributes: string[]; link: string};
 }
 
