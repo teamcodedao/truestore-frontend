@@ -1,67 +1,72 @@
 'use client';
 
-import {useCallback, useEffect, useRef, useState} from 'react';
+import {useCallback} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
 
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
 import {transformProductToCart, useCart} from '@model/cart';
-import {useProduct, useProductVariation} from '@model/product';
+import {
+  ProductProvider,
+  type ProductVariation,
+  useProduct,
+  useProductVariation,
+} from '@model/product';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
+
+function MobileAddToCartProvider({
+  children,
+}: {
+  children: ({
+    variation,
+  }: {
+    variation: ProductVariation | null;
+  }) => React.ReactNode;
+}) {
+  const variation = useProductVariation();
+
+  return children({variation});
+}
 
 export default function ProductCartMobileActions() {
   const router = useRouter();
   const product = useProduct();
-  const variationHook = useProductVariation();
   const [{carts}, {addCart}] = useCart();
-  const [variation, setVariation] = useState(variationHook);
-  const [buyNow, setBuyNow] = useState(false);
-  const isOffcanvasOpen = useRef(false);
-
-  useEffect(() => {
-    setVariation(variationHook);
-  }, [variationHook]);
 
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {
-      setBuyNow(options?.buyNow || false);
       offcanvas.bottomSheet({
         ssr: false,
         loading: <div>Loading...</div>,
-        fallback: <CheckoutCartError onClose={offcanvas.close} />,
+        fallback: <CheckoutCartError />,
         content: (
-          <MobileAddToCart
-            key={variation?.id}
-            product={product}
-            variation={variation}
-            buyNow={options?.buyNow}
-            onClose={() => {
-              offcanvas.close();
-              isOffcanvasOpen.current = false;
-            }}
-            onAddtoCart={params =>
-              addCart(
-                transformProductToCart({
-                  ...params,
-                  product,
-                }),
-              )
-            }
-          />
+          <ProductProvider initialState={product}>
+            <MobileAddToCartProvider>
+              {({variation}) => (
+                <MobileAddToCart
+                  product={product}
+                  variation={variation}
+                  buyNow={options?.buyNow}
+                  onClose={offcanvas.close}
+                  onAddtoCart={params =>
+                    addCart(
+                      transformProductToCart({
+                        ...params,
+                        product,
+                      }),
+                    )
+                  }
+                />
+              )}
+            </MobileAddToCartProvider>
+          </ProductProvider>
         ),
       });
-      isOffcanvasOpen.current = true;
     },
-    [product, variation, addCart],
+    [addCart, product],
   );
-
-  useEffect(() => {
-    if (isOffcanvasOpen.current) {
-      handleOpenToCartSheet({buyNow});
-    }
-  }, [variation, handleOpenToCartSheet]);
 
   return (
     <div className="fixed bottom-0 left-0 z-[997] flex w-full gap-2 bg-white p-2">

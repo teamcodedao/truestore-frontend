@@ -19,7 +19,7 @@ import offcanvas from '@ui/offcanvas';
 interface MobileAddToCartProps {
   buyNow?: boolean;
   product: Product;
-  variation?: ProductVariation;
+  variation?: ProductVariation | null;
   onClose: () => void;
   onAddtoCart: (params: {
     variation: ProductVariation;
