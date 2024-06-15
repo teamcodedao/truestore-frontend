@@ -31,7 +31,7 @@ export const getProduct = cache(
     const client = await createPlatformClient(domain);
     try {
       const [product] = await client
-        .get(`v3/products`, {
+        .get('v3/products', {
           searchParams: {
             slug,
             per_page: 1,

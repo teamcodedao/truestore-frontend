@@ -129,9 +129,9 @@ export default function MobileAddToCart({
         <>
           <div className="mt-5 border-t border-gray-200">
             <div className="mt-5 space-y-4">
-              {product.attributes.map(attribute => (
+              {product.attributes.map((attribute, index) => (
                 <ProductAttribute
-                  key={attribute.id}
+                  key={index}
                   name={attribute.name}
                   options={attribute.options}
                 />
@@ -139,7 +139,7 @@ export default function MobileAddToCart({
             </div>
           </div>
           <div className="my-5 flex items-center justify-between border-t border-gray-200 pt-5">
-            <span className="text-sm font-medium capitalize">Quantity</span>
+            <span className="font-bold">Quantity</span>
             <SpinNumber
               value={quantity}
               min={1}

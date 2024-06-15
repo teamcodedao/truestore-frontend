@@ -132,9 +132,9 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
             {!product.attributesError && (
               <>
                 <div className="mt-5 space-y-4">
-                  {product.attributes.map(attribute => (
+                  {product.attributes.map((attribute, index) => (
                     <ProductAttribute
-                      key={attribute.id}
+                      key={index}
                       name={attribute.name}
                       options={attribute.options}
                     />

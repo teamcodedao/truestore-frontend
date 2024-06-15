@@ -37,7 +37,6 @@ export interface ProductResponse {
   price: string;
   sale_price?: string;
   regular_price?: string;
-  attributesError: boolean;
   attributes: ProductAttribute<string>[];
   images: ProductImage[];
 }
