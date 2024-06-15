@@ -66,7 +66,7 @@ export default function ProductPayment() {
 
     return (
       <PaypalButton
-        product={product}
+        productId={product.id}
         key={total}
         invoiceId={generateReferenceId(domain)}
         total={total}

@@ -106,9 +106,7 @@ export default function ProductCartActions({
           className="w-full bg-orange-600 hover:bg-orange-500"
           onClick={() => {
             firebaseTracking.trackingLogs('CO', product);
-            if (carts.length === 0) {
-              handleAddToCart({noVerify: true});
-            }
+            handleAddToCart({noVerify: true});
             router.push('/checkout?from=product');
           }}
         >

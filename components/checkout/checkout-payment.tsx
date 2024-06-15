@@ -18,7 +18,6 @@ import {
   updateOrderFailed,
   updateOrderMetadata,
 } from '@model/order';
-import {useProduct} from '@model/product';
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
@@ -29,7 +28,6 @@ interface CheckoutPaymentProps {
 
 export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
   const router = useRouter();
-  const product = useProduct();
   const {domain} = useParams<{domain: string}>();
   const [{carts, countTotal, subTotal, total, shippingTotal}, {clearCart}] =
     useCart();
@@ -62,7 +60,7 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
 
     return [];
   }, [carts]);
-
+  const productId = carts[0]?.product.id;
   const lineItems = useMemo<
     CreateOrderRequestBody['purchase_units'][number]['items']
   >(() => {
@@ -84,13 +82,13 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
   return (
     <>
       <PaypalButton
+        productId={productId}
         key={total}
         invoiceId={generateReferenceId(domain)}
         total={total}
         subTotal={subTotal}
         shippingTotal={shippingTotal}
         lineItems={lineItems}
-        product={product}
         onHandleApprove={async ({
           invoiceId,
           ip,

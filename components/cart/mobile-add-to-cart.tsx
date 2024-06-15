@@ -158,7 +158,7 @@ export default function MobileAddToCart({
               )}
               onClick={handleAddToCart}
             >
-              {buyNow ? 'Buy Now' : 'Add to Cart'}
+              {buyNow ? 'Buy Now 2' : 'Add to Cart'}
             </button>
           </div>
         </>

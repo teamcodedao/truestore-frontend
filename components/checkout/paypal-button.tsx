@@ -3,7 +3,6 @@
 import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
-import {product} from 'remeda';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
@@ -21,7 +20,7 @@ import * as Sentry from '@sentry/nextjs';
 import {firebaseTracking} from '@tracking/firebase';
 
 interface PaypalButtonProps {
-  product: Product;
+  productId: number;
   total: number;
   subTotal: number;
   shippingTotal: number;
@@ -41,7 +40,7 @@ interface PaypalButtonProps {
 }
 
 function ImplPaypalButton({
-  product,
+  productId,
   invoiceId,
   total,
   subTotal,
@@ -69,7 +68,7 @@ function ImplPaypalButton({
             } else {
               errorMessage = error.message;
             }
-            firebaseTracking.trackingPaypalError(product.id, {
+            firebaseTracking.trackingPaypalError(productId, {
               message: error.message,
               stack: error.stack,
               name: error.name,
