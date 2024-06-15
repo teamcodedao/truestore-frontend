@@ -54,6 +54,7 @@ export interface OrderTracking {
   shipping: Shipping;
   line_items: UpdateCartItem[];
   date_created: string;
+  payment_method_title: string;
 }
 
 interface Billing {
@@ -73,6 +74,7 @@ type Shipping = Except<Billing, 'email'>;
 
 export interface CreateOrder {
   payment_method: PaymentMethod;
+  payment_method_title: string;
   set_paid: boolean;
   line_items: ReadonlyArray<
     Pick<LineItem, 'product_id' | 'variation_id' | 'quantity'>

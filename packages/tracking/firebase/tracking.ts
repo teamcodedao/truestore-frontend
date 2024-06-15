@@ -27,7 +27,7 @@ export class Tracking {
     set(child(this.dbRef, `OR_LIST_ANALYTICS/${orderKey}`), 'OK');
   }
 
-  async trackingClickPaypal(productId: number) {
+  async trackingClickPaypal(productId: number, key: 'PAYPAL' | 'PAYPAL2') {
     const ip = await fetchIp();
     if (!ip) {
       return;
@@ -42,7 +42,7 @@ export class Tracking {
     set(
       child(
         this.dbRef,
-        `${userName}/PUB/${timeTrack}/${productId}/PAYPAL/${ip.replaceAll('.', 'DV')}`,
+        `${userName}/PUB/${timeTrack}/${productId}/${key}/${ip.replaceAll('.', 'DV')}`,
       ),
       new Date().toISOString(),
     );

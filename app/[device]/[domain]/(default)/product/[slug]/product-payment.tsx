@@ -17,6 +17,7 @@ import {
 } from '@model/order';
 import {useProduct, useProductVariation} from '@model/product';
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
+import {firebaseTracking} from '@tracking/firebase';
 
 export default function ProductPayment() {
   const {domain} = useParams<{domain: string}>();
@@ -63,12 +64,16 @@ export default function ProductPayment() {
         subTotal={subTotal}
         shippingTotal={shippingTotal}
         lineItems={lineItems}
+        onClick={async () => {
+          await firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
+        }}
         onHandleApprove={async ({
           invoiceId,
           ip,
           transactionId,
           shipping,
           billing,
+          fundingSource,
         }) => {
           const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
             transaction_id: transactionId,
@@ -96,6 +101,7 @@ export default function ProductPayment() {
               billing,
               shipping,
               transaction_id: transactionId,
+              payment_method_title: fundingSource ?? 'paypal',
             },
           );
 

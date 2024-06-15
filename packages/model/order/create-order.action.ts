@@ -15,6 +15,7 @@ export async function createOrder(
     billing,
     shipping,
     transaction_id,
+    payment_method_title,
   }: Pick<
     CreateOrder,
     | 'shipping_lines'
@@ -23,6 +24,7 @@ export async function createOrder(
     | 'set_paid'
     | 'shipping'
     | 'transaction_id'
+    | 'payment_method_title'
   >,
 ) {
   const domain = headers().get('host') ?? '';
@@ -39,6 +41,10 @@ export async function createOrder(
         shipping_lines,
         meta_data,
         transaction_id,
+        payment_method_title:
+          payment_method_title == 'card'
+            ? 'Credit or debit cards (PayPal)'
+            : 'Paypal',
       } satisfies CreateOrder,
     })
     .json<Order>();

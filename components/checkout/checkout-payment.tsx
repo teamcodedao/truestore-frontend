@@ -85,12 +85,16 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
         shippingTotal={shippingTotal}
         lineItems={lineItems}
         productIds={productIds}
+        onClick={async () => {
+          console.log('click checkout');
+        }}
         onHandleApprove={async ({
           invoiceId,
           ip,
           transactionId,
           shipping,
           billing,
+          fundingSource,
         }) => {
           const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
             transaction_id: transactionId,
@@ -113,6 +117,7 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
               billing,
               shipping,
               transaction_id: transactionId,
+              payment_method_title: fundingSource ?? 'paypal',
             },
           );
 

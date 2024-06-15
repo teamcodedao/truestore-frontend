@@ -33,12 +33,14 @@ interface PaypalButtonProps {
       ip: string;
       invoiceId: string;
       transactionId?: string;
+      fundingSource?: string;
     },
   ) => Promise<{order: Order; metadata: UpdateOrder['meta_data']}>;
   onHandleError: (
     order: Order,
     options: {status: string; message: string},
   ) => Promise<void>;
+  onClick: () => Promise<void>;
 }
 
 function ImplPaypalButton({
@@ -51,10 +53,12 @@ function ImplPaypalButton({
   forceReRender = [],
   onHandleApprove,
   onHandleError,
+  onClick,
 }: PaypalButtonProps) {
   const router = useRouter();
   const orderRef = useRef<Order | null>(null);
   const timeId = useRef<NodeJS.Timeout>();
+  const fundingSource = useRef<string>('paypal');
 
   const [{isPending}] = usePayPalScriptReducer();
 
@@ -68,6 +72,11 @@ function ImplPaypalButton({
     <>
       <PayPalButtons
         forceReRender={forceReRender}
+        onClick={async data => {
+          fundingSource.current = data.fundingSource as string;
+          firebaseTracking.trackingClickPaypal(productIds[0], 'PAYPAL');
+          await onClick();
+        }}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';
           let errorMessage = 'Unknown error!!';
@@ -143,6 +152,7 @@ function ImplPaypalButton({
                 },
                 items: lineItems,
                 invoice_id: invoiceId,
+                custom_id: fundingSource.current,
               },
             ],
           });
@@ -183,6 +193,7 @@ function ImplPaypalButton({
             billing,
             ip,
             invoiceId,
+            fundingSource: fundingSource.current,
           });
 
           orderRef.current = order_;
@@ -225,6 +236,10 @@ function ImplPaypalButton({
                 variation_id: Number(item.sku),
               })),
               transaction_id: transactionId,
+              payment_method_title:
+                fundingSource.current == 'card'
+                  ? 'Credit or debit cards (PayPal)'
+                  : 'Paypal',
               date_created: new Date().toISOString(),
             },
             productIds,
