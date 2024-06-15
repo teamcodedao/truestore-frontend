@@ -4,6 +4,7 @@ import {useCallback} from 'react';
 import {useRouter} from 'next/navigation';
 
 import clsx from 'clsx';
+import {toast} from 'sonner';
 
 import {CheckoutCartError, MobileAddToCart} from '@/components/cart';
 import {transformProductToCart, useCart} from '@model/cart';
@@ -13,6 +14,7 @@ import {
   useProduct,
   useProductVariation,
 } from '@model/product';
+import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 import offcanvas from '@ui/offcanvas';
 
@@ -34,7 +36,39 @@ export default function ProductCartMobileActions() {
   const router = useRouter();
   const product = useProduct();
   const [{carts}, {addCart}] = useCart();
+  const variation = useProductVariation();
+  function handleAddToCart(options?: {noVerify: boolean}) {
+    if (!variation) {
+      if (!options?.noVerify) {
+        toast.error('Please, choose product options');
+      }
+      return null;
+    }
 
+    addCart(
+      transformProductToCart({
+        product,
+        quantity: 1,
+        variation,
+      }),
+    );
+
+    fbpixel.trackToCart({
+      content_name: product.name,
+      content_ids: [String(variation.id)],
+      value: variation.price,
+      contents: [
+        {
+          id: variation.id,
+          quantity: 1,
+        },
+      ],
+      post_id: product.id,
+    });
+
+    firebaseTracking.trackingLogs('VC', product);
+    firebaseTracking.trackingLogs('ATC', product);
+  }
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {
       offcanvas.bottomSheet({
@@ -91,10 +125,8 @@ export default function ProductCartMobileActions() {
           className="rounded-r from-red-600 to-orange-500"
           onClick={() => {
             firebaseTracking.trackingLogs('CO', product);
-            if (carts.length === 0) {
-              handleOpenToCartSheet({buyNow: true});
-              return;
-            }
+            firebaseTracking.trackingLogs('CO1', product);
+            handleAddToCart({noVerify: true});
             router.push('/checkout?from=mobile_product');
           }}
         >
