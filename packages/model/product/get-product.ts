@@ -5,14 +5,24 @@ import {HTTPError} from 'ky';
 import * as R from 'remeda';
 
 import {createPlatformClient} from '@common/platform/ssr';
-import type {Product, ProductResponse} from '@model/product';
+import type {Product, ProductAttribute, ProductResponse} from '@model/product';
 
 import {getProductVariations} from './get-product-variations';
 
 interface GetProductParams {
   throwNotFound?: boolean;
 }
-
+function checkAttributesError(
+  attributes: Record<string, string[]>,
+  attributesArray: ProductAttribute<string>[],
+) {
+  for (const attributeObj of attributesArray) {
+    const diff = attributes[attributeObj.name].some(
+      option => !attributeObj.options.includes(option),
+    );
+    return diff;
+  }
+}
 export const getProduct = cache(
   async (domain: string, slug: string, params?: GetProductParams) => {
     const client = await createPlatformClient(domain);
@@ -66,6 +76,10 @@ export const getProduct = cache(
         ),
         R.mapValues(values => R.unique(values)),
       );
+      const attributesError = checkAttributesError(
+        attributes,
+        product.attributes,
+      );
 
       const images = R.pipe(
         variations,
@@ -76,14 +90,22 @@ export const getProduct = cache(
 
       return R.pipe(
         product,
-        R.pick(['id', 'name', 'description', 'slug', 'permalink', 'images']),
+        R.pick([
+          'id',
+          'name',
+          'description',
+          'slug',
+          'permalink',
+          'images',
+          'attributes',
+        ]),
         R.merge({
+          attributesError,
           images,
           regular_price: Number(product.regular_price || product.price),
           price: Number(product.price),
         }),
         R.merge({
-          attributes,
           variations: R.pipe(
             variations,
             R.map(variation =>

@@ -141,10 +141,26 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
             firebaseTracking.trackingClickPaypal(carts[0].product.id);
           }
 
+          const shipTotal = carts.reduce((max, item) => {
+            const shippingValue = item.variation.shipping_value;
+            return shippingValue !== undefined && shippingValue > max
+              ? shippingValue
+              : max;
+          }, 0);
+
           if (newTotal <= 0) {
             throw new Error('Your order could not be processed');
           }
-
+          const lineItems = carts.map(item => ({
+            name:
+              item.product?.name + '-' + item.variation?.attributes.join('-'),
+            quantity: String(item.quantity),
+            unit_amount: {
+              currency_code: 'USD',
+              value: String(item.variation?.price),
+            },
+            sku: String(item.variation?.id),
+          }));
           return actions.order.create({
             intent: 'CAPTURE',
             purchase_units: [
@@ -152,7 +168,24 @@ function ImplPaypalButton(props?: PaypalButtonProps) {
                 amount: {
                   value: String(newTotal),
                   currency_code: 'USD',
+                  breakdown: {
+                    item_total: {
+                      currency_code: 'USD',
+                      value: String(
+                        carts.reduce(
+                          (sum, item) =>
+                            sum + item.variation?.price * item.quantity,
+                          0,
+                        ),
+                      ),
+                    },
+                    shipping: {
+                      currency_code: 'USD',
+                      value: String(shipTotal),
+                    },
+                  },
                 },
+                items: lineItems,
                 invoice_id: generateReferenceId(platform.domain),
               },
             ],

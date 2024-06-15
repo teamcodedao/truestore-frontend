@@ -1,6 +1,14 @@
 export * from './client';
 export * from './rsc';
 
+export interface ProductAttribute<O> {
+  id: number;
+  name: string;
+  position: number;
+  variation: boolean;
+  options: O[];
+}
+
 export interface ProductImage {
   id: number;
   src: string;
@@ -16,6 +24,7 @@ export interface ProductVariationResponse {
   shipping_class: string;
   shipping_class_id: number;
   shipping_value: number;
+  sku: string;
   attributes: {name: string; option: string}[];
 }
 
@@ -28,6 +37,8 @@ export interface ProductResponse {
   price: string;
   sale_price?: string;
   regular_price?: string;
+  attributesError: boolean;
+  attributes: ProductAttribute<string>[];
   images: ProductImage[];
 }
 
@@ -48,6 +59,7 @@ export type ProductVariation = Pick<
   | 'shipping_class'
   | 'shipping_class_id'
   | 'shipping_value'
+  | 'sku'
 > & {
   regular_price: number;
   price: number;
@@ -56,7 +68,7 @@ export type ProductVariation = Pick<
 
 export type Product = Pick<
   ProductResponse,
-  'id' | 'name' | 'slug' | 'permalink' | 'description'
+  'id' | 'name' | 'slug' | 'permalink' | 'description' | 'attributesError'
 > & {
   regular_price: number;
   price: number;
