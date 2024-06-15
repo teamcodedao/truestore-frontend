@@ -46,10 +46,10 @@ export interface Order {
 }
 
 export interface OrderTracking {
-  shipping_lines: LineShipping[];
+  shipping_lines: TrackingShippingLine[];
   meta_data?: OrderMetadata[];
   set_paid: boolean;
-  transaction_id: string;
+  transaction_id?: string;
   billing: Billing;
   shipping: Shipping;
   line_items: UpdateCartItem[];
@@ -79,7 +79,7 @@ export interface CreateOrder {
   >;
   billing?: Billing;
   shipping?: Shipping;
-  shipping_lines: LineShipping[];
+  shipping_lines: TrackingShippingLine[];
   meta_data?: OrderMetadata[];
   transaction_id?: string;
 }
@@ -119,7 +119,7 @@ interface LineItem {
     src: string;
   };
 }
-interface LineShipping {
+interface TrackingShippingLine {
   method_id: string;
   total: string;
 }

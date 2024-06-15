@@ -1,10 +1,8 @@
 'use client';
 
-import {useMemo, useRef} from 'react';
+import {useMemo} from 'react';
 import Image from 'next/image';
-import {useParams, useRouter} from 'next/navigation';
-
-import {useWillUnmount} from 'rooks';
+import {useParams} from 'next/navigation';
 
 import {PaypalButton} from '@/components/checkout';
 import trustbadge from '@/images/trustbadge.png';
@@ -19,20 +17,19 @@ import {
   updateOrderMetadata,
 } from '@model/order';
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
-import {fbpixel} from '@tracking/fbpixel';
-import {firebaseTracking} from '@tracking/firebase';
 
 interface CheckoutPaymentProps {
   noFooter?: boolean;
 }
 
 export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
-  const router = useRouter();
   const {domain} = useParams<{domain: string}>();
   const [{carts, countTotal, subTotal, total, shippingTotal}, {clearCart}] =
     useCart();
 
-  const timeId = useRef<NodeJS.Timeout>();
+  const productIds = useMemo(() => {
+    return carts.map(item => item.product.id);
+  }, [carts]);
 
   const shippingLines = useMemo<CreateOrder['shipping_lines']>(() => {
     if (carts.length === 0) {
@@ -60,35 +57,34 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
 
     return [];
   }, [carts]);
-  const productId = carts[0]?.product.id;
-  const lineItems = useMemo<
-    CreateOrderRequestBody['purchase_units'][number]['items']
-  >(() => {
-    return carts.map(item => ({
-      name: item.product.name + '-' + item.variation.attributes.join('-'),
-      quantity: String(item.quantity),
-      unit_amount: {
-        currency_code: 'USD',
-        value: String(item.variation.price),
-      },
-      sku: String(item.variation.id),
-    }));
-  }, [carts]);
 
-  useWillUnmount(() => {
-    clearTimeout(timeId.current);
-  });
+  const lineItems = useMemo(() => {
+    return carts.map(
+      item =>
+        ({
+          name: item.product.name + '-' + item.variation.attributes.join('-'),
+          quantity: String(item.quantity),
+          unit_amount: {
+            currency_code: 'USD',
+            value: String(item.variation.price),
+          },
+          sku: String(item.variation.id),
+        }) satisfies NonNullable<
+          CreateOrderRequestBody['purchase_units'][number]['items']
+        >[number],
+    );
+  }, [carts]);
 
   return (
     <>
       <PaypalButton
-        productId={productId}
-        key={total}
+        forceReRender={[countTotal, total, subTotal, shippingTotal]}
         invoiceId={generateReferenceId(domain)}
         total={total}
         subTotal={subTotal}
         shippingTotal={shippingTotal}
         lineItems={lineItems}
+        productIds={productIds}
         onHandleApprove={async ({
           invoiceId,
           ip,
@@ -101,30 +97,6 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
             ip,
             invoice_id: invoiceId,
           });
-          firebaseTracking.trackPurchase(
-            {
-              shipping_lines: [
-                {
-                  method_id: 'flat_rate',
-                  total: String(shippingTotal),
-                },
-              ],
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              line_items: carts.map(item => {
-                return {
-                  product_id: item.product.id,
-                  quantity: item.quantity,
-                  variation_id: item.variation?.id,
-                };
-              }),
-              transaction_id: transactionId || '',
-              date_created: new Date().toISOString(),
-            },
-            carts[0].product.id,
-          );
 
           const order = await createOrder(
             carts.map(item => {
@@ -140,7 +112,7 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
               set_paid: true,
               billing,
               shipping,
-              transaction_id: transactionId || '',
+              transaction_id: transactionId,
             },
           );
 
@@ -149,39 +121,9 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
             `PayPal transaction ID: ${transactionId}`,
           );
 
-          //Tracking for fbpixel
-          fbpixel.trackPurchase({
-            currency: 'USD',
-            num_items: countTotal,
-            value: Number(order.total),
-            subTotal,
-            total: order.total,
-            tax: order.total_tax,
-            category_name: 'Uncategorized',
-            content_type: 'product',
-            order_id: String(order.id),
-            content_ids: carts.map(cart => String(cart.product.id)),
-            content_name: carts.map(cart => cart.product.name).join(' - '),
-            shipping: order.shipping,
-            coupon_used: '',
-            coupon_name: '',
-            shipping_cost: order.shipping_total,
-            // tags: '',
-            // predicted_ltv: 0,
-            // average_order: 0,
-            // transaction_count: 0,
-          });
-
-          // Tracking for firebase
-          firebaseTracking.trackingOrder(order.order_key);
-
           clearCart();
 
-          timeId.current = setTimeout(() => {
-            router.replace(`/orders/${order.id}?key=${order.order_key}`);
-          }, 500);
-
-          return order;
+          return {order, metadata};
         }}
         onHandleError={async (order, {status, message}) => {
           if (!order.transaction_id) {

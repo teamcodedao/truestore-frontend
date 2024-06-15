@@ -3,13 +3,13 @@
 import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
+import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {fetchIp} from '@/lib/ip';
 import {usePlatform} from '@common/platform';
 import {type Order, type UpdateOrder} from '@model/order';
-import type {Product} from '@model/product';
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 import {
   PayPalButtons,
@@ -17,22 +17,24 @@ import {
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
 import * as Sentry from '@sentry/nextjs';
+import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
 
 interface PaypalButtonProps {
-  productId: number;
   total: number;
   subTotal: number;
   shippingTotal: number;
   invoiceId: string;
+  forceReRender?: unknown[];
   lineItems: CreateOrderRequestBody['purchase_units'][number]['items'];
+  productIds: number[];
   onHandleApprove: (
     params: Pick<UpdateOrder, 'shipping' | 'billing'> & {
       ip: string;
       invoiceId: string;
       transactionId?: string;
     },
-  ) => Promise<Order>;
+  ) => Promise<{order: Order; metadata: UpdateOrder['meta_data']}>;
   onHandleError: (
     order: Order,
     options: {status: string; message: string},
@@ -40,23 +42,32 @@ interface PaypalButtonProps {
 }
 
 function ImplPaypalButton({
-  productId,
   invoiceId,
   total,
   subTotal,
   shippingTotal,
   lineItems,
+  productIds,
+  forceReRender = [],
   onHandleApprove,
   onHandleError,
 }: PaypalButtonProps) {
   const router = useRouter();
   const orderRef = useRef<Order | null>(null);
+  const timeId = useRef<NodeJS.Timeout>();
 
   const [{isPending}] = usePayPalScriptReducer();
+
+  const countTotal = productIds.length;
+
+  useWillUnmount(() => {
+    clearTimeout(timeId.current);
+  });
 
   return (
     <>
       <PayPalButtons
+        forceReRender={forceReRender}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';
           let errorMessage = 'Unknown error!!';
@@ -68,12 +79,14 @@ function ImplPaypalButton({
             } else {
               errorMessage = error.message;
             }
-            firebaseTracking.trackingPaypalError(productId, {
-              message: error.message,
-              stack: error.stack,
-              name: error.name,
-              time: new Date().toISOString(),
-            });
+            for (const productId of productIds) {
+              firebaseTracking.trackingPaypalError(productId, {
+                message: error.message,
+                stack: error.stack,
+                name: error.name,
+                time: new Date().toISOString(),
+              });
+            }
           }
 
           if (orderRef.current && orderRef.current.id) {
@@ -83,7 +96,6 @@ function ImplPaypalButton({
                 message: errorMessage,
               });
             } catch (error) {
-              console.error(error);
               Sentry.withScope(scope => {
                 scope.setTags({
                   update_order: 'failed',
@@ -91,6 +103,7 @@ function ImplPaypalButton({
                 });
                 Sentry.captureException(error);
               });
+              console.error(error);
             }
           }
 
@@ -103,7 +116,7 @@ function ImplPaypalButton({
             Sentry.captureException(error);
           });
 
-          console.error(error.message);
+          console.error(error);
         }}
         createOrder={async (data, actions) => {
           if (total <= 0) {
@@ -164,13 +177,21 @@ function ImplPaypalButton({
             email: order.payer?.email_address,
           };
 
-          orderRef.current = await onHandleApprove({
+          const {metadata, order: order_} = await onHandleApprove({
             transactionId,
             shipping,
             billing,
             ip,
             invoiceId,
           });
+
+          orderRef.current = order_;
+
+          timeId.current = setTimeout(() => {
+            router.replace(
+              `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
+            );
+          }, 500);
 
           toast.success('Thank you for shopping', {
             description: `Your #${orderRef.current.id} order has been received successfully`,
@@ -182,6 +203,54 @@ function ImplPaypalButton({
                 );
               },
             },
+          });
+
+          // Tracking for firebase
+          firebaseTracking.trackingOrder(orderRef.current?.order_key);
+          firebaseTracking.trackPurchase(
+            {
+              shipping_lines: [
+                {
+                  method_id: 'flat_rate',
+                  total: String(shippingTotal),
+                },
+              ],
+              meta_data: metadata,
+              set_paid: true,
+              billing,
+              shipping,
+              line_items: (lineItems ?? []).map((item, index) => ({
+                product_id: productIds[index],
+                quantity: Number(item.quantity),
+                variation_id: Number(item.sku),
+              })),
+              transaction_id: transactionId,
+              date_created: new Date().toISOString(),
+            },
+            productIds,
+          );
+
+          //Tracking for fbpixel
+          fbpixel.trackPurchase({
+            currency: 'USD',
+            num_items: countTotal,
+            value: Number(orderRef.current.total),
+            subTotal,
+            total: orderRef.current.total,
+            tax: orderRef.current.total_tax,
+            category_name: 'Uncategorized',
+            content_type: 'product',
+            order_id: String(orderRef.current.id),
+            content_ids: productIds.map(String),
+            content_name: lineItems?.map(item => item.name).join(' - '),
+            shipping: orderRef.current.shipping,
+            coupon_used: '',
+            coupon_name: '',
+            shipping_cost: orderRef.current.shipping_total,
+            // tags: '',
+            // predicted_ltv: 0,
+            // average_order: 0,
+            // transaction_count: 0,
           });
         }}
       />

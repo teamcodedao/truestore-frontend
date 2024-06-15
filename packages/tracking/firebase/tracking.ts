@@ -67,7 +67,7 @@ export class Tracking {
       errorData,
     );
   }
-  async trackPurchase(order: OrderTracking, productId: number) {
+  async trackPurchase(order: OrderTracking, productIds: number[]) {
     const ip = await fetchIp();
     const data = getGenerelParameters({
       userId: ip ?? '',
@@ -76,13 +76,16 @@ export class Tracking {
       return;
     }
     const {timeTrack, userName} = data;
-    set(
-      child(
-        this.dbRef,
-        `${userName}/PUB/${timeTrack}/${productId}/ORDER/${order.transaction_id}`,
-      ),
-      order,
-    );
+
+    for (const productId of productIds) {
+      set(
+        child(
+          this.dbRef,
+          `${userName}/PUB/${timeTrack}/${productId}/ORDER/${order.transaction_id}`,
+        ),
+        order,
+      );
+    }
 
     set(
       child(

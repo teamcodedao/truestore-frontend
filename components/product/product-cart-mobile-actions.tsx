@@ -91,8 +91,10 @@ export default function ProductCartMobileActions() {
           className="rounded-r from-red-600 to-orange-500"
           onClick={() => {
             firebaseTracking.trackingLogs('CO', product);
-            firebaseTracking.trackingLogs('CO1', product);
-            handleAddToCart({noVerify: true});
+            if (carts.length === 0) {
+              handleOpenToCartSheet({buyNow: true});
+              return;
+            }
             router.push('/checkout?from=mobile_product');
           }}
         >

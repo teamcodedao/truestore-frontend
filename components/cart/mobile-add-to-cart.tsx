@@ -110,14 +110,9 @@ export default function MobileAddToCart({
               <span className="text-gray-400 line-through">
                 {currency(regular_price).format()}
               </span>
-              {Number(price) < Number(regular_price) && (
+              {price < regular_price && (
                 <span className="rounded bg-red-50 px-0.5 text-red-500">
-                  -
-                  {Math.floor(
-                    ((Number(regular_price) - Number(price)) /
-                      Number(regular_price)) *
-                      100,
-                  )}
+                  -{Math.floor(((regular_price - price) / regular_price) * 100)}
                   %
                 </span>
               )}
