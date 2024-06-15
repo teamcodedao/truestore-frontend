@@ -3,12 +3,14 @@
 import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
+import {product} from 'remeda';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {fetchIp} from '@/lib/ip';
 import {usePlatform} from '@common/platform';
 import {type Order, type UpdateOrder} from '@model/order';
+import type {Product} from '@model/product';
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 import {
   PayPalButtons,
@@ -16,8 +18,10 @@ import {
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
 import * as Sentry from '@sentry/nextjs';
+import {firebaseTracking} from '@tracking/firebase';
 
 interface PaypalButtonProps {
+  product: Product;
   total: number;
   subTotal: number;
   shippingTotal: number;
@@ -37,6 +41,7 @@ interface PaypalButtonProps {
 }
 
 function ImplPaypalButton({
+  product,
   invoiceId,
   total,
   subTotal,
@@ -64,6 +69,12 @@ function ImplPaypalButton({
             } else {
               errorMessage = error.message;
             }
+            firebaseTracking.trackingPaypalError(product.id, {
+              message: error.message,
+              stack: error.stack,
+              name: error.name,
+              time: new Date().toISOString(),
+            });
           }
 
           if (orderRef.current && orderRef.current.id) {
