@@ -3,6 +3,7 @@
 import {useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
+import {format, toZonedTime} from 'date-fns-tz';
 import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
@@ -93,7 +94,11 @@ function ImplPaypalButton({
                 message: error.message,
                 stack: error.stack,
                 name: error.name,
-                time: new Date().toISOString(),
+                time: format(
+                  toZonedTime(new Date(), 'America/Los_Angeles'),
+                  'dd-MM-yyyy hh:mm:ss',
+                  {timeZone: 'America/Los_Angeles'},
+                ),
               });
             }
           }
@@ -240,7 +245,11 @@ function ImplPaypalButton({
                 fundingSource.current == 'card'
                   ? 'Credit or debit cards (PayPal)'
                   : 'Paypal',
-              date_created: new Date().toISOString(),
+              date_created: format(
+                toZonedTime(new Date(), 'America/Los_Angeles'),
+                'dd-MM-yyyy hh:mm:ss',
+                {timeZone: 'America/Los_Angeles'},
+              ),
             },
             productIds,
           );

@@ -1,3 +1,4 @@
+import {format, toZonedTime} from 'date-fns-tz';
 import {
   child,
   type Database,
@@ -47,7 +48,11 @@ export class Tracking {
         this.dbRef,
         `${userName}/PUB/${timeTrack}/${productId}/${key}/${ip.replaceAll('.', 'DV')}`,
       ),
-      new Date().toISOString(),
+      format(
+        toZonedTime(new Date(), 'America/Los_Angeles'),
+        'dd-MM-yyyy hh:mm:ss',
+        {timeZone: 'America/Los_Angeles'},
+      ),
     );
   }
   async trackingPaypalError(productId: number, errorData: unknown) {
