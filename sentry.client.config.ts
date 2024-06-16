@@ -21,6 +21,7 @@ Sentry.init({
     'Connection to Indexed Database server lost.',
     'Failed to look up IDBObjectStoreInfo from identifier',
   ],
+  denyUrls: [...denyUrls],
   beforeSend(event) {
     const userAgent = event.request?.headers?.['User-Agent'].toLowerCase();
 
@@ -44,7 +45,6 @@ Sentry.init({
 
     return event;
   },
-  denyUrls: [...denyUrls],
   replaysSessionSampleRate: 0.1,
   replaysOnErrorSampleRate: 1.0,
   integrations: [
