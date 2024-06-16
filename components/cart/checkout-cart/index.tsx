@@ -71,7 +71,6 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
             </span>
           </div>
           <CheckoutPayment
-            noFooter
             onClick={async () => {
               firebaseTracking.trackingClickPaypal(
                 carts[0].product.id,

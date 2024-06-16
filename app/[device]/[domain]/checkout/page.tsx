@@ -14,6 +14,7 @@ import {
 import {TrackPageView} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
 import logoImg from '@/images/logo_home_page.png';
+import trustbadge from '@/images/trustbadge.png';
 
 const CheckoutInformation = lazy(
   () => import('@/components/checkout').then(mod => mod.CheckoutInformation),
@@ -55,6 +56,13 @@ export default function CheckoutPage() {
           </div>
           <div className="mt-10 max-w-[--max-w]">
             <CheckoutPayment />
+            <hr />
+            <div className="mt-4 flex flex-col items-center gap-4 text-center">
+              <p className="font-medium">
+                All transactions are secure and encrypted by
+              </p>
+              <Image src={trustbadge} alt="" />
+            </div>
           </div>
         </div>
       </div>

@@ -74,7 +74,7 @@ function ImplPaypalButton({
     <>
       <PayPalButtons
         forceReRender={forceReRender}
-        disabled={disabled}
+        disabled={typeof window !== 'undefined' && disabled}
         onClick={async data => {
           fundingSource.current = data.fundingSource as string;
           firebaseTracking.trackingClickPaypal(productIds[0], 'PAYPAL');

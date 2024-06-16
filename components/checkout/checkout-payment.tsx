@@ -1,11 +1,9 @@
 'use client';
 
 import {useMemo} from 'react';
-import Image from 'next/image';
 import {useParams} from 'next/navigation';
 
 import {PaypalButton} from '@/components/checkout';
-import trustbadge from '@/images/trustbadge.png';
 import {generateReferenceId} from '@/lib/checkout';
 import {useCart} from '@model/cart';
 import {
@@ -18,14 +16,10 @@ import {
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 
 interface CheckoutPaymentProps {
-  noFooter?: boolean;
   onClick?: () => Promise<void>;
 }
 
-export default function CheckoutPayment({
-  noFooter,
-  onClick,
-}: CheckoutPaymentProps) {
+export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
   const {domain} = useParams<{domain: string}>();
   const [{carts, countTotal, subTotal, total, shippingTotal}, {clearCart}] =
     useCart();
@@ -52,82 +46,69 @@ export default function CheckoutPayment({
   }, [carts]);
 
   return (
-    <>
-      <PaypalButton
-        forceReRender={[countTotal, total, subTotal, shippingTotal]}
-        disabled={carts.length === 0}
-        invoiceId={generateReferenceId(domain)}
-        total={total}
-        subTotal={subTotal}
-        shippingTotal={shippingTotal}
-        lineItems={lineItems}
-        productIds={productIds}
-        onClick={onClick}
-        onApprove={async ({
-          invoiceId,
+    <PaypalButton
+      forceReRender={[countTotal, total, subTotal, shippingTotal]}
+      disabled={carts.length === 0}
+      invoiceId={generateReferenceId(domain)}
+      total={total}
+      subTotal={subTotal}
+      shippingTotal={shippingTotal}
+      lineItems={lineItems}
+      productIds={productIds}
+      onClick={onClick}
+      onApprove={async ({
+        invoiceId,
+        ip,
+        transactionId,
+        shipping,
+        billing,
+        fundingSource,
+      }) => {
+        const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
+          transaction_id: transactionId,
           ip,
-          transactionId,
-          shipping,
-          billing,
-          fundingSource,
-        }) => {
-          const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
+          invoice_id: invoiceId,
+        });
+
+        const order = await createOrder(
+          carts.map(item => {
+            return {
+              product_id: item.product.id,
+              quantity: item.quantity,
+              variation_id: item.variation?.id,
+            };
+          }),
+          {
+            shipping_lines: [
+              {
+                method_id: 'flat_rate',
+                total: String(shippingTotal),
+              },
+            ],
+            meta_data: metadata,
+            set_paid: true,
+            billing,
+            shipping,
             transaction_id: transactionId,
-            ip,
-            invoice_id: invoiceId,
-          });
+            payment_method_title: fundingSource ?? 'paypal',
+          },
+        );
 
-          const order = await createOrder(
-            carts.map(item => {
-              return {
-                product_id: item.product.id,
-                quantity: item.quantity,
-                variation_id: item.variation?.id,
-              };
-            }),
-            {
-              shipping_lines: [
-                {
-                  method_id: 'flat_rate',
-                  total: String(shippingTotal),
-                },
-              ],
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              transaction_id: transactionId,
-              payment_method_title: fundingSource ?? 'paypal',
-            },
-          );
+        await createOrderNotes(
+          order.id,
+          `PayPal transaction ID: ${transactionId}`,
+        );
 
-          await createOrderNotes(
-            order.id,
-            `PayPal transaction ID: ${transactionId}`,
-          );
+        clearCart();
 
-          clearCart();
-
-          return {order, metadata};
-        }}
-        onError={async (order, {status, message}) => {
-          if (!order.transaction_id) {
-            await updateOrderFailed(order.id, status);
-          }
-          await createOrderNotes(order.id, message);
-        }}
-      />
-      {!noFooter && (
-        <>
-          <hr />
-          <div className="mt-4 flex flex-col items-center gap-4 text-center">
-            <p className="font-medium">
-              All transactions are secure and encrypted by
-            </p>
-            <Image src={trustbadge} alt="" />
-          </div>
-        </>
-      )}
-    </>
+        return {order, metadata};
+      }}
+      onError={async (order, {status, message}) => {
+        if (!order.transaction_id) {
+          await updateOrderFailed(order.id, status);
+        }
+        await createOrderNotes(order.id, message);
+      }}
+    />
   );
 }

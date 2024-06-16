@@ -122,5 +122,11 @@ export default function ProductPayment() {
     );
   }
 
-  return <CheckoutPayment noFooter />;
+  return (
+    <CheckoutPayment
+      onClick={async () => {
+        firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
+      }}
+    />
+  );
 }
