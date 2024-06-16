@@ -68,7 +68,7 @@ export default function ProductPayment() {
           firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
           console.log('cart');
         }}
-        onHandleApprove={async ({
+        onApprove={async ({
           invoiceId,
           ip,
           transactionId,
@@ -113,7 +113,7 @@ export default function ProductPayment() {
 
           return {order, metadata};
         }}
-        onHandleError={async (order, {status, message}) => {
+        onError={async (order, {status, message}) => {
           if (!order.transaction_id) {
             await updateOrderFailed(order.id, status);
           }

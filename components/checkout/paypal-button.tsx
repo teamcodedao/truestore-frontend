@@ -28,7 +28,9 @@ interface PaypalButtonProps {
   forceReRender?: unknown[];
   lineItems: CreateOrderRequestBody['purchase_units'][number]['items'];
   productIds: number[];
-  onHandleApprove: (
+  disabled?: boolean;
+  onClick?: () => Promise<void>;
+  onApprove: (
     params: Pick<UpdateOrder, 'shipping' | 'billing'> & {
       ip: string;
       invoiceId: string;
@@ -36,11 +38,10 @@ interface PaypalButtonProps {
       fundingSource?: string;
     },
   ) => Promise<{order: Order; metadata: UpdateOrder['meta_data']}>;
-  onHandleError: (
+  onError: (
     order: Order,
     options: {status: string; message: string},
   ) => Promise<void>;
-  onClick: () => Promise<void>;
 }
 
 function ImplPaypalButton({
@@ -51,9 +52,10 @@ function ImplPaypalButton({
   lineItems,
   productIds,
   forceReRender = [],
-  onHandleApprove,
-  onHandleError,
+  disabled,
   onClick,
+  onApprove,
+  onError,
 }: PaypalButtonProps) {
   const router = useRouter();
   const orderRef = useRef<Order | null>(null);
@@ -72,10 +74,11 @@ function ImplPaypalButton({
     <>
       <PayPalButtons
         forceReRender={forceReRender}
+        disabled={disabled}
         onClick={async data => {
           fundingSource.current = data.fundingSource as string;
           firebaseTracking.trackingClickPaypal(productIds[0], 'PAYPAL');
-          await onClick();
+          await onClick?.();
         }}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';
@@ -100,7 +103,7 @@ function ImplPaypalButton({
 
           if (orderRef.current && orderRef.current.id) {
             try {
-              onHandleError(orderRef.current, {
+              onError(orderRef.current, {
                 status,
                 message: errorMessage,
               });
@@ -187,7 +190,7 @@ function ImplPaypalButton({
             email: order.payer?.email_address,
           };
 
-          const {metadata, order: order_} = await onHandleApprove({
+          const {metadata, order: order_} = await onApprove({
             transactionId,
             shipping,
             billing,

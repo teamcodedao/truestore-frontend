@@ -12,7 +12,6 @@ import {PaypalButtonSkeleton} from '@/components/skeleton';
 import {generateReferenceId} from '@/lib/checkout';
 import {useCart} from '@model/cart';
 import {
-  type CreateOrder,
   createOrder,
   createOrderNotes,
   type UpdateOrder,
@@ -36,33 +35,6 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
 
   const productIds = useMemo(() => {
     return carts.map(item => item.product.id);
-  }, [carts]);
-
-  const shippingLines = useMemo<CreateOrder['shipping_lines']>(() => {
-    if (carts.length === 0) {
-      return [];
-    }
-
-    const maxItem = carts.reduce((max, item) => {
-      const shippingValue = item.variation?.shipping_value;
-      if (shippingValue) {
-        return shippingValue > (max.variation?.shipping_value || 0)
-          ? item
-          : max;
-      }
-      return max;
-    }, carts[0]);
-
-    if (maxItem.variation?.shipping_value) {
-      return [
-        {
-          method_id: 'flat_rate',
-          total: maxItem.variation?.shipping_value.toString(),
-        },
-      ];
-    }
-
-    return [];
   }, [carts]);
 
   const lineItems = useMemo(() => {
@@ -137,6 +109,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
           <Suspense fallback={<PaypalButtonSkeleton />}>
             <PaypalButton
               forceReRender={[countTotal, total, subTotal, shippingTotal]}
+              disabled={carts.length === 0}
               invoiceId={generateReferenceId(domain)}
               total={total}
               subTotal={subTotal}
@@ -147,7 +120,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
                 firebaseTracking.trackingClickPaypal(productIds[0], 'PAYPAL3');
                 console.log('cart');
               }}
-              onHandleApprove={async ({
+              onApprove={async ({
                 invoiceId,
                 ip,
                 transactionId,
@@ -170,7 +143,12 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
                     };
                   }),
                   {
-                    shipping_lines: shippingLines,
+                    shipping_lines: [
+                      {
+                        method_id: 'flat_rate',
+                        total: String(shippingTotal),
+                      },
+                    ],
                     meta_data: metadata,
                     set_paid: true,
                     billing,
@@ -189,7 +167,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
 
                 return {order, metadata};
               }}
-              onHandleError={async (order, {status, message}) => {
+              onError={async (order, {status, message}) => {
                 if (!order.transaction_id) {
                   await updateOrderFailed(order.id, status);
                 }
