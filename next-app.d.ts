@@ -44,3 +44,13 @@ declare global {
     params: P;
   }>;
 }
+
+declare module 'dayjs' {
+  import 'dayjs';
+
+  type Timezone = 'America/Los_Angeles' | 'Asia/Ho_Chi_Minh';
+
+  interface Dayjs {
+    tz(timezone?: Timezone, keepLocalTime?: boolean): Dayjs;
+  }
+}
