@@ -86,7 +86,7 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
         lineItems={lineItems}
         productIds={productIds}
         onClick={async () => {
-          console.log('click checkout');
+          console.log('checkout');
         }}
         onHandleApprove={async ({
           invoiceId,
