@@ -1,4 +1,5 @@
 import './globals.css';
+import './bootstrap';
 import {Inter} from 'next/font/google';
 
 import clsx from 'clsx';
