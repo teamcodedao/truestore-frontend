@@ -1,24 +1,12 @@
 'use client';
 
-import {Suspense, useMemo} from 'react';
 import Link from 'next/link';
-import {useParams} from 'next/navigation';
 
 import clsx from 'clsx';
 import currency from 'currency.js';
 
-import {PaypalButton} from '@/components/checkout';
-import {PaypalButtonSkeleton} from '@/components/skeleton';
-import {generateReferenceId} from '@/lib/checkout';
+import {CheckoutPayment} from '@/components/checkout';
 import {useCart} from '@model/cart';
-import {
-  createOrder,
-  createOrderNotes,
-  type UpdateOrder,
-  updateOrderFailed,
-  updateOrderMetadata,
-} from '@model/order';
-import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 import {firebaseTracking} from '@tracking/firebase';
 
 import GroupCart from './group-cart';
@@ -28,31 +16,7 @@ interface CheckoutCartProps {
 }
 
 export default function CheckoutCart({onClose}: CheckoutCartProps) {
-  const {domain} = useParams<{domain: string}>();
-
-  const [{carts, countTotal, subTotal, shippingTotal, total}, {clearCart}] =
-    useCart();
-
-  const productIds = useMemo(() => {
-    return carts.map(item => item.product.id);
-  }, [carts]);
-
-  const lineItems = useMemo(() => {
-    return carts.map(
-      item =>
-        ({
-          name: item.product.name + '-' + item.variation.attributes.join('-'),
-          quantity: String(item.quantity),
-          unit_amount: {
-            currency_code: 'USD',
-            value: String(item.variation.price),
-          },
-          sku: String(item.variation.id),
-        }) satisfies NonNullable<
-          CreateOrderRequestBody['purchase_units'][number]['items']
-        >[number],
-    );
-  }, [carts]);
+  const [{carts, countTotal, subTotal, shippingTotal, total}] = useCart();
 
   return (
     <div className="flex h-screen w-[480px] max-w-full flex-col p-4 sm:p-8">
@@ -106,75 +70,15 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
               or quick checkout with
             </span>
           </div>
-          <Suspense fallback={<PaypalButtonSkeleton />}>
-            <PaypalButton
-              forceReRender={[countTotal, total, subTotal, shippingTotal]}
-              disabled={carts.length === 0}
-              invoiceId={generateReferenceId(domain)}
-              total={total}
-              subTotal={subTotal}
-              shippingTotal={shippingTotal}
-              lineItems={lineItems}
-              productIds={productIds}
-              onClick={async () => {
-                firebaseTracking.trackingClickPaypal(productIds[0], 'PAYPAL3');
-                console.log('cart');
-              }}
-              onApprove={async ({
-                invoiceId,
-                ip,
-                transactionId,
-                shipping,
-                billing,
-                fundingSource,
-              }) => {
-                const metadata: UpdateOrder['meta_data'] = updateOrderMetadata({
-                  transaction_id: transactionId,
-                  ip,
-                  invoice_id: invoiceId,
-                });
-
-                const order = await createOrder(
-                  carts.map(item => {
-                    return {
-                      product_id: item.product.id,
-                      quantity: item.quantity,
-                      variation_id: item.variation?.id,
-                    };
-                  }),
-                  {
-                    shipping_lines: [
-                      {
-                        method_id: 'flat_rate',
-                        total: String(shippingTotal),
-                      },
-                    ],
-                    meta_data: metadata,
-                    set_paid: true,
-                    billing,
-                    shipping,
-                    transaction_id: transactionId,
-                    payment_method_title: fundingSource ?? 'paypal',
-                  },
-                );
-
-                await createOrderNotes(
-                  order.id,
-                  `PayPal transaction ID: ${transactionId}`,
-                );
-
-                clearCart();
-
-                return {order, metadata};
-              }}
-              onError={async (order, {status, message}) => {
-                if (!order.transaction_id) {
-                  await updateOrderFailed(order.id, status);
-                }
-                await createOrderNotes(order.id, message);
-              }}
-            />
-          </Suspense>
+          <CheckoutPayment
+            noFooter
+            onClick={async () => {
+              firebaseTracking.trackingClickPaypal(
+                carts[0].product.id,
+                'PAYPAL3',
+              );
+            }}
+          />
         </div>
       </footer>
     </div>

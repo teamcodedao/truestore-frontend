@@ -19,9 +19,13 @@ import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 
 interface CheckoutPaymentProps {
   noFooter?: boolean;
+  onClick?: () => Promise<void>;
 }
 
-export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
+export default function CheckoutPayment({
+  noFooter,
+  onClick,
+}: CheckoutPaymentProps) {
   const {domain} = useParams<{domain: string}>();
   const [{carts, countTotal, subTotal, total, shippingTotal}, {clearCart}] =
     useCart();
@@ -58,9 +62,7 @@ export default function CheckoutPayment({noFooter}: CheckoutPaymentProps) {
         shippingTotal={shippingTotal}
         lineItems={lineItems}
         productIds={productIds}
-        onClick={async () => {
-          console.log('checkout');
-        }}
+        onClick={onClick}
         onApprove={async ({
           invoiceId,
           ip,
