@@ -72,10 +72,10 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
           </div>
           <CheckoutPayment
             onClick={async () => {
-              firebaseTracking.trackingClickPaypal(
-                carts[0].product.id,
-                'PAYPAL3',
-              );
+              // firebaseTracking.trackingClickPaypal(
+              //   carts[0].product.id,
+              //   'PAYPAL3',
+              // );
             }}
           />
         </div>

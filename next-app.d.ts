@@ -48,7 +48,7 @@ declare global {
 declare module 'dayjs' {
   import 'dayjs';
 
-  type Timezone = 'America/Los_Angeles' | 'Asia/Ho_Chi_Minh';
+  type Timezone = 'America/Los_Angeles';
 
   interface Dayjs {
     tz(timezone?: Timezone, keepLocalTime?: boolean): Dayjs;

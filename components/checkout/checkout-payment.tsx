@@ -55,7 +55,7 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
       shippingTotal={shippingTotal}
       lineItems={lineItems}
       productIds={productIds}
-      onClick={onClick}
+      // onClick={onClick}
       onApprove={async ({
         invoiceId,
         ip,
