@@ -14,9 +14,15 @@ importers:
       '@common/platform':
         specifier: workspace:^
         version: link:packages/common/platform
+      '@formatjs/intl-getcanonicallocales':
+        specifier: ^2.3.0
+        version: 2.3.0
       '@formatjs/intl-listformat':
         specifier: ^7.5.7
         version: 7.5.7
+      '@formatjs/intl-locale':
+        specifier: ^4.0.0
+        version: 4.0.0
       '@model/cart':
         specifier: workspace:*
         version: link:packages/model/cart
@@ -587,8 +593,17 @@ packages:
   '@formatjs/icu-skeleton-parser@1.8.2':
     resolution: {integrity: sha512-k4ERKgw7aKGWJZgTarIcNEmvyTVD9FYh0mTrrBMHZ1b8hUu6iOJ4SzsZlo3UNAvHYa+PnvntIwRPt1/vy4nA9Q==}
 
+  '@formatjs/intl-enumerator@1.4.7':
+    resolution: {integrity: sha512-03RHnFqfpB4H/jwCwlzC+wkTDk2Fi24JmVIY2PVGvTUpikN2bSr9+8oTXfOC+y7B7VxjCArUnqWXVoctkmy85w==}
+
+  '@formatjs/intl-getcanonicallocales@2.3.0':
+    resolution: {integrity: sha512-BOXbLwqQ7nKua/l7tKqDLRN84WupDXFDhGJQMFvsMVA2dKuOdRaWTxWpL3cJ7qPkoNw11Jf+Xpj4OSPBBvW0eQ==}
+
   '@formatjs/intl-listformat@7.5.7':
     resolution: {integrity: sha512-MG2TSChQJQT9f7Rlv+eXwUFiG24mKSzmF144PLb8m8OixyXqn4+YWU+5wZracZGCgVTVmx8viCf7IH3QXoiB2g==}
+
+  '@formatjs/intl-locale@4.0.0':
+    resolution: {integrity: sha512-+4dbMEGsp1bvB3JB3UHH6YTjMnFTifnfdaHp4ROrCCu50NedA69RBsDCG3eivcZkbj57X9ehGhMWjLxlP+gyVw==}
 
   '@formatjs/intl-localematcher@0.5.4':
     resolution: {integrity: sha512-zTwEpWOzZ2CiKcB93BLngUX59hQkuZjT2+SAQEscSm52peDW/getsawMcWF1rGRpMCX6D7nSJA3CzJ8gn13N/g==}
@@ -4753,10 +4768,25 @@ snapshots:
       '@formatjs/ecma402-abstract': 2.0.0
       tslib: 2.6.3
 
+  '@formatjs/intl-enumerator@1.4.7':
+    dependencies:
+      tslib: 2.6.3
+
+  '@formatjs/intl-getcanonicallocales@2.3.0':
+    dependencies:
+      tslib: 2.6.3
+
   '@formatjs/intl-listformat@7.5.7':
     dependencies:
       '@formatjs/ecma402-abstract': 2.0.0
       '@formatjs/intl-localematcher': 0.5.4
+      tslib: 2.6.3
+
+  '@formatjs/intl-locale@4.0.0':
+    dependencies:
+      '@formatjs/ecma402-abstract': 2.0.0
+      '@formatjs/intl-enumerator': 1.4.7
+      '@formatjs/intl-getcanonicallocales': 2.3.0
       tslib: 2.6.3
 
   '@formatjs/intl-localematcher@0.5.4':
