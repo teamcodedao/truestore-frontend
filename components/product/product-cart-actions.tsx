@@ -71,8 +71,7 @@ export default function ProductCartActions({
       post_id: product.id,
     });
 
-    firebaseTracking.trackingLogs('VC', product);
-    firebaseTracking.trackingLogs('ATC', product);
+    firebaseTracking.trackingLogs(['VC', 'ATC'], product);
   }
 
   return (
@@ -105,7 +104,7 @@ export default function ProductCartActions({
         <button
           className="w-full bg-orange-600 hover:bg-orange-500"
           onClick={() => {
-            firebaseTracking.trackingLogs('CO', product);
+            firebaseTracking.trackingLogs(['CO'], product);
             handleAddToCart({noVerify: true});
             router.push('/checkout?from=product');
           }}

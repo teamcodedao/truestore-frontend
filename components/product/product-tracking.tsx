@@ -12,7 +12,7 @@ interface TrackingProductProps {
 
 export default function ProductTracking({product}: TrackingProductProps) {
   useEffect(() => {
-    firebaseTracking.trackingLogs('VC', product);
+    firebaseTracking.trackingLogs(['VC'], product);
   }, [product]);
 
   useEffect(() => {

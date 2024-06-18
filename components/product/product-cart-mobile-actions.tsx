@@ -66,8 +66,7 @@ export default function ProductCartMobileActions() {
       post_id: product.id,
     });
 
-    firebaseTracking.trackingLogs('VC', product);
-    firebaseTracking.trackingLogs('ATC', product);
+    firebaseTracking.trackingLogs(['VC', 'ATC'], product);
   }
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {
@@ -124,8 +123,7 @@ export default function ProductCartMobileActions() {
         <button
           className="rounded-r from-red-600 to-orange-500"
           onClick={() => {
-            firebaseTracking.trackingLogs('CO', product);
-            firebaseTracking.trackingLogs('CO1', product);
+            firebaseTracking.trackingLogs(['CO', 'CO1'], product);
             handleAddToCart({noVerify: true});
             router.push('/checkout?from=mobile_product');
           }}

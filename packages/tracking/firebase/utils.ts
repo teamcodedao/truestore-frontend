@@ -5,6 +5,7 @@ export function getGenerelParameters({userId}: {userId: string}) {
 
   const usTime = new Date().toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles',
+    hour12: false,
   });
   const timeIds = usTime.split(', ');
   let timeTrack = '';
@@ -30,13 +31,13 @@ export function getGenerelParameters({userId}: {userId: string}) {
   const navigator_info = window.navigator;
   const screen_info = window.screen;
   let uuid = String(navigator_info.mimeTypes.length);
+  const userAgent = navigator_info.userAgent;
   uuid += navigator_info.userAgent.replace(/\D+/g, '');
   uuid += navigator_info.plugins.length;
   uuid += screen_info.height || '';
   uuid += screen_info.width || '';
   uuid += screen_info.pixelDepth || '';
   userId += 'DV' + uuid;
-
   return {
     userId,
     userName,
@@ -48,5 +49,6 @@ export function getGenerelParameters({userId}: {userId: string}) {
     timeTrack,
     timeTrack2,
     isPub,
+    userAgent,
   };
 }

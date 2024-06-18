@@ -83,9 +83,7 @@ export default function MobileAddToCart({
       post_id: product.id,
     });
 
-    firebaseTracking.trackingLogs('VC', product);
-    firebaseTracking.trackingLogs('ATC', product);
-    firebaseTracking.trackingLogs('ATC1', product);
+    firebaseTracking.trackingLogs(['VC', 'ATC', 'ATC1'], product);
   }
 
   return (
