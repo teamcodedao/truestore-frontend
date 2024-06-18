@@ -77,9 +77,8 @@ function ImplPaypalButton({
         forceReRender={forceReRender}
         disabled={typeof window !== 'undefined' && disabled}
         onClick={async data => {
-          // fundingSource.current = data.fundingSource as string;
-          // firebaseTracking.trackingClickPaypal(productIds[0], 'PAYPAL');
-          // await onClick?.();
+          fundingSource.current = data.fundingSource as string;
+          return onClick?.();
         }}
         onError={async error => {
           let status: 'failed' | 'cancelled' = 'cancelled';

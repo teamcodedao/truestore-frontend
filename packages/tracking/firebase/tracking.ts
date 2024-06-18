@@ -30,7 +30,7 @@ export class Tracking {
 
   async trackingClickPaypal(
     productId: number,
-    key: 'PAYPAL' | 'PAYPAL2' | 'PAYPAL3',
+    key: 'PAYPAL' | 'PAYPAL2' | 'PAYPAL3' | 'PAYPAL4',
   ) {
     const ip = await fetchIp();
     if (!ip) {
@@ -43,13 +43,19 @@ export class Tracking {
       return;
     }
     const {timeTrack, userName} = data;
-    set(
-      child(
-        this.dbRef,
-        `${userName}/PUB/${timeTrack}/${productId}/${key}/${ip.replaceAll('.', 'DV')}`,
-      ),
-      dayjs().tz('America/Los_Angeles').format('DD-MM-YYYY HH:mm:ss'),
-    );
+
+    const timestamp = dayjs()
+      .tz('America/Los_Angeles')
+      .format('DD-MM-YYYY HH:mm:ss');
+    const ipDV = ip.replaceAll('.', 'DV');
+
+    const updates: {[key: string]: any} = {};
+    console.log(1212);
+    updates[`${userName}/PUB/${timeTrack}/${productId}/${key}/${ipDV}`] =
+      timestamp;
+    updates[`${userName}/PUB/${timeTrack}/${productId}/PAYPAL/${ipDV}`] =
+      timestamp;
+    return update(this.dbRef, updates);
   }
 
   async trackingPaypalError(productId: number, errorData: unknown) {

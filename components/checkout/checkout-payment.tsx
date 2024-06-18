@@ -14,6 +14,7 @@ import {
   updateOrderMetadata,
 } from '@model/order';
 import type {CreateOrderRequestBody} from '@paypal/paypal-js';
+import {firebaseTracking} from '@tracking/firebase';
 
 interface CheckoutPaymentProps {
   onClick?: () => Promise<void>;
@@ -55,7 +56,12 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
       shippingTotal={shippingTotal}
       lineItems={lineItems}
       productIds={productIds}
-      // onClick={onClick}
+      onClick={async () => {
+        return firebaseTracking.trackingClickPaypal(
+          carts[0].product.id,
+          'PAYPAL4',
+        );
+      }}
       onApprove={async ({
         invoiceId,
         ip,

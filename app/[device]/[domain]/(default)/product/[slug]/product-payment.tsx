@@ -65,7 +65,7 @@ export default function ProductPayment() {
         shippingTotal={shippingTotal}
         lineItems={lineItems}
         onClick={async () => {
-          // firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
+          return firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
         }}
         onApprove={async ({
           invoiceId,
@@ -125,7 +125,7 @@ export default function ProductPayment() {
   return (
     <CheckoutPayment
       onClick={async () => {
-        // firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
+        return firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
       }}
     />
   );
