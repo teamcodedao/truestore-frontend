@@ -17,6 +17,7 @@
   "dependencies": {
     "@common/no-ssr": "workspace:^",
     "@common/platform": "workspace:^",
+    "@formatjs/intl-listformat": "^7.5.7",
     "@model/cart": "workspace:*",
     "@model/order": "workspace:^",
     "@model/product": "workspace:^",
