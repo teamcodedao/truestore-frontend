@@ -38,9 +38,10 @@ export async function generateMetadata({
   const product = await getProduct(params.domain, params.slug, {
     throwNotFound: true,
   });
-
+  console.log(product);
   return {
     title: product.name,
+    image: product.images[0],
   };
 }
 
