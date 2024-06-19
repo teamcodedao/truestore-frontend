@@ -136,7 +136,6 @@ function ImplPaypalButton({
           if (total <= 0) {
             throw new Error('Your order could not be processed');
           }
-
           return actions.order.create({
             intent: 'CAPTURE',
             purchase_units: [
@@ -155,7 +154,12 @@ function ImplPaypalButton({
                     },
                   },
                 },
-                items: lineItems,
+                items: lineItems?.map(item => {
+                  return {
+                    ...item,
+                    name: item.name.substring(0, 126),
+                  };
+                }),
                 invoice_id: invoiceId,
                 custom_id: fundingSource.current,
               },

@@ -50,7 +50,6 @@ export class Tracking {
     const ipDV = ip.replaceAll('.', 'DV');
 
     const updates: {[key: string]: any} = {};
-    console.log(1212);
     updates[`${userName}/PUB/${timeTrack}/${productId}/${key}/${ipDV}`] =
       timestamp;
     updates[`${userName}/PUB/${timeTrack}/${productId}/PAYPAL/${ipDV}`] =
