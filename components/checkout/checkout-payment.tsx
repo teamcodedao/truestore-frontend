@@ -33,7 +33,11 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
     return carts.map(
       item =>
         ({
-          name: item.product.name + '-' + item.variation.attributes.join('-'),
+          name: (
+            item.product.name +
+            '-' +
+            item.variation.attributes.join('-')
+          ).substring(0, 126),
           quantity: String(item.quantity),
           unit_amount: {
             currency_code: 'USD',

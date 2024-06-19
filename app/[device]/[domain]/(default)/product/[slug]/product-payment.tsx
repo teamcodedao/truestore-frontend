@@ -31,10 +31,11 @@ export default function ProductPayment() {
     if (variation) {
       return [
         {
-          name:
+          name: (
             product.name +
             '-' +
-            variation.attributes.map(i => i.name).join('-'),
+            variation.attributes.map(i => i.name).join('-')
+          ).substring(0, 126),
           quantity: String(quantity),
           unit_amount: {
             currency_code: 'USD',
