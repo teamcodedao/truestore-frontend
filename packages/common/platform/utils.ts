@@ -10,6 +10,10 @@ export function imgproxy(
   processing: string | string[] = '',
 ) {
   if (!src || imgproxy_url) {
+    if (src.toLowerCase().endsWith('.gif')) {
+      return new URL(src, imgproxy_url).toString();
+    }
+
     let path = `/_/plain/${src}`;
 
     if (Array.isArray(processing) && processing.length > 0) {
