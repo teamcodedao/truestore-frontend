@@ -28,14 +28,16 @@ async function getClient(domain: string) {
       ],
       beforeRequest: [
         (request, options) => {
-          let fullUrl = `${request.url}`;
-          if (/wp-json\/wc\/v[1|2]/.test(fullUrl)) {
-            fullUrl = fullUrl.replace('wp-json/wc', 'wc-api');
-          }
-          const proxyUrl = `http://207.246.121.223:3006/proxy?url=${encodeURIComponent(fullUrl)}`;
-          const newRequest = new Request(proxyUrl, request);
+          if (request.method === 'GET') {
+            let fullUrl = `${request.url}`;
+            if (/wp-json\/wc\/v[1|2]/.test(fullUrl)) {
+              fullUrl = fullUrl.replace('wp-json/wc', 'wc-api');
+            }
+            const proxyUrl = `http://207.246.121.223:3006/proxy?url=${encodeURIComponent(fullUrl)}`;
+            const newRequest = new Request(proxyUrl, request);
 
-          Object.assign(request, newRequest);
+            Object.assign(request, newRequest);
+          }
         },
       ],
       beforeError: [
