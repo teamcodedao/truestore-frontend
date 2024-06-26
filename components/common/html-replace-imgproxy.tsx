@@ -37,6 +37,7 @@ export default function HtmlReplaceImgproxy({html}: HtmlReplaceImgproxyProps) {
                   src: imgproxy(src),
                 }
               : rest)}
+            style={undefined}
           />
         );
       }
