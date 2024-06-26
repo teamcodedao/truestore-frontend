@@ -61,10 +61,8 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
       lineItems={lineItems}
       productIds={productIds}
       onClick={async () => {
-        return firebaseTracking.trackingClickPaypal(
-          carts[0].product.id,
-          'PAYPAL4',
-        );
+        firebaseTracking.trackingClickPaypal(carts[0].product.id, 'PAYPAL4');
+        onClick?.();
       }}
       onApprove={async ({
         invoiceId,

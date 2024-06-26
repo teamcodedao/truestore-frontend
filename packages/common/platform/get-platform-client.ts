@@ -27,7 +27,7 @@ async function getClient(domain: string) {
         },
       ],
       beforeRequest: [
-        (request, options) => {
+        request => {
           if (request.method === 'GET') {
             let fullUrl = `${request.url}`;
             if (/wp-json\/wc\/v[1|2]/.test(fullUrl)) {

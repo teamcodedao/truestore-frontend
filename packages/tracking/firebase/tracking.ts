@@ -49,7 +49,7 @@ export class Tracking {
       .format('DD-MM-YYYY HH:mm:ss');
     const ipDV = ip.replaceAll('.', 'DV');
 
-    const updates: {[key: string]: any} = {};
+    const updates: {[key: string]: unknown} = {};
     updates[`${userName}/PUB/${timeTrack}/${productId}/${key}/${ipDV}`] =
       timestamp;
     updates[`${userName}/PUB/${timeTrack}/${productId}/PAYPAL/${ipDV}`] =
@@ -88,7 +88,7 @@ export class Tracking {
     }
     const {timeTrack, userName} = data;
 
-    const updates: {[key: string]: any} = {};
+    const updates: {[key: string]: unknown} = {};
 
     for (const productId of productIds) {
       updates[
@@ -125,7 +125,7 @@ export class Tracking {
       userAgent,
     } = data;
 
-    const updates: {[key: string]: any} = {};
+    const updates: {[key: string]: unknown} = {};
 
     for (const cart of carts) {
       const productId = cart.product.id;
@@ -194,7 +194,7 @@ export class Tracking {
     const productThumb = product.images[0];
     const productName = product.name;
 
-    const updates: {[key: string]: any} = {};
+    const updates: {[key: string]: unknown} = {};
 
     contentInfos.forEach(contentInfo => {
       updates[
