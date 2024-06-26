@@ -1,6 +1,8 @@
 import {Suspense} from 'react';
 import Image from 'next/image';
 
+import {ErrorBoundary} from 'react-error-boundary';
+
 import {YourCart} from '@/components/cart';
 import {
   Countdown,
@@ -180,7 +182,9 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
           <SectionHeading>Description</SectionHeading>
           <div className="text-base [&_.emoji]:multi-[`size-[1em]`] [&_img.aligncenter]:multi-[`block;mx-auto`] [&_img]:inline-block">
-            <HtmlReplaceImgproxy html={product.description} />
+            <ErrorBoundary fallback={null}>
+              <HtmlReplaceImgproxy html={product.description} />
+            </ErrorBoundary>
           </div>
         </div>
       </div>
@@ -197,17 +201,20 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
         </MatchDevice>
       </Suspense>
 
-      <div
-        id="product-reviews"
-        className="mt-10 has-[[data-empty='true']]:hidden sm:mt-20 lg:mt-32"
-      >
-        <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
-          <SectionHeading>Reviews</SectionHeading>
-          <Suspense fallback={<div>Loading...</div>}>
-            <ProductReview promiseproductReview={promiseproductReview} />
-          </Suspense>
+      <ErrorBoundary fallback={null}>
+        <div
+          id="product-reviews"
+          className="mt-10 has-[[data-empty='true']]:hidden sm:mt-20 lg:mt-32"
+        >
+          <div className="flex flex-col items-start gap-x-5 gap-y-6 sm:flex-row">
+            <SectionHeading>Reviews</SectionHeading>
+
+            <Suspense fallback={<div>Loading...</div>}>
+              <ProductReview promiseproductReview={promiseproductReview} />
+            </Suspense>
+          </div>
         </div>
-      </div>
+      </ErrorBoundary>
 
       <Suspense>
         <ProductTracking product={product} />
