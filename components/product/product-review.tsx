@@ -26,7 +26,7 @@ export default function ProductReview({reviews}: ProductReviewProps) {
                 <span>Verified Buyer</span>
               </p>
             </div>
-            <div className="flex-[1_1_400px] text-base [&_img]:multi-[inline;max-h-[250px]]">
+            <div className="flex-[1_1_400px] text-base [&_img]:multi-[inline;]">
               <HtmlReplaceImgproxy html={review.review} />
             </div>
           </div>
