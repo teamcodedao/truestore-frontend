@@ -10,6 +10,7 @@ import {generateReferenceId} from '@/lib/checkout';
 import {useCart} from '@model/cart';
 import {
   createOrder,
+  createOrderNode,
   createOrderNotes,
   type UpdateOrder,
   updateOrderFailed,
@@ -81,6 +82,30 @@ export default function ProductPayment() {
             ip,
             invoice_id: invoiceId,
           });
+
+          await createOrderNode(
+            carts.map(item => {
+              return {
+                product_id: item.product.id,
+                quantity: item.quantity,
+                variation_id: item.variation?.id,
+              };
+            }),
+            {
+              shipping_lines: [
+                {
+                  method_id: 'flat_rate',
+                  total: String(shippingTotal),
+                },
+              ],
+              meta_data: metadata,
+              set_paid: true,
+              billing,
+              shipping,
+              transaction_id: transactionId,
+              payment_method_title: fundingSource ?? 'paypal',
+            },
+          );
 
           const order = await createOrder(
             [

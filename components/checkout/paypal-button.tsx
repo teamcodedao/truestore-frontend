@@ -207,24 +207,6 @@ function ImplPaypalButton({
 
           orderRef.current = order_;
 
-          timeId.current = setTimeout(() => {
-            router.replace(
-              `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
-            );
-          }, 500);
-
-          toast.success('Thank you for shopping', {
-            description: `Your #${orderRef.current.id} order has been received successfully`,
-            action: {
-              label: 'My Order',
-              onClick: () => {
-                router.replace(
-                  `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
-                );
-              },
-            },
-          });
-
           // Tracking for firebase
           firebaseTracking.trackingOrder(orderRef.current?.order_key);
           firebaseTracking.trackPurchase(
@@ -255,6 +237,24 @@ function ImplPaypalButton({
             },
             productIds,
           );
+
+          timeId.current = setTimeout(() => {
+            router.replace(
+              `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
+            );
+          }, 500);
+
+          toast.success('Thank you for shopping', {
+            description: `Your #${orderRef.current.id} order has been received successfully`,
+            action: {
+              label: 'My Order',
+              onClick: () => {
+                router.replace(
+                  `/orders/${orderRef.current?.id}?key=${orderRef.current?.order_key}`,
+                );
+              },
+            },
+          });
 
           //Tracking for fbpixel
           fbpixel.trackPurchase({

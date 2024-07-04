@@ -85,7 +85,11 @@ export interface CreateOrder {
   meta_data?: OrderMetadata[];
   transaction_id?: string;
 }
-
+export interface CreateOrderNode {
+  domain: string;
+  transaction_id?: string;
+  orderData: CreateOrder;
+}
 export interface UpdateOrder {
   billing: Billing;
   shipping: Shipping;
