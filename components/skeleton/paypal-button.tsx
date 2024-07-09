@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import {cn} from '@/lib/cn';
 
 interface PaypalButtonSkeleton extends React.ComponentProps<'div'> {}
 
@@ -7,7 +7,7 @@ export default function PaypalButtonSkeleton({
   ...rest
 }: PaypalButtonSkeleton) {
   return (
-    <div {...rest} className={clsx(className, 'animate-pulse space-y-4')}>
+    <div {...rest} className={cn(className, 'animate-pulse space-y-4')}>
       <div className="flex h-[53px] items-center justify-center rounded-md bg-slate-200">
         <div className="h-[20px] w-[90px] max-w-full bg-slate-300"></div>
       </div>

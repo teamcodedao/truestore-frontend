@@ -2,10 +2,10 @@
 
 import {useCallback, useEffect, useState} from 'react';
 
-import clsx from 'clsx';
 import useEmblaCarousel from 'embla-carousel-react';
 import {WheelGesturesPlugin} from 'embla-carousel-wheel-gestures';
 
+import {cn} from '@/lib/cn';
 import {usePrevNextButtons} from '@/lib/embla-carousel';
 import {useImgproxy} from '@common/platform';
 import {useProductVariation} from '@model/product';
@@ -90,7 +90,7 @@ export default function ProductCarousel({images}: ProductCarouselProps) {
 
       {images.length > 1 && (
         <div
-          className={clsx(
+          className={cn(
             'relative mt-5',
             '[&>button]:multi-[`absolute;top-1/2;-translate-y-1/2;text-white;bg-black/60;flex;items-center;justify-center;text-3xl`]',
             '[&>button[disabled]]:opacity-50',

@@ -4,13 +4,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import {useSelectedLayoutSegment} from 'next/navigation';
 
-import clsx from 'clsx';
 import Sticky from 'react-stickynode';
 
 import {YourCart} from '@/components/cart';
 import {MatchDevice} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
 import logoImg from '@/images/logo_home_page.png';
+import {cn} from '@/lib/cn';
 import {useDevice} from '@/lib/use-device';
 
 export default function Header() {
@@ -20,7 +20,7 @@ export default function Header() {
   return (
     <Sticky enabled={device === 'mobile'} innerZ={997}>
       <header
-        className={clsx(
+        className={cn(
           'relative flex items-center justify-center gap-x-10 bg-white py-3',
         )}
       >

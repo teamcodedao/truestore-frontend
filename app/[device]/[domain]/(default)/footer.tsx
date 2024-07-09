@@ -3,10 +3,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-import clsx from 'clsx';
-
 import paypalImg from '@/images/payments/paypal.webp';
 import visaMasterImg from '@/images/payments/visa_master.webp';
+import {cn} from '@/lib/cn';
 import {usePlatform} from '@common/platform';
 
 interface FooterProps extends React.ComponentProps<'footer'> {}
@@ -15,7 +14,7 @@ export default function Footer({className}: FooterProps) {
   const platform = usePlatform();
 
   return (
-    <footer id="footer" className={clsx(className, 'bg-[#042449] text-white')}>
+    <footer id="footer" className={cn(className, 'bg-[#042449] text-white')}>
       <div className="container">
         <div className="flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20">
           <div className="text-center">
@@ -37,7 +36,7 @@ export default function Footer({className}: FooterProps) {
             </div>
           </div>
           <div
-            className={clsx(
+            className={cn(
               'flex grow justify-center gap-x-10 sm:gap-x-20 md:gap-x-8 lg:gap-x-20 xl:gap-x-40',
               'mixin/heading:multi-[`font-bold;text-sm`]',
               'mixin/menu:multi-[`text-sm;mt-4;[&_a:hover]:text-slate-200`]',

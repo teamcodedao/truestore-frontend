@@ -3,13 +3,13 @@
 import {useState} from 'react';
 import {useRouter} from 'next/navigation';
 
-import clsx from 'clsx';
 import currency from 'currency.js';
 import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {ProductAttribute} from '@/components/product';
 import {SpinNumber} from '@/components/ui';
+import {cn} from '@/lib/cn';
 import {useImgproxy} from '@common/platform';
 import {type Product, type ProductVariation} from '@model/product';
 import {fbpixel} from '@tracking/fbpixel';
@@ -142,7 +142,7 @@ export default function MobileAddToCart({
               />
             </div>
             <button
-              className={clsx(
+              className={cn(
                 'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
                 {
                   'from-red-600 to-orange-500': buyNow,

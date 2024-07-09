@@ -1,6 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
+import {cn} from '@/lib/cn';
 
 interface HorizontalCardSkeletonProps extends React.ComponentProps<'div'> {}
 
@@ -9,7 +9,7 @@ export default function HorizontalCardSkeleton({
 }: HorizontalCardSkeletonProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         className,
         'flex animate-pulse gap-x-5 [--aside-size:120px] sm:[--aside-size:150px]',
       )}

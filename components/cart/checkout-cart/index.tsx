@@ -2,10 +2,10 @@
 
 import Link from 'next/link';
 
-import clsx from 'clsx';
 import currency from 'currency.js';
 
 import {CheckoutPayment} from '@/components/checkout';
+import {cn} from '@/lib/cn';
 import {useCart} from '@model/cart';
 import {firebaseTracking} from '@tracking/firebase';
 
@@ -28,7 +28,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
         <button
           aria-label="Close Checkout"
           onClick={onClose}
-          className={clsx(
+          className={cn(
             'absolute right-0 top-0 flex size-10 items-center justify-center rounded-full bg-gray-200 text-white transition',
             'hover:bg-gray-300',
           )}
@@ -57,7 +57,7 @@ export default function CheckoutCart({onClose}: CheckoutCartProps) {
         <Link
           href="/checkout?from=checkout-cart"
           aria-disabled={carts.length === 0}
-          className={clsx(
+          className={cn(
             'mt-5 block w-full rounded bg-black px-5 py-4 text-center text-xl font-bold text-white transition',
             'select-none aria-disabled:multi-[`bg-opacity-80;pointer-events-none`]',
           )}

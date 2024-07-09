@@ -1,4 +1,4 @@
-import clsx from 'clsx';
+import {cn} from '@/lib/cn';
 
 interface CarouselThumbSkeletonProps {
   aspect?: Aspect;
@@ -10,7 +10,7 @@ export default function CarouselThumbSkeleton({
   return (
     <div className="animate-pulse space-y-4">
       <div
-        className={clsx('w-full bg-gray-100', {
+        className={cn('w-full bg-gray-100', {
           'aspect-square': aspect === 'square',
           'aspect-video': aspect === 'video',
         })}
@@ -20,7 +20,7 @@ export default function CarouselThumbSkeleton({
         }}
       ></div>
       <div
-        className={clsx(
+        className={cn(
           'relative flex gap-2.5 overflow-hidden',
           'after:multi-[`absolute;size-6;bg-gray-200;rounded;left-2;top-1/2;-translate-y-1/2`]',
           'before:multi-[`absolute;size-6;bg-gray-200;rounded;right-2;top-1/2;-translate-y-1/2`]',

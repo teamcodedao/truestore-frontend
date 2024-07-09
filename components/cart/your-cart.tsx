@@ -2,10 +2,10 @@
 
 import {useState} from 'react';
 
-import clsx from 'clsx';
 import {useIntervalWhen} from 'rooks';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
+import {cn} from '@/lib/cn';
 import {useDevice} from '@/lib/use-device';
 import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
@@ -36,7 +36,7 @@ export default function YourCart({
     <button
       aria-label="Cart"
       {...rest}
-      className={clsx(className, 'relative', {
+      className={cn(className, 'relative', {
         'animate-shake': isShake,
       })}
       onClick={() => {
@@ -50,14 +50,14 @@ export default function YourCart({
     >
       <div className="aspect-square overflow-hidden rounded-full bg-orange-400 p-2 text-white">
         <span
-          className={clsx('i-carbon-shopping-cart', {
+          className={cn('i-carbon-shopping-cart', {
             'text-2xl': size === 'base',
             'text-xl': size === 'sm',
           })}
         ></span>
       </div>
       <span
-        className={clsx(
+        className={cn(
           'absolute -top-2 left-5 flex items-center justify-center overflow-hidden rounded-full border-[2.5px] border-white bg-red-500 text-white',
           {
             'min-w-[20px]': size === 'base',

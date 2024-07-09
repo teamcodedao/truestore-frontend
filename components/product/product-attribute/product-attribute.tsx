@@ -2,7 +2,7 @@
 
 import {startTransition, useEffect} from 'react';
 
-import clsx from 'clsx';
+import {cn} from '@/lib/cn';
 
 export interface ProductAttributeProps {
   name: string;
@@ -32,7 +32,7 @@ export function ProductAttribute({
   return (
     <div>
       <h5
-        className={clsx('capitalize', {
+        className={cn('capitalize', {
           'font-bold': size === 'base',
           'text-sm font-medium': size === 'sm',
         })}
@@ -45,7 +45,7 @@ export function ProductAttribute({
             key={option}
             role="radio"
             aria-checked={selectedIndex === index}
-            className={clsx(
+            className={cn(
               'rounded border border-gray-300 font-medium text-slate-500 transition',
               'aria-checked:multi-[`bg-yellow-400;text-black;border-yellow-500`]',
               {

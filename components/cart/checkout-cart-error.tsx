@@ -1,7 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
-
+import {cn} from '@/lib/cn';
 import {useCart} from '@model/cart';
 
 interface CheckoutCartErrorProps {
@@ -19,7 +18,7 @@ export default function CheckoutCartError({onClose}: CheckoutCartErrorProps) {
           <button
             aria-label="Close Checkout"
             onClick={onClose}
-            className={clsx(
+            className={cn(
               'absolute right-0 top-0 flex size-10 items-center justify-center rounded-full bg-gray-200 text-white transition',
               'hover:bg-gray-300',
             )}

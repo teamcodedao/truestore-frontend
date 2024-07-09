@@ -2,7 +2,7 @@
 
 import {useState} from 'react';
 
-import clsx from 'clsx';
+import {cn} from '@/lib/cn';
 
 interface SpinNumberProps {
   value?: number;
@@ -44,7 +44,7 @@ export default function SpinNumber({
 
   return (
     <div
-      className={clsx(
+      className={cn(
         'flex shrink-0 items-stretch rounded border border-gray-300 md:w-fit',
         '[&_span[class*=i-]]:multi-[`text-xl;text-gray-500;`]',
       )}
@@ -53,7 +53,7 @@ export default function SpinNumber({
         <span className="i-radix-icons-minus translate-y-1"></span>
       </button>
       <span
-        className={clsx(
+        className={cn(
           'w-full self-center px-2 py-3 text-center font-medium text-slate-500 md:w-fit',
           {
             'text-base min-w-[30px]': size === 'base',

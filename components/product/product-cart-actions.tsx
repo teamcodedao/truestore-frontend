@@ -3,11 +3,11 @@
 import {useState} from 'react';
 import {useRouter} from 'next/navigation';
 
-import clsx from 'clsx';
 import {toast} from 'sonner';
 
 import {CheckoutCart, CheckoutCartError} from '@/components/cart';
 import {SpinNumber} from '@/components/ui';
+import {cn} from '@/lib/cn';
 import {transformProductToCart, useCart} from '@model/cart';
 import {useProduct, useProductVariation} from '@model/product';
 import {fbpixel} from '@tracking/fbpixel';
@@ -78,7 +78,7 @@ export default function ProductCartActions({
     <div className="block gap-x-3 md:flex">
       <SpinNumber value={quantity} min={min} max={max} onChange={setQuantity} />
       <div
-        className={clsx(
+        className={cn(
           'block grow gap-x-3 md:flex',
           '*:multi-[`rounded;text-white;font-bold;px-2;py-3;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
           '[&_span[class*=i-]]:multi-[`text-xl`]',

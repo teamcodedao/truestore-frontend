@@ -1,10 +1,10 @@
 'use client';
 
-import clsx from 'clsx';
 import {type SubmitHandler, useForm} from 'react-hook-form';
 import {toast} from 'sonner';
 import * as v from 'valibot';
 
+import {cn} from '@/lib/cn';
 import backdrop from '@ui/backdrop';
 
 import {type FormValues, submit} from './submit.action';
@@ -65,7 +65,7 @@ export default function FormHandler() {
             autoFocus
             autoComplete="email"
             placeholder="name@domain.com"
-            className={clsx(
+            className={cn(
               'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-500 sm:text-sm sm:leading-6',
               {
                 'focus:!ring-red-600': formState.errors.email,
@@ -112,7 +112,7 @@ export default function FormHandler() {
             id="order-number"
             type="text"
             placeholder="54321"
-            className={clsx(
+            className={cn(
               'block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-500 sm:text-sm sm:leading-6',
               {
                 'focus:!ring-red-600': formState.errors.order_number,

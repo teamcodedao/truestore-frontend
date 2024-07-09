@@ -2,9 +2,10 @@
 
 import {useState} from 'react';
 
-import clsx from 'clsx';
 import dayjs from 'dayjs';
 import {useIntervalWhen} from 'rooks';
+
+import {cn} from '@/lib/cn';
 
 interface CountdownProps extends React.ComponentProps<'span'> {
   date: dayjs.ConfigType;
@@ -33,7 +34,7 @@ export default function Countdown({
   return (
     <span
       {...rest}
-      className={clsx(className, {
+      className={cn(className, {
         [whenEnd?.className ?? '']: meanTime < 1,
       })}
       suppressHydrationWarning

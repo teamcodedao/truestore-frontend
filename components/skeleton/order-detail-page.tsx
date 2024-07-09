@@ -1,7 +1,6 @@
 'use client';
 
-import clsx from 'clsx';
-
+import {cn} from '@/lib/cn';
 import {randomNumber} from '@/lib/random';
 
 import HorizontalCardSkeleton from './horizontal-card';
@@ -13,7 +12,7 @@ export default function OrderDetailPageSkeleton({
 }: OrderDetailPageSkeletonProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         className,
         'animate-pulse border-t border-gray-200 py-10 [--aside-size:80px] sm:[--aside-size:120px] lg:[--aside-size:150px]',
       )}

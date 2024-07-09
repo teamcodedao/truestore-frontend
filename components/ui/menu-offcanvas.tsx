@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 
-import clsx from 'clsx';
-
+import {cn} from '@/lib/cn';
 import offcanvas from '@ui/offcanvas';
 
 interface MenuOffcanvasProps extends React.ComponentProps<'button'> {}
@@ -12,7 +11,7 @@ function MenuContent() {
   return (
     <aside className="relative w-[350px]">
       <menu
-        className={clsx(
+        className={cn(
           'space-y-5 p-10 font-bold',
           '[&_a]:multi-[`flex;items-center;gap-x-1.5`]',
           '[&_span[class*=i-]]:multi-[`text-2xl;-translate-y-0.5`]',

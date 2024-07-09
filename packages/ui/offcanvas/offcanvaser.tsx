@@ -2,10 +2,10 @@
 
 import {startTransition, Suspense, useEffect, useState} from 'react';
 
-import clsx from 'clsx';
 import {Dialog, Heading, Modal, ModalOverlay} from 'react-aria-components';
 import {ErrorBoundary} from 'react-error-boundary';
 
+import {cn} from '@/lib/cn';
 import {NoSSR} from '@common/no-ssr';
 
 import {element, EVENT_NAME} from './constants';
@@ -56,7 +56,7 @@ function OffcanvasProvider() {
     >
       <Modal
         onOpenChange={setOpen}
-        className={clsx(
+        className={cn(
           'fixed min-w-[300px] max-w-full bg-white shadow-lg',
           '[&_.react-aria-Dialog]:outline-none',
           {

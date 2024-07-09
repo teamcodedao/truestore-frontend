@@ -54,6 +54,11 @@
           {
             "importNames": ["default"],
             "name": "react"
+          },
+          {
+            "importNames": ["default", "clsx"],
+            "name": "clsx",
+            "message": "Use 'cn' instead of 'clsx'"
           }
         ],
         "patterns": ["../*", "@/packages/*", "@/components/*/**/**"]

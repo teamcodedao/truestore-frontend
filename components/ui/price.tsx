@@ -1,5 +1,6 @@
-import clsx from 'clsx';
 import currency from 'currency.js';
+
+import {cn} from '@/lib/cn';
 
 export interface PriceProps {
   size?: 'sm' | 'md' | 'lg';
@@ -17,7 +18,7 @@ export default function Price({
 }: PriceProps) {
   return (
     <div
-      className={clsx('flex gap-x-1', {
+      className={cn('flex gap-x-1', {
         'flex-col-reverse justify-center items-end *:multi-[`inline-block;max-w-[150px];break-all`]':
           horizontal,
       })}
@@ -25,7 +26,7 @@ export default function Price({
       {!!regular_price && (
         <span
           suppressHydrationWarning
-          className={clsx('font-medium text-slate-500 line-through', {
+          className={cn('font-medium text-slate-500 line-through', {
             'text-xl': size === 'lg',
             'text-base': size === 'md',
             'text-sm': size === 'sm',
@@ -36,7 +37,7 @@ export default function Price({
       )}
       <span
         suppressHydrationWarning
-        className={clsx('font-bold text-red-500', {
+        className={cn('font-bold text-red-500', {
           'text-2xl': size === 'lg',
           'text-lg': size === 'md',
           'text-base': size === 'sm',
