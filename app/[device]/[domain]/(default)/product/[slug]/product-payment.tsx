@@ -84,13 +84,13 @@ export default function ProductPayment() {
           });
 
           await createOrderNode(
-            carts.map(item => {
-              return {
-                product_id: item.product.id,
-                quantity: item.quantity,
-                variation_id: item.variation?.id,
-              };
-            }),
+            [
+              {
+                product_id: product.id,
+                quantity,
+                variation_id: variation.id,
+              },
+            ],
             {
               shipping_lines: [
                 {
