@@ -48,7 +48,7 @@ export default function YourCart({
         });
       }}
     >
-      <div className="aspect-square overflow-hidden rounded-full bg-orange-400 p-2 text-white">
+      <div className="aspect-square overflow-hidden rounded-full bg-primary-400 p-2 text-white">
         <span
           className={cn('i-carbon-shopping-cart', {
             'text-2xl': size === 'base',

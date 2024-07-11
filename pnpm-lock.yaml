@@ -231,6 +231,9 @@ importers:
       tailwindcss-multi:
         specifier: ^0.4.6
         version: 0.4.6
+      tailwindcss-themer:
+        specifier: ^4.0.0
+        version: 4.0.0(tailwindcss@3.4.4)
       type-fest:
         specifier: ^4.21.0
         version: 4.21.0
@@ -3278,6 +3281,9 @@ packages:
     resolution: {integrity: sha512-ZZow9HBI5O6EPgSJLUb8n2NKgmVWTwCvHGwFuJlMjvLFqlGG6pjirPhtdsseaLZjSibD8eegzmYpUZwoIlj2cQ==}
     engines: {node: '>=4.0'}
 
+  just-unique@4.2.0:
+    resolution: {integrity: sha512-cxQGGUiit6CGUpuuiezY8N4m1wgF4o7127rXEXDFcxeDUFfdV7gSkwA26Fe2wWBiNQq2SZOgN4gSmMxB/StA8Q==}
+
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -3345,6 +3351,9 @@ packages:
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
+
+  lodash.mergewith@4.6.2:
+    resolution: {integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==}
 
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
@@ -4182,6 +4191,11 @@ packages:
 
   tailwindcss-multi@0.4.6:
     resolution: {integrity: sha512-Bn9yLrMkeYFrJjRYuuTfqT9ibm6U2qnTwlIKYchWyGX3qgL+1+NN4JgiHJG1qrR4QQeU28eCl8sMSBobdzijvQ==}
+
+  tailwindcss-themer@4.0.0:
+    resolution: {integrity: sha512-kngKDW+z36JtjvaNziX0aesO95r8f5+3FFdANVFDt1uzNHZsL6XLla1YDK6EBAYFqPichoPDbO4lrrTyB+UAbA==}
+    peerDependencies:
+      tailwindcss: ^3.1.0
 
   tailwindcss@3.4.4:
     resolution: {integrity: sha512-ZoyXOdJjISB7/BcLTR6SEsLgKtDStYyYZVLsUtWChO4Ps20CBad7lfJKVDiejocV4ME1hLmyY0WJE3hSDcmQ2A==}
@@ -8554,6 +8568,8 @@ snapshots:
       object.assign: 4.1.5
       object.values: 1.2.0
 
+  just-unique@4.2.0: {}
+
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -8623,6 +8639,8 @@ snapshots:
   lodash.isplainobject@4.0.6: {}
 
   lodash.merge@4.6.2: {}
+
+  lodash.mergewith@4.6.2: {}
 
   lodash@4.17.21: {}
 
@@ -9569,6 +9587,14 @@ snapshots:
   tailwindcss-multi@0.4.6:
     dependencies:
       '@types/node': 20.14.10
+
+  tailwindcss-themer@4.0.0(tailwindcss@3.4.4):
+    dependencies:
+      color: 4.2.3
+      just-unique: 4.2.0
+      lodash.merge: 4.6.2
+      lodash.mergewith: 4.6.2
+      tailwindcss: 3.4.4
 
   tailwindcss@3.4.4:
     dependencies:

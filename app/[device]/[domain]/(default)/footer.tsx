@@ -14,7 +14,10 @@ export default function Footer({className}: FooterProps) {
   const platform = usePlatform();
 
   return (
-    <footer id="footer" className={cn(className, 'bg-[#042449] text-white')}>
+    <footer
+      id="footer"
+      className={cn(className, 'bg-[#042449] forest:bg-black text-white')}
+    >
       <div className="container">
         <div className="flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20">
           <div className="text-center">

@@ -82,7 +82,7 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
               {Array.from({length: 5}).map((_, index) => (
                 <span
                   key={index}
-                  className="i-radix-icons-star-filled text-yellow-400"
+                  className="i-radix-icons-star-filled text-primary-400"
                 ></span>
               ))}
             </div>

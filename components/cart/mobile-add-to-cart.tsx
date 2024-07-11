@@ -145,13 +145,13 @@ export default function MobileAddToCart({
               className={cn(
                 'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
                 {
-                  'from-red-600 to-orange-500': buyNow,
-                  'from-yellow-500 to-orange-500': !buyNow,
+                  'from-red-600 to-primary-500': buyNow,
+                  'from-primary-400 to-primary-600': !buyNow,
                 },
               )}
               onClick={handleAddToCart}
             >
-              {buyNow ? 'Buy Now 2' : 'Add to Cart'}
+              {buyNow ? 'Buy Now' : 'Add to Cart'}
             </button>
           </div>
         </>

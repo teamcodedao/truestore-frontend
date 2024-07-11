@@ -9,7 +9,7 @@ import offcanvas from '@ui/offcanvas';
 export default function HowToFind() {
   return (
     <button
-      className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+      className="font-semibold leading-6"
       onClick={() => {
         offcanvas.show({
           ssr: false,
