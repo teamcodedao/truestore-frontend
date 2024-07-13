@@ -27,7 +27,7 @@ export function transformProductToCart({
       regular_price: variation.regular_price,
       image: variation.image,
       link: window.location.href,
-      attributes: variation.attributes.map(attr => attr.option),
+      attributes: variation.attributes,
       shipping_class: variation.shipping_class,
       shipping_class_id: variation.shipping_class_id,
       shipping_value: variation.shipping_value,

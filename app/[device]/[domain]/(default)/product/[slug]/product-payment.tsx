@@ -82,30 +82,35 @@ export default function ProductPayment() {
             ip,
             invoice_id: invoiceId,
           });
-
-          await createOrderNode(
-            [
+          await createOrderNode({
+            payment_method: 'ppcp-gateway',
+            shipping_lines: [
               {
-                product_id: product.id,
-                quantity,
-                variation_id: variation.id,
+                method_id: 'flat_rate',
+                total: String(shippingTotal),
               },
             ],
-            {
-              shipping_lines: [
-                {
-                  method_id: 'flat_rate',
-                  total: String(shippingTotal),
-                },
-              ],
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              transaction_id: transactionId,
-              payment_method_title: fundingSource ?? 'paypal',
-            },
-          );
+            meta_data: metadata,
+            set_paid: true,
+            billing,
+            shipping,
+            transaction_id: transactionId,
+            payment_method_title: 'paypal',
+            total: String(total),
+            shipping_total: String(shippingTotal),
+            line_items: [
+              {
+                name: product.name,
+                product_id: product.id,
+                variation_id: variation.id,
+                total: String(variation.price),
+                price: variation.price,
+                quantity: quantity,
+                meta_data: variation.attributes,
+                image: variation.image,
+              },
+            ],
+          });
 
           const order = await createOrder(
             [
@@ -131,10 +136,10 @@ export default function ProductPayment() {
             },
           );
 
-          await createOrderNotes(
-            order.id,
-            `PayPal transaction ID: ${transactionId}`,
-          );
+          // await createOrderNotes(
+          //   order.id,
+          //   `PayPal transaction ID: ${transactionId}`,
+          // );
 
           return {order, metadata};
         }}

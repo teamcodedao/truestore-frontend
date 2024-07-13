@@ -1,6 +1,6 @@
 import type {Except} from 'type-fest';
 
-import type {UpdateCartItem} from '@model/cart';
+import type {CartItem, UpdateCartItem} from '@model/cart';
 
 export * from './client';
 export * from './rsc';
@@ -88,7 +88,19 @@ export interface CreateOrder {
 export interface CreateOrderNode {
   domain: string;
   transaction_id?: string;
-  orderData: CreateOrder;
+  orderData: {
+    payment_method: PaymentMethod;
+    payment_method_title: string;
+    set_paid: boolean;
+    line_items: LineItemNodeJS[];
+    billing?: Billing;
+    shipping?: Shipping;
+    shipping_lines: TrackingShippingLine[];
+    meta_data?: OrderMetadata[];
+    transaction_id?: string;
+    total: string;
+    shipping_total: string;
+  };
 }
 export interface UpdateOrder {
   billing: Billing;
@@ -182,4 +194,18 @@ export interface UpdateOrderMetadata {
   transaction_id?: string;
   ip?: string;
   invoice_id?: string;
+}
+
+interface LineItemNodeJS {
+  name: string;
+  product_id: number;
+  quantity: number;
+  variation_id?: number;
+  total: string;
+  price: number;
+  meta_data: ReadonlyArray<{
+    name: string;
+    option: string;
+  }>;
+  image: string;
 }

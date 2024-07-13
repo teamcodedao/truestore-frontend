@@ -45,7 +45,7 @@ export default function CartItem({
               key={index}
               className="line-clamp-1 rounded bg-gray-300 px-1 text-xs text-slate-500"
             >
-              {attr}
+              {attr.option}
             </span>
           ))}
         </div>

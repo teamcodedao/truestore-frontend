@@ -53,7 +53,7 @@ export default function CheckoutInformation() {
                         key={index}
                         className="block text-sm font-medium text-gray-500"
                       >
-                        {attr}
+                        {attr.option}
                       </span>
                     ))}
                   </div>

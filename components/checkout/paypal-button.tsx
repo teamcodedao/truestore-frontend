@@ -175,7 +175,6 @@ function ImplPaypalButton({
           const transactionId =
             order.purchase_units?.[0].payments?.captures?.[0].id;
           const purchaseUnit = order.purchase_units?.[0];
-
           if (!purchaseUnit) {
             throw new Error('No purchase unit found');
           }

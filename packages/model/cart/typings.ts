@@ -13,7 +13,8 @@ export interface CartItem {
     | 'shipping_class'
     | 'shipping_class_id'
     | 'shipping_value'
-  > & {image?: string; attributes: string[]; link: string};
+    | 'attributes'
+  > & {image?: string; link: string};
 }
 
 export interface UpdateCartItem {

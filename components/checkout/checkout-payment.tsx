@@ -78,29 +78,34 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
           ip,
           invoice_id: invoiceId,
         });
-        await createOrderNode(
-          carts.map(item => {
-            return {
-              product_id: item.product.id,
-              quantity: item.quantity,
-              variation_id: item.variation?.id,
-            };
-          }),
-          {
-            shipping_lines: [
-              {
-                method_id: 'flat_rate',
-                total: String(shippingTotal),
-              },
-            ],
-            meta_data: metadata,
-            set_paid: true,
-            billing,
-            shipping,
-            transaction_id: transactionId,
-            payment_method_title: fundingSource ?? 'paypal',
-          },
-        );
+        await createOrderNode({
+          payment_method: 'ppcp-gateway',
+          shipping_lines: [
+            {
+              method_id: 'flat_rate',
+              total: String(shippingTotal),
+            },
+          ],
+          meta_data: metadata,
+          set_paid: true,
+          billing,
+          shipping,
+          transaction_id: transactionId,
+          payment_method_title: fundingSource ?? 'paypal',
+          total: String(total),
+          shipping_total: String(shippingTotal),
+          line_items: carts.map(item => ({
+            name: item.product.name,
+            product_id: item.product.id,
+            variation_id: item.variation.id,
+            total: String(item.variation.price * item.quantity), // sửa để tổng giá là giá * số lượng
+            price: item.variation.price,
+            quantity: item.quantity,
+            meta_data: item.variation.attributes,
+            image: item.variation.image || '',
+          })),
+        });
+
         const order = await createOrder(
           carts.map(item => {
             return {
@@ -125,10 +130,10 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
           },
         );
 
-        await createOrderNotes(
-          order.id,
-          `PayPal transaction ID: ${transactionId}`,
-        );
+        // await createOrderNotes(
+        //   order.id,
+        //   `PayPal transaction ID: ${transactionId}`,
+        // );
 
         clearCart();
 
