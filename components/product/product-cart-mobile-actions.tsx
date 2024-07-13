@@ -112,7 +112,7 @@ export default function ProductCartMobileActions() {
         )}
       >
         <button
-          className="rounded-l from-yellow-500 to-orange-500"
+          className="rounded-l from-primary-400 to-primary-600"
           onClick={() => {
             handleOpenToCartSheet();
           }}
@@ -121,7 +121,7 @@ export default function ProductCartMobileActions() {
           <span>Add to cart</span>
         </button>
         <button
-          className="rounded-r from-red-600 to-orange-500"
+          className="rounded-r from-red-600 to-primary-500"
           onClick={() => {
             firebaseTracking.trackingLogs(['CO', 'CO1'], product);
             handleAddToCart({noVerify: true});

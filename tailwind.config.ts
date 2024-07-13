@@ -1,5 +1,7 @@
 import type {Config} from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 import plugin from 'tailwindcss/plugin';
+import createTheme from 'tailwindcss-themer';
 
 import {getIconCollections, iconsPlugin} from '@egoist/tailwindcss-icons';
 
@@ -23,6 +25,15 @@ const config: Config = {
         'slide-bottom-out': 'slide-bottom 300ms reverse ease-in',
         shake: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both',
       },
+    },
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      slate: colors.slate,
+      red: colors.red,
     },
     container: {
       center: true,
@@ -49,6 +60,25 @@ const config: Config = {
     }),
     plugin(({addVariant}) => {
       addVariant('ios', '@supports(-webkit-touch-callout:none)');
+    }),
+    createTheme({
+      defaultTheme: {
+        extend: {
+          colors: {
+            primary: colors.orange,
+          },
+        },
+      },
+      themes: [
+        {
+          name: 'forest',
+          extend: {
+            colors: {
+              primary: colors.red,
+            },
+          },
+        },
+      ],
     }),
   ],
 };

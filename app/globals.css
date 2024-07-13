@@ -25,6 +25,12 @@ html {
   }
 }
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 @keyframes overlay {
   from {
     @apply bg-black/20 backdrop-blur-none;
@@ -78,11 +84,5 @@ html {
   40%,
   60% {
     transform: translate3d(4px, 0, 0);
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
   }
 }

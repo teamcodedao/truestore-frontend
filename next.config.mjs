@@ -7,7 +7,7 @@ import path from 'node:path';
 
 import {withSentryConfig} from '@sentry/nextjs';
 
-import pkg from './package.json' assert {type: 'json'};
+import pkg from './package.json' with {type: 'json'};
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {

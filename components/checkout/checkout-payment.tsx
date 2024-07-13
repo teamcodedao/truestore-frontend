@@ -135,7 +135,7 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
         return {order, metadata};
       }}
       onError={async (order, {status, message}) => {
-        console.log(`Error: ${status}`);
+        console.info(`Error: ${status}`);
         if (!order.transaction_id) {
           await updateOrderFailed(order.id, status);
         }

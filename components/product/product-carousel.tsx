@@ -105,7 +105,7 @@ export default function ProductCarousel({images}: ProductCarouselProps) {
                     aria-label="Thumbnail"
                     role="radio"
                     aria-checked={index === selectedIndex}
-                    className="embla__slide size-[70px] min-w-0 shrink-0 border border-gray-100 transition hover:border-orange-200 aria-checked:border-orange-400"
+                    className="embla__slide size-[70px] min-w-0 shrink-0 border border-gray-100 transition hover:border-primary-200 aria-checked:border-primary-400"
                     onClick={() => onThumbClick(index)}
                   >
                     <img

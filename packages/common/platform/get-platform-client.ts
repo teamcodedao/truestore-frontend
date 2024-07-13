@@ -29,7 +29,7 @@ async function getClient(domain: string) {
       beforeRequest: [
         request => {
           if (request.method === 'GET') {
-            console.log(request.url);
+            console.info(request.url);
             let fullUrl = `${request.url}`;
             if (/wp-json\/wc\/v[1|2]/.test(fullUrl)) {
               fullUrl = fullUrl.replace('wp-json/wc', 'wc-api');

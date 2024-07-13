@@ -47,7 +47,7 @@ export function ProductAttribute({
             aria-checked={selectedIndex === index}
             className={cn(
               'rounded border border-gray-300 font-medium text-slate-500 transition',
-              'aria-checked:multi-[`bg-yellow-400;text-black;border-yellow-500`]',
+              'aria-checked:multi-[`bg-primary-400;text-black;border-primary-500`]',
               {
                 'px-4 py-1.5 text-sm': size === 'base',
                 'px-3 py-1 text-xs': size === 'sm',
