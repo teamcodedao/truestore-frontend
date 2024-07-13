@@ -1,7 +1,6 @@
 import {notFound} from 'next/navigation';
 
 import {getPlatformConfig} from '@common/platform/ssr';
-import {Fbpixel} from '@tracking/fbpixel';
 
 import Provider from './providers';
 
@@ -34,9 +33,9 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
       paypal_client_id={platform.paypal_client_id}
       pixel_ids={platform.pixel_ids}
       ga_ids={platform.ga_ids}
+      theme={platform.theme}
     >
       {children}
-      <Fbpixel pixel_ids={platform.pixel_ids} />
     </Provider>
   );
 }

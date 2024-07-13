@@ -44,10 +44,17 @@ export default function PlatformProvider({
 
   return (
     <BasePlatformProvider initialState={platformRest}>
-      {children}
-      <Offcanvaser />
-      <Backdropper />
-      <Toaster richColors position="top-center" />
+      <div className={platformRest.theme}>
+        {children}
+        <Offcanvaser className={platformRest.theme} />
+        <Backdropper className={platformRest.theme} />
+        <Toaster
+          richColors
+          position="top-center"
+          className={platformRest.theme}
+        />
+      </div>
+
       <Fbpixel pixel_ids={platformRest.pixel_ids} />
     </BasePlatformProvider>
   );

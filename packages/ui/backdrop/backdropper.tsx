@@ -6,12 +6,17 @@ import Image from 'next/image';
 import {Modal, ModalOverlay} from 'react-aria-components';
 
 import puffLoading from '@/images/puff.svg';
+import {cn} from '@/lib/cn';
 import {NoSSR} from '@common/no-ssr';
 
 import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';
 
-function BackdropProvider() {
+interface OffcanvasProps {
+  className?: string;
+}
+
+function BackdropProvider({className}: OffcanvasProps) {
   const [backdrop, setBackdrop] = useState<EventProps | null>(null);
   const [isOpen, setOpen] = useState(false);
 
@@ -45,7 +50,10 @@ function BackdropProvider() {
       isDismissable
       isOpen={isOpen}
       onOpenChange={setOpen}
-      className="fixed inset-0 z-[999] bg-black/20 backdrop-blur-sm [animation-duration:150ms] data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out"
+      className={cn(
+        className,
+        'fixed inset-0 z-[999] bg-black/20 backdrop-blur-sm [animation-duration:150ms] data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out',
+      )}
     >
       <Modal
         onOpenChange={setOpen}
@@ -67,10 +75,10 @@ function BackdropProvider() {
   );
 }
 
-export default function Backdropper() {
+export default function Backdropper(props: OffcanvasProps) {
   return (
     <NoSSR>
-      <BackdropProvider />
+      <BackdropProvider {...props} />
     </NoSSR>
   );
 }

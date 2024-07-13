@@ -11,7 +11,11 @@ import {NoSSR} from '@common/no-ssr';
 import {element, EVENT_NAME} from './constants';
 import type {EventProps} from './typings';
 
-function OffcanvasProvider() {
+interface OffcanvasProps {
+  className?: string;
+}
+
+function OffcanvasProvider({className}: OffcanvasProps) {
   const [canvas, setCanvas] = useState<EventProps | null>(null);
   const [isOpen, setOpen] = useState(false);
 
@@ -52,7 +56,10 @@ function OffcanvasProvider() {
       isDismissable
       isOpen={isOpen}
       onOpenChange={setOpen}
-      className="fixed inset-0 z-[998] bg-black/20 backdrop-blur-sm data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out"
+      className={cn(
+        className,
+        'fixed inset-0 z-[998] bg-black/20 backdrop-blur-sm data-[entering]:animate-overlay-in data-[exiting]:animate-overlay-out',
+      )}
     >
       <Modal
         onOpenChange={setOpen}
@@ -107,10 +114,10 @@ function OffcanvasProvider() {
   );
 }
 
-export default function Offcanvaser() {
+export default function Offcanvaser(props: OffcanvasProps) {
   return (
     <NoSSR>
-      <OffcanvasProvider />
+      <OffcanvasProvider {...props} />
     </NoSSR>
   );
 }

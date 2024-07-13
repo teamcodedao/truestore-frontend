@@ -1,5 +1,9 @@
+import {THEMES} from './shared';
+
 export * from './client';
 export * from './rsc';
+
+export type Theme = (typeof THEMES)[number];
 
 export interface PlatformConfig {
   wp_api: string;
@@ -12,6 +16,7 @@ export interface PlatformConfig {
   company: string;
   address: string;
   imgproxy_url: string;
+  theme?: Theme & string;
 }
 
 export type PublicPlatformConfig = Pick<
@@ -22,4 +27,9 @@ export type PublicPlatformConfig = Pick<
   | 'address'
   | 'imgproxy_url'
   | 'paypal_client_id'
-> & {domain: string; pixel_ids: string[]; ga_ids: string[]};
+> & {
+  domain: string;
+  pixel_ids: string[];
+  ga_ids: string[];
+  theme: Theme;
+};

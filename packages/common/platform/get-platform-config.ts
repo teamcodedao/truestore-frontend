@@ -7,7 +7,8 @@ import type {Except} from 'type-fest';
 import firebaseConfig from '@/config/firebase.json';
 
 import {getPlatformPixel} from './get-platform-pixel';
-import type {PlatformConfig} from './typings';
+import {THEMES} from './shared';
+import type {PlatformConfig, Theme} from './typings';
 import {normalizeUrl} from './utils';
 
 type PlatformConfigOutput = Except<PlatformConfig, 'pixel_ids' | 'ga_ids'> & {
@@ -50,10 +51,16 @@ export const getPlatformConfig = cache(
       R.filter<string>(Boolean),
     );
 
+    let theme: Theme = platform.theme ?? 'default';
+    if (!THEMES.includes(theme)) {
+      theme = 'default';
+    }
+
     return {
       ...platform,
       ga_ids: gaIds,
       pixel_ids: pixelIds,
+      theme,
     } satisfies PlatformConfigOutput;
   },
   [],
