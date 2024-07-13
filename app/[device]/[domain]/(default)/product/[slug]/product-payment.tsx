@@ -135,12 +135,6 @@ export default function ProductPayment() {
               payment_method_title: fundingSource ?? 'paypal',
             },
           );
-
-          // await createOrderNotes(
-          //   order.id,
-          //   `PayPal transaction ID: ${transactionId}`,
-          // );
-
           return {order, metadata};
         }}
         onError={async (order, {status, message}) => {

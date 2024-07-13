@@ -130,11 +130,6 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
           },
         );
 
-        // await createOrderNotes(
-        //   order.id,
-        //   `PayPal transaction ID: ${transactionId}`,
-        // );
-
         clearCart();
 
         return {order, metadata};
