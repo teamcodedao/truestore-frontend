@@ -102,6 +102,7 @@ export default function ProductPayment() {
               {
                 name: product.name,
                 product_id: product.id,
+                product_link: product.permalink,
                 variation_id: variation.id,
                 total: String(variation.price),
                 price: variation.price,

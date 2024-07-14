@@ -21,7 +21,7 @@ export const getPlatformConfig = cache(
       ky
         .get(
           new URL(
-            `PXTRUE2/${normalizeUrl(domain)}/.json`,
+            `PXTRUE2/${normalizeUrl(domain.replace('www.', ''))}/.json`,
             firebaseConfig.clientConfig.databaseURL,
           ),
           {

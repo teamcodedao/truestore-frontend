@@ -6,6 +6,7 @@ export default async function ProductLayout({
   children,
   params,
 }: LayoutProps<{slug: string}>) {
+  console.log(params.domain);
   const domain = params.domain;
   const slug = params.slug;
 

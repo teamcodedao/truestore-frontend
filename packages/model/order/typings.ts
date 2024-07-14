@@ -199,6 +199,7 @@ export interface UpdateOrderMetadata {
 interface LineItemNodeJS {
   name: string;
   product_id: number;
+  product_link: string;
   quantity: number;
   variation_id?: number;
   total: string;

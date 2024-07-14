@@ -97,6 +97,7 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
           line_items: carts.map(item => ({
             name: item.product.name,
             product_id: item.product.id,
+            product_link: item.product.permalink,
             variation_id: item.variation.id,
             total: String(item.variation.price * item.quantity), // sửa để tổng giá là giá * số lượng
             price: item.variation.price,
