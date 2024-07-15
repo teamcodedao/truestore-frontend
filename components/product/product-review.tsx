@@ -4,13 +4,86 @@ import Image from 'next/image';
 
 import {HtmlReplaceImgproxy} from '@/components/common';
 import verifiedImg from '@/images/verified.svg';
+import {cn} from '@/lib/cn';
 import {type ProductReview} from '@model/product';
 
 export interface ProductReviewProps {
   reviews: ProductReview[];
+  layout?: 'default' | 'masonry';
 }
 
-export default function ProductReview({reviews}: ProductReviewProps) {
+export default function ProductReview({
+  reviews,
+  layout = 'default',
+}: ProductReviewProps) {
+  if (layout === 'masonry') {
+    return (
+      <div data-empty={reviews.length === 0} className="">
+        {reviews.length > 0 ? (
+          <div>
+            <div className="flex items-center gap-x-10">
+              <div>
+                <p className="text-2xl font-medium">
+                  <span className="text-6xl font-bold">5</span> / 5.0
+                </p>
+                <div className="text-xl text-primary-400">
+                  {Array.from({length: 5}).map((_, index) => (
+                    <span key={index} className="i-carbon-star-filled"></span>
+                  ))}
+                </div>
+                <div className="text-center text-sm font-medium">
+                  {reviews.length} reviews
+                </div>
+              </div>
+              <div className="flex items-center gap-1 text-sm font-medium">
+                <span>True to size</span>
+                <div className="ml-24 h-2 w-60 bg-primary-500"></div>
+                <span>100%</span>
+              </div>
+            </div>
+            <div className="mt-5 columns-3xs gap-3">
+              {reviews.map((review, index) => {
+                return (
+                  <article
+                    key={index}
+                    className={cn(
+                      'rounded-lg bg-white px-4 py-3 break-inside-avoid shadow-lg',
+                      {
+                        'mt-3': index,
+                      },
+                    )}
+                  >
+                    <h5 className="font-bold">{review.reviewer_name}</h5>
+                    <figure className="flex items-center gap-2">
+                      <div className="text-lg text-primary-400">
+                        {Array.from({length: 5}).map((_, idx) => (
+                          <span
+                            key={idx}
+                            className="i-carbon-star-filled"
+                          ></span>
+                        ))}
+                      </div>
+                      <figcaption className="-translate-y-0.5 text-sm font-medium text-gray-400">
+                        True to size
+                      </figcaption>
+                    </figure>
+                    <div className="text-sm [&_img]:multi-[hidden]">
+                      <HtmlReplaceImgproxy html={review.review} />
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="pt-6 font-medium">
+            No reviews yet for this product
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div
       data-empty={reviews.length === 0}
@@ -26,9 +99,9 @@ export default function ProductReview({reviews}: ProductReviewProps) {
                 <span>Verified Buyer</span>
               </p>
             </div>
-            <div className="flex-[1_1_400px] text-base [&_img]:multi-[inline;]">
+            <article className="flex-[1_1_400px] text-base [&_img]:inline">
               <HtmlReplaceImgproxy html={review.review} />
-            </div>
+            </article>
           </div>
         ))
       ) : (

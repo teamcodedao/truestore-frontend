@@ -6,6 +6,7 @@ import {usePathname} from 'next/navigation';
 import ReactGA from 'react-ga4';
 import {Toaster} from 'sonner';
 
+import {cn} from '@/lib/cn';
 import {
   PlatformProvider as BasePlatformProvider,
   type PublicPlatformConfig,
@@ -44,7 +45,7 @@ export default function PlatformProvider({
 
   return (
     <BasePlatformProvider initialState={platformRest}>
-      <div className={platformRest.theme}>
+      <div className={cn(platformRest.theme, 'forest:bg-[#FDFBF4]')}>
         {children}
         <Offcanvaser className={platformRest.theme} />
         <Backdropper className={platformRest.theme} />

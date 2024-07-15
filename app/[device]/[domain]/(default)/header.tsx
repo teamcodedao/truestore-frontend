@@ -21,7 +21,7 @@ export default function Header() {
     <Sticky enabled={device === 'mobile'} innerZ={997}>
       <header
         className={cn(
-          'relative flex items-center justify-center gap-x-10 bg-white py-3',
+          'relative flex items-center justify-center gap-x-10 bg-[inherit] py-3',
         )}
       >
         <MenuOffcanvas className="absolute left-0" />
