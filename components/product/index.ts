@@ -10,6 +10,7 @@ export {default as ProductCartMobileActions} from './product-cart-mobile-actions
 export {default as ProductCartMobileActionsV0} from './product-cart-mobile-actions-v0';
 export {default as ProductFeature} from './product-feature';
 export {default as ProductPrice} from './product-price';
+export {default as ProductPromotionTag} from './product-promotion-tag';
 export {
   default as ProductReview,
   type ProductReviewProps,

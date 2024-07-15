@@ -22,11 +22,11 @@ export default function ProductReview({
         {reviews.length > 0 ? (
           <div>
             <div className="flex items-center gap-x-10">
-              <div>
+              <div className="shrink-0">
                 <p className="text-2xl font-medium">
                   <span className="text-6xl font-bold">5</span> / 5.0
                 </p>
-                <div className="text-xl text-primary-400">
+                <div className="text-xl text-yellow">
                   {Array.from({length: 5}).map((_, index) => (
                     <span key={index} className="i-carbon-star-filled"></span>
                   ))}
@@ -35,9 +35,9 @@ export default function ProductReview({
                   {reviews.length} reviews
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-sm font-medium">
+              <div className="hidden items-center gap-1 text-sm font-medium sm:flex">
                 <span>True to size</span>
-                <div className="ml-24 h-2 w-60 bg-primary-500"></div>
+                <div className="ml-10 h-2 w-60 bg-yellow sm:ml-24"></div>
                 <span>100%</span>
               </div>
             </div>
@@ -55,7 +55,7 @@ export default function ProductReview({
                   >
                     <h5 className="font-bold">{review.reviewer_name}</h5>
                     <figure className="flex items-center gap-2">
-                      <div className="text-lg text-primary-400">
+                      <div className="text-lg text-yellow">
                         {Array.from({length: 5}).map((_, idx) => (
                           <span
                             key={idx}

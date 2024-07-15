@@ -22,6 +22,9 @@ export default function Header() {
       <header
         className={cn(
           'relative flex items-center justify-center gap-x-10 bg-[inherit] py-3',
+          {
+            'bg-white': device === 'mobile',
+          },
         )}
       >
         <MenuOffcanvas className="absolute left-0" />

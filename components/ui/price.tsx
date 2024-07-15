@@ -19,25 +19,28 @@ export default function Price({
   return (
     <div
       className={cn('flex gap-x-1', {
-        'flex-col-reverse justify-center items-end *:multi-[`inline-block;max-w-[150px];break-all`]':
+        'flex-col-reverse justify-center items-end forest:items-center *:multi-[`inline-block;max-w-[150px];break-all`]':
           horizontal,
       })}
     >
       {!!regular_price && (
         <span
           suppressHydrationWarning
-          className={cn('font-medium text-slate-500 line-through', {
-            'text-xl': size === 'lg',
-            'text-base': size === 'md',
-            'text-sm': size === 'sm',
-          })}
+          className={cn(
+            'font-medium text-slate-500 forest:text-black line-through',
+            {
+              'text-xl': size === 'lg',
+              'text-base': size === 'md',
+              'text-sm': size === 'sm',
+            },
+          )}
         >
           {currency(regular_price).format()}
         </span>
       )}
       <span
         suppressHydrationWarning
-        className={cn('font-bold text-red-500', {
+        className={cn('font-bold text-red-500 forest:text-black', {
           'text-2xl': size === 'lg',
           'text-lg': size === 'md',
           'text-base': size === 'sm',

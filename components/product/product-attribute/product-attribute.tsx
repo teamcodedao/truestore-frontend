@@ -9,7 +9,7 @@ export interface ProductAttributeProps {
   title?: string;
   options: string[];
   selectedIndex?: number;
-  size?: Size;
+  size?: Size | 'xl';
   onSelect?: (value: string) => void;
 }
 
@@ -35,6 +35,7 @@ export function ProductAttribute({
         className={cn('capitalize', {
           'font-bold': size === 'base',
           'text-sm font-medium': size === 'sm',
+          'text-base font-bold': size === 'xl',
         })}
       >
         {(title || name).toLowerCase()}
@@ -51,7 +52,9 @@ export function ProductAttribute({
               {
                 'px-4 py-1.5 text-sm': size === 'base',
                 'px-3 py-1 text-xs': size === 'sm',
+                'px-5 py-3 text-sm': size === 'xl',
               },
+              'forest:multi-[rounded-full;bg-white;text-black;] forest:aria-checked:multi-[`bg-black;text-white;border-black`]',
             )}
             onClick={() => onSelect?.(option)}
           >

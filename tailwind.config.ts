@@ -34,6 +34,7 @@ const config: Config = {
       gray: colors.gray,
       slate: colors.slate,
       red: colors.red,
+      yellow: '#ffc107',
     },
     container: {
       center: true,
@@ -56,7 +57,18 @@ const config: Config = {
     require('tailwindcss-multi'),
     require('tailwind-scrollbar-hide'),
     iconsPlugin({
-      collections: getIconCollections(['carbon', 'radix-icons']),
+      collections: {
+        ...getIconCollections(['carbon', 'radix-icons']),
+        custom: {
+          icons: {
+            discount: {
+              body: `<path fill="currentColor" d="M12.79 21L3 11.21v2.83l9.79 9.79l9.04-9.04l-1.42-1.41z"/><path fill="currentColor" d="m3 9.04l9.79 9.79l9.04-9.04L12.04 0H3zM7.25 3a1.25 1.25 0 1 1 0 2.5a1.25 1.25 0 0 1 0-2.5"/>`,
+              width: 24,
+              height: 24,
+            },
+          },
+        },
+      },
     }),
     plugin(({addVariant}) => {
       addVariant('ios', '@supports(-webkit-touch-callout:none)');

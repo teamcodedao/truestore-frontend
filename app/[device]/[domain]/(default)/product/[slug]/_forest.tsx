@@ -17,8 +17,8 @@ import {
   ProductCartActions,
   ProductCartActionsSkeleton,
   ProductCartMobileActions,
-  ProductFeature,
   ProductPrice,
+  ProductPromotionTag,
 } from '@/components/product';
 import {
   CarouselThumbSkeleton,
@@ -51,25 +51,21 @@ export default function PageForestTheme({
           </Suspense>
         </div>
         <div className="flex-1 shrink-0">
-          <a
-            href="#product-reviews"
-            className="-mt-2 inline-flex items-end gap-x-2"
-          >
-            <span className="font-medium">Rated</span>
-            <div className="translate-y-0.5">
-              {Array.from({length: 5}).map((_, index) => (
-                <span
-                  key={index}
-                  className="i-carbon-star-filled text-primary-400"
-                ></span>
-              ))}
-            </div>
-          </a>
-          <section className="mt-4">
+          <section>
             <h2 className="text-balance text-2xl font-bold sm:text-3xl lg:text-4xl">
               {product.name}
             </h2>
-            <div className="mt-5 space-x-1">
+            <a href="#product-reviews" className="flex items-end gap-x-1">
+              <div className="translate-y-0.5 text-2xl text-yellow">
+                {Array.from({length: 5}).map((_, index) => (
+                  <span key={index} className="i-carbon-star-filled"></span>
+                ))}
+              </div>
+              <div className="text-lg font-medium">
+                <span className="text-2xl">5</span> / 5.0
+              </div>
+            </a>
+            <div className="mt-5 flex items-center gap-x-3">
               <Suspense
                 fallback={
                   <Price
@@ -83,39 +79,31 @@ export default function PageForestTheme({
                   price={product.price}
                 />
               </Suspense>
+
+              <ProductPromotionTag />
             </div>
-            <div className="my-5 sm:px-5">
-              <hr className="border-slate-300" />
-            </div>
-            <div className="text-xl font-medium uppercase lg:text-2xl">
-              HURRY! ONLY <span className="text-red-500">45</span> LEFT IN
-              STOCK.
-            </div>
-            <article className="mt-5 text-lg italic lg:text-xl [&>span]:multi-[`text-red-600;font-bold`]">
-              <span>98%</span> customer buy <span>2-4</span> items to use daily
-              and gifts for their beloved one
+            <article className="mt-5 flex items-center font-medium">
+              <img src="/fire.gif" alt="" className="h-8" />
+              <p>
+                Hurry! Only <span className="font-semibold">45</span> Left in
+                stock.
+              </p>
             </article>
-            <article className="mt-3">
-              <RandomNumber
-                min={500}
-                max={700}
-                interval={3000}
-                className="text-lg font-extrabold text-black lg:text-xl"
-              />{' '}
-              People are viewing right now
+            <article className="flex items-center font-medium">
+              <img src="/point.gif" alt="" className="h-8" />
+              <p>
+                <span className="font-bold">
+                  <RandomNumber min={500} max={700} interval={3000} />
+                </span>{' '}
+                People are viewing this right now
+              </p>
             </article>
-            <div className="mt-3 text-lg font-bold text-red-700 lg:text-xl">
-              Hurry up. This deal will end soon!!
-            </div>
-            <Countdown
-              className="font-medium text-red-700"
-              date={Date.now() + 10 * 60 * 1000}
-              whenEnd={{
-                text: 'Hurry up. This deal will end soon!!',
-              }}
-            />
             <article className="mt-5">
-              <ProductFeature />
+              <span className="font-bold">Last Minute</span> - Sale end in{' '}
+              <Countdown
+                className="text-xl font-bold text-red-700"
+                date={Date.now() + 10 * 60 * 1000}
+              />
             </article>
             {!product.attributesError && (
               <>
@@ -124,6 +112,7 @@ export default function PageForestTheme({
                     <ProductAttribute
                       key={index}
                       name={attribute.name}
+                      size="xl"
                       options={attribute.options}
                     />
                   ))}

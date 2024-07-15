@@ -112,7 +112,9 @@ export default function ProductCartMobileActions() {
         )}
       >
         <button
-          className="rounded-l from-primary-400 to-primary-600"
+          className={cn(
+            'rounded-l from-primary-400 to-primary-600 forest:multi-[from-black;to-black]',
+          )}
           onClick={() => {
             handleOpenToCartSheet();
           }}

@@ -57,12 +57,9 @@ export default function PageDefaultTheme({
             className="-mt-2 inline-flex items-end gap-x-2"
           >
             <span className="font-medium">Rated</span>
-            <div className="translate-y-0.5">
+            <div className="translate-y-0.5 text-yellow">
               {Array.from({length: 5}).map((_, index) => (
-                <span
-                  key={index}
-                  className="i-radix-icons-star-filled text-primary-400"
-                ></span>
+                <span key={index} className="i-radix-icons-star-filled"></span>
               ))}
             </div>
           </a>
