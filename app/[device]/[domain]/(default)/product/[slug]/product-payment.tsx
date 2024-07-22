@@ -1,12 +1,10 @@
 'use client';
 
 import {useMemo} from 'react';
-import {useParams} from 'next/navigation';
 
 import currency from 'currency.js';
 
 import {CheckoutPayment, PaypalButton} from '@/components/checkout';
-import {generateReferenceId} from '@/lib/checkout';
 import {useCart} from '@model/cart';
 import {
   createOrder,
@@ -21,7 +19,6 @@ import type {CreateOrderRequestBody} from '@paypal/paypal-js';
 import {firebaseTracking} from '@tracking/firebase';
 
 export default function ProductPayment() {
-  const {domain} = useParams<{domain: string}>();
   const [{carts}] = useCart();
   const product = useProduct();
   const variation = useProductVariation();
@@ -61,7 +58,6 @@ export default function ProductPayment() {
       <PaypalButton
         forceReRender={[variation.id]}
         productIds={[product.id]}
-        invoiceId={generateReferenceId(domain)}
         total={total}
         subTotal={subTotal}
         shippingTotal={shippingTotal}

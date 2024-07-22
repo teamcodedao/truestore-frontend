@@ -8,6 +8,7 @@ import {useWillUnmount} from 'rooks';
 import {toast} from 'sonner';
 
 import {PaypalButtonSkeleton} from '@/components/skeleton';
+import {generateReferenceId} from '@/lib/checkout';
 import {fetchIp} from '@/lib/ip';
 import {usePlatform} from '@common/platform';
 import {type Order, type UpdateOrder} from '@model/order';
@@ -25,7 +26,6 @@ interface PaypalButtonProps {
   total: number;
   subTotal: number;
   shippingTotal: number;
-  invoiceId: string;
   forceReRender?: unknown[];
   lineItems: CreateOrderRequestBody['purchase_units'][number]['items'];
   productIds: number[];
@@ -46,7 +46,6 @@ interface PaypalButtonProps {
 }
 
 function ImplPaypalButton({
-  invoiceId,
   total,
   subTotal,
   shippingTotal,
@@ -62,6 +61,7 @@ function ImplPaypalButton({
   const orderRef = useRef<Order | null>(null);
   const timeId = useRef<NodeJS.Timeout>();
   const fundingSource = useRef<string>('paypal');
+  const invoiceIdRef = useRef<string>('');
 
   const [{isPending}] = usePayPalScriptReducer();
 
@@ -77,6 +77,7 @@ function ImplPaypalButton({
         forceReRender={forceReRender}
         disabled={typeof window !== 'undefined' && disabled}
         onClick={async data => {
+          invoiceIdRef.current = generateReferenceId();
           fundingSource.current = data.fundingSource as string;
           return onClick?.();
         }}
@@ -160,7 +161,7 @@ function ImplPaypalButton({
                     name: item.name.substring(0, 126),
                   };
                 }),
-                invoice_id: invoiceId,
+                invoice_id: invoiceIdRef.current,
                 custom_id: fundingSource.current,
               },
             ],
@@ -200,7 +201,7 @@ function ImplPaypalButton({
             shipping,
             billing,
             ip,
-            invoiceId,
+            invoiceId: invoiceIdRef.current,
             fundingSource: fundingSource.current,
           });
 

@@ -1,10 +1,8 @@
 'use client';
 
 import {useMemo} from 'react';
-import {useParams} from 'next/navigation';
 
 import {PaypalButton} from '@/components/checkout';
-import {generateReferenceId} from '@/lib/checkout';
 import {useCart} from '@model/cart';
 import {
   createOrder,
@@ -22,7 +20,6 @@ interface CheckoutPaymentProps {
 }
 
 export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
-  const {domain} = useParams<{domain: string}>();
   const [{carts, countTotal, subTotal, total, shippingTotal}, {clearCart}] =
     useCart();
 
@@ -55,7 +52,6 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
     <PaypalButton
       forceReRender={[countTotal, total, subTotal, shippingTotal]}
       disabled={carts.length === 0}
-      invoiceId={generateReferenceId(domain)}
       total={total}
       subTotal={subTotal}
       shippingTotal={shippingTotal}
