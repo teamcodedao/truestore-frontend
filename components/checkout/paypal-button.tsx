@@ -1,6 +1,6 @@
 'use client';
 
-import {useRef} from 'react';
+import {startTransition, useRef} from 'react';
 import {useRouter} from 'next/navigation';
 
 import dayjs from 'dayjs';
@@ -104,23 +104,26 @@ function ImplPaypalButton({
             }
           }
 
-          if (orderRef.current && orderRef.current.id) {
-            try {
-              onError(orderRef.current, {
-                status,
-                message: errorMessage,
-              });
-            } catch (error) {
-              Sentry.withScope(scope => {
-                scope.setTags({
-                  update_order: 'failed',
-                  update_order_notes: 'failed',
+          // Catch errors from the server actions
+          startTransition(async () => {
+            if (orderRef.current && orderRef.current.id) {
+              try {
+                await onError(orderRef.current, {
+                  status,
+                  message: errorMessage,
                 });
-                Sentry.captureException(error);
-              });
-              console.error(error);
+              } catch (error) {
+                Sentry.withScope(scope => {
+                  scope.setTags({
+                    update_order: 'failed',
+                    update_order_notes: 'failed',
+                  });
+                  Sentry.captureException(error);
+                });
+                console.error(error);
+              }
             }
-          }
+          });
 
           toast.error('Your order could not be processed');
 
