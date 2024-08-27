@@ -56,6 +56,12 @@ importers:
       '@tracking/firebase':
         specifier: workspace:^
         version: link:packages/tracking/firebase
+      '@tracking/snappixel':
+        specifier: workspace:^
+        version: link:packages/tracking/snappixel
+      '@tracking/tiktokpixel':
+        specifier: workspace:^
+        version: link:packages/tracking/tiktokpixel
       '@ui/backdrop':
         specifier: workspace:^
         version: link:packages/ui/backdrop
@@ -256,6 +262,10 @@ importers:
   packages/tracking/fbpixel: {}
 
   packages/tracking/firebase: {}
+
+  packages/tracking/snappixel: {}
+
+  packages/tracking/tiktokpixel: {}
 
   packages/ui/backdrop: {}
 
