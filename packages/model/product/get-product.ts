@@ -119,6 +119,7 @@ export const getProduct = cache(
                   'attributes',
                   'shipping_class',
                   'shipping_class_id',
+                  'sku',
                 ]),
                 R.merge({
                   regular_price: Number(

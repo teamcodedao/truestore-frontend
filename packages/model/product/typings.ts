@@ -59,6 +59,7 @@ export type ProductVariation = Pick<
   price: number;
   shipping_value: number;
   image: string;
+  sku: string;
 };
 
 export type Product = Pick<

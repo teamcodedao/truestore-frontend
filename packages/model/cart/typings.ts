@@ -14,6 +14,7 @@ export interface CartItem {
     | 'shipping_class_id'
     | 'shipping_value'
     | 'attributes'
+    | 'sku'
   > & {image?: string; link: string};
 }
 

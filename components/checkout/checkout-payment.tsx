@@ -41,7 +41,7 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
             currency_code: 'USD',
             value: String(item.variation.price),
           },
-          sku: String(item.variation.id),
+          sku: String(item.variation.sku),
         }) satisfies NonNullable<
           CreateOrderRequestBody['purchase_units'][number]['items']
         >[number],
@@ -100,6 +100,7 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
             quantity: item.quantity,
             meta_data: item.variation.attributes,
             image: item.variation.image || '',
+            sku: item.variation.sku,
           })),
         });
 

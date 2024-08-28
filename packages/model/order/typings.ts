@@ -209,4 +209,5 @@ interface LineItemNodeJS {
     option: string;
   }>;
   image: string;
+  sku?: string;
 }

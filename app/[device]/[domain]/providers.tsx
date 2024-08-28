@@ -43,7 +43,6 @@ const CustomScript: React.FC<CustomScriptProps> = ({
       script.innerHTML = sanitizedContent;
       document.head.appendChild(script);
       scriptLoaded.current = true;
-      console.log(`Custom script loaded: ${scriptKey}`);
     }
   }, [scriptKey, scriptContent]);
 

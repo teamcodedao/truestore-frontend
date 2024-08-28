@@ -39,7 +39,7 @@ export default function ProductPayment() {
             currency_code: 'USD',
             value: String(variation.price),
           },
-          sku: String(variation.id),
+          sku: String(variation.sku),
         } satisfies NonNullable<
           CreateOrderRequestBody['purchase_units'][number]['items']
         >[number],
@@ -105,6 +105,7 @@ export default function ProductPayment() {
                 quantity: quantity,
                 meta_data: variation.attributes,
                 image: variation.image,
+                sku: variation.sku,
               },
             ],
           });

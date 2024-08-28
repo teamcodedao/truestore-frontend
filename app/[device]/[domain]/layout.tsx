@@ -14,7 +14,6 @@ export async function generateMetadata({params}: GenerateMetadataProps) {
 
 export default async function PlatformLayout({children, params}: LayoutProps) {
   const domain = params.domain;
-  console.log(params, params.domain);
   const platform = await getPlatformConfig(domain);
   if (!platform) {
     console.info(`Platform not found: ${domain}`);
