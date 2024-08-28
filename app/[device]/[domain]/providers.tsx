@@ -24,16 +24,23 @@ interface CustomScriptProps {
   scriptContent: string;
 }
 
+const stripScriptTagsAndComments = (content: string): string => {
+  let sanitizedContent = content.replace(/<\/?script[^>]*>/gi, '');
+  sanitizedContent = sanitizedContent.replace(/<!--[\s\S]*?-->/g, '');
+  return sanitizedContent;
+};
+
 const CustomScript: React.FC<CustomScriptProps> = ({
   scriptKey,
   scriptContent,
 }) => {
-  const scriptLoaded = useRef(false);
+  const scriptLoaded = useRef<boolean>(false);
 
   useEffect(() => {
     if (!scriptLoaded.current && scriptContent) {
+      const sanitizedContent = stripScriptTagsAndComments(scriptContent);
       const script = document.createElement('script');
-      script.innerHTML = scriptContent;
+      script.innerHTML = sanitizedContent;
       document.head.appendChild(script);
       scriptLoaded.current = true;
       console.log(`Custom script loaded: ${scriptKey}`);
@@ -42,7 +49,7 @@ const CustomScript: React.FC<CustomScriptProps> = ({
 
   return (
     <Script id={`custom-script-${scriptKey}`} strategy="afterInteractive">
-      {scriptContent}
+      {stripScriptTagsAndComments(scriptContent)}
     </Script>
   );
 };
