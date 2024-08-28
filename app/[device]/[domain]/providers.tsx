@@ -1,7 +1,8 @@
 'use client';
 
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
 import {usePathname} from 'next/navigation';
+import Script from 'next/script';
 
 import ReactGA from 'react-ga4';
 import {Toaster} from 'sonner';
@@ -17,6 +18,26 @@ import backdrop, {Backdropper} from '@ui/backdrop';
 import offcanvas, {Offcanvaser} from '@ui/offcanvas';
 
 interface PlatformProviderProps extends PublicPlatformConfig {}
+
+const CustomScript = ({scriptKey, scriptContent}) => {
+  const scriptLoaded = useRef(false);
+
+  useEffect(() => {
+    if (!scriptLoaded.current && scriptContent) {
+      const script = document.createElement('script');
+      script.innerHTML = scriptContent;
+      document.head.appendChild(script);
+      scriptLoaded.current = true;
+      console.log(`Custom script loaded: ${scriptKey}`);
+    }
+  }, [scriptKey, scriptContent]);
+
+  return (
+    <Script id={`custom-script-${scriptKey}`} strategy="afterInteractive">
+      {scriptContent}
+    </Script>
+  );
+};
 
 export default function PlatformProvider({
   children,
@@ -34,7 +55,7 @@ export default function PlatformProvider({
   }, []);
 
   useEffect(() => {
-    if (platformRest.ga_ids.length) {
+    if (platformRest.ga_ids && platformRest.ga_ids.length) {
       ReactGA.initialize(
         platformRest.ga_ids.map(trackingId => ({
           trackingId,
@@ -44,7 +65,11 @@ export default function PlatformProvider({
   }, [platformRest.ga_ids]);
 
   return (
-    <BasePlatformProvider initialState={platformRest}>
+    <BasePlatformProvider initialState={{...platformRest}}>
+      {platformRest.customScripts &&
+        Object.entries(platformRest.customScripts).map(([key, script]) => (
+          <CustomScript key={key} scriptKey={key} scriptContent={script} />
+        ))}
       <div className={cn(platformRest.theme, 'forest:bg-[#FDFBF4]')}>
         {children}
         <Offcanvaser className={platformRest.theme} />
@@ -55,7 +80,6 @@ export default function PlatformProvider({
           className={platformRest.theme}
         />
       </div>
-
       <Fbpixel pixel_ids={platformRest.pixel_ids} />
     </BasePlatformProvider>
   );

@@ -17,6 +17,7 @@ export interface PlatformConfig {
   address: string;
   imgproxy_url: string;
   theme?: Theme & string;
+  customScripts?: string[];
 }
 
 export type PublicPlatformConfig = Pick<
@@ -32,4 +33,5 @@ export type PublicPlatformConfig = Pick<
   pixel_ids: string[];
   ga_ids: string[];
   theme: Theme;
+  customScripts: string[];
 };

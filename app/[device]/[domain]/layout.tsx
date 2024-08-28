@@ -16,7 +16,6 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
   const domain = params.domain;
   console.log(params, params.domain);
   const platform = await getPlatformConfig(domain);
-
   if (!platform) {
     console.info(`Platform not found: ${domain}`);
     notFound();
@@ -34,6 +33,7 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
       pixel_ids={platform.pixel_ids}
       ga_ids={platform.ga_ids}
       theme={platform.theme}
+      customScripts={platform.customScripts ?? []}
     >
       {children}
     </Provider>
