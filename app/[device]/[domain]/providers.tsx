@@ -19,7 +19,15 @@ import offcanvas, {Offcanvaser} from '@ui/offcanvas';
 
 interface PlatformProviderProps extends PublicPlatformConfig {}
 
-const CustomScript = ({scriptKey, scriptContent}) => {
+interface CustomScriptProps {
+  scriptKey: string;
+  scriptContent: string;
+}
+
+const CustomScript: React.FC<CustomScriptProps> = ({
+  scriptKey,
+  scriptContent,
+}) => {
   const scriptLoaded = useRef(false);
 
   useEffect(() => {
