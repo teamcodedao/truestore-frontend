@@ -10,6 +10,7 @@ import {
   createOrder,
   createOrderNode,
   createOrderNotes,
+  type PaymentMethod,
   type UpdateOrder,
   updateOrderFailed,
   updateOrderMetadata,
@@ -78,8 +79,9 @@ export default function ProductPayment() {
             ip,
             invoice_id: invoiceId,
           });
-          await createOrderNode({
-            payment_method: 'ppcp-gateway',
+          const paymentMethod: PaymentMethod = 'ppcp-gateway';
+          const orderData = {
+            payment_method: paymentMethod,
             shipping_lines: [
               {
                 method_id: 'flat_rate',
@@ -108,7 +110,11 @@ export default function ProductPayment() {
                 sku: variation.sku,
               },
             ],
-          });
+          };
+
+          await createOrderNode(orderData);
+
+          firebaseTracking.trackPurchase(orderData, [product.id]);
 
           const order = await createOrder(
             [
@@ -119,20 +125,11 @@ export default function ProductPayment() {
               },
             ],
             {
-              shipping_lines: [
-                {
-                  method_id: 'flat_rate',
-                  total: String(shippingTotal),
-                },
-              ],
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              transaction_id: transactionId,
+              ...orderData,
               payment_method_title: fundingSource ?? 'paypal',
             },
           );
+
           return {order, metadata};
         }}
         onError={async (order, {status, message}) => {

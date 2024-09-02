@@ -8,6 +8,7 @@ import {
   createOrder,
   createOrderNode,
   createOrderNotes,
+  type PaymentMethod,
   type UpdateOrder,
   updateOrderFailed,
   updateOrderMetadata,
@@ -74,8 +75,9 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
           ip,
           invoice_id: invoiceId,
         });
-        await createOrderNode({
-          payment_method: 'ppcp-gateway',
+        const paymentMethod: PaymentMethod = 'ppcp-gateway';
+        const orderData = {
+          payment_method: paymentMethod,
           shipping_lines: [
             {
               method_id: 'flat_rate',
@@ -102,7 +104,9 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
             image: item.variation.image || '',
             sku: item.variation.sku,
           })),
-        });
+        };
+        await createOrderNode(orderData);
+        firebaseTracking.trackPurchase(orderData, productIds);
 
         const order = await createOrder(
           carts.map(item => {
@@ -127,7 +131,6 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
             payment_method_title: fundingSource ?? 'paypal',
           },
         );
-
         clearCart();
 
         return {order, metadata};

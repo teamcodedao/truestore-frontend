@@ -209,37 +209,8 @@ function ImplPaypalButton({
           });
 
           orderRef.current = order_;
-
           // Tracking for firebase
           firebaseTracking.trackingOrder(orderRef.current?.order_key);
-          firebaseTracking.trackPurchase(
-            {
-              shipping_lines: [
-                {
-                  method_id: 'flat_rate',
-                  total: String(shippingTotal),
-                },
-              ],
-              meta_data: metadata,
-              set_paid: true,
-              billing,
-              shipping,
-              line_items: (lineItems ?? []).map((item, index) => ({
-                product_id: productIds[index],
-                quantity: Number(item.quantity),
-                variation_id: Number(item.sku),
-              })),
-              transaction_id: transactionId,
-              payment_method_title:
-                fundingSource.current == 'card'
-                  ? 'Credit or debit cards (PayPal)'
-                  : 'Paypal',
-              date_created: dayjs()
-                .tz('America/Los_Angeles')
-                .format('DD-MM-YYYY HH:mm:ss'),
-            },
-            productIds,
-          );
 
           timeId.current = setTimeout(() => {
             router.replace(

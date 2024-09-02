@@ -10,7 +10,7 @@ import {
 
 import {fetchIp} from '@/lib/ip';
 import type {CartItem} from '@model/cart';
-import type {OrderTracking} from '@model/order';
+import type {CreateOrderNode} from '@model/order';
 import type {Product} from '@model/product';
 
 import {getGenerelParameters} from './utils';
@@ -78,7 +78,10 @@ export class Tracking {
     );
   }
 
-  async trackPurchase(order: OrderTracking, productIds: number[]) {
+  async trackPurchase(
+    order: CreateOrderNode['orderData'],
+    productIds: number[],
+  ) {
     const ip = await fetchIp();
     const data = getGenerelParameters({
       userId: ip ?? '',
