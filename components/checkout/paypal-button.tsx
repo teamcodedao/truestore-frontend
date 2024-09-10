@@ -18,6 +18,7 @@ import {
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from '@paypal/react-paypal-js';
+import {useIsSSR} from '@react-aria/ssr';
 import * as Sentry from '@sentry/nextjs';
 import {fbpixel} from '@tracking/fbpixel';
 import {firebaseTracking} from '@tracking/firebase';
@@ -58,6 +59,7 @@ function ImplPaypalButton({
   onError,
 }: PaypalButtonProps) {
   const router = useRouter();
+  const isSSR = useIsSSR();
   const orderRef = useRef<Order | null>(null);
   const timeId = useRef<NodeJS.Timeout>();
   const fundingSource = useRef<string>('paypal');
@@ -74,8 +76,8 @@ function ImplPaypalButton({
   return (
     <>
       <PayPalButtons
-        forceReRender={forceReRender}
-        disabled={typeof window !== 'undefined' && disabled}
+        forceReRender={[forceReRender, isSSR]}
+        disabled={!isSSR && disabled}
         onClick={async data => {
           invoiceIdRef.current = generateReferenceId();
           fundingSource.current = data.fundingSource as string;
