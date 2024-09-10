@@ -19,21 +19,29 @@ export default function Footer({className}: FooterProps) {
       className={cn(className, 'bg-[#042449] forest:bg-black text-white')}
     >
       <div className="container">
-        <div className="flex flex-col gap-x-10 gap-y-20 py-14 md:flex-row lg:gap-x-20">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold">{platform.company}</h2>
-            <address className="mt-8 space-y-4 text-sm font-semibold text-gray-300">
+        <div className="flex flex-col gap-x-10 gap-y-20 py-14 forest:py-6 md:flex-row lg:gap-x-20">
+          <div className="text-center forest:text-left">
+            <h2 className="text-2xl font-bold forest:hidden">
+              {platform.company}
+            </h2>
+            <address className="mt-8 space-y-4 text-sm font-semibold text-gray-300 forest:not-italic">
               <p>
-                Address: <span className="text-white">{platform.address}</span>
+                <span className="forest:text-white">Address:</span>{' '}
+                <span className="text-white">{platform.address}</span>
               </p>
-              <a
-                href={`mailto:${platform.email}`}
-                className="block font-semibold text-white hover:text-slate-200"
-              >
-                {platform.email}
-              </a>
+              <p>
+                <span className="hidden forest:multi-[text-white;inline-block]">
+                  Email:
+                </span>{' '}
+                <a
+                  href={`mailto:${platform.email}`}
+                  className="inline-block font-semibold text-white hover:text-slate-200"
+                >
+                  {platform.email}
+                </a>
+              </p>
             </address>
-            <div className="mt-10 flex justify-center gap-x-2 *:multi-[`object-contain`]">
+            <div className="mt-10 flex justify-center gap-x-2 *:multi-[`object-contain`] forest:hidden">
               <Image src={paypalImg} alt="" height={50} />
               <Image src={visaMasterImg} alt="" height={50} />
             </div>
@@ -41,8 +49,9 @@ export default function Footer({className}: FooterProps) {
           <div
             className={cn(
               'flex grow justify-center gap-x-10 sm:gap-x-20 md:gap-x-8 lg:gap-x-20 xl:gap-x-40',
-              'mixin/heading:multi-[`font-bold;text-sm`]',
-              'mixin/menu:multi-[`text-sm;mt-4;[&_a:hover]:text-slate-200`]',
+              'mixin/heading:multi-[`font-bold;text-sm;forest:text-xl`]',
+              'mixin/menu:multi-[`text-sm;mt-4;[&_a:hover]:text-slate-200;forest:space-y-3`]',
+              '[&_a:hover]:forest:underline',
             )}
           >
             <div>
