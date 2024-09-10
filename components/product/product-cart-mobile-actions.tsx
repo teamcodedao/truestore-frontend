@@ -123,7 +123,7 @@ export default function ProductCartMobileActions() {
           <span>Add to cart</span>
         </button>
         <button
-          className="rounded-r from-red-600 to-primary-500"
+          className="rounded-r from-red-600 to-primary-500 forest:multi-[from-red-700;to-red-600]"
           onClick={() => {
             firebaseTracking.trackingLogs(['CO', 'CO1'], product);
             handleAddToCart({noVerify: true});

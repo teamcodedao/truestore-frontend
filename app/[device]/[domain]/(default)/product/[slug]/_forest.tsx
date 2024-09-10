@@ -44,7 +44,7 @@ export default function PageForestTheme({
 
   return (
     <>
-      <div className="flex flex-col gap-5 sm:mt-7 sm:flex-row sm:gap-x-10">
+      <div className="flex flex-col gap-5 sm:mt-4 sm:flex-row sm:gap-x-10">
         <div className="flex-1 overflow-hidden">
           <Suspense fallback={<CarouselThumbSkeleton />}>
             <ProductCarousel images={product.images} />
@@ -153,7 +153,7 @@ export default function PageForestTheme({
 
       <Suspense>
         <MatchDevice show={false} devices={['mobile']}>
-          <YourCart className="!fixed right-10 top-3/4 z-[100] sm:right-20 lg:right-36" />
+          <YourCart className="!fixed right-10 top-3/4 z-[100] forest:hidden sm:right-20 lg:right-36" />
         </MatchDevice>
       </Suspense>
 

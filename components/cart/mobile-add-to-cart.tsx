@@ -143,10 +143,11 @@ export default function MobileAddToCart({
             </div>
             <button
               className={cn(
-                'w-full rounded-full bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
+                'w-full rounded bg-gradient-to-r px-2 py-2.5 font-semibold text-white',
                 {
                   'from-red-600 to-primary-500': buyNow,
-                  'from-primary-400 to-primary-600': !buyNow,
+                  'from-primary-400 to-primary-600 forest:multi-[bg-primary-600;bg-none]':
+                    !buyNow,
                 },
               )}
               onClick={handleAddToCart}
