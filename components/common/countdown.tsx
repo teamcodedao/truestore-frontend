@@ -45,7 +45,7 @@ export default function Countdown({
             .padStart(2, '0')}:${Math.floor(meanTime % 60)
             .toString()
             .padStart(2, '0')}`
-        : whenEnd?.text ?? ''}
+        : (whenEnd?.text ?? '')}
     </span>
   );
 }

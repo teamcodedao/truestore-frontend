@@ -1,6 +1,6 @@
 import type {Except} from 'type-fest';
 
-import type {CartItem, UpdateCartItem} from '@model/cart';
+import type {UpdateCartItem} from '@model/cart';
 
 export * from './client';
 export * from './rsc';

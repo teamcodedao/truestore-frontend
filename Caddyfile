@@ -3,6 +3,6 @@
 }
 
 
-shop1.truestore.com, shop2.truestore.com {
+*.truestore.com {
   reverse_proxy {$UPSTREAM_ADDRESSES}
 }

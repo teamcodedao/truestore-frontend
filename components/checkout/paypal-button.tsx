@@ -199,7 +199,7 @@ function ImplPaypalButton({
             email: order.payer?.email_address,
           };
 
-          const {metadata, order: order_} = await onApprove({
+          const {order: order_} = await onApprove({
             transactionId,
             shipping,
             billing,

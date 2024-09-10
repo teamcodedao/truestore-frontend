@@ -17,7 +17,7 @@ function checkAttributesError(
   attributesArray: ProductAttribute<string>[],
 ): boolean {
   for (const attributeObj of attributesArray) {
-    const diff = attributes[attributeObj.name].some(
+    const diff = attributes[attributeObj.name]?.some(
       option => !attributeObj.options.includes(option),
     );
     if (diff) {
