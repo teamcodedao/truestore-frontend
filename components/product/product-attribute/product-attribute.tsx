@@ -47,6 +47,7 @@ export function ProductAttribute({
             role="radio"
             aria-checked={selectedIndex === index}
             className={cn(
+              'forest:uppercase',
               'rounded border border-gray-300 font-medium text-slate-500 transition',
               'aria-checked:multi-[`bg-primary-400;text-black;border-primary-500`]',
               {

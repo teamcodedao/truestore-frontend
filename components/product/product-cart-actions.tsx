@@ -80,7 +80,7 @@ export default function ProductCartActions({
       <div
         className={cn(
           'block grow gap-x-3 md:flex',
-          '*:multi-[`rounded;text-white;font-bold;px-2;py-3;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
+          '*:multi-[`forest:uppercase;rounded;text-white;font-bold;px-2;py-3;flex-1;flex;items-center;justify-center;gap-x-2;transition;whitespace-nowrap`]',
           '[&_span[class*=i-]]:multi-[`text-xl`]',
           'sm:*:multi-[`px-5`]',
         )}

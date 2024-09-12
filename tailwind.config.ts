@@ -26,6 +26,9 @@ const config: Config = {
         shake: 'shake 0.82s cubic-bezier(.36,.07,.19,.97) both',
       },
     },
+    fontFamily: {
+      poppins: 'var(--poppins-font)',
+    },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
