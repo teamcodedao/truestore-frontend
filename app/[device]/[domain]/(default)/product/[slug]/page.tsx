@@ -34,14 +34,14 @@ export default async function ProductPage({params}: PageProps<{slug: string}>) {
   const slug = params.slug;
 
   const platform = await getPlatformConfig(domain);
-
+  const theme = platform?.theme || 'default';
   const product = await getProduct(domain, slug, {
     throwNotFound: true,
   });
 
   return (
     <>
-      {platform.theme === 'forest' ? (
+      {theme === 'forest' ? (
         <ForestTheme domain={domain} product={product} />
       ) : (
         <DefaultTheme domain={domain} product={product} />
