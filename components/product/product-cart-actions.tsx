@@ -70,8 +70,6 @@ export default function ProductCartActions({
       ],
       post_id: product.id,
     });
-
-    // firebaseTracking.trackingLogs(['VC', 'ATC'], product);
   }
 
   return (
@@ -89,6 +87,7 @@ export default function ProductCartActions({
           className="my-3 w-full bg-black hover:bg-black/80 md:my-0"
           onClick={() => {
             if (handleAddToCart() !== null) {
+              firebaseTracking.trackingLogs(['ATC'], product);
               offcanvas.show({
                 direction: 'right',
                 ssr: false,

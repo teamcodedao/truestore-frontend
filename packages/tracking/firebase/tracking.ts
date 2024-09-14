@@ -143,7 +143,6 @@ export class Tracking {
       updates[`${userName}/PUB/${timeTrack}/${productId}/NAME`] = productName;
       updates[`${userName}/PUB/${timeTrack}/${productId}/LK`] = productLink;
       updates[`${userName}/PUB/${timeTrack}/${productId}/TB`] = productThumb;
-      console.log('11212', updates);
       if (isPub == 'PRI') {
         updates[
           `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/VC/${userId}`
@@ -163,7 +162,6 @@ export class Tracking {
         console.log(updates);
       }
     }
-
     update(this.dbRef, updates);
   }
 
@@ -232,6 +230,10 @@ export class Tracking {
         this.trackThumb = 1;
       }
     }
-    update(this.dbRef, updates);
+    try {
+      await update(this.dbRef, updates);
+    } catch (error) {
+      console.error('Error during update:', error);
+    }
   }
 }

@@ -61,6 +61,7 @@ export default function MobileAddToCart({
     if (buyNow) {
       router.push(`/checkout?from=mobile_cart`);
     } else {
+      firebaseTracking.trackingLogs(['ATC', 'ATC1'], product);
       onClose();
       offcanvas.show({
         direction: 'right',
@@ -82,8 +83,6 @@ export default function MobileAddToCart({
       ],
       post_id: product.id,
     });
-
-    firebaseTracking.trackingLogs(['VC', 'ATC', 'ATC1'], product);
   }
 
   return (

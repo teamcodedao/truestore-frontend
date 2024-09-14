@@ -44,7 +44,6 @@ export default function ProductCartMobileActions() {
       }
       return null;
     }
-
     addCart(
       transformProductToCart({
         product,
@@ -65,8 +64,6 @@ export default function ProductCartMobileActions() {
       ],
       post_id: product.id,
     });
-
-    // firebaseTracking.trackingLogs(['VC', 'ATC'], product);
   }
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {
