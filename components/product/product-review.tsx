@@ -67,7 +67,7 @@ export default function ProductReview({
                         True to size
                       </figcaption>
                     </figure>
-                    <div className="text-sm [&_img]:multi-[hidden]">
+                    <div className="text-sm">
                       <HtmlReplaceImgproxy html={review.review} />
                     </div>
                   </article>
