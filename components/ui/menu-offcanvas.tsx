@@ -30,7 +30,13 @@ function MenuContent() {
           </Link>
         </li>
         <li>
-          <Link href="/contact">
+          <Link href="/refund_returns">
+            <span className="i-carbon-settings-adjust"></span>
+            <span>Return & Refund Policy</span>
+          </Link>
+        </li>
+        <li>
+          <Link href="/FAQs">
             <span className="i-carbon-email"></span>
             <span>Contact Us</span>
           </Link>

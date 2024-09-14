@@ -6,6 +6,8 @@ import Link from 'next/link';
 import type {Metadata} from 'next';
 import * as R from 'remeda';
 
+import logoImg from '@/assets/images/logo_home_page.png';
+import trustbadge from '@/assets/images/trustbadge.png';
 import {
   CheckoutHeading,
   CheckoutInformationSkeleton,
@@ -14,8 +16,6 @@ import {
 } from '@/components/checkout';
 import {TrackPageView} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
-import logoImg from '@/images/logo_home_page.png';
-import trustbadge from '@/images/trustbadge.png';
 
 const CheckoutInformation = lazy(
   () => import('@/components/checkout').then(mod => mod.CheckoutInformation),
@@ -50,7 +50,7 @@ export default function CheckoutPage({params}: PageProps) {
           <div className="max-w-[--max-w]">
             <div>
               <MenuOffcanvas className="my-5 sm:mb-10" />
-              <span className="ml-2 hidden translate-y-[-9px] text-2xl font-extrabold first-letter:uppercase forest:inline-block">
+              <span className="ml-2 hidden translate-y-[-7px] text-3xl font-extrabold first-letter:uppercase forest:inline-block">
                 {shopName}
               </span>
             </div>

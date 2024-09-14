@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function OrderTrackingPage() {
   return (
     <>
-      <h1 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+      <h1 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 forest:font-poppins">
         Order Tracking
       </h1>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

@@ -7,8 +7,8 @@ import {notFound} from 'next/navigation';
 import currency from 'currency.js';
 import dayjs from 'dayjs';
 
+import paypalImg from '@/assets/images/payments/paypal.webp';
 import {Badge} from '@/components/ui';
-import paypalImg from '@/images/payments/paypal.webp';
 import {useImgproxy} from '@common/platform';
 import type {Order} from '@model/order';
 

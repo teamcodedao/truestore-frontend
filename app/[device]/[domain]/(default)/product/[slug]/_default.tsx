@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {ErrorBoundary} from 'react-error-boundary';
 import type {AsyncReturnType} from 'type-fest';
 
+import safeCheckoutImg from '@/assets/images/safe-checkout.png';
 import {YourCart} from '@/components/cart';
 import {
   Countdown,
@@ -26,7 +27,6 @@ import {
   PaypalButtonSkeleton,
 } from '@/components/skeleton';
 import {Price} from '@/components/ui';
-import safeCheckoutImg from '@/images/safe-checkout.png';
 import {getProduct, getProductReviews} from '@model/product/ssr';
 
 import ProductPayment from './product-payment';

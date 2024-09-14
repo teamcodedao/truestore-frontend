@@ -7,7 +7,7 @@ export const dynamic = 'error';
 export default function InformationLayout({children}: LayoutProps) {
   return (
     <>
-      {children}
+      <div className="mt-5">{children}</div>
       <Suspense>
         <TrackPageView />
       </Suspense>

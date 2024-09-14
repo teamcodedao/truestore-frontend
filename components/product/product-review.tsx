@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 
+import verifiedImg from '@/assets/images/verified.svg';
 import {HtmlReplaceImgproxy} from '@/components/common';
-import verifiedImg from '@/images/verified.svg';
 import {cn} from '@/lib/cn';
 import {type ProductReview} from '@model/product';
 
@@ -18,7 +18,7 @@ export default function ProductReview({
 }: ProductReviewProps) {
   if (layout === 'masonry') {
     return (
-      <div data-empty={reviews.length === 0} className="">
+      <div data-empty={reviews.length === 0}>
         {reviews.length > 0 ? (
           <div>
             <div className="flex items-center gap-x-10">

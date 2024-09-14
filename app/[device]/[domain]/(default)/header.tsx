@@ -6,10 +6,10 @@ import {useSelectedLayoutSegment} from 'next/navigation';
 
 import Sticky from 'react-stickynode';
 
+import logoImg from '@/assets/images/logo_home_page.png';
 import {YourCart} from '@/components/cart';
 import {MatchDevice} from '@/components/common';
 import {MenuOffcanvas} from '@/components/ui';
-import logoImg from '@/images/logo_home_page.png';
 import {cn} from '@/lib/cn';
 import {useDevice} from '@/lib/use-device';
 

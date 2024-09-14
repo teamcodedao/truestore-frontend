@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 import {Modal, ModalOverlay} from 'react-aria-components';
 
-import puffLoading from '@/images/puff.svg';
+import puffLoading from '@/assets/images/puff.svg';
 import {cn} from '@/lib/cn';
 import {NoSSR} from '@common/no-ssr';
 

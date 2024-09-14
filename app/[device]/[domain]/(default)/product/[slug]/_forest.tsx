@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {ErrorBoundary} from 'react-error-boundary';
 import type {AsyncReturnType} from 'type-fest';
 
+import safeCheckoutImg from '@/assets/images/safe-checkout.png';
 import {YourCart} from '@/components/cart';
 import {
   Countdown,
@@ -25,7 +26,6 @@ import {
   PaypalButtonSkeleton,
 } from '@/components/skeleton';
 import {Price} from '@/components/ui';
-import safeCheckoutImg from '@/images/safe-checkout.png';
 import {getProduct, getProductReviews} from '@model/product/ssr';
 
 import ProductPayment from './product-payment';
@@ -52,7 +52,7 @@ export default function PageForestTheme({
         </div>
         <div className="flex-1 shrink-0">
           <section>
-            <h2 className="text-balance text-2xl font-bold sm:text-3xl lg:text-4xl">
+            <h2 className="text-balance font-poppins text-2xl font-bold sm:text-3xl lg:text-4xl">
               {product.name}
             </h2>
             <a href="#product-reviews" className="flex items-end gap-x-1">

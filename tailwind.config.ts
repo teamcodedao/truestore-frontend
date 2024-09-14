@@ -28,6 +28,7 @@ const config: Config = {
     },
     fontFamily: {
       poppins: 'var(--poppins-font)',
+      harmonia: 'var(--harmonia-font)',
     },
     colors: {
       transparent: 'transparent',

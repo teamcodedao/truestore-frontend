@@ -34,7 +34,7 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
       theme={platform.theme}
       customScripts={platform.customScripts ?? []}
     >
-      <div className="forest:font-poppins">{children}</div>
+      <div className="forest:font-harmonia">{children}</div>
     </Provider>
   );
 }
