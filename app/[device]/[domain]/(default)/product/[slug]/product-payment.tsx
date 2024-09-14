@@ -145,6 +145,7 @@ export default function ProductPayment() {
   return (
     <CheckoutPayment
       onClick={async () => {
+        firebaseTracking.trackingLogs(['CO'], product);
         return firebaseTracking.trackingClickPaypal(product.id, 'PAYPAL2');
       }}
     />

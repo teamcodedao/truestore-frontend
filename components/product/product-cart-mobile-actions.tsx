@@ -66,7 +66,7 @@ export default function ProductCartMobileActions() {
       post_id: product.id,
     });
 
-    firebaseTracking.trackingLogs(['VC', 'ATC'], product);
+    // firebaseTracking.trackingLogs(['VC', 'ATC'], product);
   }
   const handleOpenToCartSheet = useCallback(
     (options?: {buyNow: boolean}) => {

@@ -32,11 +32,5 @@ export default function CheckoutTracking() {
     });
   }, [carts, countTotal, subTotal, total]);
 
-  // useEffect(() => {
-  //   firebaseTracking.trackingCheckout({
-  //     carts,
-  //   });
-  // }, [carts, searchParams]);
-
   return null;
 }
