@@ -71,7 +71,7 @@ export default function ProductCartActions({
       post_id: product.id,
     });
 
-    firebaseTracking.trackingLogs(['VC', 'ATC'], product);
+    // firebaseTracking.trackingLogs(['VC', 'ATC'], product);
   }
 
   return (
