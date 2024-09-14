@@ -143,7 +143,7 @@ export class Tracking {
       updates[`${userName}/PUB/${timeTrack}/${productId}/NAME`] = productName;
       updates[`${userName}/PUB/${timeTrack}/${productId}/LK`] = productLink;
       updates[`${userName}/PUB/${timeTrack}/${productId}/TB`] = productThumb;
-
+      console.log('11212', updates);
       if (isPub == 'PRI') {
         updates[
           `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/AD/${utmContent}/${utmTerm}/CR/VC/${userId}`
@@ -160,6 +160,7 @@ export class Tracking {
         updates[
           `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`
         ] = productThumb;
+        console.log(updates);
       }
     }
 
