@@ -18,6 +18,7 @@ export interface PlatformConfig {
   imgproxy_url: string;
   theme?: Theme & string;
   customScripts?: string[];
+  system?: 'v2';
 }
 
 export type PublicPlatformConfig = Pick<

@@ -9,12 +9,25 @@ import {getPlatformConfig} from './get-platform-config';
 async function getClient(domain: string) {
   const platform = await getPlatformConfig(domain);
 
+  const isV2 = platform.system === 'v2';
+  const baseUrl = isV2
+    ? `${process.env.PRODUCT_SERVICE}/api/public`
+    : platform.wp_api;
+
   return ky.create({
-    prefixUrl: platform.wp_api,
+    prefixUrl: baseUrl,
     headers: {
-      Authorization: `Basic ${Buffer.from(platform.wp_auth, 'utf-8').toString(
-        'base64',
-      )}`,
+      ...(isV2
+        ? {
+            'x-domain':
+              process.env.APP_ENV === 'local' ? '1siteclone.com' : domain,
+          }
+        : {
+            Authorization: `Basic ${Buffer.from(
+              platform.wp_auth,
+              'utf-8',
+            ).toString('base64')}`,
+          }),
     },
     timeout: ms('30s'),
     retry: {
@@ -28,8 +41,7 @@ async function getClient(domain: string) {
       ],
       beforeRequest: [
         request => {
-          if (request.method === 'GET') {
-            console.info(request.url);
+          if (request.method === 'GET' && process.env.APP_ENV !== 'local') {
             let fullUrl = `${request.url}`;
             if (/wp-json\/wc\/v[1|2]/.test(fullUrl)) {
               fullUrl = fullUrl.replace('wp-json/wc', 'wc-api');
@@ -43,6 +55,7 @@ async function getClient(domain: string) {
       ],
       beforeError: [
         async error => {
+          console.log('error', error);
           if (error.response.status === 404) {
             return error;
           }
