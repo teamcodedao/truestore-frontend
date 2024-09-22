@@ -1,0 +1,16 @@
+{
+  "apps": [
+    {
+      "name": "truestore-frontend",
+      "script": "./node_modules/next/dist/bin/next",
+      "args": "start",
+      "cwd": "/var/www/truestore-frontend",
+      "instances": 2,
+      "exec_mode": "cluster",
+      "autorestart": true,
+      "env": {
+        "NODE_TLS_REJECT_UNAUTHORIZED": "0"
+      }
+    }
+  ]
+}
