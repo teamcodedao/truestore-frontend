@@ -47,7 +47,12 @@ async function getClient(domain: string) {
               fullUrl = fullUrl.replace('wp-json/wc', 'wc-api');
             }
             const proxyUrl = `http://207.246.121.223:3006/proxy?url=${encodeURIComponent(fullUrl)}`;
-            const newRequest = new Request(proxyUrl, request);
+            const newRequest = new Request(proxyUrl, {
+              headers: {
+                'x-domain':
+                  process.env.APP_ENV === 'local' ? '1siteclone.com' : domain,
+              },
+            });
 
             Object.assign(request, newRequest);
           }

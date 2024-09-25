@@ -159,7 +159,6 @@ export class Tracking {
         updates[
           `${userName}/${isPub}/${timeTrack}/${utmSource}/${utmMedium}/${utmCamp}/TB`
         ] = productThumb;
-        console.log(updates);
       }
     }
     update(this.dbRef, updates);
