@@ -28,7 +28,7 @@ export default function OrderDetails({
   }
 
   const subtotal = order.line_items.reduce((acc, item) => {
-    return acc + Number(item.subtotal);
+    return acc + Number(item.subtotal || item.price);
   }, 0);
 
   return (
@@ -43,7 +43,12 @@ export default function OrderDetails({
             className="flex space-x-6 border-b border-gray-200 py-10"
           >
             <img
-              src={imgproxy(product.image.src, 'rs:fit:200')}
+              src={imgproxy(
+                typeof product.image == 'string'
+                  ? product.image
+                  : product.image.src,
+                'rs:fit:200',
+              )}
               alt=""
               className="size-20 flex-none rounded-lg bg-gray-100 object-cover object-center sm:size-40"
             />

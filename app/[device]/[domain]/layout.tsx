@@ -1,14 +1,28 @@
 import {notFound} from 'next/navigation';
 
+import type {Metadata} from 'next';
+
 import {getPlatformConfig} from '@common/platform/ssr';
 
 import Provider from './providers';
 
-export async function generateMetadata({params}: GenerateMetadataProps) {
+type Params = {
+  device: string;
+  domain: string;
+};
+
+type LayoutProps = {
+  children: React.ReactNode;
+  params: Params;
+};
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
   return {
-    title: {
-      template: `${params.domain} | %s`,
-    },
+    title: `${params.domain} | %s`,
   };
 }
 

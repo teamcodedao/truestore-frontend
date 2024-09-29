@@ -112,23 +112,23 @@ export default function ProductPayment() {
             ],
           };
 
-          await createOrderNode(orderData);
+          const order = await createOrderNode(orderData);
 
           firebaseTracking.trackPurchase(orderData, [product.id]);
 
-          const order = await createOrder(
-            [
-              {
-                product_id: product.id,
-                quantity,
-                variation_id: variation.id,
-              },
-            ],
-            {
-              ...orderData,
-              payment_method_title: fundingSource ?? 'paypal',
-            },
-          );
+          // const order = await createOrder(
+          //   [
+          //     {
+          //       product_id: product.id,
+          //       quantity,
+          //       variation_id: variation.id,
+          //     },
+          //   ],
+          //   {
+          //     ...orderData,
+          //     payment_method_title: fundingSource ?? 'paypal',
+          //   },
+          // );
 
           return {order, metadata};
         }}
