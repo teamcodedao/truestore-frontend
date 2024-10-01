@@ -48,10 +48,14 @@ async function getClient(domain: string) {
             }
             const proxyUrl = `http://207.246.121.223:3006/proxy?url=${encodeURIComponent(fullUrl)}`;
             const newRequest = new Request(proxyUrl, {
-              headers: {
-                'x-domain':
-                  process.env.APP_ENV === 'local' ? '1siteclone.com' : domain,
-              },
+              headers: isV2
+                ? {
+                    'x-domain':
+                      process.env.APP_ENV === 'local'
+                        ? '1siteclone.com'
+                        : domain,
+                  }
+                : {},
             });
 
             Object.assign(request, newRequest);
