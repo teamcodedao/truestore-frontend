@@ -18,6 +18,8 @@ export default async function PlatformLayout({children, params}: LayoutProps) {
   if (!platform) {
     console.info(`Platform not found: ${domain}`);
     notFound();
+  } else {
+    console.info(`Platform found: ${domain}`);
   }
 
   return (
