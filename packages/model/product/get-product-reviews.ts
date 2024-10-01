@@ -8,10 +8,10 @@ export const getProductReviews = cache(
   async (domain: string, id: string | number) => {
     const client = await createPlatformClient(domain);
     try {
-      const res = await client
+      const {product_reviews = []} = await client
         .get(`v2/products/${id}/reviews`)
-        .json<ProductReview[]>();
-      return res;
+        .json<{product_reviews: ProductReview[]}>();
+      return product_reviews;
     } catch (error) {
       return [];
     }
