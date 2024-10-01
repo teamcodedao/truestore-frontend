@@ -62,6 +62,10 @@
             "importNames": ["default", "clsx"],
             "name": "clsx",
             "message": "Use 'cn' instead of 'clsx'"
+          },
+          {
+            "importNames": ["useSearchParams"],
+            "name": "next/navigation"
           }
         ],
         "patterns": ["../*", "@/packages/*", "@/components/*/**/**"]

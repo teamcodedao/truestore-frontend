@@ -1,9 +1,10 @@
 'use client';
 
 import {useMemo} from 'react';
-import {useSearchParams} from 'next/navigation';
 
 import superjson from 'superjson';
+
+import {useSearchParams} from '@/lib/use-search-params';
 
 export function useParamsVariation<T = Record<string, string>>() {
   const searchParams = useSearchParams();
