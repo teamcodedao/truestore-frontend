@@ -21,7 +21,7 @@ export default function FormHandler() {
     setTimeout(async () => {
       try {
         await submit(values);
-      } catch (error) {
+      } catch {
         toast.error('Could not find order');
         setFocus('order_number');
       }

@@ -1,15 +1,11 @@
 'use client';
 
 import {useEffect} from 'react';
-import {useSearchParams} from 'next/navigation';
 
 import {useCart} from '@model/cart';
 import {fbpixel} from '@tracking/fbpixel';
-import {firebaseTracking} from '@tracking/firebase';
 
 export default function CheckoutTracking() {
-  const searchParams = useSearchParams();
-
   const [{carts, countTotal, subTotal, total}] = useCart();
 
   useEffect(() => {

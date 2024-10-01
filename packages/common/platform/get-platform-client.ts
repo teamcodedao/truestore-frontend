@@ -64,7 +64,7 @@ async function getClient(domain: string) {
       ],
       beforeError: [
         async error => {
-          console.log('error', error);
+          console.error(error);
           if (error.response.status === 404) {
             return error;
           }

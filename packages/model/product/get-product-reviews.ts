@@ -12,7 +12,7 @@ export const getProductReviews = cache(
         .get(`v2/products/${id}/reviews`)
         .json<{product_reviews: ProductReview[]}>();
       return product_reviews;
-    } catch (error) {
+    } catch {
       return [];
     }
   },

@@ -30,6 +30,9 @@
       }
     ],
     "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/no-empty-object-type":["warn", {
+      "allowInterfaces":"always"
+    }],
     "import/first": "warn",
     "import/newline-after-import": "warn",
     "import/no-duplicates": "warn",
