@@ -44,9 +44,10 @@ CacheHandler.onCreation(async () => {
   let handler;
 
   if (client?.isReady) {
+    const cachePrefix = `next-cache:${process.env.NEXT_PUBLIC_VERSION}`;
     handler = await createRedisHandler({
       client,
-      keyPrefix: 'next-cache:',
+      keyPrefix: cachePrefix,
       timeoutMs: 1000,
     });
   } else {
