@@ -1,5 +1,4 @@
 import ky from 'ky';
-import memoize, {memoizeClear} from 'memoize';
 import ms from 'ms';
 
 import * as Sentry from '@sentry/nextjs';
@@ -20,7 +19,7 @@ async function getClient(domain: string) {
       ...(isV2
         ? {
             'x-domain':
-              process.env.APP_ENV === 'local' ? '1siteclone.com' : domain,
+              process.env.APP_ENV === 'local' ? 'itemlandus.com' : domain,
           }
         : {
             Authorization: `Basic ${Buffer.from(
@@ -52,7 +51,7 @@ async function getClient(domain: string) {
                 ? {
                     'x-domain':
                       process.env.APP_ENV === 'local'
-                        ? '1siteclone.com'
+                        ? 'itemlandus.com'
                         : domain,
                   }
                 : {},
@@ -79,10 +78,6 @@ async function getClient(domain: string) {
   });
 }
 
-export const createPlatformClient = memoize(getClient, {
-  maxAge: ms('1 day'),
-});
-
-export function clearPlatformClient() {
-  memoizeClear(createPlatformClient);
+export async function createPlatformClient(domain: string) {
+  return getClient(domain);
 }

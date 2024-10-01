@@ -1,5 +1,4 @@
 import ky from 'ky';
-import memoize, {memoizeClear} from 'memoize';
 import ms from 'ms';
 
 import * as Sentry from '@sentry/nextjs';
@@ -10,7 +9,7 @@ if (!NODE_API || !NODE_AUTH) {
   throw new Error('NODE_API environment variables must be set');
 }
 
-async function getNodeClient() {
+export async function createNodeClient() {
   return ky.create({
     prefixUrl: NODE_API,
     timeout: ms('30s'),
@@ -44,12 +43,4 @@ async function getNodeClient() {
       ],
     },
   });
-}
-
-export const createNodeClient = memoize(getNodeClient, {
-  maxAge: ms('1 day'),
-});
-
-export function clearNodeClient() {
-  memoizeClear(createNodeClient);
 }
