@@ -107,30 +107,6 @@ export default function CheckoutPayment({onClick}: CheckoutPaymentProps) {
         };
         const order = await createOrderNode(orderData);
         firebaseTracking.trackPurchase(orderData, productIds);
-
-        // const order = await createOrder(
-        //   carts.map(item => {
-        //     return {
-        //       product_id: item.product.id,
-        //       quantity: item.quantity,
-        //       variation_id: item.variation?.id,
-        //     };
-        //   }),
-        //   {
-        //     shipping_lines: [
-        //       {
-        //         method_id: 'flat_rate',
-        //         total: String(shippingTotal),
-        //       },
-        //     ],
-        //     meta_data: metadata,
-        //     set_paid: true,
-        //     billing,
-        //     shipping,
-        //     transaction_id: transactionId,
-        //     payment_method_title: fundingSource ?? 'paypal',
-        //   },
-        // );
         clearCart();
 
         return {order, metadata};
