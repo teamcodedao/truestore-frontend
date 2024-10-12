@@ -3,7 +3,10 @@ import {randomNumber} from './random';
 export function generateReferenceId() {
   const domainPart = (() => {
     try {
-      return window.location.origin.replace(/\.com$/, '').replace(/\.+/g, '');
+      return window.location.origin
+        .replace(/^https?:\/\//, '')
+        .replace(/\.com$/, '')
+        .replace(/\.+/g, '');
     } catch {
       return '';
     }

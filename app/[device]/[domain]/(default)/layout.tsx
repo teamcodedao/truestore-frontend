@@ -15,7 +15,7 @@ export default async function DefaultLayout({children, params}: LayoutProps) {
           <div className="hidden bg-black px-10 py-2 text-center text-base font-bold text-white forest:block">
             We SHIP WORLDWIDE for all weight.
           </div>
-          <ForestHeader domain={domain} />
+          <ForestHeader logo={platform?.logo || domain} />
         </>
       )}
       <div className="container">

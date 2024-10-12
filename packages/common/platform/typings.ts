@@ -19,6 +19,7 @@ export interface PlatformConfig {
   theme?: Theme & string;
   customScripts?: string[];
   system?: 'v2';
+  logo?: string;
 }
 
 export type PublicPlatformConfig = Pick<
@@ -35,4 +36,5 @@ export type PublicPlatformConfig = Pick<
   ga_ids: string[];
   theme: Theme;
   customScripts: string[];
+  logo?: string;
 };

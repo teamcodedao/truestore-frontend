@@ -13,15 +13,17 @@ import {useCart} from '@model/cart';
 import offcanvas from '@ui/offcanvas';
 
 interface ForestHeaderProps {
-  domain: string;
+  logo: string;
 }
 
-export default function ForestHeader({domain}: ForestHeaderProps) {
+export default function ForestHeader({logo}: ForestHeaderProps) {
   const device = useDevice();
-
   const shopName = useMemo(() => {
-    return R.pipe(domain, R.split('.'), R.takeLast(2), R.first()) ?? 'Shop';
-  }, [domain]);
+    if (logo && (logo.startsWith('http://') || logo.startsWith('https://'))) {
+      return null;
+    }
+    return R.pipe(logo, R.split('.'), R.takeLast(2), R.first()) ?? 'Shop';
+  }, [logo]);
 
   const [{countTotal}] = useCart();
 
@@ -34,7 +36,12 @@ export default function ForestHeader({domain}: ForestHeaderProps) {
             href="/"
             className="text-2xl font-extrabold first-letter:uppercase"
           >
-            <h1>{shopName}</h1>
+            {logo &&
+            (logo.startsWith('http://') || logo.startsWith('https://')) ? (
+              <img src={logo} alt={shopName || 'Shop logo'} />
+            ) : (
+              <h1>{shopName}</h1>
+            )}
           </Link>
           <menu className="flex gap-6 text-sm font-normal max-[590px]:hidden [&_a:hover]:underline">
             <li>
