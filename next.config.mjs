@@ -47,17 +47,22 @@ const nextConfig = {
 export default async function config(phase) {
   const plugins = [];
 
-  if ([PHASE_PRODUCTION_BUILD, PHASE_PRODUCTION_SERVER].includes(phase)) {
+  // Kiểm tra xem Sentry có được enable không
+  const isSentryEnabled = process.env.NEXT_PUBLIC_ENABLE_SENTRY === 'true';
+
+  if ([PHASE_PRODUCTION_BUILD, PHASE_PRODUCTION_SERVER].includes(phase) && isSentryEnabled) {
     plugins.push(nextConfig =>
       withSentryConfig(nextConfig, {
         telemetry: false,
-        silent: false,
+        silent: true,
         hideSourceMaps: true,
         disableLogger: true,
         release: process.env.NEXT_PUBLIC_VERSION,
         org: 'thesky9',
         project: 'truestore-frontend',
         authToken: process.env.SENTRY_AUTH_TOKEN,
+        disableServerWebpackPlugin: true,
+        disableClientWebpackPlugin: true,
       }),
     );
   }
