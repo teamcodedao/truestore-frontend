@@ -10,17 +10,18 @@ export function imgproxy(
   processing: string | string[] = '',
 ) {
   if (!src || imgproxy_url) {
+    const encodedSrc = encodeURIComponent(src);
     if (src.toLowerCase().endsWith('.gif')) {
-      return new URL(src, imgproxy_url).toString();
+      return new URL(encodedSrc, imgproxy_url).toString();
     }
 
-    let path = `/_/plain/${src}`;
+    let path = `/_/plain/${encodedSrc}`;
 
     if (Array.isArray(processing) && processing.length > 0) {
-      path = `/_/${processing.join('/')}/plain/${src}`;
+      path = `/_/${processing.join('/')}/plain/${encodedSrc}`;
     } else {
       if (processing) {
-        path = `/_/${processing}/plain/${src}`;
+        path = `/_/${processing}/plain/${encodedSrc}`;
       }
     }
 

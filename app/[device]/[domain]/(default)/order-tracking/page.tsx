@@ -12,7 +12,7 @@ export const dynamic = 'error';
 export const metadata: Metadata = {
   title: 'Order Tracking',
 };
-
+export const revalidate = 0;
 export default function OrderTrackingPage() {
   return (
     <>

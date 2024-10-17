@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: 'Order Received',
   robots: 'noindex',
 };
-
+export const revalidate = 0;
 export default function OrderPage({
   params,
   searchParams,
