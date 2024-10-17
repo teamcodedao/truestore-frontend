@@ -12,7 +12,7 @@ export function imgproxy(
   if (!src || imgproxy_url) {
     const encodedSrc = encodeURIComponent(src);
     if (src.toLowerCase().endsWith('.gif')) {
-      return new URL(encodedSrc, imgproxy_url).toString();
+      return new URL(src, imgproxy_url).toString();
     }
 
     let path = `/_/plain/${encodedSrc}`;
