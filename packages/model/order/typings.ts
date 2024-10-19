@@ -88,6 +88,7 @@ export interface CreateOrder {
 export interface CreateOrderNode {
   domain: string;
   transaction_id?: string;
+  paypal_client_id?: string;
   orderData: {
     payment_method: PaymentMethod;
     payment_method_title: string;

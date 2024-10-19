@@ -2,7 +2,7 @@
 
 import {headers} from 'next/headers';
 
-import {createNodeClient} from '@common/platform/ssr';
+import {createNodeClient, getPlatformConfig} from '@common/platform/ssr';
 
 import type {CreateOrderNode, Order} from './typings';
 
@@ -20,12 +20,15 @@ export async function createOrderNode({
   line_items,
 }: CreateOrderNode['orderData']) {
   const domain = headers().get('host') ?? '';
+  const platform = await getPlatformConfig(domain);
+  console.log('platform', platform?.paypal_client_id);
   const client = await createNodeClient();
   return client
     .post(`api/orders`, {
       json: {
         domain,
         transaction_id: transaction_id,
+        paypal_client_id: platform?.paypal_client_id,
         orderData: {
           billing,
           shipping,
